@@ -37,6 +37,11 @@ export default config;
 * [`scan()`](#scan)
 * [`stop()`](#stop)
 * [`getScannerModel()`](#getscannermodel)
+* [`addListener('onScanResult', ...)`](#addlisteneronscanresult)
+* [`addListener('onScanStart', ...)`](#addlisteneronscanstart)
+* [`addListener('onScanStop', ...)`](#addlisteneronscanstop)
+* [`removeAllListeners()`](#removealllisteners)
+* [Interfaces](#interfaces)
 * [Enums](#enums)
 
 </docgen-index>
@@ -108,6 +113,81 @@ Get scanner model
 **Returns:** <code>Promise&lt;{ model: number; }&gt;</code>
 
 --------------------
+
+
+### addListener('onScanResult', ...)
+
+```typescript
+addListener(eventName: 'onScanResult', listenerFunc: (scan: { data: string; source_bytes: string; }) => void) => Promise<PluginListenerHandle> & PluginListenerHandle
+```
+
+Listens for barcode scanner result events.
+
+| Param              | Type                                                                    |
+| ------------------ | ----------------------------------------------------------------------- |
+| **`eventName`**    | <code>'onScanResult'</code>                                             |
+| **`listenerFunc`** | <code>(scan: { data: string; source_bytes: string; }) =&gt; void</code> |
+
+**Returns:** <code>Promise&lt;<a href="#pluginlistenerhandle">PluginListenerHandle</a>&gt; & <a href="#pluginlistenerhandle">PluginListenerHandle</a></code>
+
+--------------------
+
+
+### addListener('onScanStart', ...)
+
+```typescript
+addListener(eventName: 'onScanStart', listenerFunc: () => void) => Promise<PluginListenerHandle> & PluginListenerHandle
+```
+
+Listens for barcode scanner start events.
+
+| Param              | Type                       |
+| ------------------ | -------------------------- |
+| **`eventName`**    | <code>'onScanStart'</code> |
+| **`listenerFunc`** | <code>() =&gt; void</code> |
+
+**Returns:** <code>Promise&lt;<a href="#pluginlistenerhandle">PluginListenerHandle</a>&gt; & <a href="#pluginlistenerhandle">PluginListenerHandle</a></code>
+
+--------------------
+
+
+### addListener('onScanStop', ...)
+
+```typescript
+addListener(eventName: 'onScanStop', listenerFunc: () => void) => Promise<PluginListenerHandle> & PluginListenerHandle
+```
+
+Listens for barcode scanner stop events.
+
+| Param              | Type                       |
+| ------------------ | -------------------------- |
+| **`eventName`**    | <code>'onScanStop'</code>  |
+| **`listenerFunc`** | <code>() =&gt; void</code> |
+
+**Returns:** <code>Promise&lt;<a href="#pluginlistenerhandle">PluginListenerHandle</a>&gt; & <a href="#pluginlistenerhandle">PluginListenerHandle</a></code>
+
+--------------------
+
+
+### removeAllListeners()
+
+```typescript
+removeAllListeners() => Promise<void>
+```
+
+Removes all listeners
+
+--------------------
+
+
+### Interfaces
+
+
+#### PluginListenerHandle
+
+| Prop         | Type                                      |
+| ------------ | ----------------------------------------- |
+| **`remove`** | <code>() =&gt; Promise&lt;void&gt;</code> |
 
 
 ### Enums

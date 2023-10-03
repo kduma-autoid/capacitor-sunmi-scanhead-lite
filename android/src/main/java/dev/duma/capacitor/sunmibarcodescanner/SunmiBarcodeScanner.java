@@ -20,15 +20,15 @@ public class SunmiBarcodeScanner {
         public void onServiceConnected(ComponentName name, IBinder service) {
             scanInterface = IScanInterface.Stub.asInterface(service);
             if (scanInterface == null) {
-                Log.i("setting", "Scanner Service Failed To Connect!");
+                Log.i("SunmiBarcodeScanner", "Scanner Service Failed To Connect!");
             } else {
-                Log.i("setting", "Scanner Service Connected!");
+                Log.i("SunmiBarcodeScanner", "Scanner Service Connected!");
             }
         }
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
-            Log.e("setting", "Scanner Service Disconnected!");
+            Log.e("SunmiBarcodeScanner", "Scanner Service Disconnected!");
             scanInterface = null;
         }
     };

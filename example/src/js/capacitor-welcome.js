@@ -1,5 +1,4 @@
-import { SplashScreen } from '@capacitor/splash-screen';
-import { Camera } from '@capacitor/camera';
+import {SplashScreen} from '@capacitor/splash-screen';
 import {SunmiBarcodeScanner} from "../../../src";
 
 window.customElements.define(
@@ -62,12 +61,13 @@ window.customElements.define(
       </capacitor-welcome-titlebar>
       <main>
         <p>
-          <button class="button" id="connectService">connectService()</button>
-          <button class="button" id="disconnectService">disconnectService()</button>
           <button class="button" id="scan">scan()</button>
           <button class="button" id="stop">stop()</button>
           <button class="button" id="getScannerModel">getScannerModel()</button>
-        </p>
+        </p>        
+        
+        <h2>Events</h2>
+        <p id="output"></p>
       </main>
     </div>
     `;
@@ -76,12 +76,21 @@ window.customElements.define(
     connectedCallback() {
       const self = this;
 
-      self.shadowRoot.querySelector('#connectService').addEventListener('click', async function (e) {
-        await SunmiBarcodeScanner.connectService();
+      function printToOutput(key, content) {
+        const output = self.shadowRoot.querySelector('#output');
+        output.innerHTML = "<b>" + key + ":</b><br><pre>" + content + "</pre><hr>" + output.innerHTML;
+      }
+
+      SunmiBarcodeScanner.addListener('onScanResult', (scan) => {
+        printToOutput("onScanResult", JSON.stringify(scan, null, 3));
       });
 
-      self.shadowRoot.querySelector('#disconnectService').addEventListener('click', async function (e) {
-        await SunmiBarcodeScanner.disconnectService();
+      SunmiBarcodeScanner.addListener('onScanStart', () => {
+        printToOutput("onScanStart", JSON.stringify({}, null, 3));
+      });
+
+      SunmiBarcodeScanner.addListener('onScanStop', () => {
+        printToOutput("onScanStop", JSON.stringify({}, null, 3));
       });
 
       self.shadowRoot.querySelector('#scan').addEventListener('click', async function (e) {
@@ -94,6 +103,7 @@ window.customElements.define(
 
       self.shadowRoot.querySelector('#getScannerModel').addEventListener('click', async function (e) {
         let response = await SunmiBarcodeScanner.getScannerModel();
+        printToOutput("getScannerModel()", JSON.stringify(response, null, 3));
       });
     }
   }

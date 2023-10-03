@@ -12,6 +12,8 @@ declare module '@capacitor/cli' {
   }
 }
 
+import type { PluginListenerHandle } from '@capacitor/core';
+
 export enum ScannerModel {
     UNKNOWN = 0,
 
@@ -67,4 +69,33 @@ export interface SunmiBarcodeScannerPlugin {
    * 107 → L2-Zabra(EM1350)
    */
   getScannerModel(): Promise<{ model: ScannerModel|number }>;
+
+  /**
+   * Listens for barcode scanner result events.
+   */
+  addListener(
+      eventName: 'onScanResult',
+      listenerFunc: (scan: { data: string, source_bytes: string }) => void,
+  ): Promise<PluginListenerHandle> & PluginListenerHandle;
+
+  /**
+   * Listens for barcode scanner start events.
+   */
+  addListener(
+      eventName: 'onScanStart',
+      listenerFunc: () => void,
+  ): Promise<PluginListenerHandle> & PluginListenerHandle;
+
+  /**
+   * Listens for barcode scanner stop events.
+   */
+  addListener(
+      eventName: 'onScanStop',
+      listenerFunc: () => void,
+  ): Promise<PluginListenerHandle> & PluginListenerHandle;
+
+  /**
+   * Removes all listeners
+   */
+  removeAllListeners(): Promise<void>;
 }

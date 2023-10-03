@@ -8,33 +8,57 @@ import com.getcapacitor.annotation.CapacitorPlugin;
 
 @CapacitorPlugin(name = "SunmiBarcodeScanner")
 public class SunmiBarcodeScannerPlugin extends Plugin {
+    private final SunmiBarcodeScannerBroadcastReceiver.ScanCallback receiverCallback = new SunmiBarcodeScannerBroadcastReceiver.ScanCallback() {
+        @Override
+        public void onScan(String data, String source_bytes) {
+            JSObject ret = new JSObject();
+            ret.put("data", data);
+            ret.put("source_bytes", source_bytes);
+            notifyListeners("onScanResult", ret);
+        }
+
+        @Override
+        public void onStart() {
+            notifyListeners("onScanStart", new JSObject());
+        }
+
+        @Override
+        public void onStop() {
+            notifyListeners("onScanStop", new JSObject());
+        }
+    };
 
     private SunmiBarcodeScanner implementation;
+    private SunmiBarcodeScannerBroadcastReceiver broadcastReceiver;
 
     @Override
     public void load() {
         implementation = new SunmiBarcodeScanner(getContext());
-        super.load();
+        broadcastReceiver = new SunmiBarcodeScannerBroadcastReceiver(getContext(), receiverCallback);
 
-        boolean bindOnLoad = getConfig().getBoolean("bindOnLoad", true);
-        if(bindOnLoad) {
+        if(getConfig().getBoolean("bindOnLoad", true)) {
             try {
                 implementation.bindService();
+                broadcastReceiver.register();
             } catch (RuntimeException e) {
                 // ignore
             }
         }
+
+        super.load();
     }
 
     @PluginMethod
     public void bindService(PluginCall call) {
         implementation.bindService();
+        broadcastReceiver.register();
         call.resolve();
     }
 
     @PluginMethod
     public void disconnectService(PluginCall call) {
         implementation.unbindService();
+        broadcastReceiver.unregister();
         call.resolve();
     }
 
