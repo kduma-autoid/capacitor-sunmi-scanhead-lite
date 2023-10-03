@@ -6,6 +6,7 @@ const SunmiBarcodeScanner = registerPlugin<SunmiBarcodeScannerPlugin>(
   'SunmiBarcodeScanner',
   {
     web: () => import('./web').then(m => new m.SunmiBarcodeScannerWeb()),
+    ios: () => import('./web').then(m => new m.SunmiBarcodeScannerWeb()),
   },
 );
 
