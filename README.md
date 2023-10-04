@@ -37,6 +37,13 @@ export default config;
 * [`scan()`](#scan)
 * [`stop()`](#stop)
 * [`getScannerModel()`](#getscannermodel)
+* [`clearConfig()`](#clearconfig)
+* [`setTrigger(...)`](#settrigger)
+* [`setOutputMode(...)`](#setoutputmode)
+* [`setScanMode(...)`](#setscanmode)
+* [`setReturnCodeType(...)`](#setreturncodetype)
+* [`setBroadcast(...)`](#setbroadcast)
+* [`setBroadcastConfiguration(...)`](#setbroadcastconfiguration)
 * [`addListener('onScanResult', ...)`](#addlisteneronscanresult)
 * [`addListener('onScanStart', ...)`](#addlisteneronscanstart)
 * [`addListener('onScanStop', ...)`](#addlisteneronscanstop)
@@ -96,21 +103,113 @@ Stop scanner
 ### getScannerModel()
 
 ```typescript
-getScannerModel() => Promise<{ model: ScannerModel | number; }>
+getScannerModel() => Promise<{ model: number; }>
 ```
 
-Get scanner model
-
-100 → NONE
-101 → P2Lite/V2Pro/P2Pro(em1365/BSM1825)
-102 → L2-newland(EM2096)
-103 → L2-zabra(SE4710)
-104 → L2-HoneyWell(N3601)
-105 → L2-HoneyWell(N6603)
-106 → L2-Zabra(SE4750)
-107 → L2-Zabra(EM1350)
+Get scanner model ID
 
 **Returns:** <code>Promise&lt;{ model: number; }&gt;</code>
+
+--------------------
+
+
+### clearConfig()
+
+```typescript
+clearConfig() => Promise<void>
+```
+
+Clear scanner configuration (reset to default)
+
+--------------------
+
+
+### setTrigger(...)
+
+```typescript
+setTrigger(options: { enabled: boolean; }) => Promise<void>
+```
+
+Enable or disable trigger button
+
+| Param         | Type                               |
+| ------------- | ---------------------------------- |
+| **`options`** | <code>{ enabled: boolean; }</code> |
+
+--------------------
+
+
+### setOutputMode(...)
+
+```typescript
+setOutputMode(options: { mode: OutputMode.DISABLED; } | { mode: OutputMode.KEYSTROKE; interval?: number; tab?: boolean; enter?: boolean; } | { mode: OutputMode.DIRECTFILL; overwrite?: boolean; tab?: boolean; enter?: boolean; asEvent?: boolean; }) => Promise<void>
+```
+
+Set output mode
+
+| Param         | Type                                                                                                                                                                                                                                                                                                                        |
+| ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **`options`** | <code>{ mode: <a href="#outputmode">OutputMode.DISABLED</a>; } \| { mode: <a href="#outputmode">OutputMode.KEYSTROKE</a>; interval?: number; tab?: boolean; enter?: boolean; } \| { mode: <a href="#outputmode">OutputMode.DIRECTFILL</a>; overwrite?: boolean; tab?: boolean; enter?: boolean; asEvent?: boolean; }</code> |
+
+--------------------
+
+
+### setScanMode(...)
+
+```typescript
+setScanMode(options: { mode: ScanMode.TRIGGER | ScanMode.PULSE; timeout?: number; } | { mode: ScanMode.CONTINUOUS | ScanMode.LONGPRESS; sleep?: number; timeout?: number; }) => Promise<void>
+```
+
+Set scan mode
+
+| Param         | Type                                                                                                                                                                                                                                                                   |
+| ------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **`options`** | <code>{ mode: <a href="#scanmode">ScanMode.TRIGGER</a> \| <a href="#scanmode">ScanMode.PULSE</a>; timeout?: number; } \| { mode: <a href="#scanmode">ScanMode.CONTINUOUS</a> \| <a href="#scanmode">ScanMode.LONGPRESS</a>; sleep?: number; timeout?: number; }</code> |
+
+--------------------
+
+
+### setReturnCodeType(...)
+
+```typescript
+setReturnCodeType(options: { enabled: boolean; }) => Promise<void>
+```
+
+Enable or disable returning of code type with scan result
+
+| Param         | Type                               |
+| ------------- | ---------------------------------- |
+| **`options`** | <code>{ enabled: boolean; }</code> |
+
+--------------------
+
+
+### setBroadcast(...)
+
+```typescript
+setBroadcast(options: { enabled: boolean; }) => Promise<void>
+```
+
+Enable or disable scan result broadcast
+
+| Param         | Type                               |
+| ------------- | ---------------------------------- |
+| **`options`** | <code>{ enabled: boolean; }</code> |
+
+--------------------
+
+
+### setBroadcastConfiguration(...)
+
+```typescript
+setBroadcastConfiguration(options?: { scanned_intent?: string | null | undefined; start_intent?: string | null | undefined; end_intent?: string | null | undefined; intent_data_key?: string | null | undefined; intent_byte_key?: string | null | undefined; } | undefined) => Promise<void>
+```
+
+Set broadcast configuration
+
+| Param         | Type                                                                                                                                                                              |
+| ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **`options`** | <code>{ scanned_intent?: string \| null; start_intent?: string \| null; end_intent?: string \| null; intent_data_key?: string \| null; intent_byte_key?: string \| null; }</code> |
 
 --------------------
 
@@ -193,18 +292,22 @@ Removes all listeners
 ### Enums
 
 
-#### ScannerModel
+#### OutputMode
 
-| Members       | Value            |
-| ------------- | ---------------- |
-| **`UNKNOWN`** | <code>0</code>   |
-| **`NONE`**    | <code>100</code> |
-| **`BSM1825`** | <code>101</code> |
-| **`EM2096`**  | <code>102</code> |
-| **`SE4710`**  | <code>103</code> |
-| **`N3601`**   | <code>104</code> |
-| **`N6603`**   | <code>105</code> |
-| **`SE4750`**  | <code>106</code> |
-| **`EM1350`**  | <code>107</code> |
+| Members          | Value                     |
+| ---------------- | ------------------------- |
+| **`KEYSTROKE`**  | <code>"keystroke"</code>  |
+| **`DIRECTFILL`** | <code>"directFill"</code> |
+| **`DISABLED`**   | <code>"disabled"</code>   |
+
+
+#### ScanMode
+
+| Members          | Value                     |
+| ---------------- | ------------------------- |
+| **`TRIGGER`**    | <code>"trigger"</code>    |
+| **`CONTINUOUS`** | <code>"continuous"</code> |
+| **`PULSE`**      | <code>"pulse"</code>      |
+| **`LONGPRESS`**  | <code>"longPress"</code>  |
 
 </docgen-api>

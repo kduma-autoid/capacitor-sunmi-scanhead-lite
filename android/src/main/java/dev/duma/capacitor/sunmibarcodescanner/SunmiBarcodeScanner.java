@@ -10,9 +10,12 @@ import android.os.RemoteException;
 import android.util.Log;
 import android.view.KeyEvent;
 
+import androidx.annotation.Nullable;
+
 import com.sunmi.scanner.IScanInterface;
 
 public class SunmiBarcodeScanner {
+    private final SunmiBarcodeScannerConfigurator configurator;
     private IScanInterface scanInterface;
     private final Context context;
     private final ServiceConnection connection = new ServiceConnection() {
@@ -36,6 +39,16 @@ public class SunmiBarcodeScanner {
 
     public SunmiBarcodeScanner(Context context) {
         this.context = context;
+        this.configurator = new SunmiBarcodeScannerConfigurator(context, this);
+    }
+
+    public SunmiBarcodeScannerConfigurator getConfigurator() {
+        return configurator;
+    }
+
+    @Nullable
+    public IScanInterface getScanInterface() {
+        return scanInterface;
     }
 
     public void bindService() {
@@ -92,5 +105,22 @@ public class SunmiBarcodeScanner {
         }
 
         return 0;
+    }
+
+    public void clearConfig() {
+        if (scanInterface == null) return;
+
+        try {
+            scanInterface.clearConfig();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setTrigger(boolean enabled) {
+        Intent intent = new Intent();
+        intent.setAction("com.sunmi.scanner.ACTION_TRIGGER_CONTROL");
+        intent.putExtra("enable",enabled);
+        context.sendBroadcast(intent);
     }
 }

@@ -76,12 +76,14 @@ public class SunmiBarcodeScannerPlugin extends Plugin {
     @PluginMethod
     public void scan(PluginCall call) {
         implementation.scan();
+
         call.resolve();
     }
 
     @PluginMethod
     public void stop(PluginCall call) {
         implementation.stop();
+
         call.resolve();
     }
 
@@ -90,5 +92,98 @@ public class SunmiBarcodeScannerPlugin extends Plugin {
         JSObject ret = new JSObject();
         ret.put("model", implementation.getScannerModel());
         call.resolve(ret);
+    }
+
+    @PluginMethod
+    public void clearConfig(PluginCall call) {
+        implementation.clearConfig();
+
+        call.resolve();
+    }
+
+    /** @noinspection DataFlowIssue*/
+    @PluginMethod
+    public void setTrigger(PluginCall call) {
+        implementation.setTrigger(call.getBoolean("enabled", true));
+
+        call.resolve();
+    }
+
+    /** @noinspection DataFlowIssue*/
+    @PluginMethod
+    public void setOutputMode(PluginCall call) {
+        switch (call.getString("mode", "disabled")){
+            default -> implementation.getConfigurator().dataOutputMode().disabled();
+
+            case "keystroke" -> implementation.getConfigurator().dataOutputMode().keystroke(
+                call.getInt("interval", 0),
+                call.getBoolean("tab", false),
+                call.getBoolean("enter", true)
+            );
+
+            case "directFill" -> implementation.getConfigurator().dataOutputMode().directFill(
+                call.getBoolean("overwrite", false),
+                call.getBoolean("tab", false),
+                call.getBoolean("enter", true),
+                call.getBoolean("asEvent", true)
+            );
+        }
+
+        call.resolve();
+    }
+
+    /** @noinspection DataFlowIssue*/
+    @PluginMethod
+    public void setScanMode(PluginCall call) {
+        switch (call.getString("mode", "trigger")){
+            default -> implementation.getConfigurator().scanMode().trigger(
+                call.getInt("timeout", 5000)
+            );
+
+            case "continuous" -> implementation.getConfigurator().scanMode().continuous(
+                    call.getInt("sleep", 500),
+                    call.getInt("timeout", 5000)
+            );
+
+            case "pulse" -> implementation.getConfigurator().scanMode().pulse(
+                    call.getInt("timeout", 5000)
+            );
+
+            case "longPress" -> implementation.getConfigurator().scanMode().longPress(
+                    call.getInt("sleep", 500),
+                    call.getInt("timeout", 5000)
+            );
+        }
+
+        call.resolve();
+    }
+
+    /** @noinspection DataFlowIssue*/
+    @PluginMethod
+    public void setReturnCodeType(PluginCall call) {
+        implementation.getConfigurator().codeType().returnCodeType(call.getBoolean("enabled", true));
+
+        call.resolve();
+    }
+
+    /** @noinspection DataFlowIssue*/
+    @PluginMethod
+    public void setBroadcast(PluginCall call) {
+        implementation.getConfigurator().broadcasting().setBroadcast(call.getBoolean("enabled", true));
+
+        call.resolve();
+    }
+
+    @PluginMethod
+    public void setBroadcastConfiguration(PluginCall call) {
+        implementation.getConfigurator().broadcasting().configure(
+            call.getString("scanned_intent", "com.sunmi.scanner.ACTION_DATA_CODE_RECEIVED"),
+            call.getString("start_intent", "com.sunmi.scanner.ACTION_SCAN_START"),
+            call.getString("end_intent", "com.sunmi.scanner.ACTION_SCAN_END"),
+            call.getString("intent_data_key", "data"),
+            call.getString("intent_byte_key", "source_byte")
+        );
+
+        call.resolve();
     }
 }

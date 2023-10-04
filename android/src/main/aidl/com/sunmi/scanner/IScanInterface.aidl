@@ -4,20 +4,25 @@ package com.sunmi.scanner;
 // Declare any non-default types here with import statements
 
 interface IScanInterface {
- /**
+     /**
+     * #1
      * 触发开始与停止扫码
      * key.getAction()==KeyEvent.ACTION_UP 触发开始扫码
      * key.getAction()==KeyEvent.ACTION_DWON 触发停止扫码
      */
-    void sendKeyEvent(in KeyEvent key);
+    void sendKeyEvent(in KeyEvent key) = 0;
+
     /**
+    * #2
      * 触发开始扫码
      */
-    void scan();
+    void scan() = 1;
+
     /**
      * 触发停止扫码
      */
-    void stop();
+    void stop() = 2;
+
     /**
      * 获取扫码头类型
      * 100-->NONE
@@ -25,5 +30,11 @@ interface IScanInterface {
      * 102-->l2-newland
      * 103-->l2-zabra
      */
-    int getScannerModel();
+    int getScannerModel() = 3;
+
+    void sendCommand(String str) = 5;
+
+//    void sendQuery(String str, ICallBack iCallBack) = 6;
+
+    boolean clearConfig() = 7;
 }

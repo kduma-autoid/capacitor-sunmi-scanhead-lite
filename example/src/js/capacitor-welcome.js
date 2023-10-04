@@ -1,5 +1,5 @@
 import {SplashScreen} from '@capacitor/splash-screen';
-import {SunmiBarcodeScanner} from "../../../src";
+import {OutputMode, ScanMode, SunmiBarcodeScanner} from "../../../src";
 
 window.customElements.define(
   'capacitor-welcome',
@@ -64,6 +64,26 @@ window.customElements.define(
           <button class="button" id="scan">scan()</button>
           <button class="button" id="stop">stop()</button>
           <button class="button" id="getScannerModel">getScannerModel()</button>
+          <button class="button" id="clearConfig">clearConfig()</button>
+          <hr>
+          <button class="button" id="setTrigger1">setTrigger(true)</button>
+          <button class="button" id="setTrigger0">setTrigger(false)</button>
+          <hr>
+          <button class="button" id="setOutputModeDisabled">setOutputMode(DISABLED)</button>
+          <button class="button" id="setOutputModeKeystroke">setOutputMode(KEYSTROKE)</button>
+          <button class="button" id="setOutputModeDirectfill">setOutputMode(DIRECTFILL)</button>
+          <hr>
+          <button class="button" id="setScanModeTrigger">setScanMode(TRIGGER)</button>
+          <button class="button" id="setScanModePulse">setScanMode(PULSE)</button>
+          <button class="button" id="setScanModeContinuous">setScanMode(CONTINUOUS)</button>
+          <button class="button" id="setScanModeLongpress">setScanMode(LONGPRESS)</button>
+          <hr>
+          <button class="button" id="setReturnCodeType1">setReturnCodeType(true)</button>
+          <button class="button" id="setReturnCodeType0">setReturnCodeType(false)</button>
+          <hr>
+          <button class="button" id="setBroadcast1">setBroadcast(true)</button>
+          <button class="button" id="setBroadcast0">setBroadcast(false)</button>
+          <button class="button" id="setBroadcastConfiguration">setBroadcastConfiguration()</button>
         </p>        
         
         <h2>Events</h2>
@@ -104,6 +124,66 @@ window.customElements.define(
       self.shadowRoot.querySelector('#getScannerModel').addEventListener('click', async function (e) {
         let response = await SunmiBarcodeScanner.getScannerModel();
         printToOutput("getScannerModel()", JSON.stringify(response, null, 3));
+      });
+
+      self.shadowRoot.querySelector('#setTrigger1').addEventListener('click', async function (e) {
+        await SunmiBarcodeScanner.setTrigger({enabled: true});
+      });
+
+      self.shadowRoot.querySelector('#setTrigger0').addEventListener('click', async function (e) {
+        await SunmiBarcodeScanner.setTrigger({enabled: false});
+      });
+
+      self.shadowRoot.querySelector('#setReturnCodeType1').addEventListener('click', async function (e) {
+        await SunmiBarcodeScanner.setReturnCodeType({enabled: true});
+      });
+
+      self.shadowRoot.querySelector('#setReturnCodeType0').addEventListener('click', async function (e) {
+        await SunmiBarcodeScanner.setReturnCodeType({enabled: false});
+      });
+
+      self.shadowRoot.querySelector('#setBroadcast1').addEventListener('click', async function (e) {
+        await SunmiBarcodeScanner.setBroadcast({enabled: true});
+      });
+
+      self.shadowRoot.querySelector('#setBroadcast0').addEventListener('click', async function (e) {
+        await SunmiBarcodeScanner.setBroadcast({enabled: false});
+      });
+
+      self.shadowRoot.querySelector('#setOutputModeDisabled').addEventListener('click', async function (e) {
+        await SunmiBarcodeScanner.setOutputMode({mode: OutputMode.DISABLED});
+      });
+
+      self.shadowRoot.querySelector('#setOutputModeKeystroke').addEventListener('click', async function (e) {
+        await SunmiBarcodeScanner.setOutputMode({mode: OutputMode.KEYSTROKE});
+      });
+
+      self.shadowRoot.querySelector('#setOutputModeDirectfill').addEventListener('click', async function (e) {
+        await SunmiBarcodeScanner.setOutputMode({mode: OutputMode.DIRECTFILL});
+      });
+
+      self.shadowRoot.querySelector('#setScanModeTrigger').addEventListener('click', async function (e) {
+        await SunmiBarcodeScanner.setScanMode({mode: ScanMode.TRIGGER});
+      });
+
+      self.shadowRoot.querySelector('#setScanModePulse').addEventListener('click', async function (e) {
+        await SunmiBarcodeScanner.setScanMode({mode: ScanMode.PULSE});
+      });
+
+      self.shadowRoot.querySelector('#setScanModeContinuous').addEventListener('click', async function (e) {
+        await SunmiBarcodeScanner.setScanMode({mode: ScanMode.CONTINUOUS});
+      });
+
+      self.shadowRoot.querySelector('#setScanModeLongpress').addEventListener('click', async function (e) {
+        await SunmiBarcodeScanner.setScanMode({mode: ScanMode.LONGPRESS});
+      });
+
+      self.shadowRoot.querySelector('#setBroadcastConfiguration').addEventListener('click', async function (e) {
+        await SunmiBarcodeScanner.setBroadcastConfiguration();
+      });
+
+      self.shadowRoot.querySelector('#clearConfig').addEventListener('click', async function (e) {
+        await SunmiBarcodeScanner.clearConfig();
       });
     }
   }

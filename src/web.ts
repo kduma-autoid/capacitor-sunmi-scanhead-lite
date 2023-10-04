@@ -29,4 +29,32 @@ export class SunmiBarcodeScannerWeb
   getScannerModel(): Promise<{ model: number; }> {
     throw this.unimplemented('Not implemented on web.');
   }
+
+  setBroadcast(): Promise<void> {
+    throw this.unimplemented('Not implemented on web.');
+  }
+
+  setBroadcastConfiguration(): Promise<void> {
+    throw this.unimplemented('Not implemented on web.');
+  }
+
+  setOutputMode(): Promise<void> {
+    throw this.unimplemented('Not implemented on web.');
+  }
+
+  setReturnCodeType(): Promise<void> {
+    throw this.unimplemented('Not implemented on web.');
+  }
+
+  setScanMode(): Promise<void> {
+    throw this.unimplemented('Not implemented on web.');
+  }
+
+  setTrigger(): Promise<void> {
+    throw this.unimplemented('Not implemented on web.');
+  }
+
+  clearConfig(): Promise<void> {
+    throw this.unimplemented('Not implemented on web.');
+  }
 }

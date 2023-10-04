@@ -14,18 +14,17 @@ declare module '@capacitor/cli' {
 
 import type { PluginListenerHandle } from '@capacitor/core';
 
-export enum ScannerModel {
-    UNKNOWN = 0,
+export enum OutputMode {
+    KEYSTROKE = "keystroke",
+    DIRECTFILL = "directFill",
+    DISABLED = "disabled",
+}
 
-    NONE = 100,
-
-    BSM1825 = 101, // P2Lite/V2Pro/P2Pro(em1365/BSM1825)
-    EM2096 = 102, // L2-newland (EM2096)
-    SE4710 = 103, // L2-zabra (SE4710)
-    N3601 = 104, // L2-HoneyWell (N3601)
-    N6603 = 105, // L2-HoneyWell (N6603)
-    SE4750 = 106, // L2-Zabra (SE4750)
-    EM1350 = 107, // L2-Zabra (EM1350)
+export enum ScanMode {
+    TRIGGER = "trigger",
+    CONTINUOUS = "continuous",
+    PULSE = "pulse",
+    LONGPRESS = "longPress",
 }
 
 export interface SunmiBarcodeScannerPlugin {
@@ -57,18 +56,51 @@ export interface SunmiBarcodeScannerPlugin {
   stop(): Promise<void>;
 
   /**
-   * Get scanner model
-   *
-   * 100 → NONE
-   * 101 → P2Lite/V2Pro/P2Pro(em1365/BSM1825)
-   * 102 → L2-newland(EM2096)
-   * 103 → L2-zabra(SE4710)
-   * 104 → L2-HoneyWell(N3601)
-   * 105 → L2-HoneyWell(N6603)
-   * 106 → L2-Zabra(SE4750)
-   * 107 → L2-Zabra(EM1350)
+   * Get scanner model ID
    */
-  getScannerModel(): Promise<{ model: ScannerModel|number }>;
+  getScannerModel(): Promise<{ model: number }>;
+
+  /**
+   * Clear scanner configuration (reset to default)
+   */
+  clearConfig(): Promise<void>;
+
+  /**
+   * Enable or disable trigger button
+   */
+  setTrigger(options: { enabled: boolean }): Promise<void>;
+
+
+  /**
+   * Set output mode
+   */
+  setOutputMode(options: { mode: OutputMode.DISABLED } | { mode: OutputMode.KEYSTROKE, interval?: number, tab?: boolean, enter?: boolean } | { mode: OutputMode.DIRECTFILL, overwrite?: boolean, tab?: boolean, enter?: boolean, asEvent?: boolean }): Promise<void>;
+
+  /**
+   * Set scan mode
+   */
+  setScanMode(options: { mode: ScanMode.TRIGGER | ScanMode.PULSE, timeout?: number } | { mode: ScanMode.CONTINUOUS | ScanMode.LONGPRESS, sleep?: number, timeout?: number }): Promise<void>;
+
+  /**
+   * Enable or disable returning of code type with scan result
+   */
+  setReturnCodeType(options: { enabled: boolean }): Promise<void>;
+
+  /**
+   * Enable or disable scan result broadcast
+   */
+  setBroadcast(options: { enabled: boolean }): Promise<void>;
+
+  /**
+   * Set broadcast configuration
+   */
+  setBroadcastConfiguration(options?: {
+    scanned_intent?: string | null,
+    start_intent?: string | null,
+    end_intent?: string | null,
+    intent_data_key?: string | null,
+    intent_byte_key?: string | null
+  }): Promise<void>;
 
   /**
    * Listens for barcode scanner result events.
