@@ -1,6 +1,6 @@
 # @kduma-autoid/capacitor-sunmi-scanhead
 
-Sunmi Scanhead bindings for Capacitor
+Sunmi Scan Head bindings for Capacitor
 
 ## Install
 

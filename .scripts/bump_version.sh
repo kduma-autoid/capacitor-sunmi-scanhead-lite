@@ -15,8 +15,12 @@ increment_version() {
 
 number=$(sed '3q;d' "${dir}/../example/config.yaml")
 number=${number#*: }
-((new_number=number+1))
-echo "BUILD=$new_number"
+if [[ ${1:-2} -lt 0 ]]
+then
+  new_number=${number}
+else
+  ((new_number=number+1))
+fi
 
 version=$(sed '5q;d' "${dir}/../example/config.yaml")
 version=${version#*: }
@@ -25,11 +29,28 @@ if [[ ${1:-2} -gt 2 ]]
 then
   new_version=${version}
 else
-  new_version=$(increment_version ${version} ${1:-2})
+  if [[ ${1:-2} -lt 0 ]]
+  then
+    new_version=${version}
+  else
+    new_version=$(increment_version ${version} ${1:-2})
+  fi
 fi
-echo "VERSION=$new_version"
 
 sed -e "3s/$number/$new_number/;5s/$version/$new_version/" "${dir}/../example/config.yaml" > "${dir}/../example/config.yaml.tmp" \
   && mv "${dir}/../example/config.yaml.tmp" "${dir}/../example/config.yaml"
 
+
+if [[ ${2:ALL} == "VERSION" ]]
+then
+  echo "$new_version"
+else
+  if [[ ${2:ALL} == "BUILD" ]]
+  then
+    echo "$new_number"
+  else
+    echo "VERSION=$new_version"
+    echo "BUILD=$new_number"
+  fi
+fi
 

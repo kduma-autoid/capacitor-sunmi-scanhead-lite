@@ -1,7 +1,7 @@
 {
   "name": "@kduma-autoid/capacitor-sunmi-scanhead",
   "version": "1.0.0",
-  "description": "Sunmi Scanhead bindings for Capacitor",
+  "description": "Sunmi Scan Head bindings for Capacitor",
   "main": "dist/plugin.cjs.js",
   "module": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
