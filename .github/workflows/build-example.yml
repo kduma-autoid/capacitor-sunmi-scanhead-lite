@@ -62,20 +62,20 @@ jobs:
         uses: actions/upload-artifact@v2.2.4
         with:
           name: apk
-          path: android/app/build/outputs/apk/release/*
+          path: example/android/app/build/outputs/apk/release/*
           if-no-files-found: error
           retention-days: 7
 
       - name: Rename update file
         if: startsWith(github.ref, 'refs/tags/v')
         run: |
-          mv android/app/build/outputs/apk/release/app-release-signed.apk  android/app/build/outputs/apk/release/$PACKAGE_NAME-${{ env.RELEASE_VERSION }}.apk
-          mv android/app/build/outputs/apk/release/app-release-signed-v1-v2.apk android/app/build/outputs/apk/release/$PACKAGE_NAME-${{ env.RELEASE_VERSION }}-sunmi.apk
-          mv android/app/build/outputs/apk/release/app-release-unsigned.apk android/app/build/outputs/apk/release/$PACKAGE_NAME-${{ env.RELEASE_VERSION }}-unsigned.apk
+          mv example/android/app/build/outputs/apk/release/app-release-signed.apk example/android/app/build/outputs/apk/release/$PACKAGE_NAME-${{ env.RELEASE_VERSION }}.apk
+          mv example/android/app/build/outputs/apk/release/app-release-signed-v1-v2.apk example/android/app/build/outputs/apk/release/$PACKAGE_NAME-${{ env.RELEASE_VERSION }}-sunmi.apk
+          mv example/android/app/build/outputs/apk/release/app-release-unsigned.apk example/android/app/build/outputs/apk/release/$PACKAGE_NAME-${{ env.RELEASE_VERSION }}-unsigned.apk
 
       - name: Release
         uses: softprops/action-gh-release@v1
         if:   startsWith(github.ref, 'refs/tags/v')
         with:
           files: |
-            android/app/build/outputs/apk/release/*.apk
+            example/android/app/build/outputs/apk/release/*.apk
