@@ -1,7 +1,7 @@
 {
-  "name": "@kduma-autoid/capacitor-sunmi-barcode-scanner",
+  "name": "@kduma-autoid/capacitor-sunmi-scanhead",
   "version": "1.0.0",
-  "description": "Sunmi Barcode Scanner bindings for Capacitor",
+  "description": "Sunmi Scanhead bindings for Capacitor",
   "main": "dist/plugin.cjs.js",
   "module": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
@@ -15,10 +15,10 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kduma-autoid/capacitor-sunmi-barcode-scanner.git"
+    "url": "git+https://github.com/kduma-autoid/capacitor-sunmi-scanhead.git"
   },
   "bugs": {
-    "url": "https://github.com/kduma-autoid/capacitor-sunmi-barcode-scanner/issues"
+    "url": "https://github.com/kduma-autoid/capacitor-sunmi-scanhead/issues"
   },
   "keywords": [
     "capacitor",
@@ -34,7 +34,7 @@
     "eslint": "eslint . --ext ts",
     "prettier": "prettier \"**/*.{css,html,ts,js,java}\"",
     "swiftlint": "node-swiftlint",
-    "docgen": "docgen --api SunmiBarcodeScannerPlugin --output-readme README.md --output-json dist/docs.json",
+    "docgen": "docgen --api SunmiScanHeadPlugin --output-readme README.md --output-json dist/docs.json",
     "build": "npm run clean && npm run docgen && tsc && rollup -c rollup.config.js",
     "clean": "rimraf ./dist",
     "watch": "tsc --watch",

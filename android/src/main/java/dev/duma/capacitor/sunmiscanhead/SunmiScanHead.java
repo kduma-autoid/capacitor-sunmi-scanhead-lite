@@ -1,4 +1,4 @@
-package dev.duma.capacitor.sunmibarcodescanner;
+package dev.duma.capacitor.sunmiscanhead;
 
 import android.app.Service;
 import android.content.ComponentName;
@@ -14,8 +14,8 @@ import androidx.annotation.Nullable;
 
 import com.sunmi.scanner.IScanInterface;
 
-public class SunmiBarcodeScanner {
-    private final SunmiBarcodeScannerConfigurator configurator;
+public class SunmiScanHead {
+    private final SunmiScanHeadConfigurator configurator;
     private IScanInterface scanInterface;
     private final Context context;
     private final ServiceConnection connection = new ServiceConnection() {
@@ -23,26 +23,26 @@ public class SunmiBarcodeScanner {
         public void onServiceConnected(ComponentName name, IBinder service) {
             scanInterface = IScanInterface.Stub.asInterface(service);
             if (scanInterface == null) {
-                Log.i("SunmiBarcodeScanner", "Scanner Service Failed To Connect!");
+                Log.i("SunmiScanHead", "Scanner Service Failed To Connect!");
             } else {
-                Log.i("SunmiBarcodeScanner", "Scanner Service Connected!");
+                Log.i("SunmiScanHead", "Scanner Service Connected!");
             }
         }
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
-            Log.e("SunmiBarcodeScanner", "Scanner Service Disconnected!");
+            Log.e("SunmiScanHead", "Scanner Service Disconnected!");
             scanInterface = null;
         }
     };
 
 
-    public SunmiBarcodeScanner(Context context) {
+    public SunmiScanHead(Context context) {
         this.context = context;
-        this.configurator = new SunmiBarcodeScannerConfigurator(context, this);
+        this.configurator = new SunmiScanHeadConfigurator(context, this);
     }
 
-    public SunmiBarcodeScannerConfigurator getConfigurator() {
+    public SunmiScanHeadConfigurator getConfigurator() {
         return configurator;
     }
 

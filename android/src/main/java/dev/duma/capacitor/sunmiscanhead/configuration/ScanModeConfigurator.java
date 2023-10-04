@@ -1,20 +1,20 @@
-package dev.duma.capacitor.sunmibarcodescanner.configuration;
+package dev.duma.capacitor.sunmiscanhead.configuration;
 
 import android.content.Context;
 import android.os.RemoteException;
 
 import com.sunmi.scanner.IScanInterface;
 
-import dev.duma.capacitor.sunmibarcodescanner.SunmiBarcodeScanner;
-import dev.duma.capacitor.sunmibarcodescanner.SunmiHelper;
+import dev.duma.capacitor.sunmiscanhead.SunmiScanHead;
+import dev.duma.capacitor.sunmiscanhead.SunmiHelper;
 
 public class ScanModeConfigurator {
     private Context context;
-    private SunmiBarcodeScanner sunmiBarcodeScanner;
+    private SunmiScanHead SunmiScanHead;
 
-    public ScanModeConfigurator(Context context, SunmiBarcodeScanner sunmiBarcodeScanner) {
+    public ScanModeConfigurator(Context context, SunmiScanHead SunmiScanHead) {
         this.context = context;
-        this.sunmiBarcodeScanner = sunmiBarcodeScanner;
+        this.SunmiScanHead = SunmiScanHead;
     }
 
 
@@ -23,7 +23,7 @@ public class ScanModeConfigurator {
         trigger(5000);
     }
     public void trigger(int timeout) {
-        IScanInterface scanInterface = sunmiBarcodeScanner.getScanInterface();
+        IScanInterface scanInterface = SunmiScanHead.getScanInterface();
         if (scanInterface == null) return;
 
         try {
@@ -47,7 +47,7 @@ public class ScanModeConfigurator {
         continuous(sleep, 5000);
     }
     public void continuous(int sleep, int timeout) {
-        IScanInterface scanInterface = sunmiBarcodeScanner.getScanInterface();
+        IScanInterface scanInterface = SunmiScanHead.getScanInterface();
         if (scanInterface == null) return;
 
         try {
@@ -67,7 +67,7 @@ public class ScanModeConfigurator {
         pulse(5000);
     }
     public void pulse(int timeout) {
-        IScanInterface scanInterface = sunmiBarcodeScanner.getScanInterface();
+        IScanInterface scanInterface = SunmiScanHead.getScanInterface();
         if (scanInterface == null) return;
 
         try {
@@ -89,7 +89,7 @@ public class ScanModeConfigurator {
         longPress(sleep, 5000);
     }
     public void longPress(int sleep, int timeout) {
-        IScanInterface scanInterface = sunmiBarcodeScanner.getScanInterface();
+        IScanInterface scanInterface = SunmiScanHead.getScanInterface();
         if (scanInterface == null) return;
 
         try {

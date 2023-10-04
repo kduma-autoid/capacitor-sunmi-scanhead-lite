@@ -1,11 +1,11 @@
-# @kduma-autoid/capacitor-sunmi-barcode-scanner
+# @kduma-autoid/capacitor-sunmi-scanhead
 
-Sunmi Barcode Scanner bindings for Capacitor
+Sunmi Scanhead bindings for Capacitor
 
 ## Install
 
 ```bash
-npm install @kduma-autoid/capacitor-sunmi-barcode-scanner
+npm install @kduma-autoid/capacitor-sunmi-scanhead
 npx cap sync
 ```
 ## Configuration
@@ -13,14 +13,14 @@ npx cap sync
 You can disable auto binding of the service by setting `bindOnLoad` to `false` in the plugin configuration in `capacitor.config.ts`.
 
 ```typescript
-/// <reference types="@kduma-autoid/capacitor-sunmi-barcode-scanner" />
+/// <reference types="@kduma-autoid/capacitor-sunmi-scanhead" />
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
   appId: "com.company.app",
   ...
   plugins: {
-    SunmiBarcodeScanner: {
+    SunmiScanHead: {
       bindOnLoad: true
     }
   }

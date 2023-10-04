@@ -1,4 +1,4 @@
-package dev.duma.capacitor.sunmibarcodescanner;
+package dev.duma.capacitor.sunmiscanhead;
 
 import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
@@ -8,7 +8,7 @@ import android.content.IntentFilter;
 import android.util.Base64;
 import java.util.Objects;
 
-public class SunmiBarcodeScannerBroadcastReceiver {
+public class SunmiScanHeadBroadcastReceiver {
     public interface ScanCallback {
         void onScan(String data, String source_bytes);
 
@@ -45,7 +45,7 @@ public class SunmiBarcodeScannerBroadcastReceiver {
         }
     };
 
-    public SunmiBarcodeScannerBroadcastReceiver(Context context, ScanCallback callback) {
+    public SunmiScanHeadBroadcastReceiver(Context context, ScanCallback callback) {
         this.context = context;
         this.callback = callback;
     }

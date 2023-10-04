@@ -1,4 +1,4 @@
-package dev.duma.capacitor.sunmibarcodescanner;
+package dev.duma.capacitor.sunmiscanhead;
 
 import com.getcapacitor.JSObject;
 import com.getcapacitor.Plugin;
@@ -6,9 +6,9 @@ import com.getcapacitor.PluginCall;
 import com.getcapacitor.PluginMethod;
 import com.getcapacitor.annotation.CapacitorPlugin;
 
-@CapacitorPlugin(name = "SunmiBarcodeScanner")
-public class SunmiBarcodeScannerPlugin extends Plugin {
-    private final SunmiBarcodeScannerBroadcastReceiver.ScanCallback receiverCallback = new SunmiBarcodeScannerBroadcastReceiver.ScanCallback() {
+@CapacitorPlugin(name = "SunmiScanHead")
+public class SunmiScanHeadPlugin extends Plugin {
+    private final SunmiScanHeadBroadcastReceiver.ScanCallback receiverCallback = new SunmiScanHeadBroadcastReceiver.ScanCallback() {
         @Override
         public void onScan(String data, String source_bytes) {
             JSObject ret = new JSObject();
@@ -28,13 +28,13 @@ public class SunmiBarcodeScannerPlugin extends Plugin {
         }
     };
 
-    private SunmiBarcodeScanner implementation;
-    private SunmiBarcodeScannerBroadcastReceiver broadcastReceiver;
+    private SunmiScanHead implementation;
+    private SunmiScanHeadBroadcastReceiver broadcastReceiver;
 
     @Override
     public void load() {
-        implementation = new SunmiBarcodeScanner(getContext());
-        broadcastReceiver = new SunmiBarcodeScannerBroadcastReceiver(getContext(), receiverCallback);
+        implementation = new SunmiScanHead(getContext());
+        broadcastReceiver = new SunmiScanHeadBroadcastReceiver(getContext(), receiverCallback);
 
         if(getConfig().getBoolean("bindOnLoad", true)) {
             try {

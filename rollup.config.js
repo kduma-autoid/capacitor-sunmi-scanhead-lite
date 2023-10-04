@@ -4,7 +4,7 @@ export default {
     {
       file: 'dist/plugin.js',
       format: 'iife',
-      name: 'capacitorSunmiBarcodeScanner',
+      name: 'capacitorSunmiScanHead',
       globals: {
         '@capacitor/core': 'capacitorExports',
       },

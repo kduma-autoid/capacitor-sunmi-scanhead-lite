@@ -1,7 +1,7 @@
 /// <reference types="@capacitor/cli" />
 declare module '@capacitor/cli' {
   export interface PluginsConfig {
-    SunmiBarcodeScannerPlugin?: {
+    SunmiScanHeadPlugin?: {
       /**
        * Auto bind the scan service on app load
        *
@@ -27,7 +27,7 @@ export enum ScanMode {
     LONGPRESS = "longPress",
 }
 
-export interface SunmiBarcodeScannerPlugin {
+export interface SunmiScanHeadPlugin {
   /**
    * bind scan service
    */

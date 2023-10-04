@@ -1,20 +1,20 @@
-package dev.duma.capacitor.sunmibarcodescanner.configuration;
+package dev.duma.capacitor.sunmiscanhead.configuration;
 
 import android.content.Context;
 import android.os.RemoteException;
 
 import com.sunmi.scanner.IScanInterface;
 
-import dev.duma.capacitor.sunmibarcodescanner.SunmiBarcodeScanner;
-import dev.duma.capacitor.sunmibarcodescanner.SunmiHelper;
+import dev.duma.capacitor.sunmiscanhead.SunmiScanHead;
+import dev.duma.capacitor.sunmiscanhead.SunmiHelper;
 
 public class DataOutputModeConfigurator {
     private Context context;
-    private SunmiBarcodeScanner sunmiBarcodeScanner;
+    private SunmiScanHead SunmiScanHead;
 
-    public DataOutputModeConfigurator(Context context, SunmiBarcodeScanner sunmiBarcodeScanner) {
+    public DataOutputModeConfigurator(Context context, SunmiScanHead SunmiScanHead) {
         this.context = context;
-        this.sunmiBarcodeScanner = sunmiBarcodeScanner;
+        this.SunmiScanHead = SunmiScanHead;
     }
 
 
@@ -23,7 +23,7 @@ public class DataOutputModeConfigurator {
         keystroke(0, false, true);
     }
     public void keystroke(int interval, boolean tab, boolean enter) {
-        IScanInterface scanInterface = sunmiBarcodeScanner.getScanInterface();
+        IScanInterface scanInterface = SunmiScanHead.getScanInterface();
         if (scanInterface == null) return;
 
 
@@ -43,7 +43,7 @@ public class DataOutputModeConfigurator {
         directFill(false, false, true, true);
     }
     public void directFill(boolean overwrite, boolean tab, boolean enter, boolean asEvents) {
-        IScanInterface scanInterface = sunmiBarcodeScanner.getScanInterface();
+        IScanInterface scanInterface = SunmiScanHead.getScanInterface();
         if (scanInterface == null) return;
 
 
@@ -59,7 +59,7 @@ public class DataOutputModeConfigurator {
 
 
     public void disabled() {
-        IScanInterface scanInterface = sunmiBarcodeScanner.getScanInterface();
+        IScanInterface scanInterface = SunmiScanHead.getScanInterface();
         if (scanInterface == null) return;
 
 

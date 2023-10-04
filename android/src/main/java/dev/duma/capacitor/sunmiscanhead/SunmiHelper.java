@@ -1,4 +1,4 @@
-package dev.duma.capacitor.sunmibarcodescanner;
+package dev.duma.capacitor.sunmiscanhead;
 
 public class SunmiHelper {
     public static final String AIM_128 = "scan0035";

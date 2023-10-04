@@ -1,14 +1,14 @@
 import { registerPlugin } from '@capacitor/core';
 
-import type { SunmiBarcodeScannerPlugin } from './definitions';
+import type { SunmiScanHeadPlugin } from './definitions';
 
-const SunmiBarcodeScanner = registerPlugin<SunmiBarcodeScannerPlugin>(
-  'SunmiBarcodeScanner',
+const SunmiScanHead = registerPlugin<SunmiScanHeadPlugin>(
+  'SunmiScanHead',
   {
-    web: () => import('./web').then(m => new m.SunmiBarcodeScannerWeb()),
-    ios: () => import('./web').then(m => new m.SunmiBarcodeScannerWeb()),
+    web: () => import('./web').then(m => new m.SunmiScanHeadWeb()),
+    ios: () => import('./web').then(m => new m.SunmiScanHeadWeb()),
   },
 );
 
 export * from './definitions';
-export { SunmiBarcodeScanner };
+export { SunmiScanHead };

@@ -1,10 +1,10 @@
 import { WebPlugin } from '@capacitor/core';
 
-import type { SunmiBarcodeScannerPlugin } from './definitions';
+import type { SunmiScanHeadPlugin } from './definitions';
 
-export class SunmiBarcodeScannerWeb
+export class SunmiScanHeadWeb
   extends WebPlugin
-  implements SunmiBarcodeScannerPlugin
+  implements SunmiScanHeadPlugin
 {
   bindService(): Promise<void> {
     throw this.unimplemented('Not implemented on web.');
