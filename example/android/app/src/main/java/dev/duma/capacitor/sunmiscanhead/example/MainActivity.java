@@ -1,4 +1,4 @@
-package com.example.plugin;
+package dev.duma.capacitor.sunmiscanhead.example;
 
 import com.getcapacitor.BridgeActivity;
 

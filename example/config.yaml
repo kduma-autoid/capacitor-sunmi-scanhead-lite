@@ -1,0 +1,22 @@
+vars:
+  CI_BUILD_NUMBER:
+    default: 1
+  VERSION_NAME:
+    default: 1.0.0
+
+
+platforms:
+  android:
+    versionName: $VERSION_NAME
+    versionCode: $BUILD_NUMBER
+    packageName: dev.duma.capacitor.sunmiscanhead.example
+    appName: Sunmi Scan Head plugin for Capacitor.js
+project:
+  json:
+    - file: package.json
+      set:
+        version: $VERSION_NAME
+        description: Sunmi Scan Head plugin for Capacitor.js
+    - file: ../package.json
+      set:
+        version: $VERSION_NAME
