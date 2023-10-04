@@ -13,7 +13,7 @@
     "verify:web": "npm run build:web",
     "start": "vite",
     "build": "npm run build:android",
-    "build:android": "npx cap sync android && npm run build:web",
+    "build:android": "npm run build:web && npx cap sync android",
     "build:web": "npm run cap-config && vite build",
     "preview": "vite preview",
     "cap-config": "npx trapeze run config.yaml --diff -y"
