@@ -1,8 +1,8 @@
 vars:
   BUILD_NUMBER:
-    default: 7
+    default: 8
   VERSION_NAME:
-    default: 1.0.6
+    default: 1.0.7
   APP_NAME:
     default: Sunmi Scan Head plugin for Capacitor.js
   SHORT_APP_NAME:
