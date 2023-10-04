@@ -8,8 +8,13 @@
     "mobile"
   ],
   "scripts": {
+    "verify": "npm run verify:android && npm run verify:web",
+    "verify:android": "npx cap sync android",
+    "verify:web": "npm run build:web",
     "start": "vite",
-    "build": "../.scripts/bump_version.sh 3 && npm run cap-config && vite build",
+    "build": "npm run build:android",
+    "build:android": "../.scripts/bump_version.sh 3 && npx cap sync android && npm run build:web",
+    "build:web": "npm run cap-config && vite build",
     "preview": "vite preview",
     "cap-config": "npx trapeze run config.yaml --diff -y"
   },

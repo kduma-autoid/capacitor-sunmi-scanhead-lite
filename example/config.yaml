@@ -3,20 +3,43 @@ vars:
     default: 1
   VERSION_NAME:
     default: 1.0.0
+  APP_NAME:
+    default: Sunmi Scan Head plugin for Capacitor.js
+  PACKAGE_NAME:
+    default: dev.duma.capacitor.sunmiscanhead
+  EXAMPLE_PACKAGE_NAME:
+    default: dev.duma.capacitor.sunmiscanhead.example
 
 
 platforms:
   android:
     versionName: $VERSION_NAME
     versionCode: $BUILD_NUMBER
-    packageName: dev.duma.capacitor.sunmiscanhead.example
-    appName: Sunmi Scan Head plugin for Capacitor.js
+    packageName: $EXAMPLE_PACKAGE_NAME
+    appName: $APP_NAME
 project:
   json:
     - file: package.json
       set:
         version: $VERSION_NAME
-        description: Sunmi Scan Head plugin for Capacitor.js
+        description: $APP_NAME
     - file: ../package.json
       set:
         version: $VERSION_NAME
+  xml:
+    - file: android/app/src/main/res/values/strings.xml
+      target: resources/string[@name="app_name"]
+      replace: |
+        <string name="app_name">$APP_NAME</string>
+    - file: android/app/src/main/res/values/strings.xml
+      target: resources/string[@name="title_activity_main"]
+      replace: |
+        <string name="title_activity_main">$APP_NAME</string>
+    - file: android/app/src/main/res/values/strings.xml
+      target: resources/string[@name="package_name"]
+      replace: |
+        <string name="package_name">$EXAMPLE_PACKAGE_NAME</string>
+    - file: android/app/src/main/res/values/strings.xml
+      target: resources/string[@name="custom_url_scheme"]
+      replace: |
+        <string name="custom_url_scheme">$EXAMPLE_PACKAGE_NAME</string>
