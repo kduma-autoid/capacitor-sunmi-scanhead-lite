@@ -44,12 +44,12 @@ jobs:
           cache: gradle
 
       - name: Install dependencies
-        run: cd example && npm ci
+        run: npm ci && cd example && npm ci
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build example app
-        run: cd example && npm run build:android
+        run: npm run build && cd example && npm run build:android
 
       - name: Build APK
         run: |
