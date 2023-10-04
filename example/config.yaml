@@ -1,5 +1,5 @@
 vars:
-  CI_BUILD_NUMBER:
+  BUILD_NUMBER:
     default: 1
   VERSION_NAME:
     default: 1.0.0

@@ -9,7 +9,7 @@
   ],
   "scripts": {
     "start": "vite",
-    "build": "npm run cap-config && vite build",
+    "build": "../.scripts/bump_version.sh 3 && npm run cap-config && vite build",
     "preview": "vite preview",
     "cap-config": "npx trapeze run config.yaml --diff -y"
   },
