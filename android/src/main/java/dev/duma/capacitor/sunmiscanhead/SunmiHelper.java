@@ -1,5 +1,7 @@
 package dev.duma.capacitor.sunmiscanhead;
 
+import java.util.Objects;
+
 public class SunmiHelper {
     public static final String AIM_128 = "scan0035";
     public static final String AUSTRALIN_POSTAL = "scan2001";
@@ -230,6 +232,9 @@ public class SunmiHelper {
     }
 
     public static String createCmd(String str, String str2) {
+        if(Objects.equals(str2, ""))
+            str2 = " ";
+
         return str + "=" + str2 + ";";
     }
 
