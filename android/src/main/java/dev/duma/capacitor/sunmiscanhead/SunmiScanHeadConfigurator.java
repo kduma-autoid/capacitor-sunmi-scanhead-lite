@@ -5,9 +5,11 @@ import android.os.RemoteException;
 
 import com.sunmi.scanner.IScanInterface;
 
+import dev.duma.capacitor.sunmiscanhead.configuration.AdvancedFormatConfigurator;
 import dev.duma.capacitor.sunmiscanhead.configuration.BroadcastingConfigurator;
 import dev.duma.capacitor.sunmiscanhead.configuration.CodeTypeConfigurator;
 import dev.duma.capacitor.sunmiscanhead.configuration.DataOutputModeConfigurator;
+import dev.duma.capacitor.sunmiscanhead.configuration.PromptSettingsConfigurator;
 import dev.duma.capacitor.sunmiscanhead.configuration.ScanModeConfigurator;
 
 public class SunmiScanHeadConfigurator {
@@ -34,6 +36,14 @@ public class SunmiScanHeadConfigurator {
 
     public CodeTypeConfigurator codeType() {
         return new CodeTypeConfigurator(context, SunmiScanHead);
+    }
+
+    public PromptSettingsConfigurator promptSettings() {
+        return new PromptSettingsConfigurator(context, SunmiScanHead);
+    }
+
+    public AdvancedFormatConfigurator advancedFormat() {
+        return new AdvancedFormatConfigurator(context, SunmiScanHead);
     }
 
 

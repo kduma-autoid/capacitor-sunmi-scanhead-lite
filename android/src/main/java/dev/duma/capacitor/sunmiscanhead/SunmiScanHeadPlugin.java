@@ -168,6 +168,25 @@ public class SunmiScanHeadPlugin extends Plugin {
 
     /** @noinspection DataFlowIssue*/
     @PluginMethod
+    public void setAdvancedFormat(PluginCall call) {
+        implementation.getConfigurator().advancedFormat().advancedFormat(call.getBoolean("enabled", true));
+
+        call.resolve();
+    }
+
+    /** @noinspection DataFlowIssue*/
+    @PluginMethod
+    public void setPromptSettings(PluginCall call) {
+        implementation.getConfigurator().promptSettings().set(
+            call.getBoolean("sound", true),
+            call.getBoolean("vibrations", call.getBoolean("sound", true))
+        );
+
+        call.resolve();
+    }
+
+    /** @noinspection DataFlowIssue*/
+    @PluginMethod
     public void setBroadcast(PluginCall call) {
         implementation.getConfigurator().broadcasting().setBroadcast(call.getBoolean("enabled", true));
 

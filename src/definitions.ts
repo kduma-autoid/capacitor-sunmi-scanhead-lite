@@ -84,7 +84,17 @@ export interface SunmiScanHeadPlugin {
   /**
    * Enable or disable returning of code type with scan result
    */
-  setReturnCodeType(options: { enabled: boolean }): Promise<void>;
+  setReturnCodeType(options?: { enabled: boolean }): Promise<void>;
+
+  /**
+   * Enable or disable advanced formatting options provided in configuration
+   */
+  setAdvancedFormat(options?: { enabled: boolean }): Promise<void>;
+
+  /**
+   * Enable or disable sound and vibration prompts on scan
+   */
+  setPromptSettings(options?: { sound: boolean, vibrations?: boolean }): Promise<void>;
 
   /**
    * Enable or disable scan result broadcast
@@ -95,11 +105,11 @@ export interface SunmiScanHeadPlugin {
    * Set broadcast configuration
    */
   setBroadcastConfiguration(options?: {
-    scanned_intent?: string | null,
-    start_intent?: string | null,
-    end_intent?: string | null,
-    intent_data_key?: string | null,
-    intent_byte_key?: string | null
+    scanned_intent?: string,
+    start_intent?: string,
+    end_intent?: string,
+    intent_data_key?: string,
+    intent_byte_key?: string
   }): Promise<void>;
 
   /**

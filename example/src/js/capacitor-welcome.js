@@ -83,6 +83,12 @@ window.customElements.define(
           <button class="button" id="setReturnCodeType1">setReturnCodeType(true)</button>
           <button class="button" id="setReturnCodeType0">setReturnCodeType(false)</button>
           <hr>
+          <button class="button" id="setPromptSettings1">setPromptSettings(true)</button>
+          <button class="button" id="setPromptSettings0">setPromptSettings(false)</button>
+          <hr>
+          <button class="button" id="setAdvancedFormat1">setAdvancedFormat(true)</button>
+          <button class="button" id="setAdvancedFormat0">setAdvancedFormat(false)</button>
+          <hr>
           <button class="button" id="setBroadcast1">setBroadcast(true)</button>
           <button class="button" id="setBroadcast0">setBroadcast(false)</button>
           <button class="button" id="setBroadcastConfiguration">setBroadcastConfiguration()</button>
@@ -92,6 +98,7 @@ window.customElements.define(
         <p>
           <button class="button" id="example_normal">Normal Picking</button>
           <button class="button" id="example_fastbatch">Fast batch scan</button>
+          <button class="button" id="example_fastbatch_alt">Fast batch scan (ALT)</button>
         </p>        
         
         <h2>Events</h2>
@@ -158,6 +165,22 @@ window.customElements.define(
         await SunmiScanHead.setBroadcast({enabled: false});
       });
 
+      self.shadowRoot.querySelector('#setAdvancedFormat1').addEventListener('click', async function (e) {
+        await SunmiScanHead.setAdvancedFormat({enabled: true});
+      });
+
+      self.shadowRoot.querySelector('#setAdvancedFormat0').addEventListener('click', async function (e) {
+        await SunmiScanHead.setAdvancedFormat({enabled: false});
+      });
+
+      self.shadowRoot.querySelector('#setPromptSettings1').addEventListener('click', async function (e) {
+        await SunmiScanHead.setPromptSettings({sound: true});
+      });
+
+      self.shadowRoot.querySelector('#setPromptSettings0').addEventListener('click', async function (e) {
+        await SunmiScanHead.setPromptSettings({sound: false});
+      });
+
       self.shadowRoot.querySelector('#setOutputModeDisabled').addEventListener('click', async function (e) {
         await SunmiScanHead.setOutputMode({mode: OutputMode.DISABLED});
       });
@@ -195,21 +218,36 @@ window.customElements.define(
       });
 
       self.shadowRoot.querySelector('#example_normal').addEventListener('click', async function (e) {
-        await SunmiScanHead.setBroadcastConfiguration({ start_intent: null, end_intent: null, intent_byte_key: null });
+        await SunmiScanHead.setBroadcastConfiguration({ start_intent: "", end_intent: "" });
         await SunmiScanHead.setOutputMode({ mode: OutputMode.DISABLED });
         await SunmiScanHead.setBroadcast({ enabled: true });
         await SunmiScanHead.setReturnCodeType({ enabled: false });
+        await SunmiScanHead.setAdvancedFormat({ enabled: false });
+        await SunmiScanHead.setPromptSettings({ sound: true });
 
         await SunmiScanHead.setScanMode({ mode: ScanMode.TRIGGER });
       });
 
       self.shadowRoot.querySelector('#example_fastbatch').addEventListener('click', async function (e) {
-        await SunmiScanHead.setBroadcastConfiguration({ start_intent: null, end_intent: null, intent_byte_key: null });
+        await SunmiScanHead.setBroadcastConfiguration({ start_intent: "", end_intent: "" });
         await SunmiScanHead.setOutputMode({ mode: OutputMode.DISABLED });
         await SunmiScanHead.setBroadcast({ enabled: true });
         await SunmiScanHead.setReturnCodeType({ enabled: false });
+        await SunmiScanHead.setAdvancedFormat({ enabled: false });
+        await SunmiScanHead.setPromptSettings({ sound: false });
 
         await SunmiScanHead.setScanMode({ mode: ScanMode.LONGPRESS, sleep: 50 });
+      });
+
+      self.shadowRoot.querySelector('#example_fastbatch_alt').addEventListener('click', async function (e) {
+        await SunmiScanHead.setBroadcastConfiguration({ start_intent: "", end_intent: "" });
+        await SunmiScanHead.setOutputMode({ mode: OutputMode.DISABLED });
+        await SunmiScanHead.setBroadcast({ enabled: true });
+        await SunmiScanHead.setReturnCodeType({ enabled: false });
+        await SunmiScanHead.setAdvancedFormat({ enabled: false });
+        await SunmiScanHead.setPromptSettings({ sound: false });
+
+        await SunmiScanHead.setScanMode({ mode: ScanMode.CONTINUOUS, sleep: 50 });
       });
     }
   }

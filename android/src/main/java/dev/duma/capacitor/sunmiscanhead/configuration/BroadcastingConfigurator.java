@@ -54,10 +54,18 @@ public class BroadcastingConfigurator {
 
         try {
             scanInterface.sendCommand(
-            SunmiHelper.createCmd(SunmiHelper.SET_OUT_CODE_ACTION, scanned_intent) +
-                SunmiHelper.createCmd(SunmiHelper.SET_OUT_CODE_ACTION_DATA_KEY, intent_data_key) +
-                SunmiHelper.createCmd(SunmiHelper.SET_OUT_CODE_ACTION_BYTE_KEY, intent_byte_key) +
-                SunmiHelper.createCmd(SunmiHelper.SET_SCAN_START_DECODE_ACTION, start_intent) +
+                SunmiHelper.createCmd(SunmiHelper.SET_OUT_CODE_ACTION, scanned_intent)
+            );
+            scanInterface.sendCommand(
+                SunmiHelper.createCmd(SunmiHelper.SET_OUT_CODE_ACTION_DATA_KEY, intent_data_key)
+            );
+            scanInterface.sendCommand(
+                SunmiHelper.createCmd(SunmiHelper.SET_OUT_CODE_ACTION_BYTE_KEY, intent_byte_key)
+            );
+            scanInterface.sendCommand(
+                SunmiHelper.createCmd(SunmiHelper.SET_SCAN_START_DECODE_ACTION, start_intent)
+            );
+            scanInterface.sendCommand(
                 SunmiHelper.createCmd(SunmiHelper.SET_SCAN_END_DECODE_ACTION, end_intent)
             );
         } catch (RemoteException e) {

@@ -42,6 +42,8 @@ export default config;
 * [`setOutputMode(...)`](#setoutputmode)
 * [`setScanMode(...)`](#setscanmode)
 * [`setReturnCodeType(...)`](#setreturncodetype)
+* [`setAdvancedFormat(...)`](#setadvancedformat)
+* [`setPromptSettings(...)`](#setpromptsettings)
 * [`setBroadcast(...)`](#setbroadcast)
 * [`setBroadcastConfiguration(...)`](#setbroadcastconfiguration)
 * [`addListener('onScanResult', ...)`](#addlisteneronscanresult)
@@ -172,7 +174,7 @@ Set scan mode
 ### setReturnCodeType(...)
 
 ```typescript
-setReturnCodeType(options: { enabled: boolean; }) => Promise<void>
+setReturnCodeType(options?: { enabled: boolean; } | undefined) => Promise<void>
 ```
 
 Enable or disable returning of code type with scan result
@@ -180,6 +182,36 @@ Enable or disable returning of code type with scan result
 | Param         | Type                               |
 | ------------- | ---------------------------------- |
 | **`options`** | <code>{ enabled: boolean; }</code> |
+
+--------------------
+
+
+### setAdvancedFormat(...)
+
+```typescript
+setAdvancedFormat(options?: { enabled: boolean; } | undefined) => Promise<void>
+```
+
+Enable or disable advanced formatting options provided in configuration
+
+| Param         | Type                               |
+| ------------- | ---------------------------------- |
+| **`options`** | <code>{ enabled: boolean; }</code> |
+
+--------------------
+
+
+### setPromptSettings(...)
+
+```typescript
+setPromptSettings(options?: { sound: boolean; vibrations?: boolean | undefined; } | undefined) => Promise<void>
+```
+
+Enable or disable sound and vibration prompts on scan
+
+| Param         | Type                                                   |
+| ------------- | ------------------------------------------------------ |
+| **`options`** | <code>{ sound: boolean; vibrations?: boolean; }</code> |
 
 --------------------
 
@@ -202,14 +234,14 @@ Enable or disable scan result broadcast
 ### setBroadcastConfiguration(...)
 
 ```typescript
-setBroadcastConfiguration(options?: { scanned_intent?: string | null | undefined; start_intent?: string | null | undefined; end_intent?: string | null | undefined; intent_data_key?: string | null | undefined; intent_byte_key?: string | null | undefined; } | undefined) => Promise<void>
+setBroadcastConfiguration(options?: { scanned_intent?: string | undefined; start_intent?: string | undefined; end_intent?: string | undefined; intent_data_key?: string | undefined; intent_byte_key?: string | undefined; } | undefined) => Promise<void>
 ```
 
 Set broadcast configuration
 
-| Param         | Type                                                                                                                                                                              |
-| ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **`options`** | <code>{ scanned_intent?: string \| null; start_intent?: string \| null; end_intent?: string \| null; intent_data_key?: string \| null; intent_byte_key?: string \| null; }</code> |
+| Param         | Type                                                                                                                                      |
+| ------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| **`options`** | <code>{ scanned_intent?: string; start_intent?: string; end_intent?: string; intent_data_key?: string; intent_byte_key?: string; }</code> |
 
 --------------------
 

@@ -57,4 +57,12 @@ export class SunmiScanHeadWeb
   clearConfig(): Promise<void> {
     throw this.unimplemented('Not implemented on web.');
   }
+
+  setPromptSettings(): Promise<void> {
+    throw this.unimplemented('Not implemented on web.');
+  }
+
+  setAdvancedFormat(): Promise<void> {
+    throw this.unimplemented('Not implemented on web.');
+  }
 }
