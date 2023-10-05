@@ -86,6 +86,12 @@ window.customElements.define(
           <button class="button" id="setBroadcast1">setBroadcast(true)</button>
           <button class="button" id="setBroadcast0">setBroadcast(false)</button>
           <button class="button" id="setBroadcastConfiguration">setBroadcastConfiguration()</button>
+        </p> 
+        <hr>
+        <h2>Complex Examples</h2>
+        <p>
+          <button class="button" id="example_normal">Normal Picking</button>
+          <button class="button" id="example_fastbatch">Fast batch scan</button>
         </p>        
         
         <h2>Events</h2>
@@ -186,6 +192,24 @@ window.customElements.define(
 
       self.shadowRoot.querySelector('#clearConfig').addEventListener('click', async function (e) {
         await SunmiScanHead.clearConfig();
+      });
+
+      self.shadowRoot.querySelector('#example_normal').addEventListener('click', async function (e) {
+        await SunmiScanHead.setBroadcastConfiguration({ start_intent: null, end_intent: null, intent_byte_key: null });
+        await SunmiScanHead.setOutputMode({ mode: OutputMode.DISABLED });
+        await SunmiScanHead.setBroadcast({ enabled: true });
+        await SunmiScanHead.setReturnCodeType({ enabled: false });
+
+        await SunmiScanHead.setScanMode({ mode: ScanMode.TRIGGER });
+      });
+
+      self.shadowRoot.querySelector('#example_fastbatch').addEventListener('click', async function (e) {
+        await SunmiScanHead.setBroadcastConfiguration({ start_intent: null, end_intent: null, intent_byte_key: null });
+        await SunmiScanHead.setOutputMode({ mode: OutputMode.DISABLED });
+        await SunmiScanHead.setBroadcast({ enabled: true });
+        await SunmiScanHead.setReturnCodeType({ enabled: false });
+
+        await SunmiScanHead.setScanMode({ mode: ScanMode.LONGPRESS, sleep: 50 });
       });
     }
   }
