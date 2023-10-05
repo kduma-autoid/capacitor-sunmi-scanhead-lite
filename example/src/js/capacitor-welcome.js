@@ -1,5 +1,6 @@
 import {SplashScreen} from '@capacitor/splash-screen';
 import {OutputMode, ScanMode, SunmiScanHead} from "../../../src";
+import {WebViewWatchDog} from "@kduma-autoid/capacitor-webview-watchdog";
 
 window.customElements.define(
   'capacitor-welcome',
@@ -8,6 +9,7 @@ window.customElements.define(
       super();
 
       SplashScreen.hide();
+      WebViewWatchDog.ping();
 
       const root = this.attachShadow({ mode: 'open' });
 
