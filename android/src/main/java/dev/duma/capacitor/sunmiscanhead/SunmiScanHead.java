@@ -16,6 +16,7 @@ import com.sunmi.scanner.IScanInterface;
 
 public class SunmiScanHead {
     private final SunmiScanHeadConfigurator configurator;
+    private final Beeper beeper;
     private IScanInterface scanInterface;
     private final Context context;
     private final ServiceConnection connection = new ServiceConnection() {
@@ -40,10 +41,15 @@ public class SunmiScanHead {
     public SunmiScanHead(Context context) {
         this.context = context;
         this.configurator = new SunmiScanHeadConfigurator(context, this);
+        this.beeper = new Beeper(context);
     }
 
     public SunmiScanHeadConfigurator getConfigurator() {
         return configurator;
+    }
+
+    public Beeper getBeeper() {
+        return beeper;
     }
 
     @Nullable

@@ -65,4 +65,12 @@ export class SunmiScanHeadWeb
   setAdvancedFormat(): Promise<void> {
     throw this.unimplemented('Not implemented on web.');
   }
+
+  beep(): Promise<void> {
+    throw this.unimplemented('Not implemented on web.');
+  }
+
+  vibrate(): Promise<void> {
+    throw this.unimplemented('Not implemented on web.');
+  }
 }

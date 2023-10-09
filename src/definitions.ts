@@ -102,6 +102,16 @@ export interface SunmiScanHeadPlugin {
   setBroadcast(options: { enabled: boolean }): Promise<void>;
 
   /**
+   * Play a beep sound
+   */
+  beep(): Promise<void>;
+
+  /**
+   * Vibrate
+   */
+  vibrate(): Promise<void>;
+
+  /**
    * Set broadcast configuration
    */
   setBroadcastConfiguration(options?: {
