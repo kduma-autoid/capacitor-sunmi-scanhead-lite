@@ -208,4 +208,18 @@ public class SunmiScanHeadPlugin extends Plugin {
 
         call.resolve();
     }
+
+    @PluginMethod
+    public void beep(PluginCall call) {
+        implementation.getBeeper().beep();
+
+        call.resolve();
+    }
+
+    @PluginMethod
+    public void vibrate(PluginCall call) {
+        implementation.getBeeper().vibrate();
+
+        call.resolve();
+    }
 }

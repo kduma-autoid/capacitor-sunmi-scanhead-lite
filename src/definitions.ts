@@ -27,7 +27,7 @@ export enum ScanMode {
     LONGPRESS = "longPress",
 }
 
-type ScannerModelName = string|"NONE"|"SUPER_N1365_Y1825"|"NLS_2096"|"ZEBRA_4710"|"HONEYWELL_3601"|"HONEYWELL_6603"|"ZEBRA_4750"|"ZEBRA_1350"|"HONEYWELL_6703"|"HONEYWELL_3603"|"NLS_CM47"|"NLS_3108"|"ZEBRA_965"|"SM_SS_1100"|"NLS_CM30"|"HONEYWELL_4603"|"ZEBRA_4770"|"NLS_2596"|"SM_SS_1103"|"SM_SS_1101"|"HONEYWELL_5703"|"UNKNOWN";
+export type ScannerModelName = string|"NONE"|"SUPER_N1365_Y1825"|"NLS_2096"|"ZEBRA_4710"|"HONEYWELL_3601"|"HONEYWELL_6603"|"ZEBRA_4750"|"ZEBRA_1350"|"HONEYWELL_6703"|"HONEYWELL_3603"|"NLS_CM47"|"NLS_3108"|"ZEBRA_965"|"SM_SS_1100"|"NLS_CM30"|"HONEYWELL_4603"|"ZEBRA_4770"|"NLS_2596"|"SM_SS_1103"|"SM_SS_1101"|"HONEYWELL_5703"|"UNKNOWN";
 
 export interface SunmiScanHeadPlugin {
   /**
@@ -102,6 +102,16 @@ export interface SunmiScanHeadPlugin {
    * Enable or disable scan result broadcast
    */
   setBroadcast(options: { enabled: boolean }): Promise<void>;
+
+  /**
+   * Play a beep sound
+   */
+  beep(): Promise<void>;
+
+  /**
+   * Vibrate
+   */
+  vibrate(): Promise<void>;
 
   /**
    * Set broadcast configuration

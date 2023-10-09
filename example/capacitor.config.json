@@ -8,6 +8,7 @@
       "launchShowDuration": 0
     },
     "WebViewWatchDog": {
+      "launchWatchEnabled": false,
       "launchFailedHelpUrl": "https://autoid.duma.sh/watchdog/error/no-web-view"
     }
   }

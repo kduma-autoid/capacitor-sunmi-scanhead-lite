@@ -1,6 +1,6 @@
 import { WebPlugin } from '@capacitor/core';
 
-import type { SunmiScanHeadPlugin } from './definitions';
+import type { ScannerModelName, SunmiScanHeadPlugin } from './definitions';
 
 export class SunmiScanHeadWeb
   extends WebPlugin
@@ -26,7 +26,7 @@ export class SunmiScanHeadWeb
     throw this.unimplemented('Not implemented on web.');
   }
 
-  getScannerModel(): Promise<{ model: number; }> {
+  getScannerModel(): Promise<{ model: number, name: ScannerModelName }> {
     throw this.unimplemented('Not implemented on web.');
   }
 
@@ -63,6 +63,14 @@ export class SunmiScanHeadWeb
   }
 
   setAdvancedFormat(): Promise<void> {
+    throw this.unimplemented('Not implemented on web.');
+  }
+
+  beep(): Promise<void> {
+    throw this.unimplemented('Not implemented on web.');
+  }
+
+  vibrate(): Promise<void> {
     throw this.unimplemented('Not implemented on web.');
   }
 }

@@ -68,6 +68,9 @@ window.customElements.define(
           <button class="button" id="getScannerModel">getScannerModel()</button>
           <button class="button" id="clearConfig">clearConfig()</button>
           <hr>
+          <button class="button" id="beep">beep()</button>
+          <button class="button" id="vibrate">vibrate()</button>
+          <hr>
           <button class="button" id="setTrigger1">setTrigger(true)</button>
           <button class="button" id="setTrigger0">setTrigger(false)</button>
           <hr>
@@ -215,6 +218,14 @@ window.customElements.define(
 
       self.shadowRoot.querySelector('#clearConfig').addEventListener('click', async function (e) {
         await SunmiScanHead.clearConfig();
+      });
+
+      self.shadowRoot.querySelector('#beep').addEventListener('click', async function (e) {
+        await SunmiScanHead.beep();
+      });
+
+      self.shadowRoot.querySelector('#vibrate').addEventListener('click', async function (e) {
+        await SunmiScanHead.vibrate();
       });
 
       self.shadowRoot.querySelector('#example_normal').addEventListener('click', async function (e) {
