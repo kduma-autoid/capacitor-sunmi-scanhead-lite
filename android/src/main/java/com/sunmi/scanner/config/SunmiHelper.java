@@ -144,6 +144,7 @@ public class SunmiHelper {
     public static final int SCAN_CODE_SUF_NUM = 3;
     public static final String SEMICOLON = ";";
     public static final String SET_ADVANCED_FORMAT = "sunmi006000";
+    public static final String SET_FLASH_CONTROL = "scan00000107";
     public static final String SET_ADVANCED_FORMAT_ADD = "sunmi006002";
     public static final String SET_ADVANCED_FORMAT_CLEAR = "sunmi006004";
     public static final String SET_ADVANCED_FORMAT_EDIT = "sunmi006003";
@@ -293,6 +294,9 @@ public class SunmiHelper {
 
     public static String setAdvancedFormat(int i) {
         return createCmd(SET_ADVANCED_FORMAT, i);
+    }
+    public static String setFlashControl(int i) {
+        return createCmd(SET_FLASH_CONTROL, i);
     }
 
     public static String setAdvancedFormatRemove(String str) {
@@ -1206,6 +1210,11 @@ public class SunmiHelper {
                 sb.append(setAdvancedFormat(serviceSetting.mAdvancedFormat));
             } else {
                 Log.e(SunmiHelper.class.getSimpleName(), "set set.mAdvancedFormat value is not [0,1],now set.mAdvancedFormat=" + serviceSetting.mAdvancedFormat);
+            }
+            if (serviceSetting.scanExpSwitch == 1 || serviceSetting.scanExpSwitch == 0) {
+                sb.append(setFlashControl(serviceSetting.scanExpSwitch));
+            } else {
+                Log.e(SunmiHelper.class.getSimpleName(), "set set.scanExpSwitch value is not [0,1],now set.scanExpSwitch=" + serviceSetting.scanExpSwitch);
             }
             if (serviceSetting.advancedConfig == null || serviceSetting.advancedConfig.size() <= 0) {
                 sb.append(setAdvancedFormatClear(1));
