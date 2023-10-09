@@ -1,9 +1,13 @@
 package dev.duma.android.sunmi.scanconfigurationhelper;
 
 import android.os.RemoteException;
+import android.util.Log;
 
 import com.sunmi.scanner.config.SunmiHelper;
+import com.sunmi.scanner.entity.Pair;
 import com.sunmi.scanner.entity.ServiceSetting;
+
+import java.util.ArrayList;
 
 import dev.duma.android.sunmi.scanconfigurationhelper.models.ServiceConfiguration;
 import dev.duma.android.sunmi.scaninterfacehelper.IScanInterfaceHelper;
@@ -19,15 +23,21 @@ public class ScanConfigurationHelper implements IScanConfigurationHelper {
     @Override
     public void loadServiceConfig(IServiceConfigLoadedCallback callback) throws RemoteException {
         scanInterfaceHelper.sendQuery(SunmiHelper.QUERY_ALL_SETTING_INFO, (IQueryCallback<ServiceSetting>) (response, entity) -> {
-            callback.onLoaded(
-                    ServiceConfiguration.fromServiceSetting(response), response
-            );
+            scanInterfaceHelper.sendQuery(SunmiHelper.QUERY_ADVANCED_FORMAT, (IQueryCallback<ArrayList<Pair>>) (response_format, entity_format) -> {
+                callback.onLoaded(
+                        ServiceConfiguration.fromServiceSetting(response, response_format), response
+                );
+            });
         });
     }
 
     @Override
     public void persistServiceConfig(ServiceConfiguration configuration, ServiceSetting original) throws RemoteException {
-        String command = SunmiHelper.convertCmd(configuration.toServiceSetting(original));
+        ServiceSetting serviceSetting = configuration.toServiceSetting(original);
+        String command = SunmiHelper.convertCmd(serviceSetting);
+        command += SunmiHelper.setScanTrigger(serviceSetting.mTrigger);
+        command += SunmiHelper.setTriggerOverTime(configuration.getTriggerOverTime());
+        Log.i("CMD", command);
         scanInterfaceHelper.sendCommand(command);
     }
 }

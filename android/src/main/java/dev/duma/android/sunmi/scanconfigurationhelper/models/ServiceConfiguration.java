@@ -1,12 +1,13 @@
 package dev.duma.android.sunmi.scanconfigurationhelper.models;
 
 import com.sunmi.scanner.ScannerService;
+import com.sunmi.scanner.entity.Pair;
 import com.sunmi.scanner.entity.ServiceSetting;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 public class ServiceConfiguration implements Cloneable {
-//    public LinkedHashMap<String, String> advancedConfig;
 //    @Deprecated
 //    public int mDecodeMode = -1;
 //    @Deprecated
@@ -20,7 +21,7 @@ public class ServiceConfiguration implements Cloneable {
     /**
      * mTrigger[0]
      */
-    private boolean scanTrigger = false;
+    private boolean virtualFloatingScanButton = false;
 
     /**
      * mTips[0]
@@ -133,16 +134,23 @@ public class ServiceConfiguration implements Cloneable {
     private boolean advancedFormatEnabled = false;
 
     /**
+     * advancedConfig
+     */
+    private ArrayList<Pair> advancedFormat = new ArrayList<>();
+
+    /**
      * mCenterFlagScan
      */
     private boolean centerFlagScan = false; // TODO: Check if it is bool
 
 
-    public static ServiceConfiguration fromServiceSetting(ServiceSetting serviceSetting) {
+    public static ServiceConfiguration fromServiceSetting(ServiceSetting serviceSetting, ArrayList<Pair> response_format) {
         ServiceConfiguration c = new ServiceConfiguration();
 
+        c.advancedFormat = response_format;
+
         c.centerFlagScan = serviceSetting.mCenterFlagScan == 1;
-        c.scanTrigger = serviceSetting.mTrigger[0] == 1;
+        c.virtualFloatingScanButton = serviceSetting.mTrigger[0] == 1;
         c.advancedFormatEnabled = serviceSetting.mAdvancedFormat == 1;
         c.outputBroadcastEnabled = serviceSetting.mOutBroadcast == 1;
         c.beep = serviceSetting.mTips[0] == 1;
@@ -201,11 +209,14 @@ public class ServiceConfiguration implements Cloneable {
             c.suffix = null;
         }
 
-        c.addTab = serviceSetting.mTrigger[0] == 1;
-        c.addReturn = serviceSetting.mTrigger[1] == 1;
-        c.asEvents = serviceSetting.mTrigger[2] == 1;
-        c.addSpace = serviceSetting.mTrigger[3] == 1;
-
+        c.addTab = serviceSetting.mOutAutoAdd[0] == 1;
+        c.addReturn = serviceSetting.mOutAutoAdd[1] == 1;
+        if(serviceSetting.mOutAutoAdd.length > 2) {
+            c.asEvents = serviceSetting.mOutAutoAdd[2] == 1;
+        }
+        if(serviceSetting.mOutAutoAdd.length > 3) {
+            c.addSpace = serviceSetting.mOutAutoAdd[3] == 1;
+        }
 
         c.outputBroadcastAction = serviceSetting.mBroadcastAction;
         c.outputBroadcastDataKey = serviceSetting.mDataKey;
@@ -221,10 +232,12 @@ public class ServiceConfiguration implements Cloneable {
     public ServiceSetting toServiceSetting(ServiceSetting defaults) {
         ServiceSetting s = cloneServiceSetting(defaults);
 
+        s.setAdvancedConfig(advancedFormat);
+
         if(s.mCenterFlagScan != -1) {
             s.mCenterFlagScan = centerFlagScan ? 1 : 0;
         }
-        s.mTrigger[0] = scanTrigger ? 1 : 0;
+        s.mTrigger[0] = virtualFloatingScanButton ? 1 : 0;
         s.mAdvancedFormat = advancedFormatEnabled ? 1 : 0;
         s.mOutBroadcast = outputBroadcastEnabled ? 1 : 0;
 
@@ -293,10 +306,14 @@ public class ServiceConfiguration implements Cloneable {
             s.mSuffixContext = suffix;
         }
 
-        s.mTrigger[0] = addTab ? 1 : 0;
-        s.mTrigger[1] = addReturn ? 1 : 0;
-        s.mTrigger[2] = asEvents ? 1 : 0;
-        s.mTrigger[3] = addSpace ? 1 : 0;
+        s.mOutAutoAdd[0] = addTab ? 1 : 0;
+        s.mOutAutoAdd[1] = addReturn ? 1 : 0;
+        if(s.mOutAutoAdd.length > 2) {
+            s.mOutAutoAdd[2] = asEvents ? 1 : 0;
+        }
+        if(s.mOutAutoAdd.length > 3) {
+            s.mOutAutoAdd[3] = addSpace ? 1 : 0;
+        }
 
         s.mBroadcastAction = outputBroadcastAction;
         s.mDataKey = outputBroadcastDataKey;
@@ -366,9 +383,9 @@ public class ServiceConfiguration implements Cloneable {
         clone.mEndDecodeAction = original.mEndDecodeAction;
         clone.mBroadcastAction = original.mBroadcastAction;
         //noinspection unchecked
-        clone.advancedConfig = (LinkedHashMap<String, String>) original.advancedConfig.clone();
+        // clone.advancedConfig = (LinkedHashMap<String, String>) original.advancedConfig.clone();
 
-        return null;
+        return clone;
     }
 
     public OutputEncodingCodeEnum getOutputEncodingCode() {
@@ -379,12 +396,12 @@ public class ServiceConfiguration implements Cloneable {
         this.outputEncodingCode = outputEncodingCode;
     }
 
-    public boolean isScanTrigger() {
-        return scanTrigger;
+    public boolean isVirtualFloatingScanButton() {
+        return virtualFloatingScanButton;
     }
 
-    public void setScanTrigger(boolean scanTrigger) {
-        this.scanTrigger = scanTrigger;
+    public void setVirtualFloatingScanButton(boolean virtualFloatingScanButton) {
+        this.virtualFloatingScanButton = virtualFloatingScanButton;
     }
 
     public boolean isBeep() {

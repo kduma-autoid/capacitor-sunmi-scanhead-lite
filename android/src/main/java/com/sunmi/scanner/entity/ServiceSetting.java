@@ -7,6 +7,7 @@ import android.os.Parcelable;
 import com.sunmi.scanner.ScannerService;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -116,6 +117,14 @@ public class ServiceSetting implements Parcelable {
             arrayList.add(new Pair((String) next.getKey(), (String) next.getValue()));
         }
         return arrayList;
+    }
+
+    public void setAdvancedConfig(ArrayList<Pair> arrayList) {
+        this.advancedConfig = new LinkedHashMap<>();
+
+        for (Pair next : arrayList) {
+            advancedConfig.put(next.first, next.second);
+        }
     }
 
     public String toString() {
