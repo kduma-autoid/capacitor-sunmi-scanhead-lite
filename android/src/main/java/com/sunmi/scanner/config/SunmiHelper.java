@@ -162,6 +162,7 @@ public class SunmiHelper {
     public static final String SET_OUT_TYPE = "sunmi003002";
     public static final String SET_PREFIX = "sunmi005000";
     public static final String SET_PREFIX_CONTEXT = "sunmi005002";
+    public static final String SET_PREFIX_COUNT = "sunmi005004";
     public static final String SET_SCAN = "scan0000";
     public static final String SET_SCAN_ALL_CODE = "scan00000000";
     public static final String SET_SCAN_CMD = "scan99999999";
@@ -176,6 +177,7 @@ public class SunmiHelper {
     public static final String SET_SUFFIX = "sunmi005001";
     public static final String SET_REMOVE_GROUP_CHAR = "sunmi005006";
     public static final String SET_SUFFIX_CONTEXT = "sunmi005003";
+    public static final String SET_SUFFIX_COUNT = "sunmi005005";
     public static final String SET_TIPS = "sunmi002001";
     public static final String SET_TRIGGER_CONTINUOUS_TIME = "sunmi007003";
     public static final String SET_TRIGGER_METHOD = "sunmi007001";
@@ -271,6 +273,14 @@ public class SunmiHelper {
 
     public static String setRemoveGroupChar(int i) {
         return createCmd(SET_REMOVE_GROUP_CHAR, i);
+    }
+
+    public static String setPrefixCount(int i) {
+        return createCmd(SET_PREFIX_COUNT, i);
+    }
+
+    public static String setSuffixCount(int i) {
+        return createCmd(SET_SUFFIX_COUNT, i);
     }
 
     public static String setPrefixContext(String str) {
@@ -1153,6 +1163,16 @@ public class SunmiHelper {
             } else {
                 sb.append(setTriggerMethod(serviceSetting.mTriggerMethod));
                 sb.append(setScanTriggerModel(serviceSetting.mTriggerMethod));
+            }
+            if (serviceSetting.mPrefixCount < 0 || serviceSetting.mPrefixCount > 20) {
+                Log.e(SunmiHelper.class.getSimpleName(), "set set.mPrefixCount value isn't [0,20],now set.mPrefixCount=" + serviceSetting.mPrefixCount);
+            } else {
+                sb.append(setPrefixCount(serviceSetting.mPrefixCount));
+            }
+            if (serviceSetting.mSuffixCount < 0 || serviceSetting.mSuffixCount > 20) {
+                Log.e(SunmiHelper.class.getSimpleName(), "set set.mSuffixCount value isn't [0,20],now set.mSuffixCount=" + serviceSetting.mSuffixCount);
+            } else {
+                sb.append(setSuffixCount(serviceSetting.mSuffixCount));
             }
             if (serviceSetting.mTriggerTimeOut < 1000) {
                 serviceSetting.mTriggerTimeOut = 1000;
