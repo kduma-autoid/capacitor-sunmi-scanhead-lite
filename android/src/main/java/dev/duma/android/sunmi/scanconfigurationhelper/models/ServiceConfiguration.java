@@ -141,7 +141,7 @@ public class ServiceConfiguration implements Cloneable {
     /**
      * mCenterFlagScan
      */
-    private boolean centerFlagScan = false; // TODO: Check if it is bool
+    private CenterDecodingSettingEnum centerFlagScan = CenterDecodingSettingEnum.Disabled;
 
 
     public static ServiceConfiguration fromServiceSetting(ServiceSetting serviceSetting, ArrayList<Pair> response_format) {
@@ -149,7 +149,11 @@ public class ServiceConfiguration implements Cloneable {
 
         c.advancedFormat = response_format;
 
-        c.centerFlagScan = serviceSetting.mCenterFlagScan == 1;
+        c.centerFlagScan = switch (serviceSetting.mCenterFlagScan) {
+            default -> CenterDecodingSettingEnum.Disabled;
+            case 1 -> CenterDecodingSettingEnum.CenterOnly;
+            case 2 -> CenterDecodingSettingEnum.CenterFirst;
+        };
         c.virtualFloatingScanButton = serviceSetting.mTrigger[0] == 1;
         c.advancedFormatEnabled = serviceSetting.mAdvancedFormat == 1;
         c.outputBroadcastEnabled = serviceSetting.mOutBroadcast == 1;
@@ -235,7 +239,11 @@ public class ServiceConfiguration implements Cloneable {
         s.setAdvancedConfig(advancedFormat);
 
         if(s.mCenterFlagScan != -1) {
-            s.mCenterFlagScan = centerFlagScan ? 1 : 0;
+            s.mCenterFlagScan = switch (centerFlagScan) {
+                case Disabled -> 0;
+                case CenterOnly -> 1;
+                case CenterFirst -> 2;
+            };
         }
         s.mTrigger[0] = virtualFloatingScanButton ? 1 : 0;
         s.mAdvancedFormat = advancedFormatEnabled ? 1 : 0;
@@ -580,11 +588,11 @@ public class ServiceConfiguration implements Cloneable {
         this.advancedFormatEnabled = advancedFormatEnabled;
     }
 
-    public boolean isCenterFlagScan() {
+    public CenterDecodingSettingEnum getCenterFlagScan() {
         return centerFlagScan;
     }
 
-    public void setCenterFlagScan(boolean centerFlagScan) {
+    public void setCenterFlagScan(CenterDecodingSettingEnum centerFlagScan) {
         this.centerFlagScan = centerFlagScan;
     }
 }
