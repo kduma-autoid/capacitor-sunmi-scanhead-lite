@@ -11,6 +11,8 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import kotlin.jvm.internal.Intrinsics;
+
 public class ServiceSetting implements Parcelable {
     public static final Parcelable.Creator<ServiceSetting> CREATOR = new Parcelable.Creator<ServiceSetting>() {
         public ServiceSetting createFromParcel(Parcel parcel) {
@@ -26,7 +28,7 @@ public class ServiceSetting implements Parcelable {
     public String mBroadcastAction = ScannerService.ACTION_DATA_CODE_RECEIVED;
     public String mByteKey = ScannerService.SOURCE;
     public int mCenterFlagScan = 0;
-    public int mContinuousTime = 0; // ImageUtils.DEFAULT_IMG_WIDTH_MAX;
+    public int mContinuousTime = 500;
     public String mDataKey = ScannerService.DATA;
     @Deprecated
     public int mDecodeMode = -1;
@@ -48,6 +50,11 @@ public class ServiceSetting implements Parcelable {
     public int[] mTrigger = {0};
     public int mTriggerMethod = 0;
     public int mTriggerTimeOut = 2000;
+    public int scanExpSwitch = -1;
+    public int specificScene = -1;
+    public int mRemoveGroupChar = 0;
+    public int mPrefixCount = 0;
+    public int mSuffixCount = 0;
 
     public int describeContents() {
         return 0;
@@ -57,25 +64,65 @@ public class ServiceSetting implements Parcelable {
     }
 
     protected ServiceSetting(Parcel parcel) {
-        this.mOutCodeCharSet = parcel.readInt();
-        this.mTips = parcel.createIntArray();
+        Intrinsics.checkNotNullParameter(parcel, "parcel");
+
+        this.mTips = new int[]{1, 1};
+        int[] createIntArray = parcel.createIntArray();
+        this.mTips = createIntArray == null ? new int[]{1, 1} : createIntArray;
+
+        this.mOutBroadcast = 1;
         this.mOutBroadcast = parcel.readInt();
+
+        this.mOutType = 2;
         this.mOutType = parcel.readInt();
-        this.mOutAutoAdd = parcel.createIntArray();
+
+        this.mOutAutoAdd = new int[]{0, 1, 0, 0};
+        int[] createIntArray2 = parcel.createIntArray();
+        this.mOutAutoAdd = createIntArray2 == null ? new int[]{0, 1, 0, 0} : createIntArray2;
+
+        this.mPrefixContext = "";
+        String readString = parcel.readString();
+        this.mPrefixContext = readString == null ? "" : readString;
+
+        this.mSuffixContext = "";
+        String readString2 = parcel.readString();
+        this.mSuffixContext = readString2 != null ? readString2 : "";
+
+        this.mTriggerTimeOut = 5000;
+        this.mTriggerTimeOut = parcel.readInt();
+
+        this.mContinuousTime = 500;
+        this.mContinuousTime = parcel.readInt();
+
+        this.mTrigger = new int[]{0};
+        int[] createIntArray3 = parcel.createIntArray();
+        this.mTrigger = createIntArray3 == null ? new int[]{0} : createIntArray3;
+
+        this.mDecodeMode = -1;
+        this.mDecodeMode = parcel.readInt();
+
+        this.mDecodeWindowPercent = 50;
+        this.mDecodeWindowPercent = parcel.readInt();
+
+        this.advancedConfig = new LinkedHashMap<>();
+        this.mBroadcastAction = "com.sunmi.scanner.ACTION_DATA_CODE_RECEIVED";
+        this.mDataKey = "data";
+        this.mByteKey = "source_byte";
+        this.mStartDecodeAction = "";
+        this.mEndDecodeAction = "";
+        this.scanExpSwitch = -1;
+        this.specificScene = -1;
+        this.mOutCodeCharSet = parcel.readInt();
         this.mOutCharInterval = parcel.readInt();
         this.mPrefix = parcel.readInt();
         this.mSuffix = parcel.readInt();
-        this.mPrefixContext = parcel.readString();
-        this.mSuffixContext = parcel.readString();
         this.mAdvancedFormat = parcel.readInt();
         this.mTriggerMethod = parcel.readInt();
-        this.mTriggerTimeOut = parcel.readInt();
-        this.mTrigger = parcel.createIntArray();
         this.mOutCodeID = parcel.readInt();
-        this.mDecodeMode = parcel.readInt();
-        this.mDecodeWindowPercent = parcel.readInt();
         this.mCenterFlagScan = parcel.readInt();
-        this.mContinuousTime = parcel.readInt();
+        this.mPrefixCount = parcel.readInt();
+        this.mSuffixCount = parcel.readInt();
+        this.mRemoveGroupChar = parcel.readInt();
     }
 
     public void writeToParcel(Parcel parcel, int i) {
@@ -98,6 +145,9 @@ public class ServiceSetting implements Parcelable {
         parcel.writeInt(this.mDecodeWindowPercent);
         parcel.writeInt(this.mCenterFlagScan);
         parcel.writeInt(this.mContinuousTime);
+        parcel.writeInt(this.mPrefixCount);
+        parcel.writeInt(this.mSuffixCount);
+        parcel.writeInt(this.mRemoveGroupChar);
     }
 
     public byte[] getPrefix() {
