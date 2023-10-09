@@ -5,6 +5,7 @@ import com.getcapacitor.Plugin;
 import com.getcapacitor.PluginCall;
 import com.getcapacitor.PluginMethod;
 import com.getcapacitor.annotation.CapacitorPlugin;
+import com.sunmi.scanner.ScannerService;
 
 @CapacitorPlugin(name = "SunmiScanHead")
 public class SunmiScanHeadPlugin extends Plugin {
@@ -90,7 +91,9 @@ public class SunmiScanHeadPlugin extends Plugin {
     @PluginMethod
     public void getScannerModel(PluginCall call) {
         JSObject ret = new JSObject();
-        ret.put("model", implementation.getScannerModel());
+        int scannerModel = implementation.getScannerModel();
+        ret.put("model", scannerModel);
+        ret.put("name", ScannerService.scannerIdToName(scannerModel));
         call.resolve(ret);
     }
 
