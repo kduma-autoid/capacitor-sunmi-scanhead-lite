@@ -17,58 +17,32 @@ public class DataOutputModeConfigurator {
         this.SunmiScanHead = SunmiScanHead;
     }
 
-
-
-    public void keystroke() {
+    public void keystroke() throws RemoteException {
         keystroke(0, false, true);
     }
-    public void keystroke(int interval, boolean tab, boolean enter) {
-        IScanInterface scanInterface = SunmiScanHead.getScanInterface();
-        if (scanInterface == null) return;
 
-
-        try {
-            scanInterface.sendCommand(
+    public void keystroke(int interval, boolean tab, boolean enter) throws RemoteException {
+        SunmiScanHead.getScanInterfaceHelper().sendCommand(
             SunmiHelper.createCmd(SunmiHelper.SET_OUT_TYPE, 2) +
-                SunmiHelper.createCmd(SunmiHelper.SET_OUT_CHAR_INTERVAL, interval) +
-                SunmiHelper.createCmd(SunmiHelper.SET_OUT_AUTO_ADD, new int[] { tab ? 1 : 0, enter ? 1 : 0, 1 })
-            );
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
+            SunmiHelper.createCmd(SunmiHelper.SET_OUT_CHAR_INTERVAL, interval) +
+            SunmiHelper.createCmd(SunmiHelper.SET_OUT_AUTO_ADD, new int[] { tab ? 1 : 0, enter ? 1 : 0, 1 })
+        );
     }
 
-
-    public void directFill() {
+    public void directFill() throws RemoteException {
         directFill(false, false, true, true);
     }
-    public void directFill(boolean overwrite, boolean tab, boolean enter, boolean asEvents) {
-        IScanInterface scanInterface = SunmiScanHead.getScanInterface();
-        if (scanInterface == null) return;
 
-
-        try {
-            scanInterface.sendCommand(
+    public void directFill(boolean overwrite, boolean tab, boolean enter, boolean asEvents) throws RemoteException {
+        SunmiScanHead.getScanInterfaceHelper().sendCommand(
             SunmiHelper.createCmd(SunmiHelper.SET_OUT_TYPE, overwrite ? 1 : 0) +
-                SunmiHelper.createCmd(SunmiHelper.SET_OUT_AUTO_ADD, new int[] { tab ? 1 : 0, enter ? 1 : 0, asEvents ? 1 : 0 })
-            );
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
+            SunmiHelper.createCmd(SunmiHelper.SET_OUT_AUTO_ADD, new int[] { tab ? 1 : 0, enter ? 1 : 0, asEvents ? 1 : 0 })
+        );
     }
 
-
-    public void disabled() {
-        IScanInterface scanInterface = SunmiScanHead.getScanInterface();
-        if (scanInterface == null) return;
-
-
-        try {
-            scanInterface.sendCommand(
-                SunmiHelper.createCmd(SunmiHelper.SET_OUT_TYPE, 3)
-            );
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
+    public void disabled() throws RemoteException {
+        SunmiScanHead.getScanInterfaceHelper().sendCommand(
+            SunmiHelper.createCmd(SunmiHelper.SET_OUT_TYPE, 3)
+        );
     }
 }

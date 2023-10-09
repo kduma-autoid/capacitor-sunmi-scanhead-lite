@@ -1,4 +1,4 @@
-package dev.duma.capacitor.sunmiscanhead;
+package dev.duma.android.sunmi.scanbroadcastreceiver;
 
 import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
@@ -8,48 +8,35 @@ import android.content.IntentFilter;
 import android.util.Base64;
 import java.util.Objects;
 
-public class SunmiScanHeadBroadcastReceiver {
-    public interface ScanCallback {
-        void onScan(String data, String source_bytes);
-
-        void onStart();
-        void onStop();
-    }
-
+public class ScanHeadBroadcastReceiver implements IScanHeadBroadcastReceiver {
     private final Context context;
 
     private final ScanCallback callback;
 
-    private BroadcastReceiver receiver = new BroadcastReceiver() {
+    private final BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            switch(Objects.requireNonNull(intent.getAction())) {
-                case "com.sunmi.scanner.ACTION_DATA_CODE_RECEIVED":
+            switch (Objects.requireNonNull(intent.getAction())) {
+                case "com.sunmi.scanner.ACTION_DATA_CODE_RECEIVED" -> {
                     String code = intent.getStringExtra("data");
                     byte[] sourceBytes = intent.getByteArrayExtra("source_byte");
                     String source_byte = Base64.encodeToString(sourceBytes, Base64.NO_WRAP);
-
                     if (code != null && !code.isEmpty()) {
                         callback.onScan(code, source_byte);
                     }
-                    break;
-
-                case "com.sunmi.scanner.ACTION_SCAN_START":
-                    callback.onStart();
-                    break;
-
-                case "com.sunmi.scanner.ACTION_SCAN_END":
-                    callback.onStop();
-                    break;
+                }
+                case "com.sunmi.scanner.ACTION_SCAN_START" -> callback.onStart();
+                case "com.sunmi.scanner.ACTION_SCAN_END" -> callback.onStop();
             }
         }
     };
 
-    public SunmiScanHeadBroadcastReceiver(Context context, ScanCallback callback) {
+    protected ScanHeadBroadcastReceiver(Context context, ScanCallback callback) {
         this.context = context;
         this.callback = callback;
     }
 
+    @Override
     @SuppressLint("UnspecifiedRegisterReceiverFlag")
     public void register() {
         IntentFilter filter = new IntentFilter();
@@ -60,6 +47,7 @@ public class SunmiScanHeadBroadcastReceiver {
         context.registerReceiver(receiver, filter);
     }
 
+    @Override
     public void unregister() {
         try {
             context.unregisterReceiver(receiver);
