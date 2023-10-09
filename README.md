@@ -45,6 +45,8 @@ export default config;
 * [`setAdvancedFormat(...)`](#setadvancedformat)
 * [`setPromptSettings(...)`](#setpromptsettings)
 * [`setBroadcast(...)`](#setbroadcast)
+* [`beep()`](#beep)
+* [`vibrate()`](#vibrate)
 * [`setBroadcastConfiguration(...)`](#setbroadcastconfiguration)
 * [`addListener('onScanResult', ...)`](#addlisteneronscanresult)
 * [`addListener('onScanStart', ...)`](#addlisteneronscanstart)
@@ -227,6 +229,28 @@ Enable or disable scan result broadcast
 | Param         | Type                               |
 | ------------- | ---------------------------------- |
 | **`options`** | <code>{ enabled: boolean; }</code> |
+
+--------------------
+
+
+### beep()
+
+```typescript
+beep() => Promise<void>
+```
+
+Play a beep sound
+
+--------------------
+
+
+### vibrate()
+
+```typescript
+vibrate() => Promise<void>
+```
+
+Vibrate
 
 --------------------
 
