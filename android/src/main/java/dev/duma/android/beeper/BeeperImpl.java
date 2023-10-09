@@ -1,4 +1,4 @@
-package dev.duma.capacitor.sunmiscanhead;
+package dev.duma.android.beeper;
 
 import android.content.Context;
 import android.media.SoundPool;
@@ -6,12 +6,14 @@ import android.os.Build;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 
-public class Beeper {
+import dev.duma.capacitor.sunmiscanhead.R;
+
+public class BeeperImpl implements IBeeper {
     private final int sound;
     private final SoundPool soundPool;
     private final Vibrator vibrator;
 
-    public Beeper(Context context) {
+    protected BeeperImpl(Context context) {
         SoundPool build = new SoundPool.Builder().build();
 
         this.soundPool = build;

@@ -14,9 +14,11 @@ import androidx.annotation.Nullable;
 
 import com.sunmi.scanner.IScanInterface;
 
+import dev.duma.android.beeper.IBeeper;
+
 public class SunmiScanHead {
     private final SunmiScanHeadConfigurator configurator;
-    private final Beeper beeper;
+    private final IBeeper beeper;
     private IScanInterface scanInterface;
     private final Context context;
     private final ServiceConnection connection = new ServiceConnection() {
@@ -41,14 +43,14 @@ public class SunmiScanHead {
     public SunmiScanHead(Context context) {
         this.context = context;
         this.configurator = new SunmiScanHeadConfigurator(context, this);
-        this.beeper = new Beeper(context);
+        this.beeper = IBeeper.Factory.make(context);
     }
 
     public SunmiScanHeadConfigurator getConfigurator() {
         return configurator;
     }
 
-    public Beeper getBeeper() {
+    public IBeeper getBeeper() {
         return beeper;
     }
 
