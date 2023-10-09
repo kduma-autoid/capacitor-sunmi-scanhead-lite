@@ -17,19 +17,13 @@ public class CodeTypeConfigurator {
         this.SunmiScanHead = SunmiScanHead;
     }
 
-    public void returnCodeType() {
+    public void returnCodeType() throws RemoteException {
         returnCodeType(true);
     }
-    public void returnCodeType(boolean enabled) {
-        IScanInterface scanInterface = SunmiScanHead.getScanInterface();
-        if (scanInterface == null) return;
 
-        try {
-            scanInterface.sendCommand(
-                SunmiHelper.createCmd(SunmiHelper.SET_OUT_CODE_ID, enabled ? 1 : 0)
-            );
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
+    public void returnCodeType(boolean enabled) throws RemoteException {
+        SunmiScanHead.getScanInterfaceHelper().sendCommand(
+            SunmiHelper.createCmd(SunmiHelper.SET_OUT_CODE_ID, enabled ? 1 : 0)
+        );
     }
 }

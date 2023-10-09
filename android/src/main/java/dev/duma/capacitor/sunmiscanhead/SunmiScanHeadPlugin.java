@@ -7,9 +7,12 @@ import com.getcapacitor.PluginMethod;
 import com.getcapacitor.annotation.CapacitorPlugin;
 import com.sunmi.scanner.ScannerService;
 
+import dev.duma.android.sunmi.scanbroadcastreceiver.IScanHeadBroadcastReceiver.ScanCallback;
+import dev.duma.capacitor.pluginhelpers.CallbackHelper;
+
 @CapacitorPlugin(name = "SunmiScanHead")
 public class SunmiScanHeadPlugin extends Plugin {
-    private final SunmiScanHeadBroadcastReceiver.ScanCallback receiverCallback = new SunmiScanHeadBroadcastReceiver.ScanCallback() {
+    private final ScanCallback scanCallback = new ScanCallback() {
         @Override
         public void onScan(String data, String source_bytes) {
             JSObject ret = new JSObject();
@@ -30,17 +33,14 @@ public class SunmiScanHeadPlugin extends Plugin {
     };
 
     private SunmiScanHead implementation;
-    private SunmiScanHeadBroadcastReceiver broadcastReceiver;
 
     @Override
     public void load() {
-        implementation = new SunmiScanHead(getContext());
-        broadcastReceiver = new SunmiScanHeadBroadcastReceiver(getContext(), receiverCallback);
+        implementation = new SunmiScanHead(getContext(), scanCallback);
 
         if(getConfig().getBoolean("bindOnLoad", true)) {
             try {
-                implementation.bindService();
-                broadcastReceiver.register();
+                implementation.register();
             } catch (RuntimeException e) {
                 // ignore
             }
@@ -51,175 +51,197 @@ public class SunmiScanHeadPlugin extends Plugin {
 
     @PluginMethod
     public void bindService(PluginCall call) {
-        implementation.bindService();
-        broadcastReceiver.register();
-        call.resolve();
+        CallbackHelper.handle(call, (c) -> {
+            implementation.register();
+            c.resolve();
+        });
     }
 
     @PluginMethod
-    public void disconnectService(PluginCall call) {
-        implementation.unbindService();
-        broadcastReceiver.unregister();
-        call.resolve();
+    public void unBindService(PluginCall call) {
+        CallbackHelper.handle(call, (c) -> {
+            implementation.unregister();
+            c.resolve();
+        });
     }
-
-//    @PluginMethod
-//    public void sendKeyEvent(PluginCall call) {
-//        implementation.sendKeyEvent(
-//            new KeyEvent(
-//                call.getInt("action", 0),
-//                call.getInt("code", 0)
-//            )
-//        );
-//        call.resolve();
-//    }
 
     @PluginMethod
     public void scan(PluginCall call) {
-        implementation.scan();
-
-        call.resolve();
+        CallbackHelper.handle(call, (c) -> {
+            implementation.getScanInterfaceHelper().scan();
+            c.resolve();
+        });
     }
 
     @PluginMethod
     public void stop(PluginCall call) {
-        implementation.stop();
-
-        call.resolve();
+        CallbackHelper.handle(call, (c) -> {
+            implementation.getScanInterfaceHelper().stop();
+            c.resolve();
+        });
     }
 
     @PluginMethod
     public void getScannerModel(PluginCall call) {
-        JSObject ret = new JSObject();
-        int scannerModel = implementation.getScannerModel();
-        ret.put("id", scannerModel);
-        ret.put("name", ScannerService.scannerIdToName(scannerModel));
-        call.resolve(ret);
+        CallbackHelper.handle(call, (c) -> {
+            int scannerModel = implementation.getScanInterfaceHelper().getScannerModel();
+
+            JSObject ret = new JSObject();
+            ret.put("id", scannerModel);
+            ret.put("name", ScannerService.scannerIdToName(scannerModel));
+            
+            c.resolve(ret);
+        });
     }
 
     @PluginMethod
     public void clearConfig(PluginCall call) {
-        implementation.clearConfig();
+        CallbackHelper.handle(call, (c) -> {
+            boolean status = implementation.getScanInterfaceHelper().clearConfig();
 
-        call.resolve();
+            JSObject ret = new JSObject();
+            ret.put("cleared", status);
+            
+            c.resolve(ret);
+        });
     }
 
     /** @noinspection DataFlowIssue*/
     @PluginMethod
     public void setTrigger(PluginCall call) {
-        implementation.setTrigger(call.getBoolean("enabled", true));
+        CallbackHelper.handle(call, (c) -> {
+            implementation.setTrigger(c.getBoolean("enabled", true));
 
-        call.resolve();
+            c.resolve();
+        });
     }
 
     /** @noinspection DataFlowIssue*/
     @PluginMethod
     public void setOutputMode(PluginCall call) {
-        switch (call.getString("mode", "disabled")){
-            default -> implementation.getConfigurator().dataOutputMode().disabled();
+        CallbackHelper.handle(call, (c) -> {
+            switch (c.getString("mode", "disabled")){
+                default -> implementation.getConfigurator().dataOutputMode().disabled();
 
-            case "keystroke" -> implementation.getConfigurator().dataOutputMode().keystroke(
-                call.getInt("interval", 0),
-                call.getBoolean("tab", false),
-                call.getBoolean("enter", true)
-            );
+                case "keystroke" -> implementation.getConfigurator().dataOutputMode().keystroke(
+                        c.getInt("interval", 0),
+                        c.getBoolean("tab", false),
+                        c.getBoolean("enter", true)
+                );
 
-            case "directFill" -> implementation.getConfigurator().dataOutputMode().directFill(
-                call.getBoolean("overwrite", false),
-                call.getBoolean("tab", false),
-                call.getBoolean("enter", true),
-                call.getBoolean("asEvent", true)
-            );
-        }
+                case "directFill" -> implementation.getConfigurator().dataOutputMode().directFill(
+                        c.getBoolean("overwrite", false),
+                        c.getBoolean("tab", false),
+                        c.getBoolean("enter", true),
+                        c.getBoolean("asEvent", true)
+                );
+            }
 
-        call.resolve();
+            c.resolve();
+        });
     }
 
     /** @noinspection DataFlowIssue*/
     @PluginMethod
     public void setScanMode(PluginCall call) {
-        switch (call.getString("mode", "trigger")){
-            default -> implementation.getConfigurator().scanMode().trigger(
-                call.getInt("timeout", 5000)
-            );
+        CallbackHelper.handle(call, (c) -> {
+            switch (c.getString("mode", "trigger")){
+                default -> implementation.getConfigurator().scanMode().trigger(
+                        c.getInt("timeout", 5000)
+                );
 
-            case "continuous" -> implementation.getConfigurator().scanMode().continuous(
-                    call.getInt("sleep", 500),
-                    call.getInt("timeout", 5000)
-            );
+                case "continuous" -> implementation.getConfigurator().scanMode().continuous(
+                        c.getInt("sleep", 500),
+                        c.getInt("timeout", 5000)
+                );
 
-            case "pulse" -> implementation.getConfigurator().scanMode().pulse(
-                    call.getInt("timeout", 5000)
-            );
+                case "pulse" -> implementation.getConfigurator().scanMode().pulse(
+                        c.getInt("timeout", 5000)
+                );
 
-            case "longPress" -> implementation.getConfigurator().scanMode().longPress(
-                    call.getInt("sleep", 500),
-                    call.getInt("timeout", 5000)
-            );
-        }
+                case "longPress" -> implementation.getConfigurator().scanMode().longPress(
+                        c.getInt("sleep", 500),
+                        c.getInt("timeout", 5000)
+                );
+            }
 
-        call.resolve();
+            c.resolve();
+        });
     }
 
     /** @noinspection DataFlowIssue*/
     @PluginMethod
     public void setReturnCodeType(PluginCall call) {
-        implementation.getConfigurator().codeType().returnCodeType(call.getBoolean("enabled", true));
+        CallbackHelper.handle(call, (c) -> {
+            implementation.getConfigurator().codeType().returnCodeType(c.getBoolean("enabled", true));
 
-        call.resolve();
+            c.resolve();
+        });
     }
 
     /** @noinspection DataFlowIssue*/
     @PluginMethod
     public void setAdvancedFormat(PluginCall call) {
-        implementation.getConfigurator().advancedFormat().advancedFormat(call.getBoolean("enabled", true));
+        CallbackHelper.handle(call, (c) -> {
+            implementation.getConfigurator().advancedFormat().advancedFormat(c.getBoolean("enabled", true));
 
-        call.resolve();
+            c.resolve();
+        });
     }
 
     /** @noinspection DataFlowIssue*/
     @PluginMethod
     public void setPromptSettings(PluginCall call) {
-        implementation.getConfigurator().promptSettings().set(
-            call.getBoolean("sound", true),
-            call.getBoolean("vibrations", call.getBoolean("sound", true))
-        );
+        CallbackHelper.handle(call, (c) -> {
+            implementation.getConfigurator().promptSettings().set(
+                    c.getBoolean("sound", true),
+                    c.getBoolean("vibrations", c.getBoolean("sound", true))
+            );
 
-        call.resolve();
+            c.resolve();
+        });
     }
 
     /** @noinspection DataFlowIssue*/
     @PluginMethod
     public void setBroadcast(PluginCall call) {
-        implementation.getConfigurator().broadcasting().setBroadcast(call.getBoolean("enabled", true));
+        CallbackHelper.handle(call, (c) -> {
+            implementation.getConfigurator().broadcasting().setBroadcast(c.getBoolean("enabled", true));
 
-        call.resolve();
+            c.resolve();
+        });
     }
 
     @PluginMethod
     public void setBroadcastConfiguration(PluginCall call) {
-        implementation.getConfigurator().broadcasting().configure(
-            call.getString("scanned_intent", "com.sunmi.scanner.ACTION_DATA_CODE_RECEIVED"),
-            call.getString("start_intent", "com.sunmi.scanner.ACTION_SCAN_START"),
-            call.getString("end_intent", "com.sunmi.scanner.ACTION_SCAN_END"),
-            call.getString("intent_data_key", "data"),
-            call.getString("intent_byte_key", "source_byte")
-        );
+        CallbackHelper.handle(call, (c) -> {
+            implementation.getConfigurator().broadcasting().configure(
+                    c.getString("scanned_intent", "com.sunmi.scanner.ACTION_DATA_CODE_RECEIVED"),
+                    c.getString("start_intent", "com.sunmi.scanner.ACTION_SCAN_START"),
+                    c.getString("end_intent", "com.sunmi.scanner.ACTION_SCAN_END"),
+                    c.getString("intent_data_key", "data"),
+                    c.getString("intent_byte_key", "source_byte")
+            );
 
-        call.resolve();
+            c.resolve();
+        });
     }
 
     @PluginMethod
     public void beep(PluginCall call) {
-        implementation.getBeeper().beep();
+        CallbackHelper.handle(call, (c) -> {
+            implementation.getBeeper().beep();
 
-        call.resolve();
+            c.resolve();
+        });
     }
 
     @PluginMethod
     public void vibrate(PluginCall call) {
-        implementation.getBeeper().vibrate();
+        CallbackHelper.handle(call, (c) -> {
+            implementation.getBeeper().vibrate();
 
-        call.resolve();
+            c.resolve();
+        });
     }
 }

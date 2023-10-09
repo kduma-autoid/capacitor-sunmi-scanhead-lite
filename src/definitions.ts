@@ -65,7 +65,7 @@ export interface SunmiScanHeadPlugin {
   /**
    * Clear scanner configuration (reset to default)
    */
-  clearConfig(): Promise<void>;
+  clearConfig(): Promise<{ cleared: boolean; }>;
 
   /**
    * Enable or disable trigger button

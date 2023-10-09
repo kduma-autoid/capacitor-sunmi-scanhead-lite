@@ -54,7 +54,7 @@ export class SunmiScanHeadWeb
     throw this.unimplemented('Not implemented on web.');
   }
 
-  clearConfig(): Promise<void> {
+  clearConfig(): Promise<{ cleared: boolean; }> {
     throw this.unimplemented('Not implemented on web.');
   }
 

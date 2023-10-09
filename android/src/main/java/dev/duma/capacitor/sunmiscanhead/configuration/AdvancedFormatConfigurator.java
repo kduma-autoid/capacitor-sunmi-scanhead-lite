@@ -17,19 +17,12 @@ public class AdvancedFormatConfigurator {
         this.SunmiScanHead = SunmiScanHead;
     }
 
-    public void advancedFormat() {
+    public void advancedFormat() throws RemoteException {
         advancedFormat(true);
     }
-    public void advancedFormat(boolean enabled) {
-        IScanInterface scanInterface = SunmiScanHead.getScanInterface();
-        if (scanInterface == null) return;
-
-        try {
-            scanInterface.sendCommand(
+    public void advancedFormat(boolean enabled) throws RemoteException {
+        SunmiScanHead.getScanInterfaceHelper().sendCommand(
                 SunmiHelper.createCmd(SunmiHelper.SET_ADVANCED_FORMAT, enabled ? 1 : 0)
-            );
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
+        );
     }
 }
