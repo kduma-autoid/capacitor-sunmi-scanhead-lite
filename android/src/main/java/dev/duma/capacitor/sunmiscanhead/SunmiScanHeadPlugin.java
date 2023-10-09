@@ -92,7 +92,7 @@ public class SunmiScanHeadPlugin extends Plugin {
     public void getScannerModel(PluginCall call) {
         JSObject ret = new JSObject();
         int scannerModel = implementation.getScannerModel();
-        ret.put("model", scannerModel);
+        ret.put("id", scannerModel);
         ret.put("name", ScannerService.scannerIdToName(scannerModel));
         call.resolve(ret);
     }

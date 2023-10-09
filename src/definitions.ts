@@ -60,7 +60,7 @@ export interface SunmiScanHeadPlugin {
   /**
    * Get scanner model ID
    */
-  getScannerModel(): Promise<{ model: number, name: ScannerModelName }>;
+  getScannerModel(): Promise<{ id: number, name: ScannerModelName }>;
 
   /**
    * Clear scanner configuration (reset to default)
