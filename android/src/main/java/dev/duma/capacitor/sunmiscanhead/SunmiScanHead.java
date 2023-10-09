@@ -14,7 +14,7 @@ import androidx.annotation.Nullable;
 
 import com.sunmi.scanner.IScanInterface;
 
-import dev.duma.android.beeper.IBeeper;
+import dev.duma.android.sunmi.beeper.IBeeper;
 
 public class SunmiScanHead {
     private final SunmiScanHeadConfigurator configurator;

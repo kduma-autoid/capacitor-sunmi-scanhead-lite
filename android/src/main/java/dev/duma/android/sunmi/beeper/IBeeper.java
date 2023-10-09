@@ -1,4 +1,4 @@
-package dev.duma.android.beeper;
+package dev.duma.android.sunmi.beeper;
 
 import android.content.Context;
 
@@ -21,7 +21,7 @@ public interface IBeeper {
         }
 
         static public IBeeper make(Context context) {
-            return new BeeperImpl(context);
+            return new Beeper(context);
         }
     }
 
