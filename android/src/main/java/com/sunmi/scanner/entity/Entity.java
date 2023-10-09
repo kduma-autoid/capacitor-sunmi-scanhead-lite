@@ -29,19 +29,18 @@ public class Entity<T> implements Parcelable {
     }
 
     protected Entity(Parcel parcel) {
-        try {
-            String readString = parcel.readString();
-            this.clazz = readString;
-            if (readString.contains("ArrayList")) {
-                ArrayList arrayList = new ArrayList();
-                this.bean = (T) arrayList;
-                parcel.readList((List) arrayList, Class.forName(this.clazz).getClassLoader());
-                return;
-            }
-            this.bean = parcel.readParcelable(Class.forName(this.clazz).getClassLoader());
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+        ClassLoader classLoader = getClass().getClassLoader();
+        this.clazz = parcel.readString();
+
+        assert this.clazz != null;
+        if (this.clazz.contains("ArrayList")) {
+            ArrayList arrayList = new ArrayList();
+            this.bean = (T) arrayList;
+            parcel.readList((List) arrayList, classLoader);
+            return;
         }
+
+        this.bean = parcel.readParcelable(classLoader);
     }
 
     @Override
@@ -62,5 +61,9 @@ public class Entity<T> implements Parcelable {
 
     public T getBean() {
         return this.bean;
+    }
+
+    public String getClazz() {
+        return clazz;
     }
 }
