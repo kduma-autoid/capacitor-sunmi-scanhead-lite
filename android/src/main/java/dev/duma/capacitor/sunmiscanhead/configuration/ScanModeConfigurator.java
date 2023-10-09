@@ -1,20 +1,15 @@
 package dev.duma.capacitor.sunmiscanhead.configuration;
 
-import android.content.Context;
 import android.os.RemoteException;
 
-import com.sunmi.scanner.IScanInterface;
-
-import dev.duma.capacitor.sunmiscanhead.SunmiScanHead;
-import dev.duma.capacitor.sunmiscanhead.SunmiHelper;
+import dev.duma.android.sunmi.scanconfigurationhelper.IScanConfigurationHelper;
+import dev.duma.android.sunmi.scanconfigurationhelper.models.TriggerMethodEnum;
 
 public class ScanModeConfigurator {
-    private Context context;
-    private SunmiScanHead SunmiScanHead;
+    private final IScanConfigurationHelper scanConfigurationHelper;
 
-    public ScanModeConfigurator(Context context, SunmiScanHead SunmiScanHead) {
-        this.context = context;
-        this.SunmiScanHead = SunmiScanHead;
+    public ScanModeConfigurator(IScanConfigurationHelper scanConfigurationHelper) {
+        this.scanConfigurationHelper = scanConfigurationHelper;
     }
 
     public void trigger() throws RemoteException {
@@ -22,12 +17,13 @@ public class ScanModeConfigurator {
     }
 
     public void trigger(int timeout) throws RemoteException {
-        SunmiScanHead.getScanInterfaceHelper().sendCommand(
-            SunmiHelper.createCmd(SunmiHelper.SET_TRIGGER_METHOD, 0) +
-            SunmiHelper.createCmd(SunmiHelper.SET_SCAN_TRIGGER_METHOD, 0) +
-            SunmiHelper.createCmd(SunmiHelper.SET_TRIGGER_OVER_TIME, timeout) +
-            SunmiHelper.createCmd(SunmiHelper.SET_SCAN_TRIGGER_TIME_OUT, timeout)
-        );
+        scanConfigurationHelper.loadServiceConfig((configuration, response) -> {
+            configuration.setTriggerMethod(TriggerMethodEnum.Trigger);
+            configuration.setTriggerOverTime(timeout);
+            configuration.setScanTriggerTimeOut(timeout);
+
+            scanConfigurationHelper.persistServiceConfig(configuration, response);
+        });
     }
 
     public void continuous() throws RemoteException {
@@ -39,13 +35,14 @@ public class ScanModeConfigurator {
     }
 
     public void continuous(int sleep, int timeout) throws RemoteException {
-        SunmiScanHead.getScanInterfaceHelper().sendCommand(
-            SunmiHelper.createCmd(SunmiHelper.SET_TRIGGER_METHOD, 1) +
-            SunmiHelper.createCmd(SunmiHelper.SET_SCAN_TRIGGER_METHOD, 1) +
-            SunmiHelper.createCmd(SunmiHelper.SET_TRIGGER_OVER_TIME, timeout) +
-            SunmiHelper.createCmd(SunmiHelper.SET_SCAN_TRIGGER_TIME_OUT, timeout) +
-            SunmiHelper.createCmd(SunmiHelper.SET_TRIGGER_CONTINUOUS_TIME, sleep)
-        );
+        scanConfigurationHelper.loadServiceConfig((configuration, response) -> {
+            configuration.setTriggerMethod(TriggerMethodEnum.Continuous);
+            configuration.setTriggerOverTime(timeout);
+            configuration.setScanTriggerTimeOut(timeout);
+            configuration.setTriggerContinuousTime(sleep);
+
+            scanConfigurationHelper.persistServiceConfig(configuration, response);
+        });
     }
 
     public void pulse() throws RemoteException {
@@ -53,12 +50,13 @@ public class ScanModeConfigurator {
     }
 
     public void pulse(int timeout) throws RemoteException {
-        SunmiScanHead.getScanInterfaceHelper().sendCommand(
-            SunmiHelper.createCmd(SunmiHelper.SET_TRIGGER_METHOD, 2) +
-            SunmiHelper.createCmd(SunmiHelper.SET_SCAN_TRIGGER_METHOD, 2) +
-            SunmiHelper.createCmd(SunmiHelper.SET_TRIGGER_OVER_TIME, timeout) +
-            SunmiHelper.createCmd(SunmiHelper.SET_SCAN_TRIGGER_TIME_OUT, timeout)
-        );
+        scanConfigurationHelper.loadServiceConfig((configuration, response) -> {
+            configuration.setTriggerMethod(TriggerMethodEnum.Pulse);
+            configuration.setTriggerOverTime(timeout);
+            configuration.setScanTriggerTimeOut(timeout);
+
+            scanConfigurationHelper.persistServiceConfig(configuration, response);
+        });
     }
 
     public void longPress() throws RemoteException {
@@ -70,12 +68,13 @@ public class ScanModeConfigurator {
     }
 
     public void longPress(int sleep, int timeout) throws RemoteException {
-        SunmiScanHead.getScanInterfaceHelper().sendCommand(
-            SunmiHelper.createCmd(SunmiHelper.SET_TRIGGER_METHOD, 3) +
-            SunmiHelper.createCmd(SunmiHelper.SET_SCAN_TRIGGER_METHOD, 3) +
-            SunmiHelper.createCmd(SunmiHelper.SET_TRIGGER_OVER_TIME, timeout) +
-            SunmiHelper.createCmd(SunmiHelper.SET_SCAN_TRIGGER_TIME_OUT, timeout) +
-            SunmiHelper.createCmd(SunmiHelper.SET_TRIGGER_CONTINUOUS_TIME, sleep)
-        );
+        scanConfigurationHelper.loadServiceConfig((configuration, response) -> {
+            configuration.setTriggerMethod(TriggerMethodEnum.LongPress);
+            configuration.setTriggerOverTime(timeout);
+            configuration.setScanTriggerTimeOut(timeout);
+            configuration.setTriggerContinuousTime(sleep);
+
+            scanConfigurationHelper.persistServiceConfig(configuration, response);
+        });
     }
 }

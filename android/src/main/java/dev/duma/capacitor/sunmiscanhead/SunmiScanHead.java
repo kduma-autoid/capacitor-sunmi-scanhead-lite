@@ -8,6 +8,7 @@ import dev.duma.android.sunmi.scanbroadcastreceiver.IScanHeadBroadcastReceiver;
 import dev.duma.android.sunmi.scanbroadcastreceiver.IScanHeadBroadcastReceiver.ScanCallback;
 import dev.duma.android.sunmi.scanconfigurationhelper.IScanConfigurationHelper;
 import dev.duma.android.sunmi.scaninterfacehelper.IScanInterfaceHelper;
+import dev.duma.capacitor.sunmiscanhead.configuration.SunmiScanHeadConfigurator;
 
 public class SunmiScanHead {
     private final SunmiScanHeadConfigurator configurator;
@@ -19,12 +20,13 @@ public class SunmiScanHead {
 
     public SunmiScanHead(Context context, ScanCallback scanCallback) {
         this.context = context;
-        this.configurator = new SunmiScanHeadConfigurator(context, this);
 
         this.beeper = IBeeper.Factory.make(context);
         this.scanInterfaceHelper = IScanInterfaceHelper.Factory.make(context);
         this.scanConfigurationHelper = IScanConfigurationHelper.Factory.make(scanInterfaceHelper);
         this.broadcastReceiver = IScanHeadBroadcastReceiver.Factory.make(context, scanCallback);
+
+        this.configurator = new SunmiScanHeadConfigurator(scanConfigurationHelper);
     }
 
     public SunmiScanHeadConfigurator getConfigurator() {
@@ -37,6 +39,10 @@ public class SunmiScanHead {
 
     public IScanInterfaceHelper getScanInterfaceHelper() {
         return scanInterfaceHelper;
+    }
+
+    public IScanConfigurationHelper getScanConfigurationHelper() {
+        return scanConfigurationHelper;
     }
 
     public void register() {
