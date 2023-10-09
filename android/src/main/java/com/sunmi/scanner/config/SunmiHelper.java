@@ -8,7 +8,6 @@ import com.sunmi.scanner.constants.CodeConstants;
 import com.sunmi.scanner.entity.CodeSets;
 import com.sunmi.scanner.entity.CodeSetting;
 import com.sunmi.scanner.entity.CodesRules;
-import com.sunmi.scanner.entity.DefaultConfig;
 import com.sunmi.scanner.entity.Pair;
 import com.sunmi.scanner.entity.ServiceSetting;
 import java.util.Arrays;
@@ -175,6 +174,7 @@ public class SunmiHelper {
     public static final String SET_SCAN_TRIGGER_METHOD = "scan00000101";
     public static final String SET_SCAN_TRIGGER_TIME_OUT = "scan00000102";
     public static final String SET_SUFFIX = "sunmi005001";
+    public static final String SET_REMOVE_GROUP_CHAR = "sunmi005006";
     public static final String SET_SUFFIX_CONTEXT = "sunmi005003";
     public static final String SET_TIPS = "sunmi002001";
     public static final String SET_TRIGGER_CONTINUOUS_TIME = "sunmi007003";
@@ -267,6 +267,10 @@ public class SunmiHelper {
 
     public static String setSuffix(int i) {
         return createCmd(SET_SUFFIX, i);
+    }
+
+    public static String setRemoveGroupChar(int i) {
+        return createCmd(SET_REMOVE_GROUP_CHAR, i);
     }
 
     public static String setPrefixContext(String str) {
@@ -1126,6 +1130,11 @@ public class SunmiHelper {
                 sb.append(setSuffix(serviceSetting.mSuffix));
             } else {
                 Log.e(SunmiHelper.class.getSimpleName(), "set set.mSuffix value isn't [0,1],now set.mSuffix=" + serviceSetting.mSuffix);
+            }
+            if (serviceSetting.mRemoveGroupChar == 1 || serviceSetting.mRemoveGroupChar == 0) {
+                sb.append(setRemoveGroupChar(serviceSetting.mRemoveGroupChar));
+            } else {
+                Log.e(SunmiHelper.class.getSimpleName(), "set set.mRemoveGroupChar value isn't [0,1],now set.mRemoveGroupChar=" + serviceSetting.mRemoveGroupChar);
             }
             if (serviceSetting.mPrefixContext == null || serviceSetting.mPrefixContext.isEmpty() || !Pattern.compile("^[\\x00-\\xFF]+$").matcher(serviceSetting.mPrefixContext).matches()) {
                 sb.append(setPrefixContext(ScannerService.FIX_NULL));
