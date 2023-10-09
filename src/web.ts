@@ -26,7 +26,7 @@ export class SunmiScanHeadWeb
     throw this.unimplemented('Not implemented on web.');
   }
 
-  getScannerModel(): Promise<{ model: number, name: ScannerModelName }> {
+  getScannerModel(): Promise<{ id: number, name: ScannerModelName }> {
     throw this.unimplemented('Not implemented on web.');
   }
 
