@@ -1,13 +1,19 @@
 package dev.duma.android.sunmi.scanconfigurationhelper;
 
-import android.content.Context;
 import android.os.RemoteException;
 
+import com.sunmi.scanner.entity.ServiceSetting;
+
+import dev.duma.android.sunmi.scanconfigurationhelper.models.ServiceConfiguration;
 import dev.duma.android.sunmi.scaninterfacehelper.IScanInterfaceHelper;
-import dev.duma.android.sunmi.scaninterfacehelper.ScanInterfaceHelper;
 
 public interface IScanConfigurationHelper {
-    void loadConfig() throws RemoteException;
+    interface IServiceConfigLoadedCallback {
+        void onLoaded(ServiceConfiguration configuration, ServiceSetting response) throws RemoteException;
+    }
+
+    void loadServiceConfig(IServiceConfigLoadedCallback callback) throws RemoteException;
+    void persistServiceConfig(ServiceConfiguration configuration, ServiceSetting original) throws RemoteException;
 
     class Factory
     {

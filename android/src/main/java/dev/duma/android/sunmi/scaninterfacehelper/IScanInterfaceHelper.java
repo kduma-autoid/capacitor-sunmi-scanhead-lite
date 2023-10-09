@@ -47,7 +47,7 @@ public interface IScanInterfaceHelper {
     }
 
     interface IQueryCallback<T> {
-        void onSuccess(T response, Entity<T> entity);
+        void onSuccess(T response, Entity<T> entity) throws RemoteException;
 
         default void onFailed(int i) {
             Log.i("IQueryCallback", "onFailed="+i);
