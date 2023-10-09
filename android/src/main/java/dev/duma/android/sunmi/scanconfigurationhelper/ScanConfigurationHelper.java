@@ -34,9 +34,9 @@ public class ScanConfigurationHelper implements IScanConfigurationHelper {
     @Override
     public void persistServiceConfig(ServiceConfiguration configuration, ServiceSetting original) throws RemoteException {
         ServiceSetting serviceSetting = configuration.toServiceSetting(original);
-        String command = SunmiHelper.convertCmd(serviceSetting);
+        String command = SunmiHelper.convertCmd(serviceSetting, original);
         command += SunmiHelper.setScanTrigger(serviceSetting.mTrigger);
-        command += SunmiHelper.setTriggerOverTime(configuration.getTriggerOverTime());
+        command += SunmiHelper.setTriggerContinuousTime(configuration.getTriggerContinuousTime());
         Log.i("CMD", command);
         scanInterfaceHelper.sendCommand(command);
     }

@@ -50,8 +50,8 @@ public class ServiceSetting implements Parcelable {
     public int[] mTrigger = {0};
     public int mTriggerMethod = 0;
     public int mTriggerTimeOut = 2000;
-    public int scanExpSwitch = -1;
-    public int specificScene = -1;
+    public int scanExpSwitch = 1;
+    public int specificScene = 0;
     public int mRemoveGroupChar = 0;
     public int mPrefixCount = 0;
     public int mSuffixCount = 0;
@@ -129,7 +129,7 @@ public class ServiceSetting implements Parcelable {
         this.mByteKey = "source_byte";
         this.mStartDecodeAction = "";
         this.mEndDecodeAction = "";
-        this.scanExpSwitch = 0;
+        this.scanExpSwitch = 1;
         this.specificScene = 0;
     }
 
