@@ -11,7 +11,9 @@ import android.view.KeyEvent;
 
 import androidx.annotation.Nullable;
 
+import com.sunmi.scanner.ICallBack;
 import com.sunmi.scanner.IScanInterface;
+import com.sunmi.scanner.entity.Entity;
 
 import dev.duma.android.sunmi.scaninterfacehelper.exceptions.ScanInterfaceNotBoundException;
 
@@ -98,6 +100,29 @@ public class ScanInterfaceHelper implements IScanInterfaceHelper {
         if (scanInterface == null) throw new ScanInterfaceNotBoundException();
 
         scanInterface.sendCommand(command);
+    }
+
+    @Override
+    public <T> void sendQuery(String command, IQueryCallback<T> callback) throws RemoteException, ScanInterfaceNotBoundException {
+        if (scanInterface == null) throw new ScanInterfaceNotBoundException();
+
+        scanInterface.sendQuery(command, new ICallBack.Stub() {
+            @Override
+            public void onSuccess(Entity entity) throws RemoteException {
+                Object bean = entity.getBean();
+
+                try {
+                    callback.onSuccess((T) bean, entity);
+                } catch (ClassCastException e) {
+                    callback.onFailed(entity.getClazz(), entity, e.getMessage());
+                }
+            }
+
+            @Override
+            public void onFiled(int i) throws RemoteException {
+                callback.onFailed(i);
+            }
+        });
     }
 
     @Override
