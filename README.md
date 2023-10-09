@@ -53,6 +53,7 @@ export default config;
 * [`addListener('onScanStop', ...)`](#addlisteneronscanstop)
 * [`removeAllListeners()`](#removealllisteners)
 * [Interfaces](#interfaces)
+* [Type Aliases](#type-aliases)
 * [Enums](#enums)
 
 </docgen-index>
@@ -107,12 +108,12 @@ Stop scanner
 ### getScannerModel()
 
 ```typescript
-getScannerModel() => Promise<{ model: number; }>
+getScannerModel() => Promise<{ model: number; name: ScannerModelName; }>
 ```
 
 Get scanner model ID
 
-**Returns:** <code>Promise&lt;{ model: number; }&gt;</code>
+**Returns:** <code>Promise&lt;{ model: number; name: string; }&gt;</code>
 
 --------------------
 
@@ -343,6 +344,14 @@ Removes all listeners
 | Prop         | Type                                      |
 | ------------ | ----------------------------------------- |
 | **`remove`** | <code>() =&gt; Promise&lt;void&gt;</code> |
+
+
+### Type Aliases
+
+
+#### ScannerModelName
+
+<code>string | "NONE" | "SUPER_N1365_Y1825" | "NLS_2096" | "ZEBRA_4710" | "HONEYWELL_3601" | "HONEYWELL_6603" | "ZEBRA_4750" | "ZEBRA_1350" | "HONEYWELL_6703" | "HONEYWELL_3603" | "NLS_CM47" | "NLS_3108" | "ZEBRA_965" | "SM_SS_1100" | "NLS_CM30" | "HONEYWELL_4603" | "ZEBRA_4770" | "NLS_2596" | "SM_SS_1103" | "SM_SS_1101" | "HONEYWELL_5703" | "UNKNOWN"</code>
 
 
 ### Enums
