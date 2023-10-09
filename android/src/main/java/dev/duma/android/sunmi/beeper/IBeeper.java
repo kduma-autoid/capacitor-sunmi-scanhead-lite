@@ -16,28 +16,8 @@ public interface IBeeper {
 
     class Factory
     {
-        static public IBeeper make() {
-            return new IBeeper.Stub();
-        }
-
         static public IBeeper make(Context context) {
             return new Beeper(context);
-        }
-    }
-
-    class Stub implements IBeeper
-    {
-        protected Stub() {
-        }
-
-        @Override
-        public void beep() {
-            // Do Nothing
-        }
-
-        @Override
-        public void vibrate() {
-            // Do Nothing
         }
     }
 }

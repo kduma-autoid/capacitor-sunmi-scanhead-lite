@@ -17,19 +17,13 @@ public class PromptSettingsConfigurator {
         this.SunmiScanHead = SunmiScanHead;
     }
 
-    public void set() {
+    public void set() throws RemoteException {
         set(true, true);
     }
-    public void set(boolean sound, boolean vibration) {
-        IScanInterface scanInterface = SunmiScanHead.getScanInterface();
-        if (scanInterface == null) return;
 
-        try {
-            scanInterface.sendCommand(
-                SunmiHelper.createCmd(SunmiHelper.SET_TIPS, new int[] { sound ? 1 : 0, vibration ? 1 : -1 })
-            );
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
+    public void set(boolean sound, boolean vibration) throws RemoteException {
+        SunmiScanHead.getScanInterfaceHelper().sendCommand(
+            SunmiHelper.createCmd(SunmiHelper.SET_TIPS, new int[] { sound ? 1 : 0, vibration ? 1 : -1 })
+        );
     }
 }

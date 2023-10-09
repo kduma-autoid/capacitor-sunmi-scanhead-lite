@@ -108,12 +108,12 @@ Stop scanner
 ### getScannerModel()
 
 ```typescript
-getScannerModel() => Promise<{ model: number; name: ScannerModelName; }>
+getScannerModel() => Promise<{ id: number; name: ScannerModelName; }>
 ```
 
 Get scanner model ID
 
-**Returns:** <code>Promise&lt;{ model: number; name: string; }&gt;</code>
+**Returns:** <code>Promise&lt;{ id: number; name: string; }&gt;</code>
 
 --------------------
 
@@ -121,10 +121,12 @@ Get scanner model ID
 ### clearConfig()
 
 ```typescript
-clearConfig() => Promise<void>
+clearConfig() => Promise<{ cleared: boolean; }>
 ```
 
 Clear scanner configuration (reset to default)
+
+**Returns:** <code>Promise&lt;{ cleared: boolean; }&gt;</code>
 
 --------------------
 

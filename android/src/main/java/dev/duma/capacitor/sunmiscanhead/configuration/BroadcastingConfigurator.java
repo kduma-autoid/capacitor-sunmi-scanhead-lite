@@ -17,29 +17,22 @@ public class BroadcastingConfigurator {
         this.SunmiScanHead = SunmiScanHead;
     }
 
-    public void enable() {
+    public void enable() throws RemoteException {
         setBroadcast(true);
     }
 
-    public void disable() {
+    public void disable() throws RemoteException {
         setBroadcast(false);
     }
 
-    public void setBroadcast(boolean enabled) {
-        IScanInterface scanInterface = SunmiScanHead.getScanInterface();
-        if (scanInterface == null) return;
-
-        try {
-            scanInterface.sendCommand(
-                SunmiHelper.createCmd(SunmiHelper.SET_OUT_BROADCAST, enabled ? 1 : 0)
-            );
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
+    public void setBroadcast(boolean enabled) throws RemoteException {
+        SunmiScanHead.getScanInterfaceHelper().sendCommand(
+            SunmiHelper.createCmd(SunmiHelper.SET_OUT_BROADCAST, enabled ? 1 : 0)
+        );
     }
 
 
-    public void defaultConfiguration() {
+    public void defaultConfiguration() throws RemoteException {
         configure(
             "com.sunmi.scanner.ACTION_DATA_CODE_RECEIVED",
             "com.sunmi.scanner.ACTION_SCAN_START",
@@ -48,28 +41,21 @@ public class BroadcastingConfigurator {
             "source_byte"
         );
     }
-    public void configure(String scanned_intent, String start_intent, String end_intent, String intent_data_key, String intent_byte_key) {
-        IScanInterface scanInterface = SunmiScanHead.getScanInterface();
-        if (scanInterface == null) return;
-
-        try {
-            scanInterface.sendCommand(
-                SunmiHelper.createCmd(SunmiHelper.SET_OUT_CODE_ACTION, scanned_intent)
-            );
-            scanInterface.sendCommand(
-                SunmiHelper.createCmd(SunmiHelper.SET_OUT_CODE_ACTION_DATA_KEY, intent_data_key)
-            );
-            scanInterface.sendCommand(
-                SunmiHelper.createCmd(SunmiHelper.SET_OUT_CODE_ACTION_BYTE_KEY, intent_byte_key)
-            );
-            scanInterface.sendCommand(
-                SunmiHelper.createCmd(SunmiHelper.SET_SCAN_START_DECODE_ACTION, start_intent)
-            );
-            scanInterface.sendCommand(
-                SunmiHelper.createCmd(SunmiHelper.SET_SCAN_END_DECODE_ACTION, end_intent)
-            );
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
+    public void configure(String scanned_intent, String start_intent, String end_intent, String intent_data_key, String intent_byte_key) throws RemoteException {
+        SunmiScanHead.getScanInterfaceHelper().sendCommand(
+            SunmiHelper.createCmd(SunmiHelper.SET_OUT_CODE_ACTION, scanned_intent)
+        );
+        SunmiScanHead.getScanInterfaceHelper().sendCommand(
+            SunmiHelper.createCmd(SunmiHelper.SET_OUT_CODE_ACTION_DATA_KEY, intent_data_key)
+        );
+        SunmiScanHead.getScanInterfaceHelper().sendCommand(
+            SunmiHelper.createCmd(SunmiHelper.SET_OUT_CODE_ACTION_BYTE_KEY, intent_byte_key)
+        );
+        SunmiScanHead.getScanInterfaceHelper().sendCommand(
+            SunmiHelper.createCmd(SunmiHelper.SET_SCAN_START_DECODE_ACTION, start_intent)
+        );
+        SunmiScanHead.getScanInterfaceHelper().sendCommand(
+            SunmiHelper.createCmd(SunmiHelper.SET_SCAN_END_DECODE_ACTION, end_intent)
+        );
     }
 }
