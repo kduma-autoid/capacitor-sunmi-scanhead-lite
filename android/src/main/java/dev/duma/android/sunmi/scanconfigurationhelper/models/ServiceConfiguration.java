@@ -144,10 +144,49 @@ public class ServiceConfiguration implements Cloneable {
     private CenterDecodingSettingEnum centerFlagScan = CenterDecodingSettingEnum.Disabled;
 
 
+    /**
+     * scanExpSwitch
+     */
+    private boolean flash = true;
+
+    /**
+     * specificScene
+     */
+    private SpecificSceneEnum scene = SpecificSceneEnum.Default;
+
+    /**
+     * mRemoveGroupChar
+     */
+    private boolean removeGroupSeparator = false;
+
+    /**
+     * mPrefixCount
+     */
+    private int prefixCharactersRemoved = 0;
+
+    /**
+     * mSuffixCount
+     */
+    private int suffixCharactersRemoved = 0;
+
+
     public static ServiceConfiguration fromServiceSetting(ServiceSetting serviceSetting, ArrayList<Pair> response_format) {
         ServiceConfiguration c = new ServiceConfiguration();
 
         c.advancedFormat = response_format;
+
+        c.flash = serviceSetting.scanExpSwitch == 1;
+        c.scene = switch(serviceSetting.specificScene) {
+            default -> SpecificSceneEnum.Default;
+            case 1 -> SpecificSceneEnum.ReflectiveDMbarcode;
+            case 2 -> SpecificSceneEnum.ReflectiveQRDMbarcode;
+            case 3 -> SpecificSceneEnum.SpecialColourBarcode;
+            case 4 -> SpecificSceneEnum.DpmBarcode;
+            case 5 -> SpecificSceneEnum.MobileScreenScene;
+        };
+        c.removeGroupSeparator = serviceSetting.mRemoveGroupChar == 1;
+        c.prefixCharactersRemoved = serviceSetting.mPrefixCount;
+        c.suffixCharactersRemoved = serviceSetting.mSuffixCount;
 
         c.centerFlagScan = switch (serviceSetting.mCenterFlagScan) {
             default -> CenterDecodingSettingEnum.Disabled;
@@ -237,6 +276,23 @@ public class ServiceConfiguration implements Cloneable {
         ServiceSetting s = cloneServiceSetting(defaults);
 
         s.setAdvancedConfig(advancedFormat);
+
+        if(s.scanExpSwitch != -1) {
+            s.scanExpSwitch = flash ? 1 : 0;
+        }
+        if(s.specificScene != -1) {
+            s.specificScene = switch(scene) {
+                case Default -> 0;
+                case ReflectiveDMbarcode -> 1;
+                case ReflectiveQRDMbarcode -> 2;
+                case SpecialColourBarcode -> 3;
+                case DpmBarcode -> 4;
+                case MobileScreenScene -> 5;
+            };
+        }
+        s.mRemoveGroupChar = removeGroupSeparator ? 1 : 0;
+        s.mPrefixCount = prefixCharactersRemoved;
+        s.mSuffixCount = suffixCharactersRemoved;
 
         if(s.mCenterFlagScan != -1) {
             s.mCenterFlagScan = switch (centerFlagScan) {
@@ -594,5 +650,45 @@ public class ServiceConfiguration implements Cloneable {
 
     public void setCenterFlagScan(CenterDecodingSettingEnum centerFlagScan) {
         this.centerFlagScan = centerFlagScan;
+    }
+
+    public boolean isFlash() {
+        return flash;
+    }
+
+    public void setFlash(boolean flash) {
+        this.flash = flash;
+    }
+
+    public SpecificSceneEnum getScene() {
+        return scene;
+    }
+
+    public void setScene(SpecificSceneEnum scene) {
+        this.scene = scene;
+    }
+
+    public boolean isRemoveGroupSeparator() {
+        return removeGroupSeparator;
+    }
+
+    public void setRemoveGroupSeparator(boolean removeGroupSeparator) {
+        this.removeGroupSeparator = removeGroupSeparator;
+    }
+
+    public int getPrefixCharactersRemoved() {
+        return prefixCharactersRemoved;
+    }
+
+    public void setPrefixCharactersRemoved(int prefixCharactersRemoved) {
+        this.prefixCharactersRemoved = prefixCharactersRemoved;
+    }
+
+    public int getSuffixCharactersRemoved() {
+        return suffixCharactersRemoved;
+    }
+
+    public void setSuffixCharactersRemoved(int suffixCharactersRemoved) {
+        this.suffixCharactersRemoved = suffixCharactersRemoved;
     }
 }
