@@ -1067,8 +1067,8 @@ public class SunmiHelper {
         String str;
         StringBuilder sb = new StringBuilder();
         if (serviceSetting != null) {
-            if (serviceSetting.mOutCodeCharSet < 0 || serviceSetting.mOutCodeCharSet > 5) {
-                Log.e(SunmiHelper.class.getSimpleName(), "set remote.mOutCodeCharSet isn't [0,5],now set.mOutCodeCharSet=" + serviceSetting.mOutCodeCharSet);
+            if (serviceSetting.mOutCodeCharSet < 0 || serviceSetting.mOutCodeCharSet > 11) {
+                Log.e(SunmiHelper.class.getSimpleName(), "set remote.mOutCodeCharSet isn't [0,11],now set.mOutCodeCharSet=" + serviceSetting.mOutCodeCharSet);
             } else {
                 sb.append(setOutCode(serviceSetting.mOutCodeCharSet));
             }
@@ -1115,10 +1115,10 @@ public class SunmiHelper {
             } else {
                 Log.e(SunmiHelper.class.getSimpleName(), "set set.mEndDecodeAction equals set.mBroadcastAction");
             }
-            if (serviceSetting.mOutCodeID == 0 || serviceSetting.mOutCodeID == 1) {
+            if (serviceSetting.mOutCodeID < 0 || serviceSetting.mOutCodeID > 3) {
                 sb.append(setSetOutCodeID(serviceSetting.mOutCodeID));
             } else {
-                Log.e(SunmiHelper.class.getSimpleName(), "set set.mOutCodeID value isn't [0,1],now set.mOutCodeID=" + serviceSetting.mOutCodeID);
+                Log.e(SunmiHelper.class.getSimpleName(), "set set.mOutCodeID value isn't [0,3],now set.mOutCodeID=" + serviceSetting.mOutCodeID);
             }
             if (serviceSetting.specificScene < 0 || serviceSetting.specificScene > 5) {
                 sb.append(setSetScanSpecificScene(serviceSetting.specificScene));
