@@ -1,9 +1,6 @@
 package dev.duma.capacitor.sunmiscanhead;
 
 import android.content.Context;
-import android.os.RemoteException;
-
-import com.sunmi.scanner.IScanInterface;
 
 import dev.duma.capacitor.sunmiscanhead.configuration.AdvancedFormatConfigurator;
 import dev.duma.capacitor.sunmiscanhead.configuration.BroadcastingConfigurator;
