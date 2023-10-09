@@ -193,11 +193,17 @@ public class ServiceConfiguration implements Cloneable {
             case 1 -> CenterDecodingSettingEnum.CenterOnly;
             case 2 -> CenterDecodingSettingEnum.CenterFirst;
         };
-        c.virtualFloatingScanButton = serviceSetting.mTrigger[0] == 1;
+        if(serviceSetting.mTrigger.length > 0) {
+            c.virtualFloatingScanButton = serviceSetting.mTrigger[0] == 1;
+        }
         c.advancedFormatEnabled = serviceSetting.mAdvancedFormat == 1;
         c.outputBroadcastEnabled = serviceSetting.mOutBroadcast == 1;
-        c.beep = serviceSetting.mTips[0] == 1;
-        c.vibrate = serviceSetting.mTips[1] == 1;
+        if(serviceSetting.mTips.length > 0) {
+            c.beep = serviceSetting.mTips[0] == 1;
+        }
+        if(serviceSetting.mTips.length > 1) {
+            c.vibrate = serviceSetting.mTips[1] == 1;
+        }
 
         c.triggerMethod = switch (serviceSetting.mTriggerMethod) {
             default -> TriggerMethodEnum.Trigger;
@@ -252,8 +258,12 @@ public class ServiceConfiguration implements Cloneable {
             c.suffix = null;
         }
 
-        c.addTab = serviceSetting.mOutAutoAdd[0] == 1;
-        c.addReturn = serviceSetting.mOutAutoAdd[1] == 1;
+        if(serviceSetting.mOutAutoAdd.length > 0) {
+            c.addTab = serviceSetting.mOutAutoAdd[0] == 1;
+        }
+        if(serviceSetting.mOutAutoAdd.length > 1) {
+            c.addReturn = serviceSetting.mOutAutoAdd[1] == 1;
+        }
         if(serviceSetting.mOutAutoAdd.length > 2) {
             c.asEvents = serviceSetting.mOutAutoAdd[2] == 1;
         }
@@ -300,6 +310,9 @@ public class ServiceConfiguration implements Cloneable {
                 case CenterOnly -> 1;
                 case CenterFirst -> 2;
             };
+        }
+        if(s.mTrigger.length == 0){
+            s.mTrigger = new int[1];
         }
         s.mTrigger[0] = virtualFloatingScanButton ? 1 : 0;
         s.mAdvancedFormat = advancedFormatEnabled ? 1 : 0;
