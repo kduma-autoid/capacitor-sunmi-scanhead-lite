@@ -1,49 +1,32 @@
 package dev.duma.capacitor.sunmiscanhead;
 
-import android.app.Service;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
-import android.os.IBinder;
-import android.os.RemoteException;
-import android.util.Log;
-import android.view.KeyEvent;
 
-import androidx.annotation.Nullable;
-
-import com.sunmi.scanner.IScanInterface;
-
-import dev.duma.android.beeper.IBeeper;
+import dev.duma.android.sunmi.beeper.IBeeper;
+import dev.duma.android.sunmi.scanbroadcastreceiver.IScanHeadBroadcastReceiver;
+import dev.duma.android.sunmi.scanbroadcastreceiver.IScanHeadBroadcastReceiver.ScanCallback;
+import dev.duma.android.sunmi.scanconfigurationhelper.IScanConfigurationHelper;
+import dev.duma.android.sunmi.scaninterfacehelper.IScanInterfaceHelper;
+import dev.duma.capacitor.sunmiscanhead.configuration.SunmiScanHeadConfigurator;
 
 public class SunmiScanHead {
     private final SunmiScanHeadConfigurator configurator;
     private final IBeeper beeper;
-    private IScanInterface scanInterface;
+    private final IScanInterfaceHelper scanInterfaceHelper;
+    private final IScanConfigurationHelper scanConfigurationHelper;
+    private final IScanHeadBroadcastReceiver broadcastReceiver;
     private final Context context;
-    private final ServiceConnection connection = new ServiceConnection() {
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            scanInterface = IScanInterface.Stub.asInterface(service);
-            if (scanInterface == null) {
-                Log.i("SunmiScanHead", "Scanner Service Failed To Connect!");
-            } else {
-                Log.i("SunmiScanHead", "Scanner Service Connected!");
-            }
-        }
 
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-            Log.e("SunmiScanHead", "Scanner Service Disconnected!");
-            scanInterface = null;
-        }
-    };
-
-
-    public SunmiScanHead(Context context) {
+    public SunmiScanHead(Context context, ScanCallback scanCallback) {
         this.context = context;
-        this.configurator = new SunmiScanHeadConfigurator(context, this);
+
         this.beeper = IBeeper.Factory.make(context);
+        this.scanInterfaceHelper = IScanInterfaceHelper.Factory.make(context);
+        this.scanConfigurationHelper = IScanConfigurationHelper.Factory.make(scanInterfaceHelper);
+        this.broadcastReceiver = IScanHeadBroadcastReceiver.Factory.make(context, scanCallback);
+
+        this.configurator = new SunmiScanHeadConfigurator(scanConfigurationHelper);
     }
 
     public SunmiScanHeadConfigurator getConfigurator() {
@@ -54,75 +37,22 @@ public class SunmiScanHead {
         return beeper;
     }
 
-    @Nullable
-    public IScanInterface getScanInterface() {
-        return scanInterface;
+    public IScanInterfaceHelper getScanInterfaceHelper() {
+        return scanInterfaceHelper;
     }
 
-    public void bindService() {
-        Intent intent = new Intent();
-        intent.setPackage("com.sunmi.scanner");
-        intent.setAction("com.sunmi.scanner.IScanInterface");
-        context.getApplicationContext().bindService(intent, connection, Service.BIND_AUTO_CREATE);
+    public IScanConfigurationHelper getScanConfigurationHelper() {
+        return scanConfigurationHelper;
     }
 
-    public void unbindService() {
-        if (scanInterface == null) return;
-
-        context.getApplicationContext().unbindService(connection);
-        scanInterface = null;
+    public void register() {
+        getScanInterfaceHelper().bindService();
+        broadcastReceiver.register();
     }
 
-    public void sendKeyEvent(KeyEvent key) {
-        if (scanInterface == null) return;
-
-        try {
-            scanInterface.sendKeyEvent(key);
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void scan() {
-        if (scanInterface == null) return;
-
-        try {
-            scanInterface.scan();
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void stop() {
-        if (scanInterface == null) return;
-
-        try {
-            scanInterface.stop();
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public int getScannerModel() {
-        if (scanInterface == null) return 0;
-
-        try {
-            return scanInterface.getScannerModel();
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
-
-        return 0;
-    }
-
-    public void clearConfig() {
-        if (scanInterface == null) return;
-
-        try {
-            scanInterface.clearConfig();
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
+    public void unregister() {
+        getScanInterfaceHelper().unbindService();
+        broadcastReceiver.unregister();
     }
 
     public void setTrigger(boolean enabled) {

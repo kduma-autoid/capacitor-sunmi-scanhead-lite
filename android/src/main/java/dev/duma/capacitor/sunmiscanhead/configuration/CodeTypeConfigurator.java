@@ -1,35 +1,22 @@
 package dev.duma.capacitor.sunmiscanhead.configuration;
 
-import android.content.Context;
 import android.os.RemoteException;
 
-import com.sunmi.scanner.IScanInterface;
-
-import dev.duma.capacitor.sunmiscanhead.SunmiScanHead;
-import dev.duma.capacitor.sunmiscanhead.SunmiHelper;
+import dev.duma.android.sunmi.scanconfigurationhelper.IScanConfigurationHelper;
+import dev.duma.android.sunmi.scanconfigurationhelper.models.ScanResultCodeIDEnum;
 
 public class CodeTypeConfigurator {
-    private Context context;
-    private SunmiScanHead SunmiScanHead;
+    private final IScanConfigurationHelper scanConfigurationHelper;
 
-    public CodeTypeConfigurator(Context context, SunmiScanHead SunmiScanHead) {
-        this.context = context;
-        this.SunmiScanHead = SunmiScanHead;
+    public CodeTypeConfigurator(IScanConfigurationHelper scanConfigurationHelper) {
+        this.scanConfigurationHelper = scanConfigurationHelper;
     }
 
-    public void returnCodeType() {
-        returnCodeType(true);
-    }
-    public void returnCodeType(boolean enabled) {
-        IScanInterface scanInterface = SunmiScanHead.getScanInterface();
-        if (scanInterface == null) return;
+    public void returnCodeType(boolean enabled) throws RemoteException {
+        scanConfigurationHelper.loadServiceConfig((configuration, response) -> {
+            configuration.setScanResultCodeID(enabled ? ScanResultCodeIDEnum.SunmiId : ScanResultCodeIDEnum.None);
 
-        try {
-            scanInterface.sendCommand(
-                SunmiHelper.createCmd(SunmiHelper.SET_OUT_CODE_ID, enabled ? 1 : 0)
-            );
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
+            scanConfigurationHelper.persistServiceConfig(configuration, response);
+        });
     }
 }

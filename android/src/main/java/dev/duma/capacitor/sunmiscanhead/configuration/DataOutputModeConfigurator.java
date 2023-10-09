@@ -1,74 +1,53 @@
 package dev.duma.capacitor.sunmiscanhead.configuration;
 
-import android.content.Context;
 import android.os.RemoteException;
 
-import com.sunmi.scanner.IScanInterface;
-
-import dev.duma.capacitor.sunmiscanhead.SunmiScanHead;
-import dev.duma.capacitor.sunmiscanhead.SunmiHelper;
+import dev.duma.android.sunmi.scanconfigurationhelper.IScanConfigurationHelper;
+import dev.duma.android.sunmi.scanconfigurationhelper.models.OutputTypeEnum;
 
 public class DataOutputModeConfigurator {
-    private Context context;
-    private SunmiScanHead SunmiScanHead;
+    private final IScanConfigurationHelper scanConfigurationHelper;
 
-    public DataOutputModeConfigurator(Context context, SunmiScanHead SunmiScanHead) {
-        this.context = context;
-        this.SunmiScanHead = SunmiScanHead;
+    public DataOutputModeConfigurator(IScanConfigurationHelper scanConfigurationHelper) {
+        this.scanConfigurationHelper = scanConfigurationHelper;
     }
 
-
-
-    public void keystroke() {
+    public void keystroke() throws RemoteException {
         keystroke(0, false, true);
     }
-    public void keystroke(int interval, boolean tab, boolean enter) {
-        IScanInterface scanInterface = SunmiScanHead.getScanInterface();
-        if (scanInterface == null) return;
 
+    public void keystroke(int interval, boolean tab, boolean enter) throws RemoteException {
+        scanConfigurationHelper.loadServiceConfig((configuration, response) -> {
+            configuration.setOutputType(OutputTypeEnum.Keystroke);
+            configuration.setOutputCharacterInterval(interval);
+            configuration.setAddTab(tab);
+            configuration.setAddReturn(enter);
+            configuration.setAsEvents(true);
 
-        try {
-            scanInterface.sendCommand(
-            SunmiHelper.createCmd(SunmiHelper.SET_OUT_TYPE, 2) +
-                SunmiHelper.createCmd(SunmiHelper.SET_OUT_CHAR_INTERVAL, interval) +
-                SunmiHelper.createCmd(SunmiHelper.SET_OUT_AUTO_ADD, new int[] { tab ? 1 : 0, enter ? 1 : 0, 1 })
-            );
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
+            scanConfigurationHelper.persistServiceConfig(configuration, response);
+        });
     }
 
-
-    public void directFill() {
+    public void directFill() throws RemoteException {
         directFill(false, false, true, true);
     }
-    public void directFill(boolean overwrite, boolean tab, boolean enter, boolean asEvents) {
-        IScanInterface scanInterface = SunmiScanHead.getScanInterface();
-        if (scanInterface == null) return;
 
+    public void directFill(boolean overwrite, boolean tab, boolean enter, boolean asEvents) throws RemoteException {
+        scanConfigurationHelper.loadServiceConfig((configuration, response) -> {
+            configuration.setOutputType(overwrite ? OutputTypeEnum.DirectFillWithReplace : OutputTypeEnum.DirectFill);
+            configuration.setAddTab(tab);
+            configuration.setAddReturn(enter);
+            configuration.setAsEvents(asEvents);
 
-        try {
-            scanInterface.sendCommand(
-            SunmiHelper.createCmd(SunmiHelper.SET_OUT_TYPE, overwrite ? 1 : 0) +
-                SunmiHelper.createCmd(SunmiHelper.SET_OUT_AUTO_ADD, new int[] { tab ? 1 : 0, enter ? 1 : 0, asEvents ? 1 : 0 })
-            );
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
+            scanConfigurationHelper.persistServiceConfig(configuration, response);
+        });
     }
 
+    public void disabled() throws RemoteException {
+        scanConfigurationHelper.loadServiceConfig((configuration, response) -> {
+            configuration.setOutputType(OutputTypeEnum.Disabled);
 
-    public void disabled() {
-        IScanInterface scanInterface = SunmiScanHead.getScanInterface();
-        if (scanInterface == null) return;
-
-
-        try {
-            scanInterface.sendCommand(
-                SunmiHelper.createCmd(SunmiHelper.SET_OUT_TYPE, 3)
-            );
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
+            scanConfigurationHelper.persistServiceConfig(configuration, response);
+        });
     }
 }

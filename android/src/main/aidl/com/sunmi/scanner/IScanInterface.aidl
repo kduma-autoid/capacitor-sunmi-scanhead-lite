@@ -1,7 +1,7 @@
 // IScanInterface.aidl
 package com.sunmi.scanner;
 
-// Declare any non-default types here with import statements
+import com.sunmi.scanner.ICallBack;
 
 interface IScanInterface {
      /**
@@ -34,7 +34,7 @@ interface IScanInterface {
 
     void sendCommand(String str) = 5;
 
-//    void sendQuery(String str, ICallBack iCallBack) = 6;
+    void sendQuery(String str, in ICallBack iCallBack) = 6;
 
     boolean clearConfig() = 7;
 }
