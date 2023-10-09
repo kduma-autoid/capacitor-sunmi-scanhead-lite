@@ -1120,6 +1120,11 @@ public class SunmiHelper {
             } else {
                 Log.e(SunmiHelper.class.getSimpleName(), "set set.mOutCodeID value isn't [0,1],now set.mOutCodeID=" + serviceSetting.mOutCodeID);
             }
+            if (serviceSetting.specificScene < 0 || serviceSetting.specificScene > 5) {
+                sb.append(setSetScanSpecificScene(serviceSetting.specificScene));
+            } else {
+                Log.e(SunmiHelper.class.getSimpleName(), "set set.specificScene value isn't [0,5],now set.specificScene=" + serviceSetting.specificScene);
+            }
             if (serviceSetting.mOutType < 0 || serviceSetting.mOutType > 3) {
                 Log.e(SunmiHelper.class.getSimpleName(), "set set.mOutType value isn't [0,3],now set.mOutType=" + serviceSetting.mOutType);
             } else {
