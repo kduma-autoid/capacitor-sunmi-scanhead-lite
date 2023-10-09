@@ -66,6 +66,8 @@ public class ServiceSetting implements Parcelable {
     protected ServiceSetting(Parcel parcel) {
         Intrinsics.checkNotNullParameter(parcel, "parcel");
 
+        this.mOutCodeCharSet = parcel.readInt();
+
         this.mTips = new int[]{1, 1};
         int[] createIntArray = parcel.createIntArray();
         this.mTips = createIntArray == null ? new int[]{1, 1} : createIntArray;
@@ -80,6 +82,11 @@ public class ServiceSetting implements Parcelable {
         int[] createIntArray2 = parcel.createIntArray();
         this.mOutAutoAdd = createIntArray2 == null ? new int[]{0, 1, 0, 0} : createIntArray2;
 
+        this.mOutCharInterval = parcel.readInt();
+
+        this.mPrefix = parcel.readInt();
+        this.mSuffix = parcel.readInt();
+
         this.mPrefixContext = "";
         String readString = parcel.readString();
         this.mPrefixContext = readString == null ? "" : readString;
@@ -88,15 +95,18 @@ public class ServiceSetting implements Parcelable {
         String readString2 = parcel.readString();
         this.mSuffixContext = readString2 != null ? readString2 : "";
 
+        this.mAdvancedFormat = parcel.readInt();
+
+        this.mTriggerMethod = parcel.readInt();
+
         this.mTriggerTimeOut = 5000;
         this.mTriggerTimeOut = parcel.readInt();
-
-        this.mContinuousTime = 500;
-        this.mContinuousTime = parcel.readInt();
 
         this.mTrigger = new int[]{0};
         int[] createIntArray3 = parcel.createIntArray();
         this.mTrigger = createIntArray3 == null ? new int[]{0} : createIntArray3;
+
+        this.mOutCodeID = parcel.readInt();
 
         this.mDecodeMode = -1;
         this.mDecodeMode = parcel.readInt();
@@ -104,25 +114,23 @@ public class ServiceSetting implements Parcelable {
         this.mDecodeWindowPercent = 50;
         this.mDecodeWindowPercent = parcel.readInt();
 
+        this.mCenterFlagScan = parcel.readInt();
+
+        this.mContinuousTime = 500;
+        this.mContinuousTime = parcel.readInt();
+
+        this.mPrefixCount = parcel.readInt();
+        this.mSuffixCount = parcel.readInt();
+        this.mRemoveGroupChar = parcel.readInt();
+
         this.advancedConfig = new LinkedHashMap<>();
         this.mBroadcastAction = "com.sunmi.scanner.ACTION_DATA_CODE_RECEIVED";
         this.mDataKey = "data";
         this.mByteKey = "source_byte";
         this.mStartDecodeAction = "";
         this.mEndDecodeAction = "";
-        this.scanExpSwitch = -1;
-        this.specificScene = -1;
-        this.mOutCodeCharSet = parcel.readInt();
-        this.mOutCharInterval = parcel.readInt();
-        this.mPrefix = parcel.readInt();
-        this.mSuffix = parcel.readInt();
-        this.mAdvancedFormat = parcel.readInt();
-        this.mTriggerMethod = parcel.readInt();
-        this.mOutCodeID = parcel.readInt();
-        this.mCenterFlagScan = parcel.readInt();
-        this.mPrefixCount = parcel.readInt();
-        this.mSuffixCount = parcel.readInt();
-        this.mRemoveGroupChar = parcel.readInt();
+        this.scanExpSwitch = 0;
+        this.specificScene = 0;
     }
 
     public void writeToParcel(Parcel parcel, int i) {
