@@ -498,13 +498,13 @@ Removes all listeners
 
 #### SetBroadcastConfigurationOptions
 
-| Prop                  | Type                | Description                                                                               | Default                                                  |
-| --------------------- | ------------------- | ----------------------------------------------------------------------------------------- | -------------------------------------------------------- |
-| **`scanned_intent`**  | <code>string</code> | Intent name broadcasted when a barcode is scanned                                         | <code>com.sunmi.scanner.ACTION_DATA_CODE_RECEIVED</code> |
-| **`start_intent`**    | <code>string</code> | Intent name broadcasted when scanner starts scanning                                      | <code>com.sunmi.scanner.ACTION_SCAN_START</code>         |
-| **`end_intent`**      | <code>string</code> | Intent name broadcasted when scanner stops scanning                                       | <code>com.sunmi.scanner.ACTION_SCAN_END</code>           |
-| **`intent_data_key`** | <code>string</code> | Intent extra key for barcode plain text data in scan result intent (`scanned_intent`)     | <code>data</code>                                        |
-| **`intent_byte_key`** | <code>string</code> | Intent extra key for barcode base64 encoded data in scan result intent (`scanned_intent`) | <code>source_byte</code>                                 |
+| Prop                  | Type                         | Description                                                                               | Default                                                  |
+| --------------------- | ---------------------------- | ----------------------------------------------------------------------------------------- | -------------------------------------------------------- |
+| **`scanned_intent`**  | <code>string</code>          | Intent name broadcasted when a barcode is scanned                                         | <code>com.sunmi.scanner.ACTION_DATA_CODE_RECEIVED</code> |
+| **`start_intent`**    | <code>string \| false</code> | Intent name broadcasted when scanner starts scanning Set to `false` to disable            | <code>com.sunmi.scanner.ACTION_SCAN_START</code>         |
+| **`end_intent`**      | <code>string \| false</code> | Intent name broadcasted when scanner stops scanning Set to `false` to disable             | <code>com.sunmi.scanner.ACTION_SCAN_END</code>           |
+| **`intent_data_key`** | <code>string</code>          | Intent extra key for barcode plain text data in scan result intent (`scanned_intent`)     | <code>data</code>                                        |
+| **`intent_byte_key`** | <code>string</code>          | Intent extra key for barcode base64 encoded data in scan result intent (`scanned_intent`) | <code>source_byte</code>                                 |
 
 
 #### PluginListenerHandle

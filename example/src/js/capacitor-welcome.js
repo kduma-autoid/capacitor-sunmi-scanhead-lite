@@ -104,6 +104,7 @@ window.customElements.define(
           <button class="button" id="setOutputBroadcastEnabled1">setOutputBroadcastEnabled(true)</button>
           <button class="button" id="setOutputBroadcastEnabled0">setOutputBroadcastEnabled(false)</button>
           <button class="button" id="setBroadcastConfiguration">setBroadcastConfiguration()</button>
+          <button class="button" id="setBroadcastConfigurationNoStartEnd">setBroadcastConfiguration(start_intent: false, end_intent: false)</button>
         </p> 
         <hr>
         <h2>Complex Examples</h2>
@@ -374,6 +375,14 @@ window.customElements.define(
         }
       });
 
+      self.shadowRoot.querySelector('#setBroadcastConfigurationNoStartEnd').addEventListener('click', async function (e) {
+        try {
+          await SunmiScanHead.setBroadcastConfiguration({start_intent: false, end_intent: false});
+        } catch (e) {
+          printToOutput("setBroadcastConfiguration(start_intent: false, end_intent: false) - ERROR", { message: e.message, code: e.code });
+        }
+      });
+
       self.shadowRoot.querySelector('#clearConfig').addEventListener('click', async function (e) {
         try {
           await SunmiScanHead.clearConfig();
@@ -405,9 +414,9 @@ window.customElements.define(
           printToOutput("createWriteContext() - ERROR", { message: e.message, code: e.code });
         }
         try {
-          await SunmiScanHead.setBroadcastConfiguration({start_intent: "", end_intent: ""});
+          await SunmiScanHead.setBroadcastConfiguration({start_intent: false, end_intent: false});
         } catch (e) {
-          printToOutput("setBroadcastConfiguration(start_intent: \"\", end_intent: \"\") - ERROR", { message: e.message, code: e.code });
+          printToOutput("setBroadcastConfiguration(start_intent: false, end_intent: false) - ERROR", { message: e.message, code: e.code });
         }
         try {
           await SunmiScanHead.setOutputType({mode: OutputMode.Disabled});
@@ -458,9 +467,9 @@ window.customElements.define(
           printToOutput("createWriteContext() - ERROR", { message: e.message, code: e.code });
         }
         try {
-          await SunmiScanHead.setBroadcastConfiguration({start_intent: "", end_intent: ""});
+          await SunmiScanHead.setBroadcastConfiguration({start_intent: false, end_intent: false});
         } catch (e) {
-          printToOutput("setBroadcastConfiguration(start_intent: \"\", end_intent: \"\") - ERROR", { message: e.message, code: e.code });
+          printToOutput("setBroadcastConfiguration(start_intent: false, end_intent: false) - ERROR", { message: e.message, code: e.code });
         }
         try {
           await SunmiScanHead.setOutputType({mode: OutputMode.Disabled});
@@ -511,9 +520,9 @@ window.customElements.define(
           printToOutput("createWriteContext() - ERROR", { message: e.message, code: e.code });
         }
         try {
-          await SunmiScanHead.setBroadcastConfiguration({start_intent: "", end_intent: ""});
+          await SunmiScanHead.setBroadcastConfiguration({start_intent: false, end_intent: false});
         } catch (e) {
-          printToOutput("setBroadcastConfiguration(start_intent: \"\", end_intent: \"\") - ERROR", { message: e.message, code: e.code });
+          printToOutput("setBroadcastConfiguration(start_intent: false, end_intent: false) - ERROR", { message: e.message, code: e.code });
         }
         try {
           await SunmiScanHead.setOutputType({mode: OutputMode.Disabled});
