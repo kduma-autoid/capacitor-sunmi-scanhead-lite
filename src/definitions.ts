@@ -330,7 +330,7 @@ export interface SetBroadcastConfigurationOptions {
   intent_byte_key?: string
 }
 
-interface SetOutputEncodingCodeOptions {
+export interface SetOutputEncodingCodeOptions {
   /**
    * Set output encoding/character set setting
    *
@@ -339,7 +339,7 @@ interface SetOutputEncodingCodeOptions {
   encoding?: OutputEncodingCodeEnum;
 }
 
-enum OutputEncodingCodeEnum {
+export enum OutputEncodingCodeEnum {
   UTF8 = "UTF8",
   GBK = "GBK",
   ISO88591 = "ISO88591",
@@ -383,7 +383,7 @@ enum OutputEncodingCodeEnum {
   GB18030 = "GB18030",
 }
 
-interface SetVirtualFloatingScanButtonOptions {
+export interface SetVirtualFloatingScanButtonOptions {
   /**
    * Enable or disable virtual floating scan button
    *
@@ -392,7 +392,7 @@ interface SetVirtualFloatingScanButtonOptions {
   enabled?: boolean;
 }
 
-interface SetCenterFlagScanOptions {
+export interface SetCenterFlagScanOptions {
   /**
    * Selects center point decoding mode
    *
@@ -401,7 +401,7 @@ interface SetCenterFlagScanOptions {
   mode?: CenterDecodingSettingEnum;
 }
 
-enum CenterDecodingSettingEnum {
+export enum CenterDecodingSettingEnum {
   Disabled = "disabled",
   CenterOnly = "center-only",
 
@@ -411,7 +411,7 @@ enum CenterDecodingSettingEnum {
   CenterFirst = "center-first",
 }
 
-interface SetFlashOptions {
+export interface SetFlashOptions {
   /**
    * Enable or disable scanner illumination
    *
@@ -420,7 +420,7 @@ interface SetFlashOptions {
   enabled?: boolean;
 }
 
-interface SetSceneOptions {
+export interface SetSceneOptions {
   /**
    * Selects scanning scene preset
    *
@@ -429,7 +429,7 @@ interface SetSceneOptions {
   scene?: SpecificSceneEnum;
 }
 
-enum SpecificSceneEnum {
+export enum SpecificSceneEnum {
   Default = "default",
   ReflectiveDMBarcode = "reflective-dm-barcode",
   ReflectiveQRDMBarcode = "reflective-qr-dm-barcode",
@@ -438,7 +438,7 @@ enum SpecificSceneEnum {
   MobileScreenScene = "mobile-screen-scene",
 }
 
-interface SetRemoveGroupSeparatorOptions {
+export interface SetRemoveGroupSeparatorOptions {
   /**
    * Enable or disable the removal of group separator characters
    *
@@ -447,7 +447,7 @@ interface SetRemoveGroupSeparatorOptions {
   enabled?: boolean;
 }
 
-interface SetPrefixOptions {
+export interface SetPrefixOptions {
   /**
    * Prefix content to be prepended to the barcode data
    *
@@ -458,7 +458,7 @@ interface SetPrefixOptions {
   content?: string|false;
 }
 
-interface SetPrefixCharactersRemovedOptions {
+export interface SetPrefixCharactersRemovedOptions {
   /**
    * Number of characters to be removed from the beginning of the barcode data
    *
@@ -467,7 +467,7 @@ interface SetPrefixCharactersRemovedOptions {
   length?: number;
 }
 
-interface SetSuffixOptions {
+export interface SetSuffixOptions {
   /**
    * Suffix content to be appended to the barcode data
    *
@@ -478,7 +478,7 @@ interface SetSuffixOptions {
   content?: string|false;
 }
 
-interface SetSuffixCharactersRemovedOptions {
+export interface SetSuffixCharactersRemovedOptions {
   /**
    * Number of characters to be removed from the end of the barcode data
    *
