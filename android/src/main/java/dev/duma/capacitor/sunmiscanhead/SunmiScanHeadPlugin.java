@@ -227,9 +227,11 @@ public class SunmiScanHeadPlugin extends Plugin {
 
     /** @noinspection DataFlowIssue*/
     @PluginMethod
-    public void setAdvancedFormat(PluginCall call) {
+    public void setAdvancedFormatEnabled(PluginCall call) {
         CallbackHelper.handle(call, (c) -> {
-            implementation.getConfigurator().advancedFormat().advancedFormat(c.getBoolean("enabled", true));
+            ServiceConfiguration configuration = implementation.getWriteContextTool().getWriteContext();
+
+            configuration.setAdvancedFormatEnabled(c.getBoolean("enabled", true));
 
             c.resolve();
         });

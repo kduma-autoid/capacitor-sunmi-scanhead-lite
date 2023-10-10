@@ -108,7 +108,7 @@ export interface SunmiScanHeadPlugin {
   /**
    * Enable or disable advanced formatting options provided in configuration
    */
-  setAdvancedFormat(options?: { enabled: boolean }): Promise<void>;
+  setAdvancedFormatEnabled(options?: { enabled: boolean }): Promise<void>;
 
   /**
    * Enable or disable sound prompts on scan

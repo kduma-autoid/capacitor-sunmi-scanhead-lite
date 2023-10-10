@@ -22,14 +22,5 @@ public class SunmiScanHeadConfigurator {
         return new CodeTypeConfigurator(configurationWriteContextHelper);
     }
 
-    public AdvancedFormatConfigurator advancedFormat() {
-        return new AdvancedFormatConfigurator(configurationWriteContextHelper);
-    }
-
-
-
-
-
-
 
 }

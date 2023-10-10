@@ -47,7 +47,7 @@ export default config;
 * [`setOutputMode(...)`](#setoutputmode)
 * [`setScanMode(...)`](#setscanmode)
 * [`setReturnCodeType(...)`](#setreturncodetype)
-* [`setAdvancedFormat(...)`](#setadvancedformat)
+* [`setAdvancedFormatEnabled(...)`](#setadvancedformatenabled)
 * [`setBeep(...)`](#setbeep)
 * [`setVibrate(...)`](#setvibrate)
 * [`setOutputBroadcastEnabled(...)`](#setoutputbroadcastenabled)
@@ -250,10 +250,10 @@ Enable or disable returning of code type with scan result
 --------------------
 
 
-### setAdvancedFormat(...)
+### setAdvancedFormatEnabled(...)
 
 ```typescript
-setAdvancedFormat(options?: { enabled: boolean; } | undefined) => Promise<void>
+setAdvancedFormatEnabled(options?: { enabled: boolean; } | undefined) => Promise<void>
 ```
 
 Enable or disable advanced formatting options provided in configuration

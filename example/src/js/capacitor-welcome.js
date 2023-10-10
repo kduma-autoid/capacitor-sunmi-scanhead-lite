@@ -95,8 +95,8 @@ window.customElements.define(
           <button class="button" id="setVibrate1">setVibrate(true)</button>
           <button class="button" id="setVibrate0">setVibrate(false)</button>
           <hr>
-          <button class="button" id="setAdvancedFormat1">setAdvancedFormat(true)</button>
-          <button class="button" id="setAdvancedFormat0">setAdvancedFormat(false)</button>
+          <button class="button" id="setAdvancedFormatEnabled1">setAdvancedFormatEnabled(true)</button>
+          <button class="button" id="setAdvancedFormatEnabled0">setAdvancedFormatEnabled(false)</button>
           <hr>
           <button class="button" id="setOutputBroadcastEnabled1">setOutputBroadcastEnabled(true)</button>
           <button class="button" id="setOutputBroadcastEnabled0">setOutputBroadcastEnabled(false)</button>
@@ -237,19 +237,19 @@ window.customElements.define(
         }
       });
 
-      self.shadowRoot.querySelector('#setAdvancedFormat1').addEventListener('click', async function (e) {
+      self.shadowRoot.querySelector('#setAdvancedFormatEnabled1').addEventListener('click', async function (e) {
         try {
-          await SunmiScanHead.setAdvancedFormat({enabled: true});
+          await SunmiScanHead.setAdvancedFormatEnabled({enabled: true});
         } catch (e) {
-          printToOutput("setAdvancedFormat(true) - ERROR", { message: e.message, code: e.code });
+          printToOutput("setAdvancedFormatEnabled(true) - ERROR", { message: e.message, code: e.code });
         }
       });
 
-      self.shadowRoot.querySelector('#setAdvancedFormat0').addEventListener('click', async function (e) {
+      self.shadowRoot.querySelector('#setAdvancedFormatEnabled0').addEventListener('click', async function (e) {
         try {
-          await SunmiScanHead.setAdvancedFormat({enabled: false});
+          await SunmiScanHead.setAdvancedFormatEnabled({enabled: false});
         } catch (e) {
-          printToOutput("setAdvancedFormat(false) - ERROR", { message: e.message, code: e.code });
+          printToOutput("setAdvancedFormatEnabled(false) - ERROR", { message: e.message, code: e.code });
         }
       });
 
@@ -400,9 +400,9 @@ window.customElements.define(
           printToOutput("setReturnCodeType(false) - ERROR", { message: e.message, code: e.code });
         }
         try {
-          await SunmiScanHead.setAdvancedFormat({enabled: false});
+          await SunmiScanHead.setAdvancedFormatEnabled({enabled: false});
         } catch (e) {
-          printToOutput("setAdvancedFormat(false) - ERROR", { message: e.message, code: e.code });
+          printToOutput("setAdvancedFormatEnabled(false) - ERROR", { message: e.message, code: e.code });
         }
         try {
           await SunmiScanHead.setBeep({enabled: true});
@@ -453,9 +453,9 @@ window.customElements.define(
           printToOutput("setReturnCodeType(false) - ERROR", { message: e.message, code: e.code });
         }
         try {
-          await SunmiScanHead.setAdvancedFormat({enabled: false});
+          await SunmiScanHead.setAdvancedFormatEnabled({enabled: false});
         } catch (e) {
-          printToOutput("setAdvancedFormat(false) - ERROR", { message: e.message, code: e.code });
+          printToOutput("setAdvancedFormatEnabled(false) - ERROR", { message: e.message, code: e.code });
         }
         try {
           await SunmiScanHead.setBeep({enabled: false});
@@ -506,9 +506,9 @@ window.customElements.define(
           printToOutput("setReturnCodeType(false) - ERROR", { message: e.message, code: e.code });
         }
         try {
-          await SunmiScanHead.setAdvancedFormat({enabled: false});
+          await SunmiScanHead.setAdvancedFormatEnabled({enabled: false});
         } catch (e) {
-          printToOutput("setAdvancedFormat(false) - ERROR", { message: e.message, code: e.code });
+          printToOutput("setAdvancedFormatEnabled(false) - ERROR", { message: e.message, code: e.code });
         }
         try {
           await SunmiScanHead.setBeep({enabled: false});

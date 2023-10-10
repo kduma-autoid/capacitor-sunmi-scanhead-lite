@@ -74,7 +74,7 @@ export class SunmiScanHeadWeb
     throw this.unimplemented('Not implemented on web.');
   }
 
-  setAdvancedFormat(): Promise<void> {
+  setAdvancedFormatEnabled(): Promise<void> {
     throw this.unimplemented('Not implemented on web.');
   }
 
