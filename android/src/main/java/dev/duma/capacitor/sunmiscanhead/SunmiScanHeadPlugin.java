@@ -9,8 +9,11 @@ import com.sunmi.scanner.ScannerService;
 
 import dev.duma.android.sunmi.scanbroadcastreceiver.IScanHeadBroadcastReceiver.ScanCallback;
 import dev.duma.android.sunmi.scanconfigurationhelper.config.ServiceConfiguration;
+import dev.duma.android.sunmi.scanconfigurationhelper.config.enums.CenterDecodingSettingEnum;
+import dev.duma.android.sunmi.scanconfigurationhelper.config.enums.OutputEncodingCodeEnum;
 import dev.duma.android.sunmi.scanconfigurationhelper.config.enums.OutputTypeEnum;
 import dev.duma.android.sunmi.scanconfigurationhelper.config.enums.ScanResultCodeIDEnum;
+import dev.duma.android.sunmi.scanconfigurationhelper.config.enums.SpecificSceneEnum;
 import dev.duma.android.sunmi.scanconfigurationhelper.config.enums.TriggerMethodEnum;
 import dev.duma.capacitor.pluginhelpers.CallbackHelper;
 
@@ -276,7 +279,7 @@ public class SunmiScanHeadPlugin extends Plugin {
         CallbackHelper.handle(call, (c) -> {
             ServiceConfiguration configuration = implementation.getWriteContextTool().getWriteContext();
 
-            ScanResultCodeIDEnum type = ScanResultCodeIDEnum.nameOf(c.getString("type"));
+            ScanResultCodeIDEnum type = ScanResultCodeIDEnum.nameOf(c.getString("type", ScanResultCodeIDEnum.None.getName()));
             configuration.setScanResultCodeID(type);
 
             c.resolve();
@@ -345,6 +348,126 @@ public class SunmiScanHeadPlugin extends Plugin {
 
             String endIntent = c.getBoolean("end_intent") == null ? c.getString("end_intent", "com.sunmi.scanner.ACTION_SCAN_END") : "";
             configuration.setOutputBroadcastEndAction(endIntent);
+
+            c.resolve();
+        });
+    }
+
+    @PluginMethod
+    public void setOutputEncodingCode(PluginCall call) {
+        CallbackHelper.handle(call, (c) -> {
+            ServiceConfiguration configuration = implementation.getWriteContextTool().getWriteContext();
+
+            OutputEncodingCodeEnum encoding = OutputEncodingCodeEnum.nameOf(c.getString("encoding", OutputEncodingCodeEnum.UTF8.getName()));
+            configuration.setOutputEncodingCode(encoding);
+
+            c.resolve();
+        });
+    }
+
+    /** @noinspection DataFlowIssue*/
+    @PluginMethod
+    public void setVirtualFloatingScanButton(PluginCall call) {
+        CallbackHelper.handle(call, (c) -> {
+            ServiceConfiguration configuration = implementation.getWriteContextTool().getWriteContext();
+
+            configuration.setVirtualFloatingScanButton(c.getBoolean("enabled", true));
+
+            c.resolve();
+        });
+    }
+
+    @PluginMethod
+    public void setCenterFlagScan(PluginCall call) {
+        CallbackHelper.handle(call, (c) -> {
+            ServiceConfiguration configuration = implementation.getWriteContextTool().getWriteContext();
+
+            CenterDecodingSettingEnum mode = CenterDecodingSettingEnum.nameOf(c.getString("mode", CenterDecodingSettingEnum.Disabled.getName()));
+            configuration.setCenterFlagScan(mode);
+
+            c.resolve();
+        });
+    }
+
+    /** @noinspection DataFlowIssue*/
+    @PluginMethod
+    public void setFlash(PluginCall call) {
+        CallbackHelper.handle(call, (c) -> {
+            ServiceConfiguration configuration = implementation.getWriteContextTool().getWriteContext();
+
+            configuration.setFlash(c.getBoolean("enabled", true));
+
+            c.resolve();
+        });
+    }
+
+    @PluginMethod
+    public void setScene(PluginCall call) {
+        CallbackHelper.handle(call, (c) -> {
+            ServiceConfiguration configuration = implementation.getWriteContextTool().getWriteContext();
+
+            SpecificSceneEnum scene = SpecificSceneEnum.nameOf(c.getString("scene", SpecificSceneEnum.Default.getName()));
+            configuration.setScene(scene);
+
+            c.resolve();
+        });
+    }
+
+    /** @noinspection DataFlowIssue*/
+    @PluginMethod
+    public void setRemoveGroupSeparator(PluginCall call) {
+        CallbackHelper.handle(call, (c) -> {
+            ServiceConfiguration configuration = implementation.getWriteContextTool().getWriteContext();
+
+            configuration.setRemoveGroupSeparator(c.getBoolean("enabled", true));
+
+            c.resolve();
+        });
+    }
+
+    @PluginMethod
+    public void setPrefix(PluginCall call) {
+        CallbackHelper.handle(call, (c) -> {
+            ServiceConfiguration configuration = implementation.getWriteContextTool().getWriteContext();
+
+            String content = c.getString("content", "");
+            configuration.setPrefix(content);
+
+            c.resolve();
+        });
+    }
+
+    /** @noinspection DataFlowIssue*/
+    @PluginMethod
+    public void setPrefixCharactersRemoved(PluginCall call) {
+        CallbackHelper.handle(call, (c) -> {
+            ServiceConfiguration configuration = implementation.getWriteContextTool().getWriteContext();
+
+            configuration.setPrefixCharactersRemoved(c.getInt("length", 0));
+
+            c.resolve();
+        });
+    }
+
+    @PluginMethod
+    public void setSuffix(PluginCall call) {
+        CallbackHelper.handle(call, (c) -> {
+            ServiceConfiguration configuration = implementation.getWriteContextTool().getWriteContext();
+
+            String content = c.getString("content", "");
+            configuration.setSuffix(content);
+
+            c.resolve();
+        });
+    }
+
+    /** @noinspection DataFlowIssue*/
+    @PluginMethod
+    public void setSuffixCharactersRemoved(PluginCall call) {
+        CallbackHelper.handle(call, (c) -> {
+            ServiceConfiguration configuration = implementation.getWriteContextTool().getWriteContext();
+
+            configuration.setSuffixCharactersRemoved(c.getInt("length", 0));
 
             c.resolve();
         });

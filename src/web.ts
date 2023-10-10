@@ -85,4 +85,44 @@ export class SunmiScanHeadWeb
   vibrate(): Promise<void> {
     throw this.unimplemented('Not implemented on web.');
   }
+
+  setOutputEncodingCode(): Promise<void> {
+    throw this.unimplemented('Not implemented on web.');
+  }
+
+  setVirtualFloatingScanButton(): Promise<void> {
+    throw this.unimplemented('Not implemented on web.');
+  }
+
+  setCenterFlagScan(): Promise<void> {
+    throw this.unimplemented('Not implemented on web.');
+  }
+
+  setFlash(): Promise<void> {
+    throw this.unimplemented('Not implemented on web.');
+  }
+
+  setScene(): Promise<void> {
+    throw this.unimplemented('Not implemented on web.');
+  }
+
+  setRemoveGroupSeparator(): Promise<void> {
+    throw this.unimplemented('Not implemented on web.');
+  }
+
+  setPrefix(): Promise<void> {
+    throw this.unimplemented('Not implemented on web.');
+  }
+
+  setPrefixCharactersRemoved(): Promise<void> {
+    throw this.unimplemented('Not implemented on web.');
+  }
+
+  setSuffix(): Promise<void> {
+    throw this.unimplemented('Not implemented on web.');
+  }
+
+  setSuffixCharactersRemoved(): Promise<void> {
+    throw this.unimplemented('Not implemented on web.');
+  }
 }

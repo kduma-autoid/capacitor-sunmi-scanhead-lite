@@ -1,5 +1,12 @@
 import {SplashScreen} from '@capacitor/splash-screen';
-import {OutputMode, ScanMode, ScanResultCodeIDEnum, SunmiScanHead} from "../../../src";
+import {
+  CenterDecodingSettingEnum,
+  OutputEncodingCodeEnum,
+  OutputMode,
+  ScanMode,
+  ScanResultCodeIDEnum, SpecificSceneEnum,
+  SunmiScanHead
+} from "../../../src";
 import {WebViewWatchDog} from "@kduma-autoid/capacitor-webview-watchdog";
 
 window.customElements.define(
@@ -105,6 +112,37 @@ window.customElements.define(
           <button class="button" id="setOutputBroadcastEnabled0">setOutputBroadcastEnabled(false)</button>
           <button class="button" id="setBroadcastConfiguration">setBroadcastConfiguration()</button>
           <button class="button" id="setBroadcastConfigurationNoStartEnd">setBroadcastConfiguration(start_intent: false, end_intent: false)</button>
+          <hr>
+          <button class="button" id="setOutputEncodingCodeUTF8">setOutputEncodingCode(UTF8)</button>
+          <button class="button" id="setOutputEncodingCodeAuto">setOutputEncodingCode(Auto)</button>
+          <hr>
+          <button class="button" id="setVirtualFloatingScanButton1">setVirtualFloatingScanButton(true)</button>
+          <button class="button" id="setVirtualFloatingScanButton0">setVirtualFloatingScanButton(false)</button>
+          <hr>
+          <button class="button" id="setCenterFlagScanDisabled">setCenterFlagScan(Disabled)</button>
+          <button class="button" id="setCenterFlagScanCenterOnly">setCenterFlagScan(CenterOnly)</button>
+          <button class="button" id="setCenterFlagScanCenterFirst">setCenterFlagScan(CenterFirst)</button>
+          <hr>
+          <button class="button" id="setFlash1">setFlash(true)</button>
+          <button class="button" id="setFlash0">setFlash(false)</button>
+          <hr>
+          <button class="button" id="setSceneDefault">setScene(Default)</button>
+          <button class="button" id="setSceneMobileScreenScene">setScene(MobileScreenScene)</button>
+          <hr>
+          <button class="button" id="setRemoveGroupSeparator1">setRemoveGroupSeparator(true)</button>
+          <button class="button" id="setRemoveGroupSeparator0">setRemoveGroupSeparator(false)</button>
+          <hr>
+          <button class="button" id="setPrefix">setPrefix()</button>
+          <button class="button" id="setPrefixPrefix">setPrefix(prefix-)</button>
+          <hr>
+          <button class="button" id="setPrefixCharactersRemoved">setPrefixCharactersRemoved()</button>
+          <button class="button" id="setPrefixCharactersRemoved5">setPrefixCharactersRemoved(5)</button>
+          <hr>
+          <button class="button" id="setSuffix">setSuffix()</button>
+          <button class="button" id="setSuffixSuffix">setSuffix(-suffix)</button>
+          <hr>
+          <button class="button" id="setSuffixCharactersRemoved">setSuffixCharactersRemoved()</button>
+          <button class="button" id="setSuffixCharactersRemoved5">setSuffixCharactersRemoved(5)</button>
         </p> 
         <hr>
         <h2>Complex Examples</h2>
@@ -404,6 +442,174 @@ window.customElements.define(
           await SunmiScanHead.vibrate();
         } catch (e) {
           printToOutput("vibrate() - ERROR", { message: e.message, code: e.code });
+        }
+      });
+
+      self.shadowRoot.querySelector('#setOutputEncodingCodeUTF8').addEventListener('click', async function (e) {
+        try {
+          await SunmiScanHead.setOutputEncodingCode({encoding: OutputEncodingCodeEnum.UTF8});
+        } catch (e) {
+          printToOutput("setOutputEncodingCode(UTF8) - ERROR", { message: e.message, code: e.code });
+        }
+      });
+
+      self.shadowRoot.querySelector('#setOutputEncodingCodeAuto').addEventListener('click', async function (e) {
+        try {
+          await SunmiScanHead.setOutputEncodingCode({encoding: OutputEncodingCodeEnum.Auto});
+        } catch (e) {
+          printToOutput("setOutputEncodingCode(Auto) - ERROR", { message: e.message, code: e.code });
+        }
+      });
+
+      self.shadowRoot.querySelector('#setVirtualFloatingScanButton1').addEventListener('click', async function (e) {
+        try {
+          await SunmiScanHead.setVirtualFloatingScanButton({enabled: true});
+        } catch (e) {
+          printToOutput("setVirtualFloatingScanButton(true) - ERROR", { message: e.message, code: e.code });
+        }
+      });
+
+      self.shadowRoot.querySelector('#setVirtualFloatingScanButton0').addEventListener('click', async function (e) {
+        try {
+          await SunmiScanHead.setVirtualFloatingScanButton({enabled: false});
+        } catch (e) {
+          printToOutput("setVirtualFloatingScanButton(false) - ERROR", { message: e.message, code: e.code });
+        }
+      });
+
+      self.shadowRoot.querySelector('#setCenterFlagScanDisabled').addEventListener('click', async function (e) {
+        try {
+          await SunmiScanHead.setCenterFlagScan({ mode: CenterDecodingSettingEnum.Disabled });
+        } catch (e) {
+          printToOutput("setCenterFlagScan(Disabled) - ERROR", { message: e.message, code: e.code });
+        }
+      });
+
+      self.shadowRoot.querySelector('#setCenterFlagScanCenterOnly').addEventListener('click', async function (e) {
+        try {
+          await SunmiScanHead.setCenterFlagScan({ mode: CenterDecodingSettingEnum.CenterOnly });
+        } catch (e) {
+          printToOutput("setCenterFlagScan(CenterOnly) - ERROR", { message: e.message, code: e.code });
+        }
+      });
+
+      self.shadowRoot.querySelector('#setCenterFlagScanCenterFirst').addEventListener('click', async function (e) {
+        try {
+          await SunmiScanHead.setCenterFlagScan({ mode: CenterDecodingSettingEnum.CenterFirst });
+        } catch (e) {
+          printToOutput("setCenterFlagScan(CenterFirst) - ERROR", { message: e.message, code: e.code });
+        }
+      });
+
+      self.shadowRoot.querySelector('#setFlash1').addEventListener('click', async function (e) {
+        try {
+          await SunmiScanHead.setFlash({enabled: false});
+        } catch (e) {
+          printToOutput("setFlash(true) - ERROR", { message: e.message, code: e.code });
+        }
+      });
+
+      self.shadowRoot.querySelector('#setFlash0').addEventListener('click', async function (e) {
+        try {
+          await SunmiScanHead.setFlash({enabled: false});
+        } catch (e) {
+          printToOutput("setFlash(false) - ERROR", { message: e.message, code: e.code });
+        }
+      });
+
+      self.shadowRoot.querySelector('#setSceneDefault').addEventListener('click', async function (e) {
+        try {
+          await SunmiScanHead.setScene({scene: SpecificSceneEnum.Default});
+        } catch (e) {
+          printToOutput("setScene(Default) - ERROR", { message: e.message, code: e.code });
+        }
+      });
+
+      self.shadowRoot.querySelector('#setSceneMobileScreenScene').addEventListener('click', async function (e) {
+        try {
+          await SunmiScanHead.setScene({scene: SpecificSceneEnum.MobileScreenScene});
+        } catch (e) {
+          printToOutput("setScene(MobileScreenScene) - ERROR", { message: e.message, code: e.code });
+        }
+      });
+
+      self.shadowRoot.querySelector('#setRemoveGroupSeparator1').addEventListener('click', async function (e) {
+        try {
+          await SunmiScanHead.setRemoveGroupSeparator({enabled: false});
+        } catch (e) {
+          printToOutput("setRemoveGroupSeparator(true) - ERROR", { message: e.message, code: e.code });
+        }
+      });
+
+      self.shadowRoot.querySelector('#setRemoveGroupSeparator0').addEventListener('click', async function (e) {
+        try {
+          await SunmiScanHead.setRemoveGroupSeparator({enabled: false});
+        } catch (e) {
+          printToOutput("setRemoveGroupSeparator(false) - ERROR", { message: e.message, code: e.code });
+        }
+      });
+
+      self.shadowRoot.querySelector('#setPrefix').addEventListener('click', async function (e) {
+        try {
+          await SunmiScanHead.setPrefix();
+        } catch (e) {
+          printToOutput("setPrefix() - ERROR", { message: e.message, code: e.code });
+        }
+      });
+
+      self.shadowRoot.querySelector('#setPrefixPrefix').addEventListener('click', async function (e) {
+        try {
+          await SunmiScanHead.setPrefix({content: "prefix-"});
+        } catch (e) {
+          printToOutput("setPrefix(prefix-) - ERROR", { message: e.message, code: e.code });
+        }
+      });
+
+      self.shadowRoot.querySelector('#setPrefixCharactersRemoved').addEventListener('click', async function (e) {
+        try {
+          await SunmiScanHead.setPrefixCharactersRemoved();
+        } catch (e) {
+          printToOutput("setPrefixCharactersRemoved() - ERROR", { message: e.message, code: e.code });
+        }
+      });
+
+      self.shadowRoot.querySelector('#setPrefixCharactersRemoved5').addEventListener('click', async function (e) {
+        try {
+          await SunmiScanHead.setPrefixCharactersRemoved({ length: 5 });
+        } catch (e) {
+          printToOutput("setPrefixCharactersRemoved(5) - ERROR", { message: e.message, code: e.code });
+        }
+      });
+
+      self.shadowRoot.querySelector('#setSuffix').addEventListener('click', async function (e) {
+        try {
+          await SunmiScanHead.setSuffix();
+        } catch (e) {
+          printToOutput("setSuffix() - ERROR", { message: e.message, code: e.code });
+        }
+      });
+
+      self.shadowRoot.querySelector('#setSuffixSuffix').addEventListener('click', async function (e) {
+        try {
+          await SunmiScanHead.setSuffix({content: "-suffix"});
+        } catch (e) {
+          printToOutput("setSuffix(-suffix) - ERROR", { message: e.message, code: e.code });
+        }
+      });
+
+      self.shadowRoot.querySelector('#setSuffixCharactersRemoved').addEventListener('click', async function (e) {
+        try {
+          await SunmiScanHead.setSuffixCharactersRemoved();
+        } catch (e) {
+          printToOutput("setSuffixCharactersRemoved() - ERROR", { message: e.message, code: e.code });
+        }
+      });
+
+      self.shadowRoot.querySelector('#setSuffixCharactersRemoved5').addEventListener('click', async function (e) {
+        try {
+          await SunmiScanHead.setSuffixCharactersRemoved({length: 5});
+        } catch (e) {
+          printToOutput("setSuffixCharactersRemoved(5) - ERROR", { message: e.message, code: e.code });
         }
       });
 

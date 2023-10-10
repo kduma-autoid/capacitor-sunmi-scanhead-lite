@@ -51,7 +51,7 @@ public class ServiceSetting implements Parcelable {
     public int mTriggerMethod = 0;
     public int mTriggerTimeOut = 2000;
     public int scanExpSwitch = 1;
-    public int specificScene = -1;
+    public int specificScene = 0;
     public int mRemoveGroupChar = -1;
     public int mPrefixCount = -1;
     public int mSuffixCount = -1;
@@ -130,7 +130,7 @@ public class ServiceSetting implements Parcelable {
         this.mStartDecodeAction = "";
         this.mEndDecodeAction = "";
         this.scanExpSwitch = 1;
-        this.specificScene = -1;
+        this.specificScene = 0;
     }
 
     public void writeToParcel(Parcel parcel, int i) {
