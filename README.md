@@ -46,7 +46,7 @@ export default config;
 * [`discardWriteContext()`](#discardwritecontext)
 * [`setOutputMode(...)`](#setoutputmode)
 * [`setScanMode(...)`](#setscanmode)
-* [`setReturnCodeType(...)`](#setreturncodetype)
+* [`setScanResultCodeID(...)`](#setscanresultcodeid)
 * [`setAdvancedFormatEnabled(...)`](#setadvancedformatenabled)
 * [`setBeep(...)`](#setbeep)
 * [`setVibrate(...)`](#setvibrate)
@@ -235,17 +235,19 @@ Set scan mode
 --------------------
 
 
-### setReturnCodeType(...)
+### setScanResultCodeID(...)
 
 ```typescript
-setReturnCodeType(options?: { enabled: boolean; } | undefined) => Promise<void>
+setScanResultCodeID(options?: { type: ScanResultCodeIDEnum; } | undefined) => Promise<void>
 ```
 
-Enable or disable returning of code type with scan result
+Selects variant of code type returned with scan result
 
-| Param         | Type                               |
-| ------------- | ---------------------------------- |
-| **`options`** | <code>{ enabled: boolean; }</code> |
+if empty, defaults to <a href="#scanresultcodeidenum">`ScanResultCodeIDEnum.None`</a>
+
+| Param         | Type                                                                             |
+| ------------- | -------------------------------------------------------------------------------- |
+| **`options`** | <code>{ type: <a href="#scanresultcodeidenum">ScanResultCodeIDEnum</a>; }</code> |
 
 --------------------
 
@@ -428,5 +430,15 @@ Removes all listeners
 | **`CONTINUOUS`** | <code>"continuous"</code> |
 | **`PULSE`**      | <code>"pulse"</code>      |
 | **`LONGPRESS`**  | <code>"longPress"</code>  |
+
+
+#### ScanResultCodeIDEnum
+
+| Members        | Value                    |
+| -------------- | ------------------------ |
+| **`None`**     | <code>"none"</code>      |
+| **`SunmiId`**  | <code>"sunmi-id"</code>  |
+| **`AimId`**    | <code>"aim-id"</code>    |
+| **`SymbolId`** | <code>"symbol-id"</code> |
 
 </docgen-api>

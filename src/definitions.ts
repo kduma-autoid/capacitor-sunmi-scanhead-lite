@@ -27,6 +27,13 @@ export enum ScanMode {
     LONGPRESS = "longPress",
 }
 
+export enum ScanResultCodeIDEnum {
+  None = "none",
+  SunmiId = "sunmi-id",
+  AimId = "aim-id",
+  SymbolId = "symbol-id",
+}
+
 export type ScannerModelName = string|"NONE"|"SUPER_N1365_Y1825"|"NLS_2096"|"ZEBRA_4710"|"HONEYWELL_3601"|"HONEYWELL_6603"|"ZEBRA_4750"|"ZEBRA_1350"|"HONEYWELL_6703"|"HONEYWELL_3603"|"NLS_CM47"|"NLS_3108"|"ZEBRA_965"|"SM_SS_1100"|"NLS_CM30"|"HONEYWELL_4603"|"ZEBRA_4770"|"NLS_2596"|"SM_SS_1103"|"SM_SS_1101"|"HONEYWELL_5703"|"UNKNOWN";
 
 export interface SunmiScanHeadPlugin {
@@ -101,9 +108,11 @@ export interface SunmiScanHeadPlugin {
   setScanMode(options: { mode: ScanMode.TRIGGER | ScanMode.PULSE, timeout?: number } | { mode: ScanMode.CONTINUOUS | ScanMode.LONGPRESS, sleep?: number, timeout?: number }): Promise<void>;
 
   /**
-   * Enable or disable returning of code type with scan result
+   * Selects variant of code type returned with scan result
+   *
+   * if empty, defaults to `ScanResultCodeIDEnum.None`
    */
-  setReturnCodeType(options?: { enabled: boolean }): Promise<void>;
+  setScanResultCodeID(options?: { type: ScanResultCodeIDEnum }): Promise<void>;
 
   /**
    * Enable or disable advanced formatting options provided in configuration

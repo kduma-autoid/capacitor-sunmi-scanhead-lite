@@ -1,5 +1,5 @@
 import {SplashScreen} from '@capacitor/splash-screen';
-import {OutputMode, ScanMode, SunmiScanHead} from "../../../src";
+import {OutputMode, ScanMode, ScanResultCodeIDEnum, SunmiScanHead} from "../../../src";
 import {WebViewWatchDog} from "@kduma-autoid/capacitor-webview-watchdog";
 
 window.customElements.define(
@@ -87,8 +87,10 @@ window.customElements.define(
           <button class="button" id="setScanModeContinuous">setScanMode(CONTINUOUS)</button>
           <button class="button" id="setScanModeLongpress">setScanMode(LONGPRESS)</button>
           <hr>
-          <button class="button" id="setReturnCodeType1">setReturnCodeType(true)</button>
-          <button class="button" id="setReturnCodeType0">setReturnCodeType(false)</button>
+          <button class="button" id="setScanResultCodeIDNone">setScanResultCodeID(None)</button>
+          <button class="button" id="setScanResultCodeIDSunmiId">setScanResultCodeID(SunmiId)</button>
+          <button class="button" id="setScanResultCodeIDAimId">setScanResultCodeID(AimId)</button>
+          <button class="button" id="setScanResultCodeIDSymbolId">setScanResultCodeID(SymbolId)</button>
           <hr>
           <button class="button" id="setBeep1">setBeep(true)</button>
           <button class="button" id="setBeep0">setBeep(false)</button>
@@ -203,21 +205,35 @@ window.customElements.define(
         }
       });
 
-
-
-      self.shadowRoot.querySelector('#setReturnCodeType1').addEventListener('click', async function (e) {
+      self.shadowRoot.querySelector('#setScanResultCodeIDNone').addEventListener('click', async function (e) {
         try {
-          await SunmiScanHead.setReturnCodeType({enabled: true});
+          await SunmiScanHead.setScanResultCodeID({type: ScanResultCodeIDEnum.None});
         } catch (e) {
-          printToOutput("setReturnCodeType() - ERROR", { message: e.message, code: e.code });
+          printToOutput("setScanResultCodeID(None) - ERROR", { message: e.message, code: e.code });
         }
       });
 
-      self.shadowRoot.querySelector('#setReturnCodeType0').addEventListener('click', async function (e) {
+      self.shadowRoot.querySelector('#setScanResultCodeIDSunmiId').addEventListener('click', async function (e) {
         try {
-          await SunmiScanHead.setReturnCodeType({enabled: false});
+          await SunmiScanHead.setScanResultCodeID({type: ScanResultCodeIDEnum.SunmiId});
         } catch (e) {
-          printToOutput("setReturnCodeType() - ERROR", { message: e.message, code: e.code });
+          printToOutput("setScanResultCodeID(SunmiId) - ERROR", { message: e.message, code: e.code });
+        }
+      });
+
+      self.shadowRoot.querySelector('#setScanResultCodeIDAimId').addEventListener('click', async function (e) {
+        try {
+          await SunmiScanHead.setScanResultCodeID({type: ScanResultCodeIDEnum.AimId});
+        } catch (e) {
+          printToOutput("setScanResultCodeID(AimId) - ERROR", { message: e.message, code: e.code });
+        }
+      });
+
+      self.shadowRoot.querySelector('#setScanResultCodeIDSymbolId').addEventListener('click', async function (e) {
+        try {
+          await SunmiScanHead.setScanResultCodeID({type: ScanResultCodeIDEnum.SymbolId});
+        } catch (e) {
+          printToOutput("setScanResultCodeID(SymbolId) - ERROR", { message: e.message, code: e.code });
         }
       });
 
@@ -395,9 +411,9 @@ window.customElements.define(
           printToOutput("setBroadcast(true) - ERROR", { message: e.message, code: e.code });
         }
         try {
-          await SunmiScanHead.setReturnCodeType({enabled: false});
+          await SunmiScanHead.setScanResultCodeID({type: ScanResultCodeIDEnum.None});
         } catch (e) {
-          printToOutput("setReturnCodeType(false) - ERROR", { message: e.message, code: e.code });
+          printToOutput("setScanResultCodeID(None) - ERROR", { message: e.message, code: e.code });
         }
         try {
           await SunmiScanHead.setAdvancedFormatEnabled({enabled: false});
@@ -448,9 +464,9 @@ window.customElements.define(
           printToOutput("setBroadcast(true) - ERROR", { message: e.message, code: e.code });
         }
         try {
-          await SunmiScanHead.setReturnCodeType({enabled: false});
+          await SunmiScanHead.setScanResultCodeID({type: ScanResultCodeIDEnum.None});
         } catch (e) {
-          printToOutput("setReturnCodeType(false) - ERROR", { message: e.message, code: e.code });
+          printToOutput("setScanResultCodeID(None) - ERROR", { message: e.message, code: e.code });
         }
         try {
           await SunmiScanHead.setAdvancedFormatEnabled({enabled: false});
@@ -501,9 +517,9 @@ window.customElements.define(
           printToOutput("setBroadcast(true) - ERROR", { message: e.message, code: e.code });
         }
         try {
-          await SunmiScanHead.setReturnCodeType({enabled: false});
+          await SunmiScanHead.setScanResultCodeID({type: ScanResultCodeIDEnum.None});
         } catch (e) {
-          printToOutput("setReturnCodeType(false) - ERROR", { message: e.message, code: e.code });
+          printToOutput("setScanResultCodeID(None) - ERROR", { message: e.message, code: e.code });
         }
         try {
           await SunmiScanHead.setAdvancedFormatEnabled({enabled: false});

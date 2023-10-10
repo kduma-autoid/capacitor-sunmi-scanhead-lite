@@ -9,6 +9,7 @@ import com.sunmi.scanner.ScannerService;
 
 import dev.duma.android.sunmi.scanbroadcastreceiver.IScanHeadBroadcastReceiver.ScanCallback;
 import dev.duma.android.sunmi.scanconfigurationhelper.config.ServiceConfiguration;
+import dev.duma.android.sunmi.scanconfigurationhelper.config.enums.ScanResultCodeIDEnum;
 import dev.duma.capacitor.pluginhelpers.CallbackHelper;
 
 @CapacitorPlugin(name = "SunmiScanHead")
@@ -217,9 +218,12 @@ public class SunmiScanHeadPlugin extends Plugin {
 
     /** @noinspection DataFlowIssue*/
     @PluginMethod
-    public void setReturnCodeType(PluginCall call) {
+    public void setScanResultCodeID(PluginCall call) {
         CallbackHelper.handle(call, (c) -> {
-            implementation.getConfigurator().codeType().returnCodeType(c.getBoolean("enabled", true));
+            ServiceConfiguration configuration = implementation.getWriteContextTool().getWriteContext();
+
+            ScanResultCodeIDEnum type = ScanResultCodeIDEnum.nameOf(c.getString("type"));
+            configuration.setScanResultCodeID(type);
 
             c.resolve();
         });
