@@ -313,6 +313,7 @@ public class ServiceConfiguration {
         this.scanTriggerTimeOut = scanTriggerTimeOut;
     }
 
+    // TODO: Check usage
     public int getTriggerOverTime() {
         if(this.unsupportedFields.contains(ConfigurationFieldEnum.TriggerOverTime)) {
             throw new RuntimeException("Field "+ConfigurationFieldEnum.TriggerOverTime+" is not supported on this system!");
