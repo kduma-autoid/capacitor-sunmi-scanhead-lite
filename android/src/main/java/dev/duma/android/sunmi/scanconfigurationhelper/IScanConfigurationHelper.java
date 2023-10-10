@@ -4,7 +4,7 @@ import android.os.RemoteException;
 
 import com.sunmi.scanner.entity.ServiceSetting;
 
-import dev.duma.android.sunmi.scanconfigurationhelper.models.ServiceConfiguration;
+import dev.duma.android.sunmi.scanconfigurationhelper.config.ServiceConfiguration;
 import dev.duma.android.sunmi.scaninterfacehelper.IScanInterfaceHelper;
 
 public interface IScanConfigurationHelper {
@@ -13,7 +13,7 @@ public interface IScanConfigurationHelper {
     }
 
     void loadServiceConfig(IServiceConfigLoadedCallback callback) throws RemoteException;
-    void persistServiceConfig(ServiceConfiguration configuration, ServiceSetting original) throws RemoteException;
+    void persistServiceConfig(ServiceConfiguration configuration) throws RemoteException;
 
     class Factory
     {

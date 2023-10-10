@@ -8,6 +8,7 @@ import dev.duma.android.sunmi.scanbroadcastreceiver.IScanHeadBroadcastReceiver;
 import dev.duma.android.sunmi.scanbroadcastreceiver.IScanHeadBroadcastReceiver.ScanCallback;
 import dev.duma.android.sunmi.scanconfigurationhelper.IScanConfigurationHelper;
 import dev.duma.android.sunmi.scaninterfacehelper.IScanInterfaceHelper;
+import dev.duma.android.sunmi.scantriggercontrol.ITriggerControlHelper;
 import dev.duma.capacitor.sunmiscanhead.configuration.SunmiScanHeadConfigurator;
 
 public class SunmiScanHead {
@@ -17,6 +18,7 @@ public class SunmiScanHead {
     private final IScanConfigurationHelper scanConfigurationHelper;
     private final IScanHeadBroadcastReceiver broadcastReceiver;
     private final Context context;
+    private final ITriggerControlHelper triggerControlHelper;
 
     public SunmiScanHead(Context context, ScanCallback scanCallback) {
         this.context = context;
@@ -24,6 +26,7 @@ public class SunmiScanHead {
         this.beeper = IBeeper.Factory.make(context);
         this.scanInterfaceHelper = IScanInterfaceHelper.Factory.make(context);
         this.scanConfigurationHelper = IScanConfigurationHelper.Factory.make(scanInterfaceHelper);
+        this.triggerControlHelper = ITriggerControlHelper.Factory.make(context);
         this.broadcastReceiver = IScanHeadBroadcastReceiver.Factory.make(context, scanCallback);
 
         this.configurator = new SunmiScanHeadConfigurator(scanConfigurationHelper);
@@ -56,9 +59,10 @@ public class SunmiScanHead {
     }
 
     public void setTrigger(boolean enabled) {
-        Intent intent = new Intent();
-        intent.setAction("com.sunmi.scanner.ACTION_TRIGGER_CONTROL");
-        intent.putExtra("enable",enabled);
-        context.sendBroadcast(intent);
+        if (enabled) {
+            triggerControlHelper.enable();
+        } else {
+            triggerControlHelper.disable();
+        }
     }
 }

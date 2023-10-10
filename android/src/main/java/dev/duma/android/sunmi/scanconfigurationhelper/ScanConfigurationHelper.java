@@ -8,8 +8,10 @@ import com.sunmi.scanner.entity.Pair;
 import com.sunmi.scanner.entity.ServiceSetting;
 
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicReference;
 
-import dev.duma.android.sunmi.scanconfigurationhelper.models.ServiceConfiguration;
+import dev.duma.android.sunmi.scanconfigurationhelper.config.ServiceConfiguration;
+import dev.duma.android.sunmi.scanconfigurationhelper.config.ServiceConfigurationConverter;
 import dev.duma.android.sunmi.scaninterfacehelper.IScanInterfaceHelper;
 import dev.duma.android.sunmi.scaninterfacehelper.IScanInterfaceHelper.IQueryCallback;
 
@@ -22,23 +24,35 @@ public class ScanConfigurationHelper implements IScanConfigurationHelper {
 
     @Override
     public void loadServiceConfig(IServiceConfigLoadedCallback callback) throws RemoteException {
-        scanInterfaceHelper.sendQuery(SunmiHelper.QUERY_ALL_SETTING_INFO, (IQueryCallback<ServiceSetting>) (response, entity) -> {
-            scanInterfaceHelper.sendQuery(SunmiHelper.QUERY_ADVANCED_FORMAT, (IQueryCallback<ArrayList<Pair>>) (response_format, entity_format) -> {
-                callback.onLoaded(
-                        ServiceConfiguration.fromServiceSetting(response, response_format), response
-                );
-            });
-        });
+        AtomicReference<ServiceSetting> serviceSetting = new AtomicReference<>();
+        AtomicReference<ArrayList<Pair>> advancedFormat = new AtomicReference<>();
+
+        IQueryCallback<ArrayList<Pair>> advancedFormatCallback = (response, entity) -> {
+            advancedFormat.set(response);
+            callback.onLoaded(
+                    ServiceConfigurationConverter.fromServiceSetting(
+                            serviceSetting.get(),
+                            advancedFormat.get()
+                    ),
+                    serviceSetting.get()
+            );
+        };
+
+        IQueryCallback<ServiceSetting> serviceSettingsCallback = (response, entity) -> {
+            serviceSetting.set(response);
+            scanInterfaceHelper.sendQuery(SunmiHelper.QUERY_ADVANCED_FORMAT, advancedFormatCallback);
+        };
+
+        scanInterfaceHelper.sendQuery(SunmiHelper.QUERY_ALL_SETTING_INFO, serviceSettingsCallback);
     }
 
     @Override
-    public void persistServiceConfig(ServiceConfiguration configuration, ServiceSetting original) throws RemoteException {
-        ServiceSetting serviceSetting = configuration.toServiceSetting(original);
-        String command = SunmiHelper.convertCmd(serviceSetting, original);
-        command += SunmiHelper.setScanTrigger(serviceSetting.mTrigger);
-        command += SunmiHelper.setTriggerContinuousTime(configuration.getTriggerContinuousTime());
-        Log.i("CMD", command);
-        scanInterfaceHelper.sendCommand(command);
+    public void persistServiceConfig(ServiceConfiguration configuration) throws RemoteException {
+        ArrayList<String> configurationCommands = ServiceConfigurationConverter.toConfigurationCommands(configuration);
+        Log.i("CMD", configurationCommands.toString());
+        for (String command: configurationCommands) {
+            scanInterfaceHelper.sendCommand(command);
+        }
     }
 }
 

@@ -27,7 +27,7 @@ public class ServiceSetting implements Parcelable {
     public int mAdvancedFormat = 0;
     public String mBroadcastAction = ScannerService.ACTION_DATA_CODE_RECEIVED;
     public String mByteKey = ScannerService.SOURCE;
-    public int mCenterFlagScan = 0;
+    public int mCenterFlagScan = -1;
     public int mContinuousTime = 500;
     public String mDataKey = ScannerService.DATA;
     @Deprecated
@@ -51,10 +51,10 @@ public class ServiceSetting implements Parcelable {
     public int mTriggerMethod = 0;
     public int mTriggerTimeOut = 2000;
     public int scanExpSwitch = 1;
-    public int specificScene = 0;
-    public int mRemoveGroupChar = 0;
-    public int mPrefixCount = 0;
-    public int mSuffixCount = 0;
+    public int specificScene = -1;
+    public int mRemoveGroupChar = -1;
+    public int mPrefixCount = -1;
+    public int mSuffixCount = -1;
 
     public int describeContents() {
         return 0;
@@ -130,7 +130,7 @@ public class ServiceSetting implements Parcelable {
         this.mStartDecodeAction = "";
         this.mEndDecodeAction = "";
         this.scanExpSwitch = 1;
-        this.specificScene = 0;
+        this.specificScene = -1;
     }
 
     public void writeToParcel(Parcel parcel, int i) {

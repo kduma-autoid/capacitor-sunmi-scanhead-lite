@@ -19,7 +19,7 @@ public class AdvancedFormatConfigurator {
         scanConfigurationHelper.loadServiceConfig((configuration, response) -> {
             configuration.setAdvancedFormatEnabled(enabled);
 
-            scanConfigurationHelper.persistServiceConfig(configuration, response);
+            scanConfigurationHelper.persistServiceConfig(configuration);
         });
     }
 }

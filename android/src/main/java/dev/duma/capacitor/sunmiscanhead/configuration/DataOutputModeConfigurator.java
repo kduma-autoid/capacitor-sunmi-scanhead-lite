@@ -3,7 +3,7 @@ package dev.duma.capacitor.sunmiscanhead.configuration;
 import android.os.RemoteException;
 
 import dev.duma.android.sunmi.scanconfigurationhelper.IScanConfigurationHelper;
-import dev.duma.android.sunmi.scanconfigurationhelper.models.OutputTypeEnum;
+import dev.duma.android.sunmi.scanconfigurationhelper.config.enums.OutputTypeEnum;
 
 public class DataOutputModeConfigurator {
     private final IScanConfigurationHelper scanConfigurationHelper;
@@ -24,7 +24,7 @@ public class DataOutputModeConfigurator {
             configuration.setAddReturn(enter);
             configuration.setAsEvents(true);
 
-            scanConfigurationHelper.persistServiceConfig(configuration, response);
+            scanConfigurationHelper.persistServiceConfig(configuration);
         });
     }
 
@@ -39,7 +39,7 @@ public class DataOutputModeConfigurator {
             configuration.setAddReturn(enter);
             configuration.setAsEvents(asEvents);
 
-            scanConfigurationHelper.persistServiceConfig(configuration, response);
+            scanConfigurationHelper.persistServiceConfig(configuration);
         });
     }
 
@@ -47,7 +47,7 @@ public class DataOutputModeConfigurator {
         scanConfigurationHelper.loadServiceConfig((configuration, response) -> {
             configuration.setOutputType(OutputTypeEnum.Disabled);
 
-            scanConfigurationHelper.persistServiceConfig(configuration, response);
+            scanConfigurationHelper.persistServiceConfig(configuration);
         });
     }
 }
