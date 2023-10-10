@@ -339,8 +339,12 @@ public class SunmiScanHeadPlugin extends Plugin {
             configuration.setOutputBroadcastAction(c.getString("scanned_intent", "com.sunmi.scanner.ACTION_DATA_CODE_RECEIVED"));
             configuration.setOutputBroadcastDataKey(c.getString("intent_data_key", "data"));
             configuration.setOutputBroadcastByteKey(c.getString("intent_byte_key", "source_byte"));
-            configuration.setOutputBroadcastStartAction(c.getString("start_intent", "com.sunmi.scanner.ACTION_SCAN_START"));
-            configuration.setOutputBroadcastEndAction(c.getString("end_intent", "com.sunmi.scanner.ACTION_SCAN_END"));
+
+            String startIntent = c.getBoolean("start_intent") == null ? c.getString("start_intent", "com.sunmi.scanner.ACTION_SCAN_START") : "";
+            configuration.setOutputBroadcastStartAction(startIntent);
+
+            String endIntent = c.getBoolean("end_intent") == null ? c.getString("end_intent", "com.sunmi.scanner.ACTION_SCAN_END") : "";
+            configuration.setOutputBroadcastEndAction(endIntent);
 
             c.resolve();
         });

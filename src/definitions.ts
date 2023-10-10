@@ -300,16 +300,20 @@ export interface SetBroadcastConfigurationOptions {
   /**
    * Intent name broadcasted when scanner starts scanning
    *
+   * Set to `false` to disable
+   *
    * @default com.sunmi.scanner.ACTION_SCAN_START
    */
-  start_intent?: string,
+  start_intent?: string|false,
 
   /**
    * Intent name broadcasted when scanner stops scanning
    *
+   * Set to `false` to disable
+   *
    * @default com.sunmi.scanner.ACTION_SCAN_END
    */
-  end_intent?: string,
+  end_intent?: string|false,
 
   /**
    * Intent extra key for barcode plain text data in scan result intent (`scanned_intent`)
