@@ -237,12 +237,23 @@ public class SunmiScanHeadPlugin extends Plugin {
 
     /** @noinspection DataFlowIssue*/
     @PluginMethod
-    public void setPromptSettings(PluginCall call) {
+    public void setBeep(PluginCall call) {
         CallbackHelper.handle(call, (c) -> {
-            implementation.getConfigurator().promptSettings().set(
-                    c.getBoolean("sound", true),
-                    c.getBoolean("vibrations", c.getBoolean("sound", true))
-            );
+            ServiceConfiguration configuration = implementation.getWriteContextTool().getWriteContext();
+
+            configuration.setBeep(c.getBoolean("enabled", true));
+
+            c.resolve();
+        });
+    }
+
+    /** @noinspection DataFlowIssue*/
+    @PluginMethod
+    public void setVibrate(PluginCall call) {
+        CallbackHelper.handle(call, (c) -> {
+            ServiceConfiguration configuration = implementation.getWriteContextTool().getWriteContext();
+
+            configuration.setVibrate(c.getBoolean("enabled", true));
 
             c.resolve();
         });

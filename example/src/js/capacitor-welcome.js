@@ -90,8 +90,10 @@ window.customElements.define(
           <button class="button" id="setReturnCodeType1">setReturnCodeType(true)</button>
           <button class="button" id="setReturnCodeType0">setReturnCodeType(false)</button>
           <hr>
-          <button class="button" id="setPromptSettings1">setPromptSettings(true)</button>
-          <button class="button" id="setPromptSettings0">setPromptSettings(false)</button>
+          <button class="button" id="setBeep1">setBeep(true)</button>
+          <button class="button" id="setBeep0">setBeep(false)</button>
+          <button class="button" id="setVibrate1">setVibrate(true)</button>
+          <button class="button" id="setVibrate0">setVibrate(false)</button>
           <hr>
           <button class="button" id="setAdvancedFormat1">setAdvancedFormat(true)</button>
           <button class="button" id="setAdvancedFormat0">setAdvancedFormat(false)</button>
@@ -251,19 +253,35 @@ window.customElements.define(
         }
       });
 
-      self.shadowRoot.querySelector('#setPromptSettings1').addEventListener('click', async function (e) {
+      self.shadowRoot.querySelector('#setBeep1').addEventListener('click', async function (e) {
         try {
-          await SunmiScanHead.setPromptSettings({sound: true});
+          await SunmiScanHead.setBeep({enabled: true});
         } catch (e) {
-          printToOutput("setPromptSettings(true) - ERROR", { message: e.message, code: e.code });
+          printToOutput("setBeep(true) - ERROR", { message: e.message, code: e.code });
         }
       });
 
-      self.shadowRoot.querySelector('#setPromptSettings0').addEventListener('click', async function (e) {
+      self.shadowRoot.querySelector('#setBeep0').addEventListener('click', async function (e) {
         try {
-          await SunmiScanHead.setPromptSettings({sound: false});
+          await SunmiScanHead.setBeep({enabled: false});
         } catch (e) {
-          printToOutput("setPromptSettings(false) - ERROR", { message: e.message, code: e.code });
+          printToOutput("setBeep(false) - ERROR", { message: e.message, code: e.code });
+        }
+      });
+
+      self.shadowRoot.querySelector('#setVibrate1').addEventListener('click', async function (e) {
+        try {
+          await SunmiScanHead.setVibrate({enabled: true});
+        } catch (e) {
+          printToOutput("setVibrate(true) - ERROR", { message: e.message, code: e.code });
+        }
+      });
+
+      self.shadowRoot.querySelector('#setVibrate0').addEventListener('click', async function (e) {
+        try {
+          await SunmiScanHead.setVibrate({enabled: false});
+        } catch (e) {
+          printToOutput("setVibrate(false) - ERROR", { message: e.message, code: e.code });
         }
       });
 
@@ -387,9 +405,14 @@ window.customElements.define(
           printToOutput("setAdvancedFormat(false) - ERROR", { message: e.message, code: e.code });
         }
         try {
-          await SunmiScanHead.setPromptSettings({sound: true});
+          await SunmiScanHead.setBeep({enabled: true});
         } catch (e) {
-          printToOutput("setPromptSettings(true) - ERROR", { message: e.message, code: e.code });
+          printToOutput("setBeep(true) - ERROR", { message: e.message, code: e.code });
+        }
+        try {
+          await SunmiScanHead.setVibrate({enabled: true});
+        } catch (e) {
+          printToOutput("setVibrate(true) - ERROR", { message: e.message, code: e.code });
         }
         try {
           await SunmiScanHead.setScanMode({mode: ScanMode.TRIGGER});
@@ -435,9 +458,14 @@ window.customElements.define(
           printToOutput("setAdvancedFormat(false) - ERROR", { message: e.message, code: e.code });
         }
         try {
-          await SunmiScanHead.setPromptSettings({sound: false});
+          await SunmiScanHead.setBeep({enabled: false});
         } catch (e) {
-          printToOutput("setPromptSettings(false) - ERROR", { message: e.message, code: e.code });
+          printToOutput("setBeep(false) - ERROR", { message: e.message, code: e.code });
+        }
+        try {
+          await SunmiScanHead.setVibrate({enabled: false});
+        } catch (e) {
+          printToOutput("setVibrate(false) - ERROR", { message: e.message, code: e.code });
         }
         try {
           await SunmiScanHead.setScanMode({mode: ScanMode.LONGPRESS, sleep: 50});
@@ -483,9 +511,14 @@ window.customElements.define(
           printToOutput("setAdvancedFormat(false) - ERROR", { message: e.message, code: e.code });
         }
         try {
-          await SunmiScanHead.setPromptSettings({sound: false});
+          await SunmiScanHead.setBeep({enabled: false});
         } catch (e) {
-          printToOutput("setPromptSettings(false) - ERROR", { message: e.message, code: e.code });
+          printToOutput("setBeep(false) - ERROR", { message: e.message, code: e.code });
+        }
+        try {
+          await SunmiScanHead.setVibrate({enabled: false});
+        } catch (e) {
+          printToOutput("setVibrate(false) - ERROR", { message: e.message, code: e.code });
         }
         try {
           await SunmiScanHead.setScanMode({mode: ScanMode.CONTINUOUS, sleep: 50});

@@ -22,10 +22,6 @@ public class SunmiScanHeadConfigurator {
         return new CodeTypeConfigurator(configurationWriteContextHelper);
     }
 
-    public PromptSettingsConfigurator promptSettings() {
-        return new PromptSettingsConfigurator(configurationWriteContextHelper);
-    }
-
     public AdvancedFormatConfigurator advancedFormat() {
         return new AdvancedFormatConfigurator(configurationWriteContextHelper);
     }

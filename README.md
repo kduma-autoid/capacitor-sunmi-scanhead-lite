@@ -48,7 +48,8 @@ export default config;
 * [`setScanMode(...)`](#setscanmode)
 * [`setReturnCodeType(...)`](#setreturncodetype)
 * [`setAdvancedFormat(...)`](#setadvancedformat)
-* [`setPromptSettings(...)`](#setpromptsettings)
+* [`setBeep(...)`](#setbeep)
+* [`setVibrate(...)`](#setvibrate)
 * [`setOutputBroadcastEnabled(...)`](#setoutputbroadcastenabled)
 * [`setBroadcastConfiguration(...)`](#setbroadcastconfiguration)
 * [`addListener('onScanResult', ...)`](#addlisteneronscanresult)
@@ -264,17 +265,32 @@ Enable or disable advanced formatting options provided in configuration
 --------------------
 
 
-### setPromptSettings(...)
+### setBeep(...)
 
 ```typescript
-setPromptSettings(options?: { sound: boolean; vibrations?: boolean | undefined; } | undefined) => Promise<void>
+setBeep(options?: { enabled: boolean; } | undefined) => Promise<void>
 ```
 
-Enable or disable sound and vibration prompts on scan
+Enable or disable sound prompts on scan
 
-| Param         | Type                                                   |
-| ------------- | ------------------------------------------------------ |
-| **`options`** | <code>{ sound: boolean; vibrations?: boolean; }</code> |
+| Param         | Type                               |
+| ------------- | ---------------------------------- |
+| **`options`** | <code>{ enabled: boolean; }</code> |
+
+--------------------
+
+
+### setVibrate(...)
+
+```typescript
+setVibrate(options?: { enabled: boolean; } | undefined) => Promise<void>
+```
+
+Enable or disable vibration prompts on scan
+
+| Param         | Type                               |
+| ------------- | ---------------------------------- |
+| **`options`** | <code>{ enabled: boolean; }</code> |
 
 --------------------
 

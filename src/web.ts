@@ -66,7 +66,11 @@ export class SunmiScanHeadWeb
     throw this.unimplemented('Not implemented on web.');
   }
 
-  setPromptSettings(): Promise<void> {
+  setBeep(): Promise<void> {
+    throw this.unimplemented('Not implemented on web.');
+  }
+
+  setVibrate(): Promise<void> {
     throw this.unimplemented('Not implemented on web.');
   }
 

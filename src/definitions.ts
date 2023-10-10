@@ -111,9 +111,14 @@ export interface SunmiScanHeadPlugin {
   setAdvancedFormat(options?: { enabled: boolean }): Promise<void>;
 
   /**
-   * Enable or disable sound and vibration prompts on scan
+   * Enable or disable sound prompts on scan
    */
-  setPromptSettings(options?: { sound: boolean, vibrations?: boolean }): Promise<void>;
+  setBeep(options?: { enabled: boolean }): Promise<void>;
+
+  /**
+   * Enable or disable vibration prompts on scan
+   */
+  setVibrate(options?: { enabled: boolean }): Promise<void>;
 
   /**
    * Enable or disable scan result broadcast
