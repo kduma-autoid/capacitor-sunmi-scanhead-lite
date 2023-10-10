@@ -330,6 +330,163 @@ export interface SetBroadcastConfigurationOptions {
   intent_byte_key?: string
 }
 
+interface SetOutputEncodingCodeOptions {
+  /**
+   * Set output encoding/character set setting
+   *
+   * @default OutputEncodingCodeEnum.UTF8
+   */
+  encoding?: OutputEncodingCodeEnum;
+}
+
+enum OutputEncodingCodeEnum {
+  UTF8 = "UTF8",
+  GBK = "GBK",
+  ISO88591 = "ISO88591",
+  SHIFTJIS = "SHIFTJIS",
+
+  /**
+   * Auto detect encoding/compatibility mode
+   */
+  Auto = "Auto",
+
+  WINDOWS1256 = "WINDOWS1256",
+
+  /**
+   * Hardware support limited
+   */
+  WINDOWS874 = "WINDOWS874",
+
+  /**
+   * Hardware support limited
+   */
+  Unicode = "Unicode",
+
+  /**
+   * Hardware support limited
+   */
+  Big5 = "Big5",
+
+  /**
+   * Hardware support limited
+   */
+  ASCII = "ASCII",
+
+  /**
+   * Hardware support limited
+   */
+  GB2312 = "GB2312",
+
+  /**
+   * Hardware support limited
+   */
+  GB18030 = "GB18030",
+}
+
+interface SetVirtualFloatingScanButtonOptions {
+  /**
+   * Enable or disable virtual floating scan button
+   *
+   * @default true
+   */
+  enabled?: boolean;
+}
+
+interface SetCenterFlagScanOptions {
+  /**
+   * Selects center point decoding mode
+   *
+   * @default CenterDecodingSettingEnum.Disabled
+   */
+  mode?: CenterDecodingSettingEnum;
+}
+
+enum CenterDecodingSettingEnum {
+  Disabled = "disabled",
+  CenterOnly = "center-only",
+
+  /**
+   * Hardware support limited
+   */
+  CenterFirst = "center-first",
+}
+
+interface SetFlashOptions {
+  /**
+   * Enable or disable scanner illumination
+   *
+   * @default true
+   */
+  enabled?: boolean;
+}
+
+interface SetSceneOptions {
+  /**
+   * Selects scanning scene preset
+   *
+   * @default SpecificSceneEnum.Default
+   */
+  scene?: SpecificSceneEnum;
+}
+
+enum SpecificSceneEnum {
+  Default = "default",
+  ReflectiveDMBarcode = "reflective-dm-barcode",
+  ReflectiveQRDMBarcode = "reflective-qr-dm-barcode",
+  SpecialColourBarcode = "special-colour-barcode",
+  DpmBarcode = "dpm-barcode",
+  MobileScreenScene = "mobile-screen-scene",
+}
+
+interface SetRemoveGroupSeparatorOptions {
+  /**
+   * Enable or disable the removal of group separator characters
+   *
+   * @default true
+   */
+  enabled?: boolean;
+}
+
+interface SetPrefixOptions {
+  /**
+   * Prefix content to be prepended to the barcode data
+   *
+   * When set to `false`, the prefix will be disabled
+   *
+   * @default false
+   */
+  content?: string|false;
+}
+
+interface SetPrefixCharactersRemovedOptions {
+  /**
+   * Number of characters to be removed from the beginning of the barcode data
+   *
+   * @default 0
+   */
+  length?: number;
+}
+
+interface SetSuffixOptions {
+  /**
+   * Suffix content to be appended to the barcode data
+   *
+   * When set to `false`, the suffix will be disabled
+   *
+   * @default false
+   */
+  content?: string|false;
+}
+
+interface SetSuffixCharactersRemovedOptions {
+  /**
+   * Number of characters to be removed from the end of the barcode data
+   *
+   * @default 0
+   */
+  length?: number;
+}
+
 export interface SunmiScanHeadPlugin {
   /**
    * bind scan service
@@ -430,6 +587,66 @@ export interface SunmiScanHeadPlugin {
    * Set broadcast configuration
    */
   setBroadcastConfiguration(options?: SetBroadcastConfigurationOptions): Promise<void>;
+
+  /**
+   * Set output encoding/character set setting
+   */
+  setOutputEncodingCode(options?: SetOutputEncodingCodeOptions): Promise<void>;
+
+  /**
+   * Enable or disable the virtual floating scan button
+   */
+  setVirtualFloatingScanButton(options?: SetVirtualFloatingScanButtonOptions): Promise<void>;
+
+  /**
+   * Sets center point decoding mode
+   */
+  setCenterFlagScan(options?: SetCenterFlagScanOptions): Promise<void>;
+
+  /**
+   * Controls scanner illumination
+   *
+   * Hardware support limited
+   */
+  setFlash(options?: SetFlashOptions): Promise<void>;
+
+  /**
+   * Sets scanning scene preset
+   *
+   * Hardware support limited
+   */
+  setScene(options?: SetSceneOptions): Promise<void>;
+
+  /**
+   * Enables or disables the removal of group separator characters
+   *
+   * Hardware support limited
+   */
+  setRemoveGroupSeparator(options?: SetRemoveGroupSeparatorOptions): Promise<void>;
+
+  /**
+   * Sets the prefix to be prepended to the barcode data
+   */
+  setPrefix(options?: SetPrefixOptions): Promise<void>;
+
+  /**
+   * Sets the prefix characters to be removed from the barcode data
+   *
+   * Hardware support limited
+   */
+  setPrefixCharactersRemoved(options?: SetPrefixCharactersRemovedOptions): Promise<void>;
+
+  /**
+   * Sets the suffix to be appended to the barcode data
+   */
+  setSuffix(options?: SetSuffixOptions): Promise<void>;
+
+  /**
+   * Sets the suffix characters to be removed from the barcode data
+   *
+   * Hardware support limited
+   */
+  setSuffixCharactersRemoved(options?: SetSuffixCharactersRemovedOptions): Promise<void>;
 
   /**
    * Listens for barcode scanner result events.

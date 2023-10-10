@@ -52,6 +52,16 @@ export default config;
 * [`setVibrate(...)`](#setvibrate)
 * [`setOutputBroadcastEnabled(...)`](#setoutputbroadcastenabled)
 * [`setBroadcastConfiguration(...)`](#setbroadcastconfiguration)
+* [`setOutputEncodingCode(...)`](#setoutputencodingcode)
+* [`setVirtualFloatingScanButton(...)`](#setvirtualfloatingscanbutton)
+* [`setCenterFlagScan(...)`](#setcenterflagscan)
+* [`setFlash(...)`](#setflash)
+* [`setScene(...)`](#setscene)
+* [`setRemoveGroupSeparator(...)`](#setremovegroupseparator)
+* [`setPrefix(...)`](#setprefix)
+* [`setPrefixCharactersRemoved(...)`](#setprefixcharactersremoved)
+* [`setSuffix(...)`](#setsuffix)
+* [`setSuffixCharactersRemoved(...)`](#setsuffixcharactersremoved)
 * [`addListener('onScanResult', ...)`](#addlisteneronscanresult)
 * [`addListener('onScanStart', ...)`](#addlisteneronscanstart)
 * [`addListener('onScanStop', ...)`](#addlisteneronscanstop)
@@ -325,6 +335,166 @@ Set broadcast configuration
 --------------------
 
 
+### setOutputEncodingCode(...)
+
+```typescript
+setOutputEncodingCode(options?: SetOutputEncodingCodeOptions | undefined) => Promise<void>
+```
+
+Set output encoding/character set setting
+
+| Param         | Type                                                                                  |
+| ------------- | ------------------------------------------------------------------------------------- |
+| **`options`** | <code><a href="#setoutputencodingcodeoptions">SetOutputEncodingCodeOptions</a></code> |
+
+--------------------
+
+
+### setVirtualFloatingScanButton(...)
+
+```typescript
+setVirtualFloatingScanButton(options?: SetVirtualFloatingScanButtonOptions | undefined) => Promise<void>
+```
+
+Enable or disable the virtual floating scan button
+
+| Param         | Type                                                                                                |
+| ------------- | --------------------------------------------------------------------------------------------------- |
+| **`options`** | <code><a href="#setvirtualfloatingscanbuttonoptions">SetVirtualFloatingScanButtonOptions</a></code> |
+
+--------------------
+
+
+### setCenterFlagScan(...)
+
+```typescript
+setCenterFlagScan(options?: SetCenterFlagScanOptions | undefined) => Promise<void>
+```
+
+Sets center point decoding mode
+
+| Param         | Type                                                                          |
+| ------------- | ----------------------------------------------------------------------------- |
+| **`options`** | <code><a href="#setcenterflagscanoptions">SetCenterFlagScanOptions</a></code> |
+
+--------------------
+
+
+### setFlash(...)
+
+```typescript
+setFlash(options?: SetFlashOptions | undefined) => Promise<void>
+```
+
+Controls scanner illumination
+
+Hardware support limited
+
+| Param         | Type                                                        |
+| ------------- | ----------------------------------------------------------- |
+| **`options`** | <code><a href="#setflashoptions">SetFlashOptions</a></code> |
+
+--------------------
+
+
+### setScene(...)
+
+```typescript
+setScene(options?: SetSceneOptions | undefined) => Promise<void>
+```
+
+Sets scanning scene preset
+
+Hardware support limited
+
+| Param         | Type                                                        |
+| ------------- | ----------------------------------------------------------- |
+| **`options`** | <code><a href="#setsceneoptions">SetSceneOptions</a></code> |
+
+--------------------
+
+
+### setRemoveGroupSeparator(...)
+
+```typescript
+setRemoveGroupSeparator(options?: SetRemoveGroupSeparatorOptions | undefined) => Promise<void>
+```
+
+Enables or disables the removal of group separator characters
+
+Hardware support limited
+
+| Param         | Type                                                                                      |
+| ------------- | ----------------------------------------------------------------------------------------- |
+| **`options`** | <code><a href="#setremovegroupseparatoroptions">SetRemoveGroupSeparatorOptions</a></code> |
+
+--------------------
+
+
+### setPrefix(...)
+
+```typescript
+setPrefix(options?: SetPrefixOptions | undefined) => Promise<void>
+```
+
+Sets the prefix to be prepended to the barcode data
+
+| Param         | Type                                                          |
+| ------------- | ------------------------------------------------------------- |
+| **`options`** | <code><a href="#setprefixoptions">SetPrefixOptions</a></code> |
+
+--------------------
+
+
+### setPrefixCharactersRemoved(...)
+
+```typescript
+setPrefixCharactersRemoved(options?: SetPrefixCharactersRemovedOptions | undefined) => Promise<void>
+```
+
+Sets the prefix characters to be removed from the barcode data
+
+Hardware support limited
+
+| Param         | Type                                                                                            |
+| ------------- | ----------------------------------------------------------------------------------------------- |
+| **`options`** | <code><a href="#setprefixcharactersremovedoptions">SetPrefixCharactersRemovedOptions</a></code> |
+
+--------------------
+
+
+### setSuffix(...)
+
+```typescript
+setSuffix(options?: SetSuffixOptions | undefined) => Promise<void>
+```
+
+Sets the suffix to be appended to the barcode data
+
+| Param         | Type                                                          |
+| ------------- | ------------------------------------------------------------- |
+| **`options`** | <code><a href="#setsuffixoptions">SetSuffixOptions</a></code> |
+
+--------------------
+
+
+### setSuffixCharactersRemoved(...)
+
+```typescript
+setSuffixCharactersRemoved(options?: SetSuffixCharactersRemovedOptions | undefined) => Promise<void>
+```
+
+Sets the suffix characters to be removed from the barcode data
+
+Hardware support limited
+
+| Param         | Type                                                                                            |
+| ------------- | ----------------------------------------------------------------------------------------------- |
+| **`options`** | <code><a href="#setsuffixcharactersremovedoptions">SetSuffixCharactersRemovedOptions</a></code> |
+
+--------------------
+
+
 ### addListener('onScanResult', ...)
 
 ```typescript
@@ -507,6 +677,76 @@ Removes all listeners
 | **`intent_byte_key`** | <code>string</code>          | Intent extra key for barcode base64 encoded data in scan result intent (`scanned_intent`) | <code>source_byte</code>                                 |
 
 
+#### SetOutputEncodingCodeOptions
+
+| Prop           | Type                                                                      | Description                               | Default                                  |
+| -------------- | ------------------------------------------------------------------------- | ----------------------------------------- | ---------------------------------------- |
+| **`encoding`** | <code><a href="#outputencodingcodeenum">OutputEncodingCodeEnum</a></code> | Set output encoding/character set setting | <code>OutputEncodingCodeEnum.UTF8</code> |
+
+
+#### SetVirtualFloatingScanButtonOptions
+
+| Prop          | Type                 | Description                                    | Default           |
+| ------------- | -------------------- | ---------------------------------------------- | ----------------- |
+| **`enabled`** | <code>boolean</code> | Enable or disable virtual floating scan button | <code>true</code> |
+
+
+#### SetCenterFlagScanOptions
+
+| Prop       | Type                                                                            | Description                        | Default                                         |
+| ---------- | ------------------------------------------------------------------------------- | ---------------------------------- | ----------------------------------------------- |
+| **`mode`** | <code><a href="#centerdecodingsettingenum">CenterDecodingSettingEnum</a></code> | Selects center point decoding mode | <code>CenterDecodingSettingEnum.Disabled</code> |
+
+
+#### SetFlashOptions
+
+| Prop          | Type                 | Description                            | Default           |
+| ------------- | -------------------- | -------------------------------------- | ----------------- |
+| **`enabled`** | <code>boolean</code> | Enable or disable scanner illumination | <code>true</code> |
+
+
+#### SetSceneOptions
+
+| Prop        | Type                                                            | Description                   | Default                                |
+| ----------- | --------------------------------------------------------------- | ----------------------------- | -------------------------------------- |
+| **`scene`** | <code><a href="#specificsceneenum">SpecificSceneEnum</a></code> | Selects scanning scene preset | <code>SpecificSceneEnum.Default</code> |
+
+
+#### SetRemoveGroupSeparatorOptions
+
+| Prop          | Type                 | Description                                                 | Default           |
+| ------------- | -------------------- | ----------------------------------------------------------- | ----------------- |
+| **`enabled`** | <code>boolean</code> | Enable or disable the removal of group separator characters | <code>true</code> |
+
+
+#### SetPrefixOptions
+
+| Prop          | Type                         | Description                                                                                         | Default            |
+| ------------- | ---------------------------- | --------------------------------------------------------------------------------------------------- | ------------------ |
+| **`content`** | <code>string \| false</code> | Prefix content to be prepended to the barcode data When set to `false`, the prefix will be disabled | <code>false</code> |
+
+
+#### SetPrefixCharactersRemovedOptions
+
+| Prop         | Type                | Description                                                               | Default        |
+| ------------ | ------------------- | ------------------------------------------------------------------------- | -------------- |
+| **`length`** | <code>number</code> | Number of characters to be removed from the beginning of the barcode data | <code>0</code> |
+
+
+#### SetSuffixOptions
+
+| Prop          | Type                         | Description                                                                                        | Default            |
+| ------------- | ---------------------------- | -------------------------------------------------------------------------------------------------- | ------------------ |
+| **`content`** | <code>string \| false</code> | Suffix content to be appended to the barcode data When set to `false`, the suffix will be disabled | <code>false</code> |
+
+
+#### SetSuffixCharactersRemovedOptions
+
+| Prop         | Type                | Description                                                         | Default        |
+| ------------ | ------------------- | ------------------------------------------------------------------- | -------------- |
+| **`length`** | <code>number</code> | Number of characters to be removed from the end of the barcode data | <code>0</code> |
+
+
 #### PluginListenerHandle
 
 | Prop         | Type                                      |
@@ -612,5 +852,44 @@ Callback to receive scan stop event broadcasted by the scanner
 | **`SunmiId`**  | <code>"sunmi-id"</code>  |                          |
 | **`AimId`**    | <code>"aim-id"</code>    | Hardware support limited |
 | **`SymbolId`** | <code>"symbol-id"</code> | Hardware support limited |
+
+
+#### OutputEncodingCodeEnum
+
+| Members           | Value                      | Description                             |
+| ----------------- | -------------------------- | --------------------------------------- |
+| **`UTF8`**        | <code>"UTF8"</code>        |                                         |
+| **`GBK`**         | <code>"GBK"</code>         |                                         |
+| **`ISO88591`**    | <code>"ISO88591"</code>    |                                         |
+| **`SHIFTJIS`**    | <code>"SHIFTJIS"</code>    |                                         |
+| **`Auto`**        | <code>"Auto"</code>        | Auto detect encoding/compatibility mode |
+| **`WINDOWS1256`** | <code>"WINDOWS1256"</code> |                                         |
+| **`WINDOWS874`**  | <code>"WINDOWS874"</code>  | Hardware support limited                |
+| **`Unicode`**     | <code>"Unicode"</code>     | Hardware support limited                |
+| **`Big5`**        | <code>"Big5"</code>        | Hardware support limited                |
+| **`ASCII`**       | <code>"ASCII"</code>       | Hardware support limited                |
+| **`GB2312`**      | <code>"GB2312"</code>      | Hardware support limited                |
+| **`GB18030`**     | <code>"GB18030"</code>     | Hardware support limited                |
+
+
+#### CenterDecodingSettingEnum
+
+| Members           | Value                       | Description              |
+| ----------------- | --------------------------- | ------------------------ |
+| **`Disabled`**    | <code>"disabled"</code>     |                          |
+| **`CenterOnly`**  | <code>"center-only"</code>  |                          |
+| **`CenterFirst`** | <code>"center-first"</code> | Hardware support limited |
+
+
+#### SpecificSceneEnum
+
+| Members                     | Value                                   |
+| --------------------------- | --------------------------------------- |
+| **`Default`**               | <code>"default"</code>                  |
+| **`ReflectiveDMBarcode`**   | <code>"reflective-dm-barcode"</code>    |
+| **`ReflectiveQRDMBarcode`** | <code>"reflective-qr-dm-barcode"</code> |
+| **`SpecialColourBarcode`**  | <code>"special-colour-barcode"</code>   |
+| **`DpmBarcode`**            | <code>"dpm-barcode"</code>              |
+| **`MobileScreenScene`**     | <code>"mobile-screen-scene"</code>      |
 
 </docgen-api>

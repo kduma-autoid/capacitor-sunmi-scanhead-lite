@@ -180,8 +180,8 @@ public class ServiceConfigurationConverter {
         } else {
             configuration.scene = switch(serviceSetting.specificScene) {
                 default -> SpecificSceneEnum.Default;
-                case 1 -> SpecificSceneEnum.ReflectiveDMbarcode;
-                case 2 -> SpecificSceneEnum.ReflectiveQRDMbarcode;
+                case 1 -> SpecificSceneEnum.ReflectiveDMBarcode;
+                case 2 -> SpecificSceneEnum.ReflectiveQRDMBarcode;
                 case 3 -> SpecificSceneEnum.SpecialColourBarcode;
                 case 4 -> SpecificSceneEnum.DpmBarcode;
                 case 5 -> SpecificSceneEnum.MobileScreenScene;
