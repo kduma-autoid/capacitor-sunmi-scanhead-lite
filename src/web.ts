@@ -42,7 +42,7 @@ export class SunmiScanHeadWeb
     throw this.unimplemented('Not implemented on web.');
   }
 
-  setScanMode(): Promise<void> {
+  setTriggerMethod(): Promise<void> {
     throw this.unimplemented('Not implemented on web.');
   }
 

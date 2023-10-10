@@ -21,10 +21,10 @@ export enum OutputMode {
 }
 
 export enum ScanMode {
-    TRIGGER = "trigger",
-    CONTINUOUS = "continuous",
-    PULSE = "pulse",
-    LONGPRESS = "longPress",
+    Trigger = "trigger",
+    Continuous = "continuous",
+    Pulse = "pulse",
+    LongPress = "long-press",
 }
 
 export enum ScanResultCodeIDEnum {
@@ -105,7 +105,7 @@ export interface SunmiScanHeadPlugin {
   /**
    * Set scan mode
    */
-  setScanMode(options: { mode: ScanMode.TRIGGER | ScanMode.PULSE, timeout?: number } | { mode: ScanMode.CONTINUOUS | ScanMode.LONGPRESS, sleep?: number, timeout?: number }): Promise<void>;
+  setTriggerMethod(options?: { mode: ScanMode.Trigger | ScanMode.Pulse, timeout?: number } | { mode: ScanMode.Continuous | ScanMode.LongPress, sleep?: number, timeout?: number }): Promise<void>;
 
   /**
    * Selects variant of code type returned with scan result

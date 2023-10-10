@@ -7,9 +7,12 @@ import com.getcapacitor.PluginMethod;
 import com.getcapacitor.annotation.CapacitorPlugin;
 import com.sunmi.scanner.ScannerService;
 
+import java.util.Objects;
+
 import dev.duma.android.sunmi.scanbroadcastreceiver.IScanHeadBroadcastReceiver.ScanCallback;
 import dev.duma.android.sunmi.scanconfigurationhelper.config.ServiceConfiguration;
 import dev.duma.android.sunmi.scanconfigurationhelper.config.enums.ScanResultCodeIDEnum;
+import dev.duma.android.sunmi.scanconfigurationhelper.config.enums.TriggerMethodEnum;
 import dev.duma.capacitor.pluginhelpers.CallbackHelper;
 
 @CapacitorPlugin(name = "SunmiScanHead")
@@ -190,26 +193,21 @@ public class SunmiScanHeadPlugin extends Plugin {
 
     /** @noinspection DataFlowIssue*/
     @PluginMethod
-    public void setScanMode(PluginCall call) {
+    public void setTriggerMethod(PluginCall call) {
         CallbackHelper.handle(call, (c) -> {
-            switch (c.getString("mode", "trigger")){
-                default -> implementation.getConfigurator().scanMode().trigger(
-                        c.getInt("timeout", 5000)
-                );
+            ServiceConfiguration configuration = implementation.getWriteContextTool().getWriteContext();
 
-                case "continuous" -> implementation.getConfigurator().scanMode().continuous(
-                        c.getInt("sleep", 500),
-                        c.getInt("timeout", 5000)
-                );
+            TriggerMethodEnum mode = TriggerMethodEnum.nameOf(c.getString("mode", TriggerMethodEnum.Trigger.getName()));
 
-                case "pulse" -> implementation.getConfigurator().scanMode().pulse(
-                        c.getInt("timeout", 5000)
-                );
+            final Integer timeout = c.getInt("timeout", 5000);
 
-                case "longPress" -> implementation.getConfigurator().scanMode().longPress(
-                        c.getInt("sleep", 500),
-                        c.getInt("timeout", 5000)
-                );
+            configuration.setTriggerMethod(mode);
+            configuration.setTriggerOverTime(timeout);
+            configuration.setScanTriggerTimeOut(timeout);
+
+            if (mode == TriggerMethodEnum.Continuous || mode == TriggerMethodEnum.LongPress) {
+                final Integer sleep = c.getInt("sleep", 500);
+                configuration.setTriggerContinuousTime(sleep);
             }
 
             c.resolve();

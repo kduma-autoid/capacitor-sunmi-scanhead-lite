@@ -10,10 +10,6 @@ public class SunmiScanHeadConfigurator {
         this.configurationWriteContextHelper = configurationWriteContextHelper;
     }
 
-    public ScanModeConfigurator scanMode() {
-        return new ScanModeConfigurator(configurationWriteContextHelper);
-    }
-
     public DataOutputModeConfigurator dataOutputMode() {
         return new DataOutputModeConfigurator(configurationWriteContextHelper);
     }

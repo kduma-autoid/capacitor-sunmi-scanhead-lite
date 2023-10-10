@@ -82,10 +82,10 @@ window.customElements.define(
           <button class="button" id="setOutputModeKeystroke">setOutputMode(KEYSTROKE)</button>
           <button class="button" id="setOutputModeDirectfill">setOutputMode(DIRECTFILL)</button>
           <hr>
-          <button class="button" id="setScanModeTrigger">setScanMode(TRIGGER)</button>
-          <button class="button" id="setScanModePulse">setScanMode(PULSE)</button>
-          <button class="button" id="setScanModeContinuous">setScanMode(CONTINUOUS)</button>
-          <button class="button" id="setScanModeLongpress">setScanMode(LONGPRESS)</button>
+          <button class="button" id="setTriggerMethodTrigger">setTriggerMethod(Trigger)</button>
+          <button class="button" id="setTriggerMethodPulse">setTriggerMethod(Pulse)</button>
+          <button class="button" id="setTriggerMethodContinuous">setTriggerMethod(Continuous)</button>
+          <button class="button" id="setTriggerMethodLongPress">setTriggerMethod(LongPress)</button>
           <hr>
           <button class="button" id="setScanResultCodeIDNone">setScanResultCodeID(None)</button>
           <button class="button" id="setScanResultCodeIDSunmiId">setScanResultCodeID(SunmiId)</button>
@@ -325,35 +325,35 @@ window.customElements.define(
         }
       });
 
-      self.shadowRoot.querySelector('#setScanModeTrigger').addEventListener('click', async function (e) {
+      self.shadowRoot.querySelector('#setTriggerMethodTrigger').addEventListener('click', async function (e) {
         try {
-          await SunmiScanHead.setScanMode({mode: ScanMode.TRIGGER});
+          await SunmiScanHead.setTriggerMethod({mode: ScanMode.Trigger});
         } catch (e) {
-          printToOutput("setScanMode(TRIGGER) - ERROR", { message: e.message, code: e.code });
+          printToOutput("setTriggerMethod(Trigger) - ERROR", { message: e.message, code: e.code });
         }
       });
 
-      self.shadowRoot.querySelector('#setScanModePulse').addEventListener('click', async function (e) {
+      self.shadowRoot.querySelector('#setTriggerMethodPulse').addEventListener('click', async function (e) {
         try {
-          await SunmiScanHead.setScanMode({mode: ScanMode.PULSE});
+          await SunmiScanHead.setTriggerMethod({mode: ScanMode.Pulse});
         } catch (e) {
-          printToOutput("setScanMode(PULSE) - ERROR", { message: e.message, code: e.code });
+          printToOutput("setTriggerMethod(Pulse) - ERROR", { message: e.message, code: e.code });
         }
       });
 
-      self.shadowRoot.querySelector('#setScanModeContinuous').addEventListener('click', async function (e) {
+      self.shadowRoot.querySelector('#setTriggerMethodContinuous').addEventListener('click', async function (e) {
         try {
-          await SunmiScanHead.setScanMode({mode: ScanMode.CONTINUOUS});
+          await SunmiScanHead.setTriggerMethod({mode: ScanMode.Continuous});
         } catch (e) {
-          printToOutput("setScanMode(CONTINUOUS) - ERROR", { message: e.message, code: e.code });
+          printToOutput("setTriggerMethod(Continuous) - ERROR", { message: e.message, code: e.code });
         }
       });
 
-      self.shadowRoot.querySelector('#setScanModeLongpress').addEventListener('click', async function (e) {
+      self.shadowRoot.querySelector('#setTriggerMethodLongPress').addEventListener('click', async function (e) {
         try {
-          await SunmiScanHead.setScanMode({mode: ScanMode.LONGPRESS});
+          await SunmiScanHead.setTriggerMethod({mode: ScanMode.LongPress});
         } catch (e) {
-          printToOutput("setScanMode(LONGPRESS) - ERROR", { message: e.message, code: e.code });
+          printToOutput("setTriggerMethod(LongPress) - ERROR", { message: e.message, code: e.code });
         }
       });
 
@@ -431,9 +431,9 @@ window.customElements.define(
           printToOutput("setVibrate(true) - ERROR", { message: e.message, code: e.code });
         }
         try {
-          await SunmiScanHead.setScanMode({mode: ScanMode.TRIGGER});
+          await SunmiScanHead.setTriggerMethod({mode: ScanMode.Trigger});
         } catch (e) {
-          printToOutput("setScanMode(TRIGGER) - ERROR", { message: e.message, code: e.code });
+          printToOutput("setTriggerMethod(TRIGGER) - ERROR", { message: e.message, code: e.code });
         }
         try {
           await SunmiScanHead.commitWriteContext();
@@ -484,9 +484,9 @@ window.customElements.define(
           printToOutput("setVibrate(false) - ERROR", { message: e.message, code: e.code });
         }
         try {
-          await SunmiScanHead.setScanMode({mode: ScanMode.LONGPRESS, sleep: 50});
+          await SunmiScanHead.setTriggerMethod({mode: ScanMode.LongPress, sleep: 50});
         } catch (e) {
-          printToOutput("setScanMode(LONGPRESS, sleep: 50) - ERROR", { message: e.message, code: e.code });
+          printToOutput("setTriggerMethod(LongPress, sleep: 50) - ERROR", { message: e.message, code: e.code });
         }
         try {
           await SunmiScanHead.commitWriteContext();
@@ -537,9 +537,9 @@ window.customElements.define(
           printToOutput("setVibrate(false) - ERROR", { message: e.message, code: e.code });
         }
         try {
-          await SunmiScanHead.setScanMode({mode: ScanMode.CONTINUOUS, sleep: 50});
+          await SunmiScanHead.setTriggerMethod({mode: ScanMode.Continuous, sleep: 50});
         } catch (e) {
-          printToOutput("setScanMode(CONTINUOUS, sleep: 50) - ERROR", { message: e.message, code: e.code });
+          printToOutput("setTriggerMethod(Continuous, sleep: 50) - ERROR", { message: e.message, code: e.code });
         }
         try {
           await SunmiScanHead.commitWriteContext();

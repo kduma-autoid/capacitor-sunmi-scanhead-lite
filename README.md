@@ -45,7 +45,7 @@ export default config;
 * [`commitWriteContext()`](#commitwritecontext)
 * [`discardWriteContext()`](#discardwritecontext)
 * [`setOutputMode(...)`](#setoutputmode)
-* [`setScanMode(...)`](#setscanmode)
+* [`setTriggerMethod(...)`](#settriggermethod)
 * [`setScanResultCodeID(...)`](#setscanresultcodeid)
 * [`setAdvancedFormatEnabled(...)`](#setadvancedformatenabled)
 * [`setBeep(...)`](#setbeep)
@@ -220,17 +220,17 @@ Set output mode
 --------------------
 
 
-### setScanMode(...)
+### setTriggerMethod(...)
 
 ```typescript
-setScanMode(options: { mode: ScanMode.TRIGGER | ScanMode.PULSE; timeout?: number; } | { mode: ScanMode.CONTINUOUS | ScanMode.LONGPRESS; sleep?: number; timeout?: number; }) => Promise<void>
+setTriggerMethod(options?: { mode: ScanMode.Trigger | ScanMode.Pulse; timeout?: number | undefined; } | { mode: ScanMode.Continuous | ScanMode.LongPress; sleep?: number | undefined; timeout?: number | undefined; } | undefined) => Promise<void>
 ```
 
 Set scan mode
 
 | Param         | Type                                                                                                                                                                                                                                                                   |
 | ------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **`options`** | <code>{ mode: <a href="#scanmode">ScanMode.TRIGGER</a> \| <a href="#scanmode">ScanMode.PULSE</a>; timeout?: number; } \| { mode: <a href="#scanmode">ScanMode.CONTINUOUS</a> \| <a href="#scanmode">ScanMode.LONGPRESS</a>; sleep?: number; timeout?: number; }</code> |
+| **`options`** | <code>{ mode: <a href="#scanmode">ScanMode.Trigger</a> \| <a href="#scanmode">ScanMode.Pulse</a>; timeout?: number; } \| { mode: <a href="#scanmode">ScanMode.Continuous</a> \| <a href="#scanmode">ScanMode.LongPress</a>; sleep?: number; timeout?: number; }</code> |
 
 --------------------
 
@@ -426,10 +426,10 @@ Removes all listeners
 
 | Members          | Value                     |
 | ---------------- | ------------------------- |
-| **`TRIGGER`**    | <code>"trigger"</code>    |
-| **`CONTINUOUS`** | <code>"continuous"</code> |
-| **`PULSE`**      | <code>"pulse"</code>      |
-| **`LONGPRESS`**  | <code>"longPress"</code>  |
+| **`Trigger`**    | <code>"trigger"</code>    |
+| **`Continuous`** | <code>"continuous"</code> |
+| **`Pulse`**      | <code>"pulse"</code>      |
+| **`LongPress`**  | <code>"long-press"</code> |
 
 
 #### ScanResultCodeIDEnum
