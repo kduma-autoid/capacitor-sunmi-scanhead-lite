@@ -20,8 +20,10 @@ public class SunmiScanHeadPlugin extends Plugin {
         @Override
         public void onScan(String data, String source_bytes) {
             JSObject ret = new JSObject();
+
             ret.put("data", data);
             ret.put("source_bytes", source_bytes);
+
             notifyListeners("onScanResult", ret);
         }
 
@@ -57,6 +59,7 @@ public class SunmiScanHeadPlugin extends Plugin {
     public void bindService(PluginCall call) {
         CallbackHelper.handle(call, (c) -> {
             implementation.register();
+
             c.resolve();
         });
     }
@@ -65,6 +68,7 @@ public class SunmiScanHeadPlugin extends Plugin {
     public void unBindService(PluginCall call) {
         CallbackHelper.handle(call, (c) -> {
             implementation.unregister();
+
             c.resolve();
         });
     }
@@ -73,6 +77,7 @@ public class SunmiScanHeadPlugin extends Plugin {
     public void scan(PluginCall call) {
         CallbackHelper.handle(call, (c) -> {
             implementation.getScanner().scan();
+
             c.resolve();
         });
     }
@@ -81,6 +86,7 @@ public class SunmiScanHeadPlugin extends Plugin {
     public void stop(PluginCall call) {
         CallbackHelper.handle(call, (c) -> {
             implementation.getScanner().stop();
+
             c.resolve();
         });
     }
@@ -101,10 +107,9 @@ public class SunmiScanHeadPlugin extends Plugin {
     @PluginMethod
     public void clearConfig(PluginCall call) {
         CallbackHelper.handle(call, (c) -> {
-            boolean status = implementation.getScanner().clearConfig();
-
             JSObject ret = new JSObject();
-            ret.put("cleared", status);
+
+            ret.put("cleared", implementation.getScanner().clearConfig());
             
             c.resolve(ret);
         });
@@ -141,9 +146,7 @@ public class SunmiScanHeadPlugin extends Plugin {
     @PluginMethod
     public void createWriteContext(PluginCall call) {
         CallbackHelper.handle(call, (c) -> {
-            implementation.getWriteContextTool().createWriteContext((configuration -> {
-                c.resolve();
-            }));
+            implementation.getWriteContextTool().createWriteContext(configuration -> c.resolve());
         });
     }
 
@@ -173,9 +176,9 @@ public class SunmiScanHeadPlugin extends Plugin {
 
             OutputTypeEnum mode = OutputTypeEnum.nameOf(c.getString("mode", OutputTypeEnum.Disabled.getName()));
 
-            final Boolean tab = c.getBoolean("tab", false);
-            final Boolean enter = c.getBoolean("enter", true);
-            final Boolean space = c.getBoolean("space", true);
+            Boolean tab = c.getBoolean("tab", false);
+            Boolean enter = c.getBoolean("enter", true);
+            Boolean space = c.getBoolean("space", true);
 
             switch (mode){
                 case Keystroke -> {
@@ -268,7 +271,6 @@ public class SunmiScanHeadPlugin extends Plugin {
         });
     }
 
-    /** @noinspection DataFlowIssue*/
     @PluginMethod
     public void setScanResultCodeID(PluginCall call) {
         CallbackHelper.handle(call, (c) -> {

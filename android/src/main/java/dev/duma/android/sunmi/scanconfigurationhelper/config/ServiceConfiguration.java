@@ -2,7 +2,6 @@ package dev.duma.android.sunmi.scanconfigurationhelper.config;
 
 import com.sunmi.scanner.ScannerService;
 import com.sunmi.scanner.entity.Pair;
-import com.sunmi.scanner.entity.ServiceSetting;
 
 import java.util.ArrayList;
 import java.util.EnumSet;
