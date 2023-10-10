@@ -4,7 +4,10 @@ import android.os.RemoteException;
 import android.util.Log;
 
 import com.sunmi.scanner.config.SunmiHelper;
+import com.sunmi.scanner.entity.CodeEnable;
+import com.sunmi.scanner.entity.Entity;
 import com.sunmi.scanner.entity.Pair;
+import com.sunmi.scanner.entity.Result;
 import com.sunmi.scanner.entity.ServiceSetting;
 
 import java.util.ArrayList;
@@ -27,19 +30,46 @@ public class ScanConfigurationHelper implements IScanConfigurationHelper {
         AtomicReference<ServiceSetting> serviceSetting = new AtomicReference<>();
         AtomicReference<ArrayList<Pair>> advancedFormat = new AtomicReference<>();
 
+        AtomicReference<Integer> scanExpSwitch = new AtomicReference<>();
+        AtomicReference<Integer> specificScene = new AtomicReference<>();
+
         IQueryCallback<ArrayList<Pair>> advancedFormatCallback = (response, entity) -> {
             advancedFormat.set(response);
+
+            ServiceSetting setting = serviceSetting.get();
+            setting.scanExpSwitch = scanExpSwitch.get();
+            setting.specificScene = specificScene.get();
             callback.onLoaded(
                     ServiceConfigurationConverter.fromServiceSetting(
-                            serviceSetting.get(),
+                            setting,
                             advancedFormat.get()
                     )
             );
         };
 
+        IQueryCallback<Result> specificSceneCallback = (response, entity) -> {
+            try {
+                String value = response.result.substring(response.result.lastIndexOf("=") + 1);
+                specificScene.set(Integer.valueOf(value));
+            } catch (NumberFormatException e) {
+                specificScene.set(-1);
+            }
+            scanInterfaceHelper.sendQuery(SunmiHelper.QUERY_ADVANCED_FORMAT, advancedFormatCallback);
+        };
+
+        IQueryCallback<Result> scanExpSwitchCallback = (response, entity) -> {
+            try {
+                String value = response.result.substring(response.result.lastIndexOf("=") + 1);
+                scanExpSwitch.set(Integer.valueOf(value));
+            } catch (NumberFormatException e) {
+                scanExpSwitch.set(-1);
+            }
+            scanInterfaceHelper.sendQuery(SunmiHelper.SET_SCAN_SPECIFIC_SCENE, specificSceneCallback);
+        };
+
         IQueryCallback<ServiceSetting> serviceSettingsCallback = (response, entity) -> {
             serviceSetting.set(response);
-            scanInterfaceHelper.sendQuery(SunmiHelper.QUERY_ADVANCED_FORMAT, advancedFormatCallback);
+            scanInterfaceHelper.sendQuery(SunmiHelper.SET_FLASH_CONTROL, scanExpSwitchCallback);
         };
 
         scanInterfaceHelper.sendQuery(SunmiHelper.QUERY_ALL_SETTING_INFO, serviceSettingsCallback);
