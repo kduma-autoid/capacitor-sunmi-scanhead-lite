@@ -41,13 +41,6 @@ export interface SunmiScanHeadPlugin {
   unBindService(): Promise<void>;
 
   /**
-   * Starts or stops scanning depending on current state of button press
-   *
-   * @deprecated Use `scan` and `stop` instead
-   */
-  // sendKeyEvent(options: { action: number, code: number }): Promise<void>;
-
-  /**
    * Start scanner
    */
   scan(): Promise<void>;
@@ -58,7 +51,7 @@ export interface SunmiScanHeadPlugin {
   stop(): Promise<void>;
 
   /**
-   * Get scanner model ID
+   * Get scanner model
    */
   getScannerModel(): Promise<{ id: number, name: ScannerModelName }>;
 
@@ -72,6 +65,30 @@ export interface SunmiScanHeadPlugin {
    */
   setTrigger(options: { enabled: boolean }): Promise<void>;
 
+  /**
+   * Play a beep sound
+   */
+  beep(): Promise<void>;
+
+  /**
+   * Vibrate
+   */
+  vibrate(): Promise<void>;
+
+  /**
+   * Prepares transaction for writing settings to scanner
+   */
+  createWriteContext(): Promise<void>;
+
+  /**
+   * Write settings to scanner
+   */
+  commitWriteContext(): Promise<void>;
+
+  /**
+   * Discard transaction for writing settings to scanner
+   */
+  discardWriteContext(): Promise<void>;
 
   /**
    * Set output mode
@@ -102,16 +119,6 @@ export interface SunmiScanHeadPlugin {
    * Enable or disable scan result broadcast
    */
   setBroadcast(options: { enabled: boolean }): Promise<void>;
-
-  /**
-   * Play a beep sound
-   */
-  beep(): Promise<void>;
-
-  /**
-   * Vibrate
-   */
-  vibrate(): Promise<void>;
 
   /**
    * Set broadcast configuration

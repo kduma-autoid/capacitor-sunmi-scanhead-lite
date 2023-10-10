@@ -2,25 +2,25 @@ package dev.duma.capacitor.sunmiscanhead.configuration;
 
 import android.os.RemoteException;
 
+import dev.duma.android.sunmi.scanconfigurationhelper.IConfigurationWriteContextHelper;
 import dev.duma.android.sunmi.scanconfigurationhelper.IScanConfigurationHelper;
+import dev.duma.android.sunmi.scanconfigurationhelper.config.ServiceConfiguration;
 
 public class PromptSettingsConfigurator {
-    private final IScanConfigurationHelper scanConfigurationHelper;
+    private final IConfigurationWriteContextHelper configurationWriteContextHelper;
 
-    public PromptSettingsConfigurator(IScanConfigurationHelper scanConfigurationHelper) {
-        this.scanConfigurationHelper = scanConfigurationHelper;
+    public PromptSettingsConfigurator(IConfigurationWriteContextHelper configurationWriteContextHelper) {
+        this.configurationWriteContextHelper = configurationWriteContextHelper;
     }
 
-    public void set() throws RemoteException {
+    public void set() {
         set(true, true);
     }
 
-    public void set(boolean sound, boolean vibration) throws RemoteException {
-        scanConfigurationHelper.loadServiceConfig((configuration, response) -> {
-            configuration.setVibrate(vibration);
-            configuration.setBeep(sound);
+    public void set(boolean sound, boolean vibration) {
+        ServiceConfiguration configuration = configurationWriteContextHelper.getWriteContext();
 
-            scanConfigurationHelper.persistServiceConfig(configuration);
-        });
+        configuration.setVibrate(vibration); // TODO: Catch exception
+        configuration.setBeep(sound);
     }
 }

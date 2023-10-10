@@ -29,13 +29,13 @@ public interface IScanInterfaceHelper {
 
     void stop() throws RemoteException, ScanInterfaceNotBoundException;
 
-    int getScannerModel() throws RemoteException, ScanInterfaceNotBoundException;
+    int getScannerModel() throws RemoteException;
 
     void sendCommand(String command) throws RemoteException, ScanInterfaceNotBoundException;
 
     <T> void sendQuery(String command, IQueryCallback<T> callback) throws RemoteException, ScanInterfaceNotBoundException;
 
-    boolean clearConfig() throws RemoteException, ScanInterfaceNotBoundException;
+    boolean clearConfig() throws RemoteException;
 
     @Nullable
     IScanInterface getScanInterface();

@@ -39,14 +39,17 @@ export default config;
 * [`getScannerModel()`](#getscannermodel)
 * [`clearConfig()`](#clearconfig)
 * [`setTrigger(...)`](#settrigger)
+* [`beep()`](#beep)
+* [`vibrate()`](#vibrate)
+* [`createWriteContext()`](#createwritecontext)
+* [`commitWriteContext()`](#commitwritecontext)
+* [`discardWriteContext()`](#discardwritecontext)
 * [`setOutputMode(...)`](#setoutputmode)
 * [`setScanMode(...)`](#setscanmode)
 * [`setReturnCodeType(...)`](#setreturncodetype)
 * [`setAdvancedFormat(...)`](#setadvancedformat)
 * [`setPromptSettings(...)`](#setpromptsettings)
 * [`setBroadcast(...)`](#setbroadcast)
-* [`beep()`](#beep)
-* [`vibrate()`](#vibrate)
 * [`setBroadcastConfiguration(...)`](#setbroadcastconfiguration)
 * [`addListener('onScanResult', ...)`](#addlisteneronscanresult)
 * [`addListener('onScanStart', ...)`](#addlisteneronscanstart)
@@ -111,7 +114,7 @@ Stop scanner
 getScannerModel() => Promise<{ id: number; name: ScannerModelName; }>
 ```
 
-Get scanner model ID
+Get scanner model
 
 **Returns:** <code>Promise&lt;{ id: number; name: string; }&gt;</code>
 
@@ -142,6 +145,61 @@ Enable or disable trigger button
 | Param         | Type                               |
 | ------------- | ---------------------------------- |
 | **`options`** | <code>{ enabled: boolean; }</code> |
+
+--------------------
+
+
+### beep()
+
+```typescript
+beep() => Promise<void>
+```
+
+Play a beep sound
+
+--------------------
+
+
+### vibrate()
+
+```typescript
+vibrate() => Promise<void>
+```
+
+Vibrate
+
+--------------------
+
+
+### createWriteContext()
+
+```typescript
+createWriteContext() => Promise<void>
+```
+
+Prepares transaction for writing settings to scanner
+
+--------------------
+
+
+### commitWriteContext()
+
+```typescript
+commitWriteContext() => Promise<void>
+```
+
+Write settings to scanner
+
+--------------------
+
+
+### discardWriteContext()
+
+```typescript
+discardWriteContext() => Promise<void>
+```
+
+Discard transaction for writing settings to scanner
 
 --------------------
 
@@ -232,28 +290,6 @@ Enable or disable scan result broadcast
 | Param         | Type                               |
 | ------------- | ---------------------------------- |
 | **`options`** | <code>{ enabled: boolean; }</code> |
-
---------------------
-
-
-### beep()
-
-```typescript
-beep() => Promise<void>
-```
-
-Play a beep sound
-
---------------------
-
-
-### vibrate()
-
-```typescript
-vibrate() => Promise<void>
-```
-
-Vibrate
 
 --------------------
 

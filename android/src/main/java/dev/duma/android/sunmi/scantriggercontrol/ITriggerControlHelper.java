@@ -3,9 +3,7 @@ package dev.duma.android.sunmi.scantriggercontrol;
 import android.content.Context;
 
 public interface ITriggerControlHelper {
-    void enable();
-
-    void disable();
+    void set(boolean enabled);
 
     class Factory
     {

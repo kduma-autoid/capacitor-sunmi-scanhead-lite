@@ -11,16 +11,7 @@ public class TriggerControlHelper implements ITriggerControlHelper {
     }
 
     @Override
-    public void enable() {
-        setTrigger(true);
-    }
-
-    @Override
-    public void disable() {
-        setTrigger(false);
-    }
-
-    protected void setTrigger(boolean enabled) {
+    public void set(boolean enabled) {
         Intent intent = new Intent();
         intent.setAction("com.sunmi.scanner.ACTION_TRIGGER_CONTROL");
         intent.putExtra("enable", enabled);
