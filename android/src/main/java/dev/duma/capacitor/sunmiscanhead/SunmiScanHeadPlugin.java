@@ -110,7 +110,7 @@ public class SunmiScanHeadPlugin extends Plugin {
     @PluginMethod
     public void setTrigger(PluginCall call) {
         CallbackHelper.handle(call, (c) -> {
-            implementation.setTrigger(c.getBoolean("enabled", true));
+            implementation.getTriggerControlHelper().set(c.getBoolean("enabled", true));
 
             c.resolve();
         });

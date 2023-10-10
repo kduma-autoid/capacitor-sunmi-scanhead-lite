@@ -1,7 +1,6 @@
 package dev.duma.capacitor.sunmiscanhead;
 
 import android.content.Context;
-import android.content.Intent;
 
 import dev.duma.android.sunmi.beeper.IBeeper;
 import dev.duma.android.sunmi.scanbroadcastreceiver.IScanHeadBroadcastReceiver;
@@ -56,13 +55,5 @@ public class SunmiScanHead {
     public void unregister() {
         getScanInterfaceHelper().unbindService();
         broadcastReceiver.unregister();
-    }
-
-    public void setTrigger(boolean enabled) {
-        if (enabled) {
-            triggerControlHelper.enable();
-        } else {
-            triggerControlHelper.disable();
-        }
     }
 }
