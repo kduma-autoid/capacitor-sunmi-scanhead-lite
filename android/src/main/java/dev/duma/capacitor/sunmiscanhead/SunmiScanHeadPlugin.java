@@ -263,13 +263,13 @@ public class SunmiScanHeadPlugin extends Plugin {
     @PluginMethod
     public void setBroadcastConfiguration(PluginCall call) {
         CallbackHelper.handle(call, (c) -> {
-            implementation.getConfigurator().broadcasting().configure(
-                    c.getString("scanned_intent", "com.sunmi.scanner.ACTION_DATA_CODE_RECEIVED"),
-                    c.getString("start_intent", "com.sunmi.scanner.ACTION_SCAN_START"),
-                    c.getString("end_intent", "com.sunmi.scanner.ACTION_SCAN_END"),
-                    c.getString("intent_data_key", "data"),
-                    c.getString("intent_byte_key", "source_byte")
-            );
+            ServiceConfiguration configuration = implementation.getWriteContextTool().getWriteContext();
+
+            configuration.setOutputBroadcastAction(c.getString("scanned_intent", "com.sunmi.scanner.ACTION_DATA_CODE_RECEIVED"));
+            configuration.setOutputBroadcastDataKey(c.getString("intent_data_key", "data"));
+            configuration.setOutputBroadcastByteKey(c.getString("intent_byte_key", "source_byte"));
+            configuration.setOutputBroadcastStartAction(c.getString("start_intent", "com.sunmi.scanner.ACTION_SCAN_START"));
+            configuration.setOutputBroadcastEndAction(c.getString("end_intent", "com.sunmi.scanner.ACTION_SCAN_END"));
 
             c.resolve();
         });

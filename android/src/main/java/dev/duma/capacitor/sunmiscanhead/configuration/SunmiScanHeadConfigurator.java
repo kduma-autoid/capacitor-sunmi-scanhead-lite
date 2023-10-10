@@ -18,10 +18,6 @@ public class SunmiScanHeadConfigurator {
         return new DataOutputModeConfigurator(configurationWriteContextHelper);
     }
 
-    public BroadcastingConfigurator broadcasting() {
-        return new BroadcastingConfigurator(configurationWriteContextHelper);
-    }
-
     public CodeTypeConfigurator codeType() {
         return new CodeTypeConfigurator(configurationWriteContextHelper);
     }
