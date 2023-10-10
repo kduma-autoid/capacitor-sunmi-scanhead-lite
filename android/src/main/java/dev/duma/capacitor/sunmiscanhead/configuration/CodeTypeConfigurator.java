@@ -3,7 +3,7 @@ package dev.duma.capacitor.sunmiscanhead.configuration;
 import android.os.RemoteException;
 
 import dev.duma.android.sunmi.scanconfigurationhelper.IScanConfigurationHelper;
-import dev.duma.android.sunmi.scanconfigurationhelper.models.ScanResultCodeIDEnum;
+import dev.duma.android.sunmi.scanconfigurationhelper.config.enums.ScanResultCodeIDEnum;
 
 public class CodeTypeConfigurator {
     private final IScanConfigurationHelper scanConfigurationHelper;
@@ -16,7 +16,7 @@ public class CodeTypeConfigurator {
         scanConfigurationHelper.loadServiceConfig((configuration, response) -> {
             configuration.setScanResultCodeID(enabled ? ScanResultCodeIDEnum.SunmiId : ScanResultCodeIDEnum.None);
 
-            scanConfigurationHelper.persistServiceConfig(configuration, response);
+            scanConfigurationHelper.persistServiceConfig(configuration);
         });
     }
 }

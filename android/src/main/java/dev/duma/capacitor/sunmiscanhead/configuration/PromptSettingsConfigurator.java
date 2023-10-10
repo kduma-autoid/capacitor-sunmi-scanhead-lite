@@ -20,7 +20,7 @@ public class PromptSettingsConfigurator {
             configuration.setVibrate(vibration);
             configuration.setBeep(sound);
 
-            scanConfigurationHelper.persistServiceConfig(configuration, response);
+            scanConfigurationHelper.persistServiceConfig(configuration);
         });
     }
 }

@@ -3,7 +3,7 @@ package dev.duma.capacitor.sunmiscanhead.configuration;
 import android.os.RemoteException;
 
 import dev.duma.android.sunmi.scanconfigurationhelper.IScanConfigurationHelper;
-import dev.duma.android.sunmi.scanconfigurationhelper.models.TriggerMethodEnum;
+import dev.duma.android.sunmi.scanconfigurationhelper.config.enums.TriggerMethodEnum;
 
 public class ScanModeConfigurator {
     private final IScanConfigurationHelper scanConfigurationHelper;
@@ -22,7 +22,7 @@ public class ScanModeConfigurator {
             configuration.setTriggerOverTime(timeout);
             configuration.setScanTriggerTimeOut(timeout);
 
-            scanConfigurationHelper.persistServiceConfig(configuration, response);
+            scanConfigurationHelper.persistServiceConfig(configuration);
         });
     }
 
@@ -41,7 +41,7 @@ public class ScanModeConfigurator {
             configuration.setScanTriggerTimeOut(timeout);
             configuration.setTriggerContinuousTime(sleep);
 
-            scanConfigurationHelper.persistServiceConfig(configuration, response);
+            scanConfigurationHelper.persistServiceConfig(configuration);
         });
     }
 
@@ -55,7 +55,7 @@ public class ScanModeConfigurator {
             configuration.setTriggerOverTime(timeout);
             configuration.setScanTriggerTimeOut(timeout);
 
-            scanConfigurationHelper.persistServiceConfig(configuration, response);
+            scanConfigurationHelper.persistServiceConfig(configuration);
         });
     }
 
@@ -74,7 +74,7 @@ public class ScanModeConfigurator {
             configuration.setScanTriggerTimeOut(timeout);
             configuration.setTriggerContinuousTime(sleep);
 
-            scanConfigurationHelper.persistServiceConfig(configuration, response);
+            scanConfigurationHelper.persistServiceConfig(configuration);
         });
     }
 }

@@ -23,7 +23,7 @@ public class BroadcastingConfigurator {
         scanConfigurationHelper.loadServiceConfig((configuration, response) -> {
             configuration.setOutputBroadcastEnabled(enabled);
 
-            scanConfigurationHelper.persistServiceConfig(configuration, response);
+            scanConfigurationHelper.persistServiceConfig(configuration);
         });
     }
 
@@ -46,7 +46,7 @@ public class BroadcastingConfigurator {
             configuration.setOutputBroadcastStartAction(start_intent);
             configuration.setOutputBroadcastEndAction(end_intent);
 
-            scanConfigurationHelper.persistServiceConfig(configuration, response);
+            scanConfigurationHelper.persistServiceConfig(configuration);
         });
     }
 }
