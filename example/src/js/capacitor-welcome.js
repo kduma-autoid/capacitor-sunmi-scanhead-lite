@@ -1,5 +1,5 @@
 import {SplashScreen} from '@capacitor/splash-screen';
-import {OutputMode, ScanMode, SunmiScanHead} from "../../../src";
+import {OutputMode, ScanMode, ScanResultCodeIDEnum, SunmiScanHead} from "../../../src";
 import {WebViewWatchDog} from "@kduma-autoid/capacitor-webview-watchdog";
 
 window.customElements.define(
@@ -78,26 +78,31 @@ window.customElements.define(
           <button class="button" id="commitWriteContext">commitWriteContext()</button>
           <button class="button" id="discardWriteContext">discardWriteContext()</button>
           <hr>
-          <button class="button" id="setOutputModeDisabled">setOutputMode(DISABLED)</button>
-          <button class="button" id="setOutputModeKeystroke">setOutputMode(KEYSTROKE)</button>
-          <button class="button" id="setOutputModeDirectfill">setOutputMode(DIRECTFILL)</button>
+          <button class="button" id="setOutputTypeDisabled">setOutputType(Disabled)</button>
+          <button class="button" id="setOutputTypeKeystroke">setOutputType(Keystroke)</button>
+          <button class="button" id="setOutputTypeDirectFill">setOutputType(DirectFill)</button>
+          <button class="button" id="setOutputTypeDirectFillWithReplace">setOutputType(DirectFillWithReplace)</button>
           <hr>
-          <button class="button" id="setScanModeTrigger">setScanMode(TRIGGER)</button>
-          <button class="button" id="setScanModePulse">setScanMode(PULSE)</button>
-          <button class="button" id="setScanModeContinuous">setScanMode(CONTINUOUS)</button>
-          <button class="button" id="setScanModeLongpress">setScanMode(LONGPRESS)</button>
+          <button class="button" id="setTriggerMethodTrigger">setTriggerMethod(Trigger)</button>
+          <button class="button" id="setTriggerMethodPulse">setTriggerMethod(Pulse)</button>
+          <button class="button" id="setTriggerMethodContinuous">setTriggerMethod(Continuous)</button>
+          <button class="button" id="setTriggerMethodLongPress">setTriggerMethod(LongPress)</button>
           <hr>
-          <button class="button" id="setReturnCodeType1">setReturnCodeType(true)</button>
-          <button class="button" id="setReturnCodeType0">setReturnCodeType(false)</button>
+          <button class="button" id="setScanResultCodeIDNone">setScanResultCodeID(None)</button>
+          <button class="button" id="setScanResultCodeIDSunmiId">setScanResultCodeID(SunmiId)</button>
+          <button class="button" id="setScanResultCodeIDAimId">setScanResultCodeID(AimId)</button>
+          <button class="button" id="setScanResultCodeIDSymbolId">setScanResultCodeID(SymbolId)</button>
           <hr>
-          <button class="button" id="setPromptSettings1">setPromptSettings(true)</button>
-          <button class="button" id="setPromptSettings0">setPromptSettings(false)</button>
+          <button class="button" id="setBeep1">setBeep(true)</button>
+          <button class="button" id="setBeep0">setBeep(false)</button>
+          <button class="button" id="setVibrate1">setVibrate(true)</button>
+          <button class="button" id="setVibrate0">setVibrate(false)</button>
           <hr>
-          <button class="button" id="setAdvancedFormat1">setAdvancedFormat(true)</button>
-          <button class="button" id="setAdvancedFormat0">setAdvancedFormat(false)</button>
+          <button class="button" id="setAdvancedFormatEnabled1">setAdvancedFormatEnabled(true)</button>
+          <button class="button" id="setAdvancedFormatEnabled0">setAdvancedFormatEnabled(false)</button>
           <hr>
-          <button class="button" id="setBroadcast1">setBroadcast(true)</button>
-          <button class="button" id="setBroadcast0">setBroadcast(false)</button>
+          <button class="button" id="setOutputBroadcastEnabled1">setOutputBroadcastEnabled(true)</button>
+          <button class="button" id="setOutputBroadcastEnabled0">setOutputBroadcastEnabled(false)</button>
           <button class="button" id="setBroadcastConfiguration">setBroadcastConfiguration()</button>
         </p> 
         <hr>
@@ -201,125 +206,163 @@ window.customElements.define(
         }
       });
 
-
-
-      self.shadowRoot.querySelector('#setReturnCodeType1').addEventListener('click', async function (e) {
+      self.shadowRoot.querySelector('#setScanResultCodeIDNone').addEventListener('click', async function (e) {
         try {
-          await SunmiScanHead.setReturnCodeType({enabled: true});
+          await SunmiScanHead.setScanResultCodeID({type: ScanResultCodeIDEnum.None});
         } catch (e) {
-          printToOutput("setReturnCodeType() - ERROR", { message: e.message, code: e.code });
+          printToOutput("setScanResultCodeID(None) - ERROR", { message: e.message, code: e.code });
         }
       });
 
-      self.shadowRoot.querySelector('#setReturnCodeType0').addEventListener('click', async function (e) {
+      self.shadowRoot.querySelector('#setScanResultCodeIDSunmiId').addEventListener('click', async function (e) {
         try {
-          await SunmiScanHead.setReturnCodeType({enabled: false});
+          await SunmiScanHead.setScanResultCodeID({type: ScanResultCodeIDEnum.SunmiId});
         } catch (e) {
-          printToOutput("setReturnCodeType() - ERROR", { message: e.message, code: e.code });
+          printToOutput("setScanResultCodeID(SunmiId) - ERROR", { message: e.message, code: e.code });
         }
       });
 
-      self.shadowRoot.querySelector('#setBroadcast1').addEventListener('click', async function (e) {
+      self.shadowRoot.querySelector('#setScanResultCodeIDAimId').addEventListener('click', async function (e) {
         try {
-          await SunmiScanHead.setBroadcast({enabled: true});
+          await SunmiScanHead.setScanResultCodeID({type: ScanResultCodeIDEnum.AimId});
         } catch (e) {
-          printToOutput("setBroadcast(true) - ERROR", { message: e.message, code: e.code });
+          printToOutput("setScanResultCodeID(AimId) - ERROR", { message: e.message, code: e.code });
         }
       });
 
-      self.shadowRoot.querySelector('#setBroadcast0').addEventListener('click', async function (e) {
+      self.shadowRoot.querySelector('#setScanResultCodeIDSymbolId').addEventListener('click', async function (e) {
         try {
-          await SunmiScanHead.setBroadcast({enabled: false});
+          await SunmiScanHead.setScanResultCodeID({type: ScanResultCodeIDEnum.SymbolId});
         } catch (e) {
-          printToOutput("setBroadcast(false) - ERROR", { message: e.message, code: e.code });
+          printToOutput("setScanResultCodeID(SymbolId) - ERROR", { message: e.message, code: e.code });
         }
       });
 
-      self.shadowRoot.querySelector('#setAdvancedFormat1').addEventListener('click', async function (e) {
+      self.shadowRoot.querySelector('#setOutputBroadcastEnabled1').addEventListener('click', async function (e) {
         try {
-          await SunmiScanHead.setAdvancedFormat({enabled: true});
+          await SunmiScanHead.setOutputBroadcastEnabled({enabled: true});
         } catch (e) {
-          printToOutput("setAdvancedFormat(true) - ERROR", { message: e.message, code: e.code });
+          printToOutput("setOutputBroadcastEnabled(true) - ERROR", { message: e.message, code: e.code });
         }
       });
 
-      self.shadowRoot.querySelector('#setAdvancedFormat0').addEventListener('click', async function (e) {
+      self.shadowRoot.querySelector('#setOutputBroadcastEnabled0').addEventListener('click', async function (e) {
         try {
-          await SunmiScanHead.setAdvancedFormat({enabled: false});
+          await SunmiScanHead.setOutputBroadcastEnabled({enabled: false});
         } catch (e) {
-          printToOutput("setAdvancedFormat(false) - ERROR", { message: e.message, code: e.code });
+          printToOutput("setOutputBroadcastEnabled(false) - ERROR", { message: e.message, code: e.code });
         }
       });
 
-      self.shadowRoot.querySelector('#setPromptSettings1').addEventListener('click', async function (e) {
+      self.shadowRoot.querySelector('#setAdvancedFormatEnabled1').addEventListener('click', async function (e) {
         try {
-          await SunmiScanHead.setPromptSettings({sound: true});
+          await SunmiScanHead.setAdvancedFormatEnabled({enabled: true});
         } catch (e) {
-          printToOutput("setPromptSettings(true) - ERROR", { message: e.message, code: e.code });
+          printToOutput("setAdvancedFormatEnabled(true) - ERROR", { message: e.message, code: e.code });
         }
       });
 
-      self.shadowRoot.querySelector('#setPromptSettings0').addEventListener('click', async function (e) {
+      self.shadowRoot.querySelector('#setAdvancedFormatEnabled0').addEventListener('click', async function (e) {
         try {
-          await SunmiScanHead.setPromptSettings({sound: false});
+          await SunmiScanHead.setAdvancedFormatEnabled({enabled: false});
         } catch (e) {
-          printToOutput("setPromptSettings(false) - ERROR", { message: e.message, code: e.code });
+          printToOutput("setAdvancedFormatEnabled(false) - ERROR", { message: e.message, code: e.code });
         }
       });
 
-      self.shadowRoot.querySelector('#setOutputModeDisabled').addEventListener('click', async function (e) {
+      self.shadowRoot.querySelector('#setBeep1').addEventListener('click', async function (e) {
         try {
-          await SunmiScanHead.setOutputMode({mode: OutputMode.DISABLED});
+          await SunmiScanHead.setBeep({enabled: true});
         } catch (e) {
-          printToOutput("setOutputMode(DISABLED) - ERROR", { message: e.message, code: e.code });
+          printToOutput("setBeep(true) - ERROR", { message: e.message, code: e.code });
         }
       });
 
-      self.shadowRoot.querySelector('#setOutputModeKeystroke').addEventListener('click', async function (e) {
+      self.shadowRoot.querySelector('#setBeep0').addEventListener('click', async function (e) {
         try {
-          await SunmiScanHead.setOutputMode({mode: OutputMode.KEYSTROKE});
+          await SunmiScanHead.setBeep({enabled: false});
         } catch (e) {
-          printToOutput("setOutputMode(KEYSTROKE) - ERROR", { message: e.message, code: e.code });
+          printToOutput("setBeep(false) - ERROR", { message: e.message, code: e.code });
         }
       });
 
-      self.shadowRoot.querySelector('#setOutputModeDirectfill').addEventListener('click', async function (e) {
+      self.shadowRoot.querySelector('#setVibrate1').addEventListener('click', async function (e) {
         try {
-          await SunmiScanHead.setOutputMode({mode: OutputMode.DIRECTFILL});
+          await SunmiScanHead.setVibrate({enabled: true});
         } catch (e) {
-          printToOutput("setOutputMode(DIRECTFILL) - ERROR", { message: e.message, code: e.code });
+          printToOutput("setVibrate(true) - ERROR", { message: e.message, code: e.code });
         }
       });
 
-      self.shadowRoot.querySelector('#setScanModeTrigger').addEventListener('click', async function (e) {
+      self.shadowRoot.querySelector('#setVibrate0').addEventListener('click', async function (e) {
         try {
-          await SunmiScanHead.setScanMode({mode: ScanMode.TRIGGER});
+          await SunmiScanHead.setVibrate({enabled: false});
         } catch (e) {
-          printToOutput("setScanMode(TRIGGER) - ERROR", { message: e.message, code: e.code });
+          printToOutput("setVibrate(false) - ERROR", { message: e.message, code: e.code });
         }
       });
 
-      self.shadowRoot.querySelector('#setScanModePulse').addEventListener('click', async function (e) {
+      self.shadowRoot.querySelector('#setOutputTypeDisabled').addEventListener('click', async function (e) {
         try {
-          await SunmiScanHead.setScanMode({mode: ScanMode.PULSE});
+          await SunmiScanHead.setOutputType({mode: OutputMode.Disabled});
         } catch (e) {
-          printToOutput("setScanMode(PULSE) - ERROR", { message: e.message, code: e.code });
+          printToOutput("setOutputType(Disabled) - ERROR", { message: e.message, code: e.code });
         }
       });
 
-      self.shadowRoot.querySelector('#setScanModeContinuous').addEventListener('click', async function (e) {
+      self.shadowRoot.querySelector('#setOutputTypeKeystroke').addEventListener('click', async function (e) {
         try {
-          await SunmiScanHead.setScanMode({mode: ScanMode.CONTINUOUS});
+          await SunmiScanHead.setOutputType({mode: OutputMode.Keystroke});
         } catch (e) {
-          printToOutput("setScanMode(CONTINUOUS) - ERROR", { message: e.message, code: e.code });
+          printToOutput("setOutputType(Keystroke) - ERROR", { message: e.message, code: e.code });
         }
       });
 
-      self.shadowRoot.querySelector('#setScanModeLongpress').addEventListener('click', async function (e) {
+      self.shadowRoot.querySelector('#setOutputTypeDirectFill').addEventListener('click', async function (e) {
         try {
-          await SunmiScanHead.setScanMode({mode: ScanMode.LONGPRESS});
+          await SunmiScanHead.setOutputType({mode: OutputMode.DirectFill});
         } catch (e) {
-          printToOutput("setScanMode(LONGPRESS) - ERROR", { message: e.message, code: e.code });
+          printToOutput("setOutputType(DirectFill) - ERROR", { message: e.message, code: e.code });
+        }
+      });
+
+      self.shadowRoot.querySelector('#setOutputTypeDirectFillWithReplace').addEventListener('click', async function (e) {
+        try {
+          await SunmiScanHead.setOutputType({mode: OutputMode.DirectFillWithReplace});
+        } catch (e) {
+          printToOutput("setOutputType(DirectFillWithReplace) - ERROR", { message: e.message, code: e.code });
+        }
+      });
+
+      self.shadowRoot.querySelector('#setTriggerMethodTrigger').addEventListener('click', async function (e) {
+        try {
+          await SunmiScanHead.setTriggerMethod({mode: ScanMode.Trigger});
+        } catch (e) {
+          printToOutput("setTriggerMethod(Trigger) - ERROR", { message: e.message, code: e.code });
+        }
+      });
+
+      self.shadowRoot.querySelector('#setTriggerMethodPulse').addEventListener('click', async function (e) {
+        try {
+          await SunmiScanHead.setTriggerMethod({mode: ScanMode.Pulse});
+        } catch (e) {
+          printToOutput("setTriggerMethod(Pulse) - ERROR", { message: e.message, code: e.code });
+        }
+      });
+
+      self.shadowRoot.querySelector('#setTriggerMethodContinuous').addEventListener('click', async function (e) {
+        try {
+          await SunmiScanHead.setTriggerMethod({mode: ScanMode.Continuous});
+        } catch (e) {
+          printToOutput("setTriggerMethod(Continuous) - ERROR", { message: e.message, code: e.code });
+        }
+      });
+
+      self.shadowRoot.querySelector('#setTriggerMethodLongPress').addEventListener('click', async function (e) {
+        try {
+          await SunmiScanHead.setTriggerMethod({mode: ScanMode.LongPress});
+        } catch (e) {
+          printToOutput("setTriggerMethod(LongPress) - ERROR", { message: e.message, code: e.code });
         }
       });
 
@@ -367,34 +410,39 @@ window.customElements.define(
           printToOutput("setBroadcastConfiguration(start_intent: \"\", end_intent: \"\") - ERROR", { message: e.message, code: e.code });
         }
         try {
-          await SunmiScanHead.setOutputMode({mode: OutputMode.DISABLED});
+          await SunmiScanHead.setOutputType({mode: OutputMode.Disabled});
         } catch (e) {
-          printToOutput("setOutputMode(DISABLED) - ERROR", { message: e.message, code: e.code });
+          printToOutput("setOutputType(Disabled) - ERROR", { message: e.message, code: e.code });
         }
         try {
-          await SunmiScanHead.setBroadcast({enabled: true});
+          await SunmiScanHead.setOutputBroadcastEnabled({enabled: true});
         } catch (e) {
           printToOutput("setBroadcast(true) - ERROR", { message: e.message, code: e.code });
         }
         try {
-          await SunmiScanHead.setReturnCodeType({enabled: false});
+          await SunmiScanHead.setScanResultCodeID({type: ScanResultCodeIDEnum.None});
         } catch (e) {
-          printToOutput("setReturnCodeType(false) - ERROR", { message: e.message, code: e.code });
+          printToOutput("setScanResultCodeID(None) - ERROR", { message: e.message, code: e.code });
         }
         try {
-          await SunmiScanHead.setAdvancedFormat({enabled: false});
+          await SunmiScanHead.setAdvancedFormatEnabled({enabled: false});
         } catch (e) {
-          printToOutput("setAdvancedFormat(false) - ERROR", { message: e.message, code: e.code });
+          printToOutput("setAdvancedFormatEnabled(false) - ERROR", { message: e.message, code: e.code });
         }
         try {
-          await SunmiScanHead.setPromptSettings({sound: true});
+          await SunmiScanHead.setBeep({enabled: true});
         } catch (e) {
-          printToOutput("setPromptSettings(true) - ERROR", { message: e.message, code: e.code });
+          printToOutput("setBeep(true) - ERROR", { message: e.message, code: e.code });
         }
         try {
-          await SunmiScanHead.setScanMode({mode: ScanMode.TRIGGER});
+          await SunmiScanHead.setVibrate({enabled: true});
         } catch (e) {
-          printToOutput("setScanMode(TRIGGER) - ERROR", { message: e.message, code: e.code });
+          printToOutput("setVibrate(true) - ERROR", { message: e.message, code: e.code });
+        }
+        try {
+          await SunmiScanHead.setTriggerMethod({mode: ScanMode.Trigger});
+        } catch (e) {
+          printToOutput("setTriggerMethod(TRIGGER) - ERROR", { message: e.message, code: e.code });
         }
         try {
           await SunmiScanHead.commitWriteContext();
@@ -415,34 +463,39 @@ window.customElements.define(
           printToOutput("setBroadcastConfiguration(start_intent: \"\", end_intent: \"\") - ERROR", { message: e.message, code: e.code });
         }
         try {
-          await SunmiScanHead.setOutputMode({mode: OutputMode.DISABLED});
+          await SunmiScanHead.setOutputType({mode: OutputMode.Disabled});
         } catch (e) {
-          printToOutput("setOutputMode(DISABLED) - ERROR", { message: e.message, code: e.code });
+          printToOutput("setOutputType(Disabled) - ERROR", { message: e.message, code: e.code });
         }
         try {
-          await SunmiScanHead.setBroadcast({enabled: true});
+          await SunmiScanHead.setOutputBroadcastEnabled({enabled: true});
         } catch (e) {
           printToOutput("setBroadcast(true) - ERROR", { message: e.message, code: e.code });
         }
         try {
-          await SunmiScanHead.setReturnCodeType({enabled: false});
+          await SunmiScanHead.setScanResultCodeID({type: ScanResultCodeIDEnum.None});
         } catch (e) {
-          printToOutput("setReturnCodeType(false) - ERROR", { message: e.message, code: e.code });
+          printToOutput("setScanResultCodeID(None) - ERROR", { message: e.message, code: e.code });
         }
         try {
-          await SunmiScanHead.setAdvancedFormat({enabled: false});
+          await SunmiScanHead.setAdvancedFormatEnabled({enabled: false});
         } catch (e) {
-          printToOutput("setAdvancedFormat(false) - ERROR", { message: e.message, code: e.code });
+          printToOutput("setAdvancedFormatEnabled(false) - ERROR", { message: e.message, code: e.code });
         }
         try {
-          await SunmiScanHead.setPromptSettings({sound: false});
+          await SunmiScanHead.setBeep({enabled: false});
         } catch (e) {
-          printToOutput("setPromptSettings(false) - ERROR", { message: e.message, code: e.code });
+          printToOutput("setBeep(false) - ERROR", { message: e.message, code: e.code });
         }
         try {
-          await SunmiScanHead.setScanMode({mode: ScanMode.LONGPRESS, sleep: 50});
+          await SunmiScanHead.setVibrate({enabled: false});
         } catch (e) {
-          printToOutput("setScanMode(LONGPRESS, sleep: 50) - ERROR", { message: e.message, code: e.code });
+          printToOutput("setVibrate(false) - ERROR", { message: e.message, code: e.code });
+        }
+        try {
+          await SunmiScanHead.setTriggerMethod({mode: ScanMode.LongPress, sleep: 50});
+        } catch (e) {
+          printToOutput("setTriggerMethod(LongPress, sleep: 50) - ERROR", { message: e.message, code: e.code });
         }
         try {
           await SunmiScanHead.commitWriteContext();
@@ -463,34 +516,39 @@ window.customElements.define(
           printToOutput("setBroadcastConfiguration(start_intent: \"\", end_intent: \"\") - ERROR", { message: e.message, code: e.code });
         }
         try {
-          await SunmiScanHead.setOutputMode({mode: OutputMode.DISABLED});
+          await SunmiScanHead.setOutputType({mode: OutputMode.Disabled});
         } catch (e) {
-          printToOutput("setOutputMode(DISABLED) - ERROR", { message: e.message, code: e.code });
+          printToOutput("setOutputType(Disabled) - ERROR", { message: e.message, code: e.code });
         }
         try {
-          await SunmiScanHead.setBroadcast({enabled: true});
+          await SunmiScanHead.setOutputBroadcastEnabled({enabled: true});
         } catch (e) {
           printToOutput("setBroadcast(true) - ERROR", { message: e.message, code: e.code });
         }
         try {
-          await SunmiScanHead.setReturnCodeType({enabled: false});
+          await SunmiScanHead.setScanResultCodeID({type: ScanResultCodeIDEnum.None});
         } catch (e) {
-          printToOutput("setReturnCodeType(false) - ERROR", { message: e.message, code: e.code });
+          printToOutput("setScanResultCodeID(None) - ERROR", { message: e.message, code: e.code });
         }
         try {
-          await SunmiScanHead.setAdvancedFormat({enabled: false});
+          await SunmiScanHead.setAdvancedFormatEnabled({enabled: false});
         } catch (e) {
-          printToOutput("setAdvancedFormat(false) - ERROR", { message: e.message, code: e.code });
+          printToOutput("setAdvancedFormatEnabled(false) - ERROR", { message: e.message, code: e.code });
         }
         try {
-          await SunmiScanHead.setPromptSettings({sound: false});
+          await SunmiScanHead.setBeep({enabled: false});
         } catch (e) {
-          printToOutput("setPromptSettings(false) - ERROR", { message: e.message, code: e.code });
+          printToOutput("setBeep(false) - ERROR", { message: e.message, code: e.code });
         }
         try {
-          await SunmiScanHead.setScanMode({mode: ScanMode.CONTINUOUS, sleep: 50});
+          await SunmiScanHead.setVibrate({enabled: false});
         } catch (e) {
-          printToOutput("setScanMode(CONTINUOUS, sleep: 50) - ERROR", { message: e.message, code: e.code });
+          printToOutput("setVibrate(false) - ERROR", { message: e.message, code: e.code });
+        }
+        try {
+          await SunmiScanHead.setTriggerMethod({mode: ScanMode.Continuous, sleep: 50});
+        } catch (e) {
+          printToOutput("setTriggerMethod(Continuous, sleep: 50) - ERROR", { message: e.message, code: e.code });
         }
         try {
           await SunmiScanHead.commitWriteContext();

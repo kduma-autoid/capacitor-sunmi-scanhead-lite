@@ -14,20 +14,317 @@ declare module '@capacitor/cli' {
 
 import type { PluginListenerHandle } from '@capacitor/core';
 
+export interface GetScannerModelResponse {
+  /**
+   * Numeric identifier of the scanner model
+   */
+  id: number;
+
+  /**
+   * String identifier of the scanner model
+   */
+  name: ScannerModelName;
+}
+
+export type ScannerModelName = ScannerModel | string;
+
+export enum ScannerModel {
+  NONE = "NONE",
+  SUPER_N1365_Y1825 = "SUPER_N1365_Y1825",
+  NLS_2096 = "NLS_2096",
+  ZEBRA_4710 = "ZEBRA_4710",
+  HONEYWELL_3601 = "HONEYWELL_3601",
+  HONEYWELL_6603 = "HONEYWELL_6603",
+  ZEBRA_4750 = "ZEBRA_4750",
+  ZEBRA_1350 = "ZEBRA_1350",
+  HONEYWELL_6703 = "HONEYWELL_6703",
+  HONEYWELL_3603 = "HONEYWELL_3603",
+  NLS_CM47 = "NLS_CM47",
+  NLS_3108 = "NLS_3108",
+  ZEBRA_965 = "ZEBRA_965",
+  SM_SS_1100 = "SM_SS_1100",
+  NLS_CM30 = "NLS_CM30",
+  HONEYWELL_4603 = "HONEYWELL_4603",
+  ZEBRA_4770 = "ZEBRA_4770",
+  NLS_2596 = "NLS_2596",
+  SM_SS_1103 = "SM_SS_1103",
+  SM_SS_1101 = "SM_SS_1101",
+  HONEYWELL_5703 = "HONEYWELL_5703",
+  UNKNOWN = "UNKNOWN",
+}
+
+export interface ClearConfigResponse {
+  /**
+   * Status of the operation
+   */
+  cleared: boolean;
+}
+
+export type SetOutputTypeOptions = SetOutputTypeDisabledOptions | SetOutputTypeKeystrokeOptions | SetOutputTypeDirectFillOptions;
+
+export interface SetOutputTypeDisabledOptions {
+  /**
+   * No direct output
+   */
+  mode: OutputMode.Disabled;
+}
+
+export interface SetOutputTypeKeystrokeOptions {
+  /**
+   * Virtual Keyboard output
+   */
+  mode: OutputMode.Keystroke;
+
+  /**
+   * Time to sleep between keystrokes
+   *
+   * @default 0
+   */
+  interval?: number;
+
+  /**
+   * Send a tab keystroke after the barcode
+   *
+   * @default false
+   */
+  tab?: boolean;
+
+  /**
+   * Send an enter keystroke after the barcode
+   *
+   * @default true
+   */
+  enter?: boolean;
+
+  /**
+   * Send a space keystroke after the barcode
+   *
+   * Hardware support limited
+   *
+   * @default false
+   */
+  space?: boolean;
+}
+
+export interface SetOutputTypeDirectFillOptions {
+  /**
+   * Fill in EditText directly
+   */
+  mode: OutputMode.DirectFill | OutputMode.DirectFillWithReplace;
+
+  /**
+   * Send a tab keystroke after the barcode
+   *
+   * @default false
+   */
+  tab?: boolean;
+
+  /**
+   * Send an enter keystroke after the barcode
+   *
+   * @default true
+   */
+  enter?: boolean;
+
+  /**
+   * Send a space keystroke after the barcode
+   *
+   * Hardware support limited
+   *
+   * @default false
+   */
+  space?: boolean;
+
+  /**
+   * Convert characters into keys
+   *
+   * @default false
+   */
+  asEvent?: boolean;
+}
+
 export enum OutputMode {
-    KEYSTROKE = "keystroke",
-    DIRECTFILL = "directFill",
-    DISABLED = "disabled",
+  /**
+   * Fill in EditText directly
+   */
+  DirectFill = "direct-fill",
+
+  /**
+   * Fill and overwrite in EditText directly
+   */
+  DirectFillWithReplace = "direct-fill-with-replace",
+
+  /**
+   * Virtual Keyboard output
+   */
+  Keystroke = "keystroke",
+
+  /**
+   * No direct output
+   */
+  Disabled = "disabled",
+}
+
+export type SetTriggerMethodOptions = SetTriggerMethodTriggerPulseOptions | SetTriggerMethodContinuousLongPressOptions;
+
+interface SetTriggerMethodTriggerPulseOptions {
+  mode: ScanMode.Trigger | ScanMode.Pulse;
+
+  /**
+   * Timeout after which the scanner will stop scanning if no barcode is detected
+   *
+   * @default 5000
+   */
+  timeout?: number;
+}
+
+interface SetTriggerMethodContinuousLongPressOptions {
+  mode: ScanMode.Continuous | ScanMode.LongPress;
+
+  /**
+   * Timeout after which the scanner will stop scanning if no barcode is detected
+   *
+   * @default 5000
+   */
+  timeout?: number;
+
+  /**
+   * Time to sleep between scans
+   *
+   * @default 500
+   */
+  sleep?: number;
 }
 
 export enum ScanMode {
-    TRIGGER = "trigger",
-    CONTINUOUS = "continuous",
-    PULSE = "pulse",
-    LONGPRESS = "longPress",
+  /**
+   * Trigger Mode: Short press to scan, and release to stop scanning
+   */
+  Trigger = "trigger",
+
+  /**
+   * Continuous Mode: Short press to start scanning, and short press to stop scanning
+   */
+  Continuous = "continuous",
+
+  /**
+   * Pulse Mode: Short press to start scanning until timeout
+   */
+  Pulse = "pulse",
+
+  /**
+   * Long Press Mode: Long press to scan continuously, release to stop
+   *
+   * Hardware support limited
+   */
+  LongPress = "long-press",
 }
 
-export type ScannerModelName = string|"NONE"|"SUPER_N1365_Y1825"|"NLS_2096"|"ZEBRA_4710"|"HONEYWELL_3601"|"HONEYWELL_6603"|"ZEBRA_4750"|"ZEBRA_1350"|"HONEYWELL_6703"|"HONEYWELL_3603"|"NLS_CM47"|"NLS_3108"|"ZEBRA_965"|"SM_SS_1100"|"NLS_CM30"|"HONEYWELL_4603"|"ZEBRA_4770"|"NLS_2596"|"SM_SS_1103"|"SM_SS_1101"|"HONEYWELL_5703"|"UNKNOWN";
+export interface SetTriggerOptions {
+  /**
+   * Enable or disable trigger button
+   *
+   * @default true
+   */
+  enabled?: boolean;
+}
+
+export interface setScanResultCodeIDOptions {
+  /**
+   * Selects variant of code type returned with scan result
+   *
+   * @default ScanResultCodeIDEnum.None
+   */
+  type?: ScanResultCodeIDEnum;
+}
+
+export enum ScanResultCodeIDEnum {
+  None = "none",
+  SunmiId = "sunmi-id",
+
+  /**
+   * Hardware support limited
+   */
+  AimId = "aim-id",
+
+  /**
+   * Hardware support limited
+   */
+  SymbolId = "symbol-id",
+}
+
+export interface setAdvancedFormatEnabledOptions {
+  /**
+   * Enable or disable advanced formatting options provided in configuration
+   *
+   * @default true
+   */
+  enabled?: boolean;
+}
+
+export interface SetBeepOptions {
+  /**
+   * Enable or disable sound prompts on scan
+   *
+   * @default true
+   */
+  enabled?: boolean;
+}
+
+export interface setVibrateOptions {
+  /**
+   * Enable or disable vibration prompts on scan
+   *
+   * @default true
+   */
+  enabled?: boolean;
+}
+
+export interface setOutputBroadcastEnabledOutput {
+  /**
+   * Enable or disable scan result broadcast
+   *
+   * @default true
+   */
+  enabled?: boolean;
+}
+
+export interface SetBroadcastConfigurationOptions {
+  /**
+   * Intent name broadcasted when a barcode is scanned
+   *
+   * @default com.sunmi.scanner.ACTION_DATA_CODE_RECEIVED
+   */
+  scanned_intent?: string,
+
+  /**
+   * Intent name broadcasted when scanner starts scanning
+   *
+   * @default com.sunmi.scanner.ACTION_SCAN_START
+   */
+  start_intent?: string,
+
+  /**
+   * Intent name broadcasted when scanner stops scanning
+   *
+   * @default com.sunmi.scanner.ACTION_SCAN_END
+   */
+  end_intent?: string,
+
+  /**
+   * Intent extra key for barcode plain text data in scan result intent (`scanned_intent`)
+   *
+   * @default data
+   */
+  intent_data_key?: string,
+
+  /**
+   * Intent extra key for barcode base64 encoded data in scan result intent (`scanned_intent`)
+   *
+   * @default source_byte
+   */
+  intent_byte_key?: string
+}
 
 export interface SunmiScanHeadPlugin {
   /**
@@ -53,17 +350,17 @@ export interface SunmiScanHeadPlugin {
   /**
    * Get scanner model
    */
-  getScannerModel(): Promise<{ id: number, name: ScannerModelName }>;
+  getScannerModel(): Promise<GetScannerModelResponse>;
 
   /**
    * Clear scanner configuration (reset to default)
    */
-  clearConfig(): Promise<{ cleared: boolean; }>;
+  clearConfig(): Promise<ClearConfigResponse>;
 
   /**
    * Enable or disable trigger button
    */
-  setTrigger(options: { enabled: boolean }): Promise<void>;
+  setTrigger(options?: SetTriggerOptions): Promise<void>;
 
   /**
    * Play a beep sound
@@ -93,50 +390,49 @@ export interface SunmiScanHeadPlugin {
   /**
    * Set output mode
    */
-  setOutputMode(options: { mode: OutputMode.DISABLED } | { mode: OutputMode.KEYSTROKE, interval?: number, tab?: boolean, enter?: boolean } | { mode: OutputMode.DIRECTFILL, overwrite?: boolean, tab?: boolean, enter?: boolean, asEvent?: boolean }): Promise<void>;
+  setOutputType(options: SetOutputTypeOptions): Promise<void>;
 
   /**
    * Set scan mode
    */
-  setScanMode(options: { mode: ScanMode.TRIGGER | ScanMode.PULSE, timeout?: number } | { mode: ScanMode.CONTINUOUS | ScanMode.LONGPRESS, sleep?: number, timeout?: number }): Promise<void>;
+  setTriggerMethod(options: SetTriggerMethodOptions): Promise<void>;
 
   /**
-   * Enable or disable returning of code type with scan result
+   * Selects variant of code type returned with scan result
    */
-  setReturnCodeType(options?: { enabled: boolean }): Promise<void>;
+  setScanResultCodeID(options?: setScanResultCodeIDOptions): Promise<void>;
 
   /**
    * Enable or disable advanced formatting options provided in configuration
    */
-  setAdvancedFormat(options?: { enabled: boolean }): Promise<void>;
+  setAdvancedFormatEnabled(options?: setAdvancedFormatEnabledOptions): Promise<void>;
 
   /**
-   * Enable or disable sound and vibration prompts on scan
+   * Enable or disable sound prompts on scan
    */
-  setPromptSettings(options?: { sound: boolean, vibrations?: boolean }): Promise<void>;
+  setBeep(options?: SetBeepOptions): Promise<void>;
+
+  /**
+   * Enable or disable vibration prompts on scan
+   */
+  setVibrate(options?: setVibrateOptions): Promise<void>;
 
   /**
    * Enable or disable scan result broadcast
    */
-  setBroadcast(options: { enabled: boolean }): Promise<void>;
+  setOutputBroadcastEnabled(options?: setOutputBroadcastEnabledOutput): Promise<void>;
 
   /**
    * Set broadcast configuration
    */
-  setBroadcastConfiguration(options?: {
-    scanned_intent?: string,
-    start_intent?: string,
-    end_intent?: string,
-    intent_data_key?: string,
-    intent_byte_key?: string
-  }): Promise<void>;
+  setBroadcastConfiguration(options?: SetBroadcastConfigurationOptions): Promise<void>;
 
   /**
    * Listens for barcode scanner result events.
    */
   addListener(
       eventName: 'onScanResult',
-      listenerFunc: (scan: { data: string, source_bytes: string }) => void,
+      listenerFunc: OnScanResultListener,
   ): Promise<PluginListenerHandle> & PluginListenerHandle;
 
   /**
@@ -144,7 +440,7 @@ export interface SunmiScanHeadPlugin {
    */
   addListener(
       eventName: 'onScanStart',
-      listenerFunc: () => void,
+      listenerFunc: OnScanStartListener,
   ): Promise<PluginListenerHandle> & PluginListenerHandle;
 
   /**
@@ -152,7 +448,7 @@ export interface SunmiScanHeadPlugin {
    */
   addListener(
       eventName: 'onScanStop',
-      listenerFunc: () => void,
+      listenerFunc: OnScanStopListener,
   ): Promise<PluginListenerHandle> & PluginListenerHandle;
 
   /**
@@ -160,3 +456,18 @@ export interface SunmiScanHeadPlugin {
    */
   removeAllListeners(): Promise<void>;
 }
+
+/**
+ * Callback to receive scan results broadcasted by the scanner
+ */
+export type OnScanResultListener = (scan: { data: string, source_bytes: string }) => void;
+
+/**
+ * Callback to receive scan start event broadcasted by the scanner
+ */
+export type OnScanStartListener = () => void;
+
+/**
+ * Callback to receive scan stop event broadcasted by the scanner
+ */
+export type OnScanStopListener = () => void;

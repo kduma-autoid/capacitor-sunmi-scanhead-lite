@@ -18,14 +18,29 @@ public class ScanHeadBroadcastReceiver implements IScanHeadBroadcastReceiver {
         public void onReceive(Context context, Intent intent) {
             switch (Objects.requireNonNull(intent.getAction())) {
                 case "com.sunmi.scanner.ACTION_DATA_CODE_RECEIVED" -> {
-                    String code = intent.getStringExtra("data");
-                    byte[] sourceBytes = intent.getByteArrayExtra("source_byte");
+                    String code = null;
+                    try {
+                        code = intent.getStringExtra("data");
+                    } catch (RuntimeException e) {
+                        e.printStackTrace();
+                    }
+
+                    byte[] sourceBytes = new byte[0];
+                    try {
+                        sourceBytes = intent.getByteArrayExtra("source_byte");
+                    } catch (RuntimeException e) {
+                        e.printStackTrace();
+                    }
+
                     String source_byte = Base64.encodeToString(sourceBytes, Base64.NO_WRAP);
+
                     if (code != null && !code.isEmpty()) {
                         callback.onScan(code, source_byte);
                     }
                 }
+
                 case "com.sunmi.scanner.ACTION_SCAN_START" -> callback.onStart();
+
                 case "com.sunmi.scanner.ACTION_SCAN_END" -> callback.onStop();
             }
         }

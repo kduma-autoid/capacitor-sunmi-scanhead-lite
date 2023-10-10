@@ -2,7 +2,6 @@ package dev.duma.android.sunmi.scanconfigurationhelper.config;
 
 import com.sunmi.scanner.ScannerService;
 import com.sunmi.scanner.entity.Pair;
-import com.sunmi.scanner.entity.ServiceSetting;
 
 import java.util.ArrayList;
 import java.util.EnumSet;
@@ -313,6 +312,7 @@ public class ServiceConfiguration {
         this.scanTriggerTimeOut = scanTriggerTimeOut;
     }
 
+    // TODO: Check usage
     public int getTriggerOverTime() {
         if(this.unsupportedFields.contains(ConfigurationFieldEnum.TriggerOverTime)) {
             throw new RuntimeException("Field "+ConfigurationFieldEnum.TriggerOverTime+" is not supported on this system!");

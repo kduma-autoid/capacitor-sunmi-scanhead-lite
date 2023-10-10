@@ -8,6 +8,10 @@ import com.getcapacitor.annotation.CapacitorPlugin;
 import com.sunmi.scanner.ScannerService;
 
 import dev.duma.android.sunmi.scanbroadcastreceiver.IScanHeadBroadcastReceiver.ScanCallback;
+import dev.duma.android.sunmi.scanconfigurationhelper.config.ServiceConfiguration;
+import dev.duma.android.sunmi.scanconfigurationhelper.config.enums.OutputTypeEnum;
+import dev.duma.android.sunmi.scanconfigurationhelper.config.enums.ScanResultCodeIDEnum;
+import dev.duma.android.sunmi.scanconfigurationhelper.config.enums.TriggerMethodEnum;
 import dev.duma.capacitor.pluginhelpers.CallbackHelper;
 
 @CapacitorPlugin(name = "SunmiScanHead")
@@ -16,8 +20,10 @@ public class SunmiScanHeadPlugin extends Plugin {
         @Override
         public void onScan(String data, String source_bytes) {
             JSObject ret = new JSObject();
+
             ret.put("data", data);
             ret.put("source_bytes", source_bytes);
+
             notifyListeners("onScanResult", ret);
         }
 
@@ -53,6 +59,7 @@ public class SunmiScanHeadPlugin extends Plugin {
     public void bindService(PluginCall call) {
         CallbackHelper.handle(call, (c) -> {
             implementation.register();
+
             c.resolve();
         });
     }
@@ -61,6 +68,7 @@ public class SunmiScanHeadPlugin extends Plugin {
     public void unBindService(PluginCall call) {
         CallbackHelper.handle(call, (c) -> {
             implementation.unregister();
+
             c.resolve();
         });
     }
@@ -69,6 +77,7 @@ public class SunmiScanHeadPlugin extends Plugin {
     public void scan(PluginCall call) {
         CallbackHelper.handle(call, (c) -> {
             implementation.getScanner().scan();
+
             c.resolve();
         });
     }
@@ -77,6 +86,7 @@ public class SunmiScanHeadPlugin extends Plugin {
     public void stop(PluginCall call) {
         CallbackHelper.handle(call, (c) -> {
             implementation.getScanner().stop();
+
             c.resolve();
         });
     }
@@ -97,10 +107,9 @@ public class SunmiScanHeadPlugin extends Plugin {
     @PluginMethod
     public void clearConfig(PluginCall call) {
         CallbackHelper.handle(call, (c) -> {
-            boolean status = implementation.getScanner().clearConfig();
-
             JSObject ret = new JSObject();
-            ret.put("cleared", status);
+
+            ret.put("cleared", implementation.getScanner().clearConfig());
             
             c.resolve(ret);
         });
@@ -137,9 +146,7 @@ public class SunmiScanHeadPlugin extends Plugin {
     @PluginMethod
     public void createWriteContext(PluginCall call) {
         CallbackHelper.handle(call, (c) -> {
-            implementation.getWriteContextTool().createWriteContext((configuration -> {
-                c.resolve();
-            }));
+            implementation.getWriteContextTool().createWriteContext(configuration -> c.resolve());
         });
     }
 
@@ -163,23 +170,78 @@ public class SunmiScanHeadPlugin extends Plugin {
 
     /** @noinspection DataFlowIssue*/
     @PluginMethod
-    public void setOutputMode(PluginCall call) {
+    public void setOutputType(PluginCall call) {
         CallbackHelper.handle(call, (c) -> {
-            switch (c.getString("mode", "disabled")){
-                default -> implementation.getConfigurator().dataOutputMode().disabled();
+            ServiceConfiguration configuration = implementation.getWriteContextTool().getWriteContext();
 
-                case "keystroke" -> implementation.getConfigurator().dataOutputMode().keystroke(
-                        c.getInt("interval", 0),
-                        c.getBoolean("tab", false),
-                        c.getBoolean("enter", true)
-                );
+            OutputTypeEnum mode = OutputTypeEnum.nameOf(c.getString("mode", OutputTypeEnum.Disabled.getName()));
 
-                case "directFill" -> implementation.getConfigurator().dataOutputMode().directFill(
-                        c.getBoolean("overwrite", false),
-                        c.getBoolean("tab", false),
-                        c.getBoolean("enter", true),
-                        c.getBoolean("asEvent", true)
-                );
+            Boolean tab = c.getBoolean("tab", false);
+            Boolean enter = c.getBoolean("enter", true);
+            Boolean space = c.getBoolean("space", true);
+
+            switch (mode){
+                case Keystroke -> {
+                    Integer interval = c.getInt("interval", 0);
+
+                    configuration.setOutputType(OutputTypeEnum.Keystroke);
+
+                    try {
+                        configuration.setOutputCharacterInterval(interval);
+                    } catch (RuntimeException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        configuration.setAddTab(tab);
+                    } catch (RuntimeException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        configuration.setAddSpace(space);
+                    } catch (RuntimeException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        configuration.setAddReturn(enter);
+                    } catch (RuntimeException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        configuration.setAsEvents(true);
+                    } catch (RuntimeException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                case DirectFill, DirectFillWithReplace -> {
+                    Boolean asEvent = c.getBoolean("asEvent", true);
+
+                    configuration.setOutputType(mode);
+
+                    try {
+                        configuration.setAddTab(tab);
+                    } catch (RuntimeException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        configuration.setAddReturn(enter);
+                    } catch (RuntimeException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        configuration.setAddSpace(space);
+                    } catch (RuntimeException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        configuration.setAsEvents(asEvent);
+                    } catch (RuntimeException e) {
+                        e.printStackTrace();
+                    }
+                }
+                case Disabled -> {
+                    configuration.setOutputType(OutputTypeEnum.Disabled);
+                }
             }
 
             c.resolve();
@@ -188,37 +250,34 @@ public class SunmiScanHeadPlugin extends Plugin {
 
     /** @noinspection DataFlowIssue*/
     @PluginMethod
-    public void setScanMode(PluginCall call) {
+    public void setTriggerMethod(PluginCall call) {
         CallbackHelper.handle(call, (c) -> {
-            switch (c.getString("mode", "trigger")){
-                default -> implementation.getConfigurator().scanMode().trigger(
-                        c.getInt("timeout", 5000)
-                );
+            ServiceConfiguration configuration = implementation.getWriteContextTool().getWriteContext();
 
-                case "continuous" -> implementation.getConfigurator().scanMode().continuous(
-                        c.getInt("sleep", 500),
-                        c.getInt("timeout", 5000)
-                );
+            TriggerMethodEnum mode = TriggerMethodEnum.nameOf(c.getString("mode", TriggerMethodEnum.Trigger.getName()));
 
-                case "pulse" -> implementation.getConfigurator().scanMode().pulse(
-                        c.getInt("timeout", 5000)
-                );
+            final Integer timeout = c.getInt("timeout", 5000);
 
-                case "longPress" -> implementation.getConfigurator().scanMode().longPress(
-                        c.getInt("sleep", 500),
-                        c.getInt("timeout", 5000)
-                );
+            configuration.setTriggerMethod(mode);
+            configuration.setTriggerOverTime(timeout);
+            configuration.setScanTriggerTimeOut(timeout);
+
+            if (mode == TriggerMethodEnum.Continuous || mode == TriggerMethodEnum.LongPress) {
+                final Integer sleep = c.getInt("sleep", 500);
+                configuration.setTriggerContinuousTime(sleep);
             }
 
             c.resolve();
         });
     }
 
-    /** @noinspection DataFlowIssue*/
     @PluginMethod
-    public void setReturnCodeType(PluginCall call) {
+    public void setScanResultCodeID(PluginCall call) {
         CallbackHelper.handle(call, (c) -> {
-            implementation.getConfigurator().codeType().returnCodeType(c.getBoolean("enabled", true));
+            ServiceConfiguration configuration = implementation.getWriteContextTool().getWriteContext();
+
+            ScanResultCodeIDEnum type = ScanResultCodeIDEnum.nameOf(c.getString("type"));
+            configuration.setScanResultCodeID(type);
 
             c.resolve();
         });
@@ -226,9 +285,11 @@ public class SunmiScanHeadPlugin extends Plugin {
 
     /** @noinspection DataFlowIssue*/
     @PluginMethod
-    public void setAdvancedFormat(PluginCall call) {
+    public void setAdvancedFormatEnabled(PluginCall call) {
         CallbackHelper.handle(call, (c) -> {
-            implementation.getConfigurator().advancedFormat().advancedFormat(c.getBoolean("enabled", true));
+            ServiceConfiguration configuration = implementation.getWriteContextTool().getWriteContext();
+
+            configuration.setAdvancedFormatEnabled(c.getBoolean("enabled", true));
 
             c.resolve();
         });
@@ -236,12 +297,11 @@ public class SunmiScanHeadPlugin extends Plugin {
 
     /** @noinspection DataFlowIssue*/
     @PluginMethod
-    public void setPromptSettings(PluginCall call) {
+    public void setBeep(PluginCall call) {
         CallbackHelper.handle(call, (c) -> {
-            implementation.getConfigurator().promptSettings().set(
-                    c.getBoolean("sound", true),
-                    c.getBoolean("vibrations", c.getBoolean("sound", true))
-            );
+            ServiceConfiguration configuration = implementation.getWriteContextTool().getWriteContext();
+
+            configuration.setBeep(c.getBoolean("enabled", true));
 
             c.resolve();
         });
@@ -249,9 +309,23 @@ public class SunmiScanHeadPlugin extends Plugin {
 
     /** @noinspection DataFlowIssue*/
     @PluginMethod
-    public void setBroadcast(PluginCall call) {
+    public void setVibrate(PluginCall call) {
         CallbackHelper.handle(call, (c) -> {
-            implementation.getConfigurator().broadcasting().setBroadcast(c.getBoolean("enabled", true));
+            ServiceConfiguration configuration = implementation.getWriteContextTool().getWriteContext();
+
+            configuration.setVibrate(c.getBoolean("enabled", true));
+
+            c.resolve();
+        });
+    }
+
+    /** @noinspection DataFlowIssue*/
+    @PluginMethod
+    public void setOutputBroadcastEnabled(PluginCall call) {
+        CallbackHelper.handle(call, (c) -> {
+            ServiceConfiguration configuration = implementation.getWriteContextTool().getWriteContext();
+
+            configuration.setOutputBroadcastEnabled(c.getBoolean("enabled", true));
 
             c.resolve();
         });
@@ -260,13 +334,13 @@ public class SunmiScanHeadPlugin extends Plugin {
     @PluginMethod
     public void setBroadcastConfiguration(PluginCall call) {
         CallbackHelper.handle(call, (c) -> {
-            implementation.getConfigurator().broadcasting().configure(
-                    c.getString("scanned_intent", "com.sunmi.scanner.ACTION_DATA_CODE_RECEIVED"),
-                    c.getString("start_intent", "com.sunmi.scanner.ACTION_SCAN_START"),
-                    c.getString("end_intent", "com.sunmi.scanner.ACTION_SCAN_END"),
-                    c.getString("intent_data_key", "data"),
-                    c.getString("intent_byte_key", "source_byte")
-            );
+            ServiceConfiguration configuration = implementation.getWriteContextTool().getWriteContext();
+
+            configuration.setOutputBroadcastAction(c.getString("scanned_intent", "com.sunmi.scanner.ACTION_DATA_CODE_RECEIVED"));
+            configuration.setOutputBroadcastDataKey(c.getString("intent_data_key", "data"));
+            configuration.setOutputBroadcastByteKey(c.getString("intent_byte_key", "source_byte"));
+            configuration.setOutputBroadcastStartAction(c.getString("start_intent", "com.sunmi.scanner.ACTION_SCAN_START"));
+            configuration.setOutputBroadcastEndAction(c.getString("end_intent", "com.sunmi.scanner.ACTION_SCAN_END"));
 
             c.resolve();
         });
