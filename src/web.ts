@@ -18,10 +18,6 @@ export class SunmiScanHeadWeb
     throw this.unimplemented('Not implemented on web.');
   }
 
-  sendKeyEvent(): Promise<void> {
-    throw this.unimplemented('Not implemented on web.');
-  }
-
   stop(): Promise<void> {
     throw this.unimplemented('Not implemented on web.');
   }
@@ -55,6 +51,18 @@ export class SunmiScanHeadWeb
   }
 
   clearConfig(): Promise<{ cleared: boolean; }> {
+    throw this.unimplemented('Not implemented on web.');
+  }
+
+  createWriteContext(): Promise<void> {
+    throw this.unimplemented('Not implemented on web.');
+  }
+
+  commitWriteContext(): Promise<void> {
+    throw this.unimplemented('Not implemented on web.');
+  }
+
+  discardWriteContext(): Promise<void> {
     throw this.unimplemented('Not implemented on web.');
   }
 

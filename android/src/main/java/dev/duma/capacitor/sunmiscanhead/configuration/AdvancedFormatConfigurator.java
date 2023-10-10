@@ -2,24 +2,24 @@ package dev.duma.capacitor.sunmiscanhead.configuration;
 
 import android.os.RemoteException;
 
+import dev.duma.android.sunmi.scanconfigurationhelper.IConfigurationWriteContextHelper;
 import dev.duma.android.sunmi.scanconfigurationhelper.IScanConfigurationHelper;
+import dev.duma.android.sunmi.scanconfigurationhelper.config.ServiceConfiguration;
 
 public class AdvancedFormatConfigurator {
-    private final IScanConfigurationHelper scanConfigurationHelper;
+    private final IConfigurationWriteContextHelper configurationWriteContextHelper;
 
-    public AdvancedFormatConfigurator(IScanConfigurationHelper scanConfigurationHelper) {
-        this.scanConfigurationHelper = scanConfigurationHelper;
+    public AdvancedFormatConfigurator(IConfigurationWriteContextHelper configurationWriteContextHelper) {
+        this.configurationWriteContextHelper = configurationWriteContextHelper;
     }
 
-    public void advancedFormat() throws RemoteException {
+    public void advancedFormat() {
         advancedFormat(true);
     }
 
-    public void advancedFormat(boolean enabled) throws RemoteException {
-        scanConfigurationHelper.loadServiceConfig((configuration) -> {
-            configuration.setAdvancedFormatEnabled(enabled);
+    public void advancedFormat(boolean enabled) {
+        ServiceConfiguration configuration = configurationWriteContextHelper.getWriteContext();
 
-            scanConfigurationHelper.persistServiceConfig(configuration);
-        });
+        configuration.setAdvancedFormatEnabled(enabled);
     }
 }

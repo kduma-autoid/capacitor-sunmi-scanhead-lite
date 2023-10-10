@@ -68,7 +68,7 @@ public class SunmiScanHeadPlugin extends Plugin {
     @PluginMethod
     public void scan(PluginCall call) {
         CallbackHelper.handle(call, (c) -> {
-            implementation.getScanInterfaceHelper().scan();
+            implementation.getScanner().scan();
             c.resolve();
         });
     }
@@ -76,7 +76,7 @@ public class SunmiScanHeadPlugin extends Plugin {
     @PluginMethod
     public void stop(PluginCall call) {
         CallbackHelper.handle(call, (c) -> {
-            implementation.getScanInterfaceHelper().stop();
+            implementation.getScanner().stop();
             c.resolve();
         });
     }
@@ -84,7 +84,7 @@ public class SunmiScanHeadPlugin extends Plugin {
     @PluginMethod
     public void getScannerModel(PluginCall call) {
         CallbackHelper.handle(call, (c) -> {
-            int scannerModel = implementation.getScanInterfaceHelper().getScannerModel();
+            int scannerModel = implementation.getScanner().getScannerModel();
 
             JSObject ret = new JSObject();
             ret.put("id", scannerModel);
@@ -97,7 +97,7 @@ public class SunmiScanHeadPlugin extends Plugin {
     @PluginMethod
     public void clearConfig(PluginCall call) {
         CallbackHelper.handle(call, (c) -> {
-            boolean status = implementation.getScanInterfaceHelper().clearConfig();
+            boolean status = implementation.getScanner().clearConfig();
 
             JSObject ret = new JSObject();
             ret.put("cleared", status);
@@ -110,7 +110,52 @@ public class SunmiScanHeadPlugin extends Plugin {
     @PluginMethod
     public void setTrigger(PluginCall call) {
         CallbackHelper.handle(call, (c) -> {
-            implementation.getTriggerControlHelper().set(c.getBoolean("enabled", true));
+            implementation.getTriggerController().set(c.getBoolean("enabled", true));
+
+            c.resolve();
+        });
+    }
+
+    @PluginMethod
+    public void beep(PluginCall call) {
+        CallbackHelper.handle(call, (c) -> {
+            implementation.getBeeper().beep();
+
+            c.resolve();
+        });
+    }
+
+    @PluginMethod
+    public void vibrate(PluginCall call) {
+        CallbackHelper.handle(call, (c) -> {
+            implementation.getBeeper().vibrate();
+
+            c.resolve();
+        });
+    }
+
+    @PluginMethod
+    public void createWriteContext(PluginCall call) {
+        CallbackHelper.handle(call, (c) -> {
+            implementation.getWriteContextTool().createWriteContext((configuration -> {
+                c.resolve();
+            }));
+        });
+    }
+
+    @PluginMethod
+    public void commitWriteContext(PluginCall call) {
+        CallbackHelper.handle(call, (c) -> {
+            implementation.getWriteContextTool().commitWriteContext();
+
+            c.resolve();
+        });
+    }
+
+    @PluginMethod
+    public void discardWriteContext(PluginCall call) {
+        CallbackHelper.handle(call, (c) -> {
+            implementation.getWriteContextTool().discardWriteContext();
 
             c.resolve();
         });
@@ -222,24 +267,6 @@ public class SunmiScanHeadPlugin extends Plugin {
                     c.getString("intent_data_key", "data"),
                     c.getString("intent_byte_key", "source_byte")
             );
-
-            c.resolve();
-        });
-    }
-
-    @PluginMethod
-    public void beep(PluginCall call) {
-        CallbackHelper.handle(call, (c) -> {
-            implementation.getBeeper().beep();
-
-            c.resolve();
-        });
-    }
-
-    @PluginMethod
-    public void vibrate(PluginCall call) {
-        CallbackHelper.handle(call, (c) -> {
-            implementation.getBeeper().vibrate();
 
             c.resolve();
         });

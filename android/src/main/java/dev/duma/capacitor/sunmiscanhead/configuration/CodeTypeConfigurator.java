@@ -2,21 +2,21 @@ package dev.duma.capacitor.sunmiscanhead.configuration;
 
 import android.os.RemoteException;
 
+import dev.duma.android.sunmi.scanconfigurationhelper.IConfigurationWriteContextHelper;
 import dev.duma.android.sunmi.scanconfigurationhelper.IScanConfigurationHelper;
+import dev.duma.android.sunmi.scanconfigurationhelper.config.ServiceConfiguration;
 import dev.duma.android.sunmi.scanconfigurationhelper.config.enums.ScanResultCodeIDEnum;
 
 public class CodeTypeConfigurator {
-    private final IScanConfigurationHelper scanConfigurationHelper;
+    private final IConfigurationWriteContextHelper configurationWriteContextHelper;
 
-    public CodeTypeConfigurator(IScanConfigurationHelper scanConfigurationHelper) {
-        this.scanConfigurationHelper = scanConfigurationHelper;
+    public CodeTypeConfigurator(IConfigurationWriteContextHelper configurationWriteContextHelper) {
+        this.configurationWriteContextHelper = configurationWriteContextHelper;
     }
 
-    public void returnCodeType(boolean enabled) throws RemoteException {
-        scanConfigurationHelper.loadServiceConfig((configuration) -> {
-            configuration.setScanResultCodeID(enabled ? ScanResultCodeIDEnum.SunmiId : ScanResultCodeIDEnum.None);
+    public void returnCodeType(boolean enabled) {
+        ServiceConfiguration configuration = configurationWriteContextHelper.getWriteContext();
 
-            scanConfigurationHelper.persistServiceConfig(configuration);
-        });
+        configuration.setScanResultCodeID(enabled ? ScanResultCodeIDEnum.SunmiId : ScanResultCodeIDEnum.None);
     }
 }
