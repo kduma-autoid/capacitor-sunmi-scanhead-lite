@@ -78,9 +78,10 @@ window.customElements.define(
           <button class="button" id="commitWriteContext">commitWriteContext()</button>
           <button class="button" id="discardWriteContext">discardWriteContext()</button>
           <hr>
-          <button class="button" id="setOutputModeDisabled">setOutputMode(DISABLED)</button>
-          <button class="button" id="setOutputModeKeystroke">setOutputMode(KEYSTROKE)</button>
-          <button class="button" id="setOutputModeDirectfill">setOutputMode(DIRECTFILL)</button>
+          <button class="button" id="setOutputTypeDisabled">setOutputType(Disabled)</button>
+          <button class="button" id="setOutputTypeKeystroke">setOutputType(Keystroke)</button>
+          <button class="button" id="setOutputTypeDirectFill">setOutputType(DirectFill)</button>
+          <button class="button" id="setOutputTypeDirectFillWithReplace">setOutputType(DirectFillWithReplace)</button>
           <hr>
           <button class="button" id="setTriggerMethodTrigger">setTriggerMethod(Trigger)</button>
           <button class="button" id="setTriggerMethodPulse">setTriggerMethod(Pulse)</button>
@@ -301,27 +302,35 @@ window.customElements.define(
         }
       });
 
-      self.shadowRoot.querySelector('#setOutputModeDisabled').addEventListener('click', async function (e) {
+      self.shadowRoot.querySelector('#setOutputTypeDisabled').addEventListener('click', async function (e) {
         try {
-          await SunmiScanHead.setOutputMode({mode: OutputMode.DISABLED});
+          await SunmiScanHead.setOutputType({mode: OutputMode.Disabled});
         } catch (e) {
-          printToOutput("setOutputMode(DISABLED) - ERROR", { message: e.message, code: e.code });
+          printToOutput("setOutputType(Disabled) - ERROR", { message: e.message, code: e.code });
         }
       });
 
-      self.shadowRoot.querySelector('#setOutputModeKeystroke').addEventListener('click', async function (e) {
+      self.shadowRoot.querySelector('#setOutputTypeKeystroke').addEventListener('click', async function (e) {
         try {
-          await SunmiScanHead.setOutputMode({mode: OutputMode.KEYSTROKE});
+          await SunmiScanHead.setOutputType({mode: OutputMode.Keystroke});
         } catch (e) {
-          printToOutput("setOutputMode(KEYSTROKE) - ERROR", { message: e.message, code: e.code });
+          printToOutput("setOutputType(Keystroke) - ERROR", { message: e.message, code: e.code });
         }
       });
 
-      self.shadowRoot.querySelector('#setOutputModeDirectfill').addEventListener('click', async function (e) {
+      self.shadowRoot.querySelector('#setOutputTypeDirectFill').addEventListener('click', async function (e) {
         try {
-          await SunmiScanHead.setOutputMode({mode: OutputMode.DIRECTFILL});
+          await SunmiScanHead.setOutputType({mode: OutputMode.DirectFill});
         } catch (e) {
-          printToOutput("setOutputMode(DIRECTFILL) - ERROR", { message: e.message, code: e.code });
+          printToOutput("setOutputType(DirectFill) - ERROR", { message: e.message, code: e.code });
+        }
+      });
+
+      self.shadowRoot.querySelector('#setOutputTypeDirectFillWithReplace').addEventListener('click', async function (e) {
+        try {
+          await SunmiScanHead.setOutputType({mode: OutputMode.DirectFillWithReplace});
+        } catch (e) {
+          printToOutput("setOutputType(DirectFillWithReplace) - ERROR", { message: e.message, code: e.code });
         }
       });
 
@@ -401,9 +410,9 @@ window.customElements.define(
           printToOutput("setBroadcastConfiguration(start_intent: \"\", end_intent: \"\") - ERROR", { message: e.message, code: e.code });
         }
         try {
-          await SunmiScanHead.setOutputMode({mode: OutputMode.DISABLED});
+          await SunmiScanHead.setOutputType({mode: OutputMode.Disabled});
         } catch (e) {
-          printToOutput("setOutputMode(DISABLED) - ERROR", { message: e.message, code: e.code });
+          printToOutput("setOutputType(Disabled) - ERROR", { message: e.message, code: e.code });
         }
         try {
           await SunmiScanHead.setOutputBroadcastEnabled({enabled: true});
@@ -454,9 +463,9 @@ window.customElements.define(
           printToOutput("setBroadcastConfiguration(start_intent: \"\", end_intent: \"\") - ERROR", { message: e.message, code: e.code });
         }
         try {
-          await SunmiScanHead.setOutputMode({mode: OutputMode.DISABLED});
+          await SunmiScanHead.setOutputType({mode: OutputMode.Disabled});
         } catch (e) {
-          printToOutput("setOutputMode(DISABLED) - ERROR", { message: e.message, code: e.code });
+          printToOutput("setOutputType(Disabled) - ERROR", { message: e.message, code: e.code });
         }
         try {
           await SunmiScanHead.setOutputBroadcastEnabled({enabled: true});
@@ -507,9 +516,9 @@ window.customElements.define(
           printToOutput("setBroadcastConfiguration(start_intent: \"\", end_intent: \"\") - ERROR", { message: e.message, code: e.code });
         }
         try {
-          await SunmiScanHead.setOutputMode({mode: OutputMode.DISABLED});
+          await SunmiScanHead.setOutputType({mode: OutputMode.Disabled});
         } catch (e) {
-          printToOutput("setOutputMode(DISABLED) - ERROR", { message: e.message, code: e.code });
+          printToOutput("setOutputType(Disabled) - ERROR", { message: e.message, code: e.code });
         }
         try {
           await SunmiScanHead.setOutputBroadcastEnabled({enabled: true});

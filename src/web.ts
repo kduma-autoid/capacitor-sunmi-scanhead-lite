@@ -34,7 +34,7 @@ export class SunmiScanHeadWeb
     throw this.unimplemented('Not implemented on web.');
   }
 
-  setOutputMode(): Promise<void> {
+  setOutputType(): Promise<void> {
     throw this.unimplemented('Not implemented on web.');
   }
 

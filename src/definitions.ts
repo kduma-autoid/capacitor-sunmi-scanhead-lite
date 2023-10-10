@@ -15,9 +15,10 @@ declare module '@capacitor/cli' {
 import type { PluginListenerHandle } from '@capacitor/core';
 
 export enum OutputMode {
-    KEYSTROKE = "keystroke",
-    DIRECTFILL = "directFill",
-    DISABLED = "disabled",
+    DirectFill = "direct-fill",
+    DirectFillWithReplace = "direct-fill-with-replace",
+    Keystroke = "keystroke",
+    Disabled = "disabled",
 }
 
 export enum ScanMode {
@@ -100,7 +101,7 @@ export interface SunmiScanHeadPlugin {
   /**
    * Set output mode
    */
-  setOutputMode(options: { mode: OutputMode.DISABLED } | { mode: OutputMode.KEYSTROKE, interval?: number, tab?: boolean, enter?: boolean } | { mode: OutputMode.DIRECTFILL, overwrite?: boolean, tab?: boolean, enter?: boolean, asEvent?: boolean }): Promise<void>;
+  setOutputType(options: { mode: OutputMode.Disabled } | { mode: OutputMode.Keystroke, interval?: number, tab?: boolean, enter?: boolean , space?: boolean } | { mode: OutputMode.DirectFill | OutputMode.DirectFillWithReplace, tab?: boolean, enter?: boolean, space?: boolean, asEvent?: boolean }): Promise<void>;
 
   /**
    * Set scan mode

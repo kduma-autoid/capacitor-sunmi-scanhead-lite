@@ -44,7 +44,7 @@ export default config;
 * [`createWriteContext()`](#createwritecontext)
 * [`commitWriteContext()`](#commitwritecontext)
 * [`discardWriteContext()`](#discardwritecontext)
-* [`setOutputMode(...)`](#setoutputmode)
+* [`setOutputType(...)`](#setoutputtype)
 * [`setTriggerMethod(...)`](#settriggermethod)
 * [`setScanResultCodeID(...)`](#setscanresultcodeid)
 * [`setAdvancedFormatEnabled(...)`](#setadvancedformatenabled)
@@ -205,17 +205,17 @@ Discard transaction for writing settings to scanner
 --------------------
 
 
-### setOutputMode(...)
+### setOutputType(...)
 
 ```typescript
-setOutputMode(options: { mode: OutputMode.DISABLED; } | { mode: OutputMode.KEYSTROKE; interval?: number; tab?: boolean; enter?: boolean; } | { mode: OutputMode.DIRECTFILL; overwrite?: boolean; tab?: boolean; enter?: boolean; asEvent?: boolean; }) => Promise<void>
+setOutputType(options: { mode: OutputMode.Disabled; } | { mode: OutputMode.Keystroke; interval?: number; tab?: boolean; enter?: boolean; space?: boolean; } | { mode: OutputMode.DirectFill | OutputMode.DirectFillWithReplace; tab?: boolean; enter?: boolean; space?: boolean; asEvent?: boolean; }) => Promise<void>
 ```
 
 Set output mode
 
-| Param         | Type                                                                                                                                                                                                                                                                                                                        |
-| ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **`options`** | <code>{ mode: <a href="#outputmode">OutputMode.DISABLED</a>; } \| { mode: <a href="#outputmode">OutputMode.KEYSTROKE</a>; interval?: number; tab?: boolean; enter?: boolean; } \| { mode: <a href="#outputmode">OutputMode.DIRECTFILL</a>; overwrite?: boolean; tab?: boolean; enter?: boolean; asEvent?: boolean; }</code> |
+| Param         | Type                                                                                                                                                                                                                                                                                                                                                                                                   |
+| ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **`options`** | <code>{ mode: <a href="#outputmode">OutputMode.Disabled</a>; } \| { mode: <a href="#outputmode">OutputMode.Keystroke</a>; interval?: number; tab?: boolean; enter?: boolean; space?: boolean; } \| { mode: <a href="#outputmode">OutputMode.DirectFill</a> \| <a href="#outputmode">OutputMode.DirectFillWithReplace</a>; tab?: boolean; enter?: boolean; space?: boolean; asEvent?: boolean; }</code> |
 
 --------------------
 
@@ -415,11 +415,12 @@ Removes all listeners
 
 #### OutputMode
 
-| Members          | Value                     |
-| ---------------- | ------------------------- |
-| **`KEYSTROKE`**  | <code>"keystroke"</code>  |
-| **`DIRECTFILL`** | <code>"directFill"</code> |
-| **`DISABLED`**   | <code>"disabled"</code>   |
+| Members                     | Value                                   |
+| --------------------------- | --------------------------------------- |
+| **`DirectFill`**            | <code>"direct-fill"</code>              |
+| **`DirectFillWithReplace`** | <code>"direct-fill-with-replace"</code> |
+| **`Keystroke`**             | <code>"keystroke"</code>                |
+| **`Disabled`**              | <code>"disabled"</code>                 |
 
 
 #### ScanMode

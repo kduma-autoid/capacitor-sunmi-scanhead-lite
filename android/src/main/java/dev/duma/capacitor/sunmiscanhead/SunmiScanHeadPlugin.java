@@ -7,10 +7,9 @@ import com.getcapacitor.PluginMethod;
 import com.getcapacitor.annotation.CapacitorPlugin;
 import com.sunmi.scanner.ScannerService;
 
-import java.util.Objects;
-
 import dev.duma.android.sunmi.scanbroadcastreceiver.IScanHeadBroadcastReceiver.ScanCallback;
 import dev.duma.android.sunmi.scanconfigurationhelper.config.ServiceConfiguration;
+import dev.duma.android.sunmi.scanconfigurationhelper.config.enums.OutputTypeEnum;
 import dev.duma.android.sunmi.scanconfigurationhelper.config.enums.ScanResultCodeIDEnum;
 import dev.duma.android.sunmi.scanconfigurationhelper.config.enums.TriggerMethodEnum;
 import dev.duma.capacitor.pluginhelpers.CallbackHelper;
@@ -168,23 +167,78 @@ public class SunmiScanHeadPlugin extends Plugin {
 
     /** @noinspection DataFlowIssue*/
     @PluginMethod
-    public void setOutputMode(PluginCall call) {
+    public void setOutputType(PluginCall call) {
         CallbackHelper.handle(call, (c) -> {
-            switch (c.getString("mode", "disabled")){
-                default -> implementation.getConfigurator().dataOutputMode().disabled();
+            ServiceConfiguration configuration = implementation.getWriteContextTool().getWriteContext();
 
-                case "keystroke" -> implementation.getConfigurator().dataOutputMode().keystroke(
-                        c.getInt("interval", 0),
-                        c.getBoolean("tab", false),
-                        c.getBoolean("enter", true)
-                );
+            OutputTypeEnum mode = OutputTypeEnum.nameOf(c.getString("mode", OutputTypeEnum.Disabled.getName()));
 
-                case "directFill" -> implementation.getConfigurator().dataOutputMode().directFill(
-                        c.getBoolean("overwrite", false),
-                        c.getBoolean("tab", false),
-                        c.getBoolean("enter", true),
-                        c.getBoolean("asEvent", true)
-                );
+            final Boolean tab = c.getBoolean("tab", false);
+            final Boolean enter = c.getBoolean("enter", true);
+            final Boolean space = c.getBoolean("space", true);
+
+            switch (mode){
+                case Keystroke -> {
+                    Integer interval = c.getInt("interval", 0);
+
+                    configuration.setOutputType(OutputTypeEnum.Keystroke);
+
+                    try {
+                        configuration.setOutputCharacterInterval(interval);
+                    } catch (RuntimeException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        configuration.setAddTab(tab);
+                    } catch (RuntimeException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        configuration.setAddSpace(space);
+                    } catch (RuntimeException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        configuration.setAddReturn(enter);
+                    } catch (RuntimeException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        configuration.setAsEvents(true);
+                    } catch (RuntimeException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                case DirectFill, DirectFillWithReplace -> {
+                    Boolean asEvent = c.getBoolean("asEvent", true);
+
+                    configuration.setOutputType(mode);
+
+                    try {
+                        configuration.setAddTab(tab);
+                    } catch (RuntimeException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        configuration.setAddReturn(enter);
+                    } catch (RuntimeException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        configuration.setAddSpace(space);
+                    } catch (RuntimeException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        configuration.setAsEvents(asEvent);
+                    } catch (RuntimeException e) {
+                        e.printStackTrace();
+                    }
+                }
+                case Disabled -> {
+                    configuration.setOutputType(OutputTypeEnum.Disabled);
+                }
             }
 
             c.resolve();
