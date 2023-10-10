@@ -8,6 +8,7 @@ import com.getcapacitor.annotation.CapacitorPlugin;
 import com.sunmi.scanner.ScannerService;
 
 import dev.duma.android.sunmi.scanbroadcastreceiver.IScanHeadBroadcastReceiver.ScanCallback;
+import dev.duma.android.sunmi.scanconfigurationhelper.config.ServiceConfiguration;
 import dev.duma.capacitor.pluginhelpers.CallbackHelper;
 
 @CapacitorPlugin(name = "SunmiScanHead")
@@ -249,9 +250,11 @@ public class SunmiScanHeadPlugin extends Plugin {
 
     /** @noinspection DataFlowIssue*/
     @PluginMethod
-    public void setBroadcast(PluginCall call) {
+    public void setOutputBroadcastEnabled(PluginCall call) {
         CallbackHelper.handle(call, (c) -> {
-            implementation.getConfigurator().broadcasting().setBroadcast(c.getBoolean("enabled", true));
+            ServiceConfiguration configuration = implementation.getWriteContextTool().getWriteContext();
+
+            configuration.setOutputBroadcastEnabled(c.getBoolean("enabled", true));
 
             c.resolve();
         });

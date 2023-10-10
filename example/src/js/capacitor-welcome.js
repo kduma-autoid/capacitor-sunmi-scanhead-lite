@@ -96,8 +96,8 @@ window.customElements.define(
           <button class="button" id="setAdvancedFormat1">setAdvancedFormat(true)</button>
           <button class="button" id="setAdvancedFormat0">setAdvancedFormat(false)</button>
           <hr>
-          <button class="button" id="setBroadcast1">setBroadcast(true)</button>
-          <button class="button" id="setBroadcast0">setBroadcast(false)</button>
+          <button class="button" id="setOutputBroadcastEnabled1">setOutputBroadcastEnabled(true)</button>
+          <button class="button" id="setOutputBroadcastEnabled0">setOutputBroadcastEnabled(false)</button>
           <button class="button" id="setBroadcastConfiguration">setBroadcastConfiguration()</button>
         </p> 
         <hr>
@@ -219,19 +219,19 @@ window.customElements.define(
         }
       });
 
-      self.shadowRoot.querySelector('#setBroadcast1').addEventListener('click', async function (e) {
+      self.shadowRoot.querySelector('#setOutputBroadcastEnabled1').addEventListener('click', async function (e) {
         try {
-          await SunmiScanHead.setBroadcast({enabled: true});
+          await SunmiScanHead.setOutputBroadcastEnabled({enabled: true});
         } catch (e) {
-          printToOutput("setBroadcast(true) - ERROR", { message: e.message, code: e.code });
+          printToOutput("setOutputBroadcastEnabled(true) - ERROR", { message: e.message, code: e.code });
         }
       });
 
-      self.shadowRoot.querySelector('#setBroadcast0').addEventListener('click', async function (e) {
+      self.shadowRoot.querySelector('#setOutputBroadcastEnabled0').addEventListener('click', async function (e) {
         try {
-          await SunmiScanHead.setBroadcast({enabled: false});
+          await SunmiScanHead.setOutputBroadcastEnabled({enabled: false});
         } catch (e) {
-          printToOutput("setBroadcast(false) - ERROR", { message: e.message, code: e.code });
+          printToOutput("setOutputBroadcastEnabled(false) - ERROR", { message: e.message, code: e.code });
         }
       });
 
@@ -372,7 +372,7 @@ window.customElements.define(
           printToOutput("setOutputMode(DISABLED) - ERROR", { message: e.message, code: e.code });
         }
         try {
-          await SunmiScanHead.setBroadcast({enabled: true});
+          await SunmiScanHead.setOutputBroadcastEnabled({enabled: true});
         } catch (e) {
           printToOutput("setBroadcast(true) - ERROR", { message: e.message, code: e.code });
         }
@@ -420,7 +420,7 @@ window.customElements.define(
           printToOutput("setOutputMode(DISABLED) - ERROR", { message: e.message, code: e.code });
         }
         try {
-          await SunmiScanHead.setBroadcast({enabled: true});
+          await SunmiScanHead.setOutputBroadcastEnabled({enabled: true});
         } catch (e) {
           printToOutput("setBroadcast(true) - ERROR", { message: e.message, code: e.code });
         }
@@ -468,7 +468,7 @@ window.customElements.define(
           printToOutput("setOutputMode(DISABLED) - ERROR", { message: e.message, code: e.code });
         }
         try {
-          await SunmiScanHead.setBroadcast({enabled: true});
+          await SunmiScanHead.setOutputBroadcastEnabled({enabled: true});
         } catch (e) {
           printToOutput("setBroadcast(true) - ERROR", { message: e.message, code: e.code });
         }

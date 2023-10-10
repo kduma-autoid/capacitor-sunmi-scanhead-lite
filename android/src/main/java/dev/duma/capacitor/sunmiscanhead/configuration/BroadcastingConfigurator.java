@@ -1,9 +1,6 @@
 package dev.duma.capacitor.sunmiscanhead.configuration;
 
-import android.os.RemoteException;
-
 import dev.duma.android.sunmi.scanconfigurationhelper.IConfigurationWriteContextHelper;
-import dev.duma.android.sunmi.scanconfigurationhelper.IScanConfigurationHelper;
 import dev.duma.android.sunmi.scanconfigurationhelper.config.ServiceConfiguration;
 
 public class BroadcastingConfigurator {
@@ -11,20 +8,6 @@ public class BroadcastingConfigurator {
 
     public BroadcastingConfigurator(IConfigurationWriteContextHelper configurationWriteContextHelper) {
         this.configurationWriteContextHelper = configurationWriteContextHelper;
-    }
-
-    public void enable() {
-        setBroadcast(true);
-    }
-
-    public void disable() {
-        setBroadcast(false);
-    }
-
-    public void setBroadcast(boolean enabled) {
-        ServiceConfiguration configuration = configurationWriteContextHelper.getWriteContext();
-
-        configuration.setOutputBroadcastEnabled(enabled);
     }
 
     public void defaultConfiguration() {

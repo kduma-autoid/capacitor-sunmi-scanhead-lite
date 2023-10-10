@@ -118,7 +118,7 @@ export interface SunmiScanHeadPlugin {
   /**
    * Enable or disable scan result broadcast
    */
-  setBroadcast(options: { enabled: boolean }): Promise<void>;
+  setOutputBroadcastEnabled(options?: { enabled: boolean }): Promise<void>;
 
   /**
    * Set broadcast configuration

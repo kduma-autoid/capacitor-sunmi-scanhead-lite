@@ -49,7 +49,7 @@ export default config;
 * [`setReturnCodeType(...)`](#setreturncodetype)
 * [`setAdvancedFormat(...)`](#setadvancedformat)
 * [`setPromptSettings(...)`](#setpromptsettings)
-* [`setBroadcast(...)`](#setbroadcast)
+* [`setOutputBroadcastEnabled(...)`](#setoutputbroadcastenabled)
 * [`setBroadcastConfiguration(...)`](#setbroadcastconfiguration)
 * [`addListener('onScanResult', ...)`](#addlisteneronscanresult)
 * [`addListener('onScanStart', ...)`](#addlisteneronscanstart)
@@ -279,10 +279,10 @@ Enable or disable sound and vibration prompts on scan
 --------------------
 
 
-### setBroadcast(...)
+### setOutputBroadcastEnabled(...)
 
 ```typescript
-setBroadcast(options: { enabled: boolean; }) => Promise<void>
+setOutputBroadcastEnabled(options?: { enabled: boolean; } | undefined) => Promise<void>
 ```
 
 Enable or disable scan result broadcast
