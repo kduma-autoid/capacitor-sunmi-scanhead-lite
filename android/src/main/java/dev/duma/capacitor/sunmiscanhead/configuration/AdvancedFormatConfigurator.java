@@ -16,7 +16,7 @@ public class AdvancedFormatConfigurator {
     }
 
     public void advancedFormat(boolean enabled) throws RemoteException {
-        scanConfigurationHelper.loadServiceConfig((configuration, response) -> {
+        scanConfigurationHelper.loadServiceConfig((configuration) -> {
             configuration.setAdvancedFormatEnabled(enabled);
 
             scanConfigurationHelper.persistServiceConfig(configuration);

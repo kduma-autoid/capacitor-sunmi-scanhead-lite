@@ -20,7 +20,7 @@ public class BroadcastingConfigurator {
     }
 
     public void setBroadcast(boolean enabled) throws RemoteException {
-        scanConfigurationHelper.loadServiceConfig((configuration, response) -> {
+        scanConfigurationHelper.loadServiceConfig((configuration) -> {
             configuration.setOutputBroadcastEnabled(enabled);
 
             scanConfigurationHelper.persistServiceConfig(configuration);
@@ -39,7 +39,7 @@ public class BroadcastingConfigurator {
 
     public void configure(String scanned_intent, String start_intent, String end_intent, String intent_data_key, String intent_byte_key) throws RemoteException {
 
-        scanConfigurationHelper.loadServiceConfig((configuration, response) -> {
+        scanConfigurationHelper.loadServiceConfig((configuration) -> {
             configuration.setOutputBroadcastAction(scanned_intent);
             configuration.setOutputBroadcastDataKey(intent_data_key);
             configuration.setOutputBroadcastByteKey(intent_byte_key);

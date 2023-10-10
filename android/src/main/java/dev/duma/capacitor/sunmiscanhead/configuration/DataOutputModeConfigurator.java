@@ -17,7 +17,7 @@ public class DataOutputModeConfigurator {
     }
 
     public void keystroke(int interval, boolean tab, boolean enter) throws RemoteException {
-        scanConfigurationHelper.loadServiceConfig((configuration, response) -> {
+        scanConfigurationHelper.loadServiceConfig((configuration) -> {
             configuration.setOutputType(OutputTypeEnum.Keystroke);
             configuration.setOutputCharacterInterval(interval);
             configuration.setAddTab(tab);
@@ -33,7 +33,7 @@ public class DataOutputModeConfigurator {
     }
 
     public void directFill(boolean overwrite, boolean tab, boolean enter, boolean asEvents) throws RemoteException {
-        scanConfigurationHelper.loadServiceConfig((configuration, response) -> {
+        scanConfigurationHelper.loadServiceConfig((configuration) -> {
             configuration.setOutputType(overwrite ? OutputTypeEnum.DirectFillWithReplace : OutputTypeEnum.DirectFill);
             configuration.setAddTab(tab);
             configuration.setAddReturn(enter);
@@ -44,7 +44,7 @@ public class DataOutputModeConfigurator {
     }
 
     public void disabled() throws RemoteException {
-        scanConfigurationHelper.loadServiceConfig((configuration, response) -> {
+        scanConfigurationHelper.loadServiceConfig((configuration) -> {
             configuration.setOutputType(OutputTypeEnum.Disabled);
 
             scanConfigurationHelper.persistServiceConfig(configuration);

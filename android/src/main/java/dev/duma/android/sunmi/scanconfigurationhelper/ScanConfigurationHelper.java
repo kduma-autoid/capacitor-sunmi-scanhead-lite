@@ -33,8 +33,7 @@ public class ScanConfigurationHelper implements IScanConfigurationHelper {
                     ServiceConfigurationConverter.fromServiceSetting(
                             serviceSetting.get(),
                             advancedFormat.get()
-                    ),
-                    serviceSetting.get()
+                    )
             );
         };
 

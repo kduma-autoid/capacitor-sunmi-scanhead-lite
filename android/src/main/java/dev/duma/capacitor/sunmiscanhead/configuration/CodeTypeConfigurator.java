@@ -13,7 +13,7 @@ public class CodeTypeConfigurator {
     }
 
     public void returnCodeType(boolean enabled) throws RemoteException {
-        scanConfigurationHelper.loadServiceConfig((configuration, response) -> {
+        scanConfigurationHelper.loadServiceConfig((configuration) -> {
             configuration.setScanResultCodeID(enabled ? ScanResultCodeIDEnum.SunmiId : ScanResultCodeIDEnum.None);
 
             scanConfigurationHelper.persistServiceConfig(configuration);

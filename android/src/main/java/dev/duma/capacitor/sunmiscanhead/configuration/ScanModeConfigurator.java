@@ -17,7 +17,7 @@ public class ScanModeConfigurator {
     }
 
     public void trigger(int timeout) throws RemoteException {
-        scanConfigurationHelper.loadServiceConfig((configuration, response) -> {
+        scanConfigurationHelper.loadServiceConfig((configuration) -> {
             configuration.setTriggerMethod(TriggerMethodEnum.Trigger);
             configuration.setTriggerOverTime(timeout);
             configuration.setScanTriggerTimeOut(timeout);
@@ -35,7 +35,7 @@ public class ScanModeConfigurator {
     }
 
     public void continuous(int sleep, int timeout) throws RemoteException {
-        scanConfigurationHelper.loadServiceConfig((configuration, response) -> {
+        scanConfigurationHelper.loadServiceConfig((configuration) -> {
             configuration.setTriggerMethod(TriggerMethodEnum.Continuous);
             configuration.setTriggerOverTime(timeout);
             configuration.setScanTriggerTimeOut(timeout);
@@ -50,7 +50,7 @@ public class ScanModeConfigurator {
     }
 
     public void pulse(int timeout) throws RemoteException {
-        scanConfigurationHelper.loadServiceConfig((configuration, response) -> {
+        scanConfigurationHelper.loadServiceConfig((configuration) -> {
             configuration.setTriggerMethod(TriggerMethodEnum.Pulse);
             configuration.setTriggerOverTime(timeout);
             configuration.setScanTriggerTimeOut(timeout);
@@ -68,7 +68,7 @@ public class ScanModeConfigurator {
     }
 
     public void longPress(int sleep, int timeout) throws RemoteException {
-        scanConfigurationHelper.loadServiceConfig((configuration, response) -> {
+        scanConfigurationHelper.loadServiceConfig((configuration) -> {
             configuration.setTriggerMethod(TriggerMethodEnum.LongPress);
             configuration.setTriggerOverTime(timeout);
             configuration.setScanTriggerTimeOut(timeout);

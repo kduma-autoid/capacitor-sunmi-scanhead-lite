@@ -16,7 +16,7 @@ public class PromptSettingsConfigurator {
     }
 
     public void set(boolean sound, boolean vibration) throws RemoteException {
-        scanConfigurationHelper.loadServiceConfig((configuration, response) -> {
+        scanConfigurationHelper.loadServiceConfig((configuration) -> {
             configuration.setVibrate(vibration);
             configuration.setBeep(sound);
 
