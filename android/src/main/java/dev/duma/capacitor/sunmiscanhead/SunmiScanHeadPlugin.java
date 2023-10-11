@@ -7,7 +7,10 @@ import com.getcapacitor.PluginMethod;
 import com.getcapacitor.annotation.CapacitorPlugin;
 import com.sunmi.scanner.ScannerService;
 
+import java.util.EnumSet;
+
 import dev.duma.android.sunmi.scanbroadcastreceiver.IScanHeadBroadcastReceiver.ScanCallback;
+import dev.duma.android.sunmi.scanconfigurationhelper.enums.WriteContextTypeEnum;
 import dev.duma.android.sunmi.scanconfigurationhelper.config.ServiceConfiguration;
 import dev.duma.android.sunmi.scanconfigurationhelper.config.enums.CenterDecodingSettingEnum;
 import dev.duma.android.sunmi.scanconfigurationhelper.config.enums.OutputEncodingCodeEnum;
@@ -149,7 +152,10 @@ public class SunmiScanHeadPlugin extends Plugin {
     @PluginMethod
     public void createWriteContext(PluginCall call) {
         CallbackHelper.handle(call, (c) -> {
-            implementation.getWriteContextTool().createWriteContext(configuration -> c.resolve());
+            EnumSet<WriteContextTypeEnum> writeContextTypes = EnumSet.of(WriteContextTypeEnum.Service, WriteContextTypeEnum.CodeFamilies);
+            implementation.getWriteContextTool().createWriteContext((service, codeFamilies) -> {
+                c.resolve();
+            }, writeContextTypes);
         });
     }
 
@@ -175,7 +181,7 @@ public class SunmiScanHeadPlugin extends Plugin {
     @PluginMethod
     public void setOutputType(PluginCall call) {
         CallbackHelper.handle(call, (c) -> {
-            ServiceConfiguration configuration = implementation.getWriteContextTool().getWriteContext();
+            ServiceConfiguration configuration = implementation.getWriteContextTool().getServiceWriteContext();
 
             OutputTypeEnum mode = OutputTypeEnum.nameOf(c.getString("mode", OutputTypeEnum.Disabled.getName()));
 
@@ -255,7 +261,7 @@ public class SunmiScanHeadPlugin extends Plugin {
     @PluginMethod
     public void setTriggerMethod(PluginCall call) {
         CallbackHelper.handle(call, (c) -> {
-            ServiceConfiguration configuration = implementation.getWriteContextTool().getWriteContext();
+            ServiceConfiguration configuration = implementation.getWriteContextTool().getServiceWriteContext();
 
             TriggerMethodEnum mode = TriggerMethodEnum.nameOf(c.getString("mode", TriggerMethodEnum.Trigger.getName()));
 
@@ -277,7 +283,7 @@ public class SunmiScanHeadPlugin extends Plugin {
     @PluginMethod
     public void setScanResultCodeID(PluginCall call) {
         CallbackHelper.handle(call, (c) -> {
-            ServiceConfiguration configuration = implementation.getWriteContextTool().getWriteContext();
+            ServiceConfiguration configuration = implementation.getWriteContextTool().getServiceWriteContext();
 
             ScanResultCodeIDEnum type = ScanResultCodeIDEnum.nameOf(c.getString("type", ScanResultCodeIDEnum.None.getName()));
             configuration.setScanResultCodeID(type);
@@ -290,7 +296,7 @@ public class SunmiScanHeadPlugin extends Plugin {
     @PluginMethod
     public void setAdvancedFormatEnabled(PluginCall call) {
         CallbackHelper.handle(call, (c) -> {
-            ServiceConfiguration configuration = implementation.getWriteContextTool().getWriteContext();
+            ServiceConfiguration configuration = implementation.getWriteContextTool().getServiceWriteContext();
 
             configuration.setAdvancedFormatEnabled(c.getBoolean("enabled", true));
 
@@ -302,7 +308,7 @@ public class SunmiScanHeadPlugin extends Plugin {
     @PluginMethod
     public void setBeep(PluginCall call) {
         CallbackHelper.handle(call, (c) -> {
-            ServiceConfiguration configuration = implementation.getWriteContextTool().getWriteContext();
+            ServiceConfiguration configuration = implementation.getWriteContextTool().getServiceWriteContext();
 
             configuration.setBeep(c.getBoolean("enabled", true));
 
@@ -314,7 +320,7 @@ public class SunmiScanHeadPlugin extends Plugin {
     @PluginMethod
     public void setVibrate(PluginCall call) {
         CallbackHelper.handle(call, (c) -> {
-            ServiceConfiguration configuration = implementation.getWriteContextTool().getWriteContext();
+            ServiceConfiguration configuration = implementation.getWriteContextTool().getServiceWriteContext();
 
             configuration.setVibrate(c.getBoolean("enabled", true));
 
@@ -326,7 +332,7 @@ public class SunmiScanHeadPlugin extends Plugin {
     @PluginMethod
     public void setOutputBroadcastEnabled(PluginCall call) {
         CallbackHelper.handle(call, (c) -> {
-            ServiceConfiguration configuration = implementation.getWriteContextTool().getWriteContext();
+            ServiceConfiguration configuration = implementation.getWriteContextTool().getServiceWriteContext();
 
             configuration.setOutputBroadcastEnabled(c.getBoolean("enabled", true));
 
@@ -337,7 +343,7 @@ public class SunmiScanHeadPlugin extends Plugin {
     @PluginMethod
     public void setBroadcastConfiguration(PluginCall call) {
         CallbackHelper.handle(call, (c) -> {
-            ServiceConfiguration configuration = implementation.getWriteContextTool().getWriteContext();
+            ServiceConfiguration configuration = implementation.getWriteContextTool().getServiceWriteContext();
 
             configuration.setOutputBroadcastAction(c.getString("scanned_intent", "com.sunmi.scanner.ACTION_DATA_CODE_RECEIVED"));
             configuration.setOutputBroadcastDataKey(c.getString("intent_data_key", "data"));
@@ -356,7 +362,7 @@ public class SunmiScanHeadPlugin extends Plugin {
     @PluginMethod
     public void setOutputEncodingCode(PluginCall call) {
         CallbackHelper.handle(call, (c) -> {
-            ServiceConfiguration configuration = implementation.getWriteContextTool().getWriteContext();
+            ServiceConfiguration configuration = implementation.getWriteContextTool().getServiceWriteContext();
 
             OutputEncodingCodeEnum encoding = OutputEncodingCodeEnum.nameOf(c.getString("encoding", OutputEncodingCodeEnum.UTF8.getName()));
             configuration.setOutputEncodingCode(encoding);
@@ -369,7 +375,7 @@ public class SunmiScanHeadPlugin extends Plugin {
     @PluginMethod
     public void setVirtualFloatingScanButton(PluginCall call) {
         CallbackHelper.handle(call, (c) -> {
-            ServiceConfiguration configuration = implementation.getWriteContextTool().getWriteContext();
+            ServiceConfiguration configuration = implementation.getWriteContextTool().getServiceWriteContext();
 
             configuration.setVirtualFloatingScanButton(c.getBoolean("enabled", true));
 
@@ -380,7 +386,7 @@ public class SunmiScanHeadPlugin extends Plugin {
     @PluginMethod
     public void setCenterFlagScan(PluginCall call) {
         CallbackHelper.handle(call, (c) -> {
-            ServiceConfiguration configuration = implementation.getWriteContextTool().getWriteContext();
+            ServiceConfiguration configuration = implementation.getWriteContextTool().getServiceWriteContext();
 
             CenterDecodingSettingEnum mode = CenterDecodingSettingEnum.nameOf(c.getString("mode", CenterDecodingSettingEnum.Disabled.getName()));
             configuration.setCenterFlagScan(mode);
@@ -393,7 +399,7 @@ public class SunmiScanHeadPlugin extends Plugin {
     @PluginMethod
     public void setFlash(PluginCall call) {
         CallbackHelper.handle(call, (c) -> {
-            ServiceConfiguration configuration = implementation.getWriteContextTool().getWriteContext();
+            ServiceConfiguration configuration = implementation.getWriteContextTool().getServiceWriteContext();
 
             configuration.setFlash(c.getBoolean("enabled", true));
 
@@ -404,7 +410,7 @@ public class SunmiScanHeadPlugin extends Plugin {
     @PluginMethod
     public void setScene(PluginCall call) {
         CallbackHelper.handle(call, (c) -> {
-            ServiceConfiguration configuration = implementation.getWriteContextTool().getWriteContext();
+            ServiceConfiguration configuration = implementation.getWriteContextTool().getServiceWriteContext();
 
             SpecificSceneEnum scene = SpecificSceneEnum.nameOf(c.getString("scene", SpecificSceneEnum.Default.getName()));
             configuration.setScene(scene);
@@ -417,7 +423,7 @@ public class SunmiScanHeadPlugin extends Plugin {
     @PluginMethod
     public void setRemoveGroupSeparator(PluginCall call) {
         CallbackHelper.handle(call, (c) -> {
-            ServiceConfiguration configuration = implementation.getWriteContextTool().getWriteContext();
+            ServiceConfiguration configuration = implementation.getWriteContextTool().getServiceWriteContext();
 
             configuration.setRemoveGroupSeparator(c.getBoolean("enabled", true));
 
@@ -428,7 +434,7 @@ public class SunmiScanHeadPlugin extends Plugin {
     @PluginMethod
     public void setPrefix(PluginCall call) {
         CallbackHelper.handle(call, (c) -> {
-            ServiceConfiguration configuration = implementation.getWriteContextTool().getWriteContext();
+            ServiceConfiguration configuration = implementation.getWriteContextTool().getServiceWriteContext();
 
             String content = c.getString("content", "");
             configuration.setPrefix(content);
@@ -441,7 +447,7 @@ public class SunmiScanHeadPlugin extends Plugin {
     @PluginMethod
     public void setPrefixCharactersRemoved(PluginCall call) {
         CallbackHelper.handle(call, (c) -> {
-            ServiceConfiguration configuration = implementation.getWriteContextTool().getWriteContext();
+            ServiceConfiguration configuration = implementation.getWriteContextTool().getServiceWriteContext();
 
             configuration.setPrefixCharactersRemoved(c.getInt("length", 0));
 
@@ -452,7 +458,7 @@ public class SunmiScanHeadPlugin extends Plugin {
     @PluginMethod
     public void setSuffix(PluginCall call) {
         CallbackHelper.handle(call, (c) -> {
-            ServiceConfiguration configuration = implementation.getWriteContextTool().getWriteContext();
+            ServiceConfiguration configuration = implementation.getWriteContextTool().getServiceWriteContext();
 
             String content = c.getString("content", "");
             configuration.setSuffix(content);
@@ -465,7 +471,7 @@ public class SunmiScanHeadPlugin extends Plugin {
     @PluginMethod
     public void setSuffixCharactersRemoved(PluginCall call) {
         CallbackHelper.handle(call, (c) -> {
-            ServiceConfiguration configuration = implementation.getWriteContextTool().getWriteContext();
+            ServiceConfiguration configuration = implementation.getWriteContextTool().getServiceWriteContext();
 
             configuration.setSuffixCharactersRemoved(c.getInt("length", 0));
 

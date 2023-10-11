@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.sunmi.scanner.config.SunmiHelper;
 import com.sunmi.scanner.entity.CodeEnable;
+import com.sunmi.scanner.entity.CodeSetting;
 import com.sunmi.scanner.entity.Entity;
 import com.sunmi.scanner.entity.Pair;
 import com.sunmi.scanner.entity.Result;
@@ -13,6 +14,8 @@ import com.sunmi.scanner.entity.ServiceSetting;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicReference;
 
+import dev.duma.android.sunmi.scanconfigurationhelper.config.CodeFamiliesConfigurationConverter;
+import dev.duma.android.sunmi.scanconfigurationhelper.config.CodeFamiliesConfiguration;
 import dev.duma.android.sunmi.scanconfigurationhelper.config.ServiceConfiguration;
 import dev.duma.android.sunmi.scanconfigurationhelper.config.ServiceConfigurationConverter;
 import dev.duma.android.sunmi.scaninterfacehelper.IScanInterfaceHelper;
@@ -26,7 +29,7 @@ public class ScanConfigurationHelper implements IScanConfigurationHelper {
     }
 
     @Override
-    public void loadServiceConfig(IServiceConfigLoadedCallback callback) throws RemoteException {
+    public void loadServiceConfig(IServiceConfigLoadedCallback<ServiceConfiguration> callback) throws RemoteException {
         AtomicReference<ServiceSetting> serviceSetting = new AtomicReference<>();
         AtomicReference<ArrayList<Pair>> advancedFormat = new AtomicReference<>();
 
@@ -83,11 +86,34 @@ public class ScanConfigurationHelper implements IScanConfigurationHelper {
             scanInterfaceHelper.sendCommand(command);
         }
     }
-}
 
-//scanInterfaceHelper.sendQuery(SunmiHelper.QUERY_ALL_ENABLE_CODE, (IScanInterfaceHelper.IQueryCallback<CodeEnable>) (response, entity) -> {
-//Log.i("QUERY_ALL_ENABLE_CODE", "response="+response.toString());
-//});
-//scanInterfaceHelper.sendQuery(SunmiHelper.QUERY_ADVANCED_FORMAT, (IScanInterfaceHelper.IQueryCallback<ArrayList<Pair>>) (response, entity) -> {
-//Log.i("QUERY_ADVANCED_FORMAT", "response="+response.toString());
-//});
+    @Override
+    public void loadCodeFamiliesConfig(IServiceConfigLoadedCallback<CodeFamiliesConfiguration> callback) throws RemoteException {
+        AtomicReference<CodeEnable> codeEnabled = new AtomicReference<>();
+
+        IQueryCallback<CodeEnable> codeEnabledCallback = (response, entity) -> {
+            codeEnabled.set(response);
+
+            CodeFamiliesConfiguration configuration = CodeFamiliesConfigurationConverter.fromCodeEnable(
+                    codeEnabled.get()
+            );
+
+            for (String name: response.codes) {
+                scanInterfaceHelper.sendQuery(SunmiHelper.queryCodeSetting(name), (CodeSetting r, Entity<CodeSetting> e) -> {
+                    CodeFamiliesConfigurationConverter.setCodeSetting(configuration, name, r);
+                    Log.i(name, r.toString());
+                });
+            }
+            callback.onLoaded(
+                    configuration
+            );
+        };
+
+        scanInterfaceHelper.sendQuery(SunmiHelper.QUERY_ALL_ENABLE_CODE, codeEnabledCallback);
+    }
+
+    @Override
+    public void persistCodeFamiliesConfig(CodeFamiliesConfiguration configuration) throws RemoteException {
+
+    }
+}
