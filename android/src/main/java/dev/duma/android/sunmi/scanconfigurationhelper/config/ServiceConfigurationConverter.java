@@ -377,13 +377,13 @@ public class ServiceConfigurationConverter {
         if(Objects.equals(serviceSetting.mStartDecodeAction, "-1")) {
             configuration.unsupportedFields.add(ConfigurationFieldEnum.OutputBroadcastStartAction);
         } else {
-            configuration.outputBroadcastStartAction = serviceSetting.mStartDecodeAction;
+            configuration.outputBroadcastStartAction = serviceSetting.mStartDecodeAction.equals("") ? null : serviceSetting.mStartDecodeAction;
         }
 
         if(Objects.equals(serviceSetting.mEndDecodeAction, "-1")) {
             configuration.unsupportedFields.add(ConfigurationFieldEnum.OutputBroadcastEndAction);
         } else {
-            configuration.outputBroadcastEndAction = serviceSetting.mEndDecodeAction;
+            configuration.outputBroadcastEndAction = serviceSetting.mEndDecodeAction.equals("") ? null : serviceSetting.mEndDecodeAction;
         }
 
         // configuration.triggerOverTime = null;

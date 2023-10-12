@@ -511,10 +511,10 @@ public class SunmiScanHeadPlugin extends Plugin {
             response.put("intent_byte_key", configuration.getOutputBroadcastByteKey());
 
             String startAction = configuration.getOutputBroadcastStartAction();
-            response.put("start_intent", startAction == null ? false : startAction);
+            response.put("start_intent", startAction == null || startAction.equals("") ? false : startAction);
 
             String endAction = configuration.getOutputBroadcastEndAction();
-            response.put("end_intent", endAction == null ? false : endAction);
+            response.put("end_intent", endAction == null || endAction.equals("") ? false : endAction);
 
             c.resolve(response);
         });
