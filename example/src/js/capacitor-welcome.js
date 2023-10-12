@@ -530,7 +530,7 @@ window.customElements.define(
 
       self.shadowRoot.querySelector('#setFlash1').addEventListener('click', async function (e) {
         try {
-          await SunmiScanHead.setFlash({enabled: false});
+          await SunmiScanHead.setFlash({enabled: true});
         } catch (e) {
           printToOutput("setFlash(true) - ERROR", { message: e.message, code: e.code });
         }
