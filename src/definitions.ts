@@ -389,6 +389,58 @@ export interface SetAdvancedFormatEnabledOptions {
   enabled?: boolean;
 }
 
+export interface GetAdvancedFormatEnabledResponse {
+  /**
+   * List of advanced formatting options - characters replacement
+   */
+  formats: Map<string, string>;
+}
+
+export interface SetAdvancedFormatOptions {
+  /**
+   List of advanced formatting options - characters replacement
+   *
+   * @default []
+   */
+  formats: Map<string, string>;
+}
+
+export interface AddAdvancedFormatOptions {
+  /**
+   * Value to search for
+   */
+  search: string;
+
+  /**
+   * Value to replace with
+   */
+  replacement: string;
+}
+
+export interface UpdateAdvancedFormatOptions {
+  /**
+   * Previous search value
+   */
+  old_search: string;
+
+  /**
+   * New search value
+   */
+  search: string;
+
+  /**
+   * Value to replace with
+   */
+  replacement: string;
+}
+
+export interface RemoveAdvancedFormatOptions {
+  /**
+   * Value to search for
+   */
+  search: string;
+}
+
 export interface IsBeepResponse {
   /**
    * Enable or disable sound prompts on scan
@@ -1312,6 +1364,36 @@ export interface SunmiScanHeadPlugin {
    * Enable or disable advanced formatting options provided in configuration
    */
   setAdvancedFormatEnabled(options?: SetAdvancedFormatEnabledOptions): Promise<void>;
+
+  /**
+   * Gets advanced formatting options (character replacement arrays) provided in configuration
+   */
+  getAdvancedFormats(): Promise<GetAdvancedFormatEnabledResponse>;
+
+  /**
+   * Sets advanced formatting options (character replacement arrays) provided in configuration
+   */
+  setAdvancedFormats(options: SetAdvancedFormatOptions): Promise<void>;
+
+  /**
+   * Clears all advanced formatting options
+   */
+  clearAdvancedFormats(): Promise<void>;
+
+  /**
+   * Adds new advanced formatting option
+   */
+  addAdvancedFormat(options: AddAdvancedFormatOptions): Promise<void>;
+
+  /**
+   * Updates advanced formatting option
+   */
+  updateAdvancedFormat(options: UpdateAdvancedFormatOptions): Promise<void>;
+
+  /**
+   * Removes advanced formatting option
+   */
+  removeAdvancedFormat(options: RemoveAdvancedFormatOptions): Promise<void>;
 
   /**
    * Checks if sound prompts on scan are enabled
