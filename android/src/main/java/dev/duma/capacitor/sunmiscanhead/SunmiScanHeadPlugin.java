@@ -11,6 +11,7 @@ import com.sunmi.scanner.constants.CodeConstants;
 
 import java.util.EnumSet;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -416,6 +417,110 @@ public class SunmiScanHeadPlugin extends Plugin {
             ServiceConfiguration configuration = implementation.getWriteContextTool().getServiceWriteContext();
 
             configuration.setAdvancedFormatEnabled(c.getBoolean("enabled", true));
+
+            c.resolve();
+        });
+    }
+
+    @PluginMethod
+    public void getAdvancedFormats(PluginCall call) {
+        CallbackHelper.handle(call, (c) -> {
+            ServiceConfiguration configuration = implementation.getWriteContextTool().getServiceWriteContext();
+
+            HashMap<String, String> formats = configuration.getAdvancedFormats();
+
+            JSObject f = new JSObject();
+            for(Map.Entry<String, String> entry : formats.entrySet()) {
+                f.put(entry.getKey(), entry.getValue());
+            }
+
+            JSObject response = new JSObject();
+            response.put("formats", f);
+
+            c.resolve(response);
+        });
+    }
+
+    @PluginMethod
+    public void setAdvancedFormats(PluginCall call) {
+        CallbackHelper.handle(call, (c) -> {
+            ServiceConfiguration configuration = implementation.getWriteContextTool().getServiceWriteContext();
+
+            HashMap<String, String> formats = new HashMap<>();
+            JSObject f = c.getObject("formats");
+
+            for (Iterator<String> it = f.keys(); it.hasNext(); ) {
+                String key = it.next();
+                formats.put(key, f.getString(key));
+            }
+
+            configuration.setAdvancedFormats(formats);
+
+            c.resolve();
+        });
+    }
+
+    @PluginMethod
+    public void clearAdvancedFormats(PluginCall call) {
+        CallbackHelper.handle(call, (c) -> {
+            ServiceConfiguration configuration = implementation.getWriteContextTool().getServiceWriteContext();
+
+            configuration.setAdvancedFormats(new HashMap<>());
+
+            c.resolve();
+        });
+    }
+
+    @PluginMethod
+    public void addAdvancedFormat(PluginCall call) {
+        CallbackHelper.handle(call, (c) -> {
+            ServiceConfiguration configuration = implementation.getWriteContextTool().getServiceWriteContext();
+
+            HashMap<String, String> formats = configuration.getAdvancedFormats();
+
+            String search = c.getString("search", "");
+            String replacement = c.getString("replacement", "");
+
+            formats.put(search, replacement);
+
+            configuration.setAdvancedFormats(formats);
+
+            c.resolve();
+        });
+    }
+
+    @PluginMethod
+    public void updateAdvancedFormat(PluginCall call) {
+        CallbackHelper.handle(call, (c) -> {
+            ServiceConfiguration configuration = implementation.getWriteContextTool().getServiceWriteContext();
+
+            HashMap<String, String> formats = configuration.getAdvancedFormats();
+
+            String old_search = c.getString("old_search", "");
+            String search = c.getString("search", "");
+            String replacement = c.getString("replacement", "");
+
+            formats.remove(old_search);
+            formats.put(search, replacement);
+
+            configuration.setAdvancedFormats(formats);
+
+            c.resolve();
+        });
+    }
+
+    @PluginMethod
+    public void removeAdvancedFormat(PluginCall call) {
+        CallbackHelper.handle(call, (c) -> {
+            ServiceConfiguration configuration = implementation.getWriteContextTool().getServiceWriteContext();
+
+            HashMap<String, String> formats = configuration.getAdvancedFormats();
+
+            String search = c.getString("search", "");
+
+            formats.remove(search);
+
+            configuration.setAdvancedFormats(formats);
 
             c.resolve();
         });

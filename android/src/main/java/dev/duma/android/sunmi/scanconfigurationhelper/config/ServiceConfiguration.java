@@ -1,10 +1,9 @@
 package dev.duma.android.sunmi.scanconfigurationhelper.config;
 
 import com.sunmi.scanner.ScannerService;
-import com.sunmi.scanner.entity.Pair;
 
-import java.util.ArrayList;
 import java.util.EnumSet;
+import java.util.HashMap;
 import java.util.regex.Pattern;
 
 import dev.duma.android.sunmi.scanconfigurationhelper.config.enums.CenterDecodingSettingEnum;
@@ -155,7 +154,7 @@ public class ServiceConfiguration {
     /**
      * advancedConfig
      */
-    protected ArrayList<Pair> advancedFormat = new ArrayList<>();
+    protected HashMap<String, String> advancedFormats = new HashMap<>();
 
     /**
      * mCenterFlagScan
@@ -691,6 +690,26 @@ public class ServiceConfiguration {
         }
 
         this.advancedFormatEnabled = advancedFormatEnabled;
+    }
+
+    public HashMap<String, String> getAdvancedFormats() {
+        if(this.unsupportedFields.contains(ConfigurationFieldEnum.AdvancedFormat)) {
+            throw new RuntimeException("Field "+ConfigurationFieldEnum.AdvancedFormat+" is not supported on this system!");
+        }
+
+        return advancedFormats;
+    }
+
+    public void setAdvancedFormats(HashMap<String, String> advancedFormats) {
+        if(this.unsupportedFields.contains(ConfigurationFieldEnum.AdvancedFormat)) {
+            throw new RuntimeException("Field "+ConfigurationFieldEnum.AdvancedFormat+" is not supported on this system!");
+        }
+
+        if(! this.updatedFields.contains(ConfigurationFieldEnum.AdvancedFormat)) {
+            this.updatedFields.add(ConfigurationFieldEnum.AdvancedFormat);
+        }
+
+        this.advancedFormats = advancedFormats;
     }
 
     public CenterDecodingSettingEnum getCenterFlagScan() {
