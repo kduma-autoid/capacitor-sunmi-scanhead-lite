@@ -62,6 +62,38 @@ export default config;
 * [`setPrefixCharactersRemoved(...)`](#setprefixcharactersremoved)
 * [`setSuffix(...)`](#setsuffix)
 * [`setSuffixCharactersRemoved(...)`](#setsuffixcharactersremoved)
+* [`getBarcodesList()`](#getbarcodeslist)
+* [`getBarcode(...)`](#getbarcode)
+* [`setBarcode(...)`](#setbarcode)
+* [`getBarcodeConfig(...)`](#getbarcodeconfig)
+* [`getCheckCharMode(...)`](#getcheckcharmode)
+* [`setCheckCharMode(...)`](#setcheckcharmode)
+* [`getCheckCharType(...)`](#getcheckchartype)
+* [`setCheckCharType(...)`](#setcheckchartype)
+* [`getDoubleCode(...)`](#getdoublecode)
+* [`setDoubleCode(...)`](#setdoublecode)
+* [`getFormatCode(...)`](#getformatcode)
+* [`setFormatCode(...)`](#setformatcode)
+* [`getInverseCode(...)`](#getinversecode)
+* [`setInverseCode(...)`](#setinversecode)
+* [`isExtendCode1(...)`](#isextendcode1)
+* [`setExtendCode1(...)`](#setextendcode1)
+* [`isExtendCode2(...)`](#isextendcode2)
+* [`setExtendCode2(...)`](#setextendcode2)
+* [`isExtendToCode(...)`](#isextendtocode)
+* [`setExtendToCode(...)`](#setextendtocode)
+* [`isMicroCode(...)`](#ismicrocode)
+* [`setMicroCode(...)`](#setmicrocode)
+* [`isStartEndType(...)`](#isstartendtype)
+* [`setStartEndType(...)`](#setstartendtype)
+* [`isSystemCharZero(...)`](#issystemcharzero)
+* [`setSystemCharZero(...)`](#setsystemcharzero)
+* [`getMaxLen(...)`](#getmaxlen)
+* [`setMaxLen(...)`](#setmaxlen)
+* [`getMinLen(...)`](#getminlen)
+* [`setMinLen(...)`](#setminlen)
+* [`getStartEndFormat(...)`](#getstartendformat)
+* [`setStartEndFormat(...)`](#setstartendformat)
 * [`addListener('onScanResult', ...)`](#addlisteneronscanresult)
 * [`addListener('onScanStart', ...)`](#addlisteneronscanstart)
 * [`addListener('onScanStop', ...)`](#addlisteneronscanstop)
@@ -499,6 +531,452 @@ Hardware support limited
 --------------------
 
 
+### getBarcodesList()
+
+```typescript
+getBarcodesList() => Promise<GetBarcodesListResponse>
+```
+
+**Returns:** <code>Promise&lt;<a href="#getbarcodeslistresponse">GetBarcodesListResponse</a>&gt;</code>
+
+--------------------
+
+
+### getBarcode(...)
+
+```typescript
+getBarcode(options: GetBarcodeOptions) => Promise<GetBarcodeResponse>
+```
+
+| Param         | Type                                                            |
+| ------------- | --------------------------------------------------------------- |
+| **`options`** | <code><a href="#getbarcodeoptions">GetBarcodeOptions</a></code> |
+
+**Returns:** <code>Promise&lt;<a href="#getbarcoderesponse">GetBarcodeResponse</a>&gt;</code>
+
+--------------------
+
+
+### setBarcode(...)
+
+```typescript
+setBarcode(options: SetBarcodeOptions) => Promise<void>
+```
+
+| Param         | Type                                                            |
+| ------------- | --------------------------------------------------------------- |
+| **`options`** | <code><a href="#setbarcodeoptions">SetBarcodeOptions</a></code> |
+
+--------------------
+
+
+### getBarcodeConfig(...)
+
+```typescript
+getBarcodeConfig(options: GetBarcodeConfigOptions) => Promise<GetBarcodeConfigResponse>
+```
+
+| Param         | Type                                                                        |
+| ------------- | --------------------------------------------------------------------------- |
+| **`options`** | <code><a href="#getbarcodeconfigoptions">GetBarcodeConfigOptions</a></code> |
+
+**Returns:** <code>Promise&lt;<a href="#getbarcodeconfigresponse">GetBarcodeConfigResponse</a>&gt;</code>
+
+--------------------
+
+
+### getCheckCharMode(...)
+
+```typescript
+getCheckCharMode(options: GetCheckCharModeOptions) => Promise<GetCheckCharModeResponse>
+```
+
+| Param         | Type                                                                        |
+| ------------- | --------------------------------------------------------------------------- |
+| **`options`** | <code><a href="#getcheckcharmodeoptions">GetCheckCharModeOptions</a></code> |
+
+**Returns:** <code>Promise&lt;<a href="#getcheckcharmoderesponse">GetCheckCharModeResponse</a>&gt;</code>
+
+--------------------
+
+
+### setCheckCharMode(...)
+
+```typescript
+setCheckCharMode(options: SetCheckCharModeOptions) => Promise<void>
+```
+
+| Param         | Type                                                                        |
+| ------------- | --------------------------------------------------------------------------- |
+| **`options`** | <code><a href="#setcheckcharmodeoptions">SetCheckCharModeOptions</a></code> |
+
+--------------------
+
+
+### getCheckCharType(...)
+
+```typescript
+getCheckCharType(options: GetCheckCharTypeOptions) => Promise<GetCheckCharTypeResponse>
+```
+
+| Param         | Type                                                                        |
+| ------------- | --------------------------------------------------------------------------- |
+| **`options`** | <code><a href="#getcheckchartypeoptions">GetCheckCharTypeOptions</a></code> |
+
+**Returns:** <code>Promise&lt;<a href="#getcheckchartyperesponse">GetCheckCharTypeResponse</a>&gt;</code>
+
+--------------------
+
+
+### setCheckCharType(...)
+
+```typescript
+setCheckCharType(options: SetCheckCharTypeOptions) => Promise<void>
+```
+
+| Param         | Type                                                                        |
+| ------------- | --------------------------------------------------------------------------- |
+| **`options`** | <code><a href="#setcheckchartypeoptions">SetCheckCharTypeOptions</a></code> |
+
+--------------------
+
+
+### getDoubleCode(...)
+
+```typescript
+getDoubleCode(options: GetDoubleCodeOptions) => Promise<GetDoubleCodeResponse>
+```
+
+| Param         | Type                                                                  |
+| ------------- | --------------------------------------------------------------------- |
+| **`options`** | <code><a href="#getdoublecodeoptions">GetDoubleCodeOptions</a></code> |
+
+**Returns:** <code>Promise&lt;<a href="#getdoublecoderesponse">GetDoubleCodeResponse</a>&gt;</code>
+
+--------------------
+
+
+### setDoubleCode(...)
+
+```typescript
+setDoubleCode(options: SetDoubleCodeOptions) => Promise<void>
+```
+
+| Param         | Type                                                                  |
+| ------------- | --------------------------------------------------------------------- |
+| **`options`** | <code><a href="#setdoublecodeoptions">SetDoubleCodeOptions</a></code> |
+
+--------------------
+
+
+### getFormatCode(...)
+
+```typescript
+getFormatCode(options: GetFormatCodeOptions) => Promise<GetFormatCodeResponse>
+```
+
+| Param         | Type                                                                  |
+| ------------- | --------------------------------------------------------------------- |
+| **`options`** | <code><a href="#getformatcodeoptions">GetFormatCodeOptions</a></code> |
+
+**Returns:** <code>Promise&lt;<a href="#getformatcoderesponse">GetFormatCodeResponse</a>&gt;</code>
+
+--------------------
+
+
+### setFormatCode(...)
+
+```typescript
+setFormatCode(options: SetFormatCodeOptions) => Promise<void>
+```
+
+| Param         | Type                                                                  |
+| ------------- | --------------------------------------------------------------------- |
+| **`options`** | <code><a href="#setformatcodeoptions">SetFormatCodeOptions</a></code> |
+
+--------------------
+
+
+### getInverseCode(...)
+
+```typescript
+getInverseCode(options: GetInverseCodeOptions) => Promise<GetInverseCodeResponse>
+```
+
+| Param         | Type                                                                    |
+| ------------- | ----------------------------------------------------------------------- |
+| **`options`** | <code><a href="#getinversecodeoptions">GetInverseCodeOptions</a></code> |
+
+**Returns:** <code>Promise&lt;<a href="#getinversecoderesponse">GetInverseCodeResponse</a>&gt;</code>
+
+--------------------
+
+
+### setInverseCode(...)
+
+```typescript
+setInverseCode(options: SetInverseCodeOptions) => Promise<void>
+```
+
+| Param         | Type                                                                    |
+| ------------- | ----------------------------------------------------------------------- |
+| **`options`** | <code><a href="#setinversecodeoptions">SetInverseCodeOptions</a></code> |
+
+--------------------
+
+
+### isExtendCode1(...)
+
+```typescript
+isExtendCode1(options: IsExtendCode1Options) => Promise<IsExtendCode1Response>
+```
+
+| Param         | Type                                                                  |
+| ------------- | --------------------------------------------------------------------- |
+| **`options`** | <code><a href="#isextendcode1options">IsExtendCode1Options</a></code> |
+
+**Returns:** <code>Promise&lt;<a href="#isextendcode1response">IsExtendCode1Response</a>&gt;</code>
+
+--------------------
+
+
+### setExtendCode1(...)
+
+```typescript
+setExtendCode1(options: SetExtendCode1Options) => Promise<void>
+```
+
+| Param         | Type                                                                    |
+| ------------- | ----------------------------------------------------------------------- |
+| **`options`** | <code><a href="#setextendcode1options">SetExtendCode1Options</a></code> |
+
+--------------------
+
+
+### isExtendCode2(...)
+
+```typescript
+isExtendCode2(options: IsExtendCode2Options) => Promise<IsExtendCode2Response>
+```
+
+| Param         | Type                                                                  |
+| ------------- | --------------------------------------------------------------------- |
+| **`options`** | <code><a href="#isextendcode2options">IsExtendCode2Options</a></code> |
+
+**Returns:** <code>Promise&lt;<a href="#isextendcode2response">IsExtendCode2Response</a>&gt;</code>
+
+--------------------
+
+
+### setExtendCode2(...)
+
+```typescript
+setExtendCode2(options: SetExtendCode2Options) => Promise<void>
+```
+
+| Param         | Type                                                                    |
+| ------------- | ----------------------------------------------------------------------- |
+| **`options`** | <code><a href="#setextendcode2options">SetExtendCode2Options</a></code> |
+
+--------------------
+
+
+### isExtendToCode(...)
+
+```typescript
+isExtendToCode(options: IsExtendToCodeOptions) => Promise<IsExtendToCodeResponse>
+```
+
+| Param         | Type                                                                    |
+| ------------- | ----------------------------------------------------------------------- |
+| **`options`** | <code><a href="#isextendtocodeoptions">IsExtendToCodeOptions</a></code> |
+
+**Returns:** <code>Promise&lt;<a href="#isextendtocoderesponse">IsExtendToCodeResponse</a>&gt;</code>
+
+--------------------
+
+
+### setExtendToCode(...)
+
+```typescript
+setExtendToCode(options: SetExtendToCodeOptions) => Promise<void>
+```
+
+| Param         | Type                                                                      |
+| ------------- | ------------------------------------------------------------------------- |
+| **`options`** | <code><a href="#setextendtocodeoptions">SetExtendToCodeOptions</a></code> |
+
+--------------------
+
+
+### isMicroCode(...)
+
+```typescript
+isMicroCode(options: IsMicroCodeOptions) => Promise<IsMicroCodeResponse>
+```
+
+| Param         | Type                                                              |
+| ------------- | ----------------------------------------------------------------- |
+| **`options`** | <code><a href="#ismicrocodeoptions">IsMicroCodeOptions</a></code> |
+
+**Returns:** <code>Promise&lt;<a href="#ismicrocoderesponse">IsMicroCodeResponse</a>&gt;</code>
+
+--------------------
+
+
+### setMicroCode(...)
+
+```typescript
+setMicroCode(options: SetMicroCodeOptions) => Promise<void>
+```
+
+| Param         | Type                                                                |
+| ------------- | ------------------------------------------------------------------- |
+| **`options`** | <code><a href="#setmicrocodeoptions">SetMicroCodeOptions</a></code> |
+
+--------------------
+
+
+### isStartEndType(...)
+
+```typescript
+isStartEndType(options: IsStartEndTypeOptions) => Promise<IsStartEndTypeResponse>
+```
+
+| Param         | Type                                                                    |
+| ------------- | ----------------------------------------------------------------------- |
+| **`options`** | <code><a href="#isstartendtypeoptions">IsStartEndTypeOptions</a></code> |
+
+**Returns:** <code>Promise&lt;<a href="#isstartendtyperesponse">IsStartEndTypeResponse</a>&gt;</code>
+
+--------------------
+
+
+### setStartEndType(...)
+
+```typescript
+setStartEndType(options: SetStartEndTypeOptions) => Promise<void>
+```
+
+| Param         | Type                                                                      |
+| ------------- | ------------------------------------------------------------------------- |
+| **`options`** | <code><a href="#setstartendtypeoptions">SetStartEndTypeOptions</a></code> |
+
+--------------------
+
+
+### isSystemCharZero(...)
+
+```typescript
+isSystemCharZero(options: IsSystemCharZeroOptions) => Promise<IsSystemCharZeroResponse>
+```
+
+| Param         | Type                                                                        |
+| ------------- | --------------------------------------------------------------------------- |
+| **`options`** | <code><a href="#issystemcharzerooptions">IsSystemCharZeroOptions</a></code> |
+
+**Returns:** <code>Promise&lt;<a href="#issystemcharzeroresponse">IsSystemCharZeroResponse</a>&gt;</code>
+
+--------------------
+
+
+### setSystemCharZero(...)
+
+```typescript
+setSystemCharZero(options: SetSystemCharZeroOptions) => Promise<void>
+```
+
+| Param         | Type                                                                          |
+| ------------- | ----------------------------------------------------------------------------- |
+| **`options`** | <code><a href="#setsystemcharzerooptions">SetSystemCharZeroOptions</a></code> |
+
+--------------------
+
+
+### getMaxLen(...)
+
+```typescript
+getMaxLen(options: GetMaxLenOptions) => Promise<GetMaxLenResponse>
+```
+
+| Param         | Type                                                          |
+| ------------- | ------------------------------------------------------------- |
+| **`options`** | <code><a href="#getmaxlenoptions">GetMaxLenOptions</a></code> |
+
+**Returns:** <code>Promise&lt;<a href="#getmaxlenresponse">GetMaxLenResponse</a>&gt;</code>
+
+--------------------
+
+
+### setMaxLen(...)
+
+```typescript
+setMaxLen(options: SetMaxLenOptions) => Promise<void>
+```
+
+| Param         | Type                                                          |
+| ------------- | ------------------------------------------------------------- |
+| **`options`** | <code><a href="#setmaxlenoptions">SetMaxLenOptions</a></code> |
+
+--------------------
+
+
+### getMinLen(...)
+
+```typescript
+getMinLen(options: GetMinLenOptions) => Promise<GetMinLenResponse>
+```
+
+| Param         | Type                                                          |
+| ------------- | ------------------------------------------------------------- |
+| **`options`** | <code><a href="#getminlenoptions">GetMinLenOptions</a></code> |
+
+**Returns:** <code>Promise&lt;<a href="#getminlenresponse">GetMinLenResponse</a>&gt;</code>
+
+--------------------
+
+
+### setMinLen(...)
+
+```typescript
+setMinLen(options: SetMinLenOptions) => Promise<void>
+```
+
+| Param         | Type                                                          |
+| ------------- | ------------------------------------------------------------- |
+| **`options`** | <code><a href="#setminlenoptions">SetMinLenOptions</a></code> |
+
+--------------------
+
+
+### getStartEndFormat(...)
+
+```typescript
+getStartEndFormat(options: GetStartEndFormatOptions) => Promise<GetStartEndFormatResponse>
+```
+
+| Param         | Type                                                                          |
+| ------------- | ----------------------------------------------------------------------------- |
+| **`options`** | <code><a href="#getstartendformatoptions">GetStartEndFormatOptions</a></code> |
+
+**Returns:** <code>Promise&lt;<a href="#getstartendformatresponse">GetStartEndFormatResponse</a>&gt;</code>
+
+--------------------
+
+
+### setStartEndFormat(...)
+
+```typescript
+setStartEndFormat(options: SetStartEndFormatOptions) => Promise<void>
+```
+
+| Param         | Type                                                                          |
+| ------------- | ----------------------------------------------------------------------------- |
+| **`options`** | <code><a href="#setstartendformatoptions">SetStartEndFormatOptions</a></code> |
+
+--------------------
+
+
 ### addListener('onScanResult', ...)
 
 ```typescript
@@ -756,6 +1234,385 @@ Removes all listeners
 | Prop         | Type                | Description                                                         | Default        |
 | ------------ | ------------------- | ------------------------------------------------------------------- | -------------- |
 | **`length`** | <code>number</code> | Number of characters to be removed from the end of the barcode data | <code>0</code> |
+
+
+#### GetBarcodesListResponse
+
+| Prop       | Type                                                       | Description                                                                                                                 |
+| ---------- | ---------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| **`list`** | <code><a href="#map">Map</a>&lt;string, boolean&gt;</code> | List of barcodes, and its statuses. Key is barcode symbology name, value is status: `true` if enabled, `false` if disabled. |
+
+
+#### Map
+
+| Prop       | Type                |
+| ---------- | ------------------- |
+| **`size`** | <code>number</code> |
+
+| Method      | Signature                                                                                                      |
+| ----------- | -------------------------------------------------------------------------------------------------------------- |
+| **clear**   | () =&gt; void                                                                                                  |
+| **delete**  | (key: K) =&gt; boolean                                                                                         |
+| **forEach** | (callbackfn: (value: V, key: K, map: <a href="#map">Map</a>&lt;K, V&gt;) =&gt; void, thisArg?: any) =&gt; void |
+| **get**     | (key: K) =&gt; V \| undefined                                                                                  |
+| **has**     | (key: K) =&gt; boolean                                                                                         |
+| **set**     | (key: K, value: V) =&gt; this                                                                                  |
+
+
+#### GetBarcodeResponse
+
+| Prop          | Type                 | Description    |
+| ------------- | -------------------- | -------------- |
+| **`enabled`** | <code>boolean</code> | Barcode status |
+
+
+#### GetBarcodeOptions
+
+| Prop       | Type                | Description            |
+| ---------- | ------------------- | ---------------------- |
+| **`name`** | <code>string</code> | Barcode symbology name |
+
+
+#### SetBarcodeOptions
+
+| Prop          | Type                 | Description            |
+| ------------- | -------------------- | ---------------------- |
+| **`name`**    | <code>string</code>  | Barcode symbology name |
+| **`enabled`** | <code>boolean</code> | Barcode status         |
+
+
+#### GetBarcodeConfigResponse
+
+| Prop                   | Type                 |
+| ---------------------- | -------------------- |
+| **`checkCharMode`**    | <code>number</code>  |
+| **`checkCharType`**    | <code>number</code>  |
+| **`doubleCode`**       | <code>number</code>  |
+| **`formatCode`**       | <code>number</code>  |
+| **`inverseCode`**      | <code>number</code>  |
+| **`isExtendCode1`**    | <code>boolean</code> |
+| **`isExtendCode2`**    | <code>boolean</code> |
+| **`isExtendToCode`**   | <code>boolean</code> |
+| **`isMicroCode`**      | <code>boolean</code> |
+| **`isStartEndType`**   | <code>boolean</code> |
+| **`isSystemCharZero`** | <code>boolean</code> |
+| **`maxLen`**           | <code>number</code>  |
+| **`minLen`**           | <code>number</code>  |
+
+
+#### GetBarcodeConfigOptions
+
+| Prop       | Type                | Description            |
+| ---------- | ------------------- | ---------------------- |
+| **`name`** | <code>string</code> | Barcode symbology name |
+
+
+#### GetCheckCharModeResponse
+
+| Prop        | Type                |
+| ----------- | ------------------- |
+| **`value`** | <code>number</code> |
+
+
+#### GetCheckCharModeOptions
+
+| Prop       | Type                | Description            |
+| ---------- | ------------------- | ---------------------- |
+| **`name`** | <code>string</code> | Barcode symbology name |
+
+
+#### SetCheckCharModeOptions
+
+| Prop        | Type                | Description            |
+| ----------- | ------------------- | ---------------------- |
+| **`name`**  | <code>string</code> | Barcode symbology name |
+| **`value`** | <code>number</code> |                        |
+
+
+#### GetCheckCharTypeResponse
+
+| Prop        | Type                |
+| ----------- | ------------------- |
+| **`value`** | <code>number</code> |
+
+
+#### GetCheckCharTypeOptions
+
+| Prop       | Type                | Description            |
+| ---------- | ------------------- | ---------------------- |
+| **`name`** | <code>string</code> | Barcode symbology name |
+
+
+#### SetCheckCharTypeOptions
+
+| Prop        | Type                | Description            |
+| ----------- | ------------------- | ---------------------- |
+| **`name`**  | <code>string</code> | Barcode symbology name |
+| **`value`** | <code>number</code> |                        |
+
+
+#### GetDoubleCodeResponse
+
+| Prop        | Type                |
+| ----------- | ------------------- |
+| **`value`** | <code>number</code> |
+
+
+#### GetDoubleCodeOptions
+
+| Prop       | Type                | Description            |
+| ---------- | ------------------- | ---------------------- |
+| **`name`** | <code>string</code> | Barcode symbology name |
+
+
+#### SetDoubleCodeOptions
+
+| Prop        | Type                | Description            |
+| ----------- | ------------------- | ---------------------- |
+| **`name`**  | <code>string</code> | Barcode symbology name |
+| **`value`** | <code>number</code> |                        |
+
+
+#### GetFormatCodeResponse
+
+| Prop        | Type                |
+| ----------- | ------------------- |
+| **`value`** | <code>number</code> |
+
+
+#### GetFormatCodeOptions
+
+| Prop       | Type                | Description            |
+| ---------- | ------------------- | ---------------------- |
+| **`name`** | <code>string</code> | Barcode symbology name |
+
+
+#### SetFormatCodeOptions
+
+| Prop        | Type                | Description            |
+| ----------- | ------------------- | ---------------------- |
+| **`name`**  | <code>string</code> | Barcode symbology name |
+| **`value`** | <code>number</code> |                        |
+
+
+#### GetInverseCodeResponse
+
+| Prop        | Type                |
+| ----------- | ------------------- |
+| **`value`** | <code>number</code> |
+
+
+#### GetInverseCodeOptions
+
+| Prop       | Type                | Description            |
+| ---------- | ------------------- | ---------------------- |
+| **`name`** | <code>string</code> | Barcode symbology name |
+
+
+#### SetInverseCodeOptions
+
+| Prop        | Type                | Description            |
+| ----------- | ------------------- | ---------------------- |
+| **`name`**  | <code>string</code> | Barcode symbology name |
+| **`value`** | <code>number</code> |                        |
+
+
+#### IsExtendCode1Response
+
+| Prop        | Type                 |
+| ----------- | -------------------- |
+| **`value`** | <code>boolean</code> |
+
+
+#### IsExtendCode1Options
+
+| Prop       | Type                | Description            |
+| ---------- | ------------------- | ---------------------- |
+| **`name`** | <code>string</code> | Barcode symbology name |
+
+
+#### SetExtendCode1Options
+
+| Prop        | Type                 | Description            |
+| ----------- | -------------------- | ---------------------- |
+| **`name`**  | <code>string</code>  | Barcode symbology name |
+| **`value`** | <code>boolean</code> |                        |
+
+
+#### IsExtendCode2Response
+
+| Prop        | Type                 |
+| ----------- | -------------------- |
+| **`value`** | <code>boolean</code> |
+
+
+#### IsExtendCode2Options
+
+| Prop       | Type                | Description            |
+| ---------- | ------------------- | ---------------------- |
+| **`name`** | <code>string</code> | Barcode symbology name |
+
+
+#### SetExtendCode2Options
+
+| Prop        | Type                 | Description            |
+| ----------- | -------------------- | ---------------------- |
+| **`name`**  | <code>string</code>  | Barcode symbology name |
+| **`value`** | <code>boolean</code> |                        |
+
+
+#### IsExtendToCodeResponse
+
+| Prop        | Type                 |
+| ----------- | -------------------- |
+| **`value`** | <code>boolean</code> |
+
+
+#### IsExtendToCodeOptions
+
+| Prop       | Type                | Description            |
+| ---------- | ------------------- | ---------------------- |
+| **`name`** | <code>string</code> | Barcode symbology name |
+
+
+#### SetExtendToCodeOptions
+
+| Prop        | Type                 | Description            |
+| ----------- | -------------------- | ---------------------- |
+| **`name`**  | <code>string</code>  | Barcode symbology name |
+| **`value`** | <code>boolean</code> |                        |
+
+
+#### IsMicroCodeResponse
+
+| Prop        | Type                 |
+| ----------- | -------------------- |
+| **`value`** | <code>boolean</code> |
+
+
+#### IsMicroCodeOptions
+
+| Prop       | Type                | Description            |
+| ---------- | ------------------- | ---------------------- |
+| **`name`** | <code>string</code> | Barcode symbology name |
+
+
+#### SetMicroCodeOptions
+
+| Prop        | Type                 | Description            |
+| ----------- | -------------------- | ---------------------- |
+| **`name`**  | <code>string</code>  | Barcode symbology name |
+| **`value`** | <code>boolean</code> |                        |
+
+
+#### IsStartEndTypeResponse
+
+| Prop        | Type                 |
+| ----------- | -------------------- |
+| **`value`** | <code>boolean</code> |
+
+
+#### IsStartEndTypeOptions
+
+| Prop       | Type                | Description            |
+| ---------- | ------------------- | ---------------------- |
+| **`name`** | <code>string</code> | Barcode symbology name |
+
+
+#### SetStartEndTypeOptions
+
+| Prop        | Type                 | Description            |
+| ----------- | -------------------- | ---------------------- |
+| **`name`**  | <code>string</code>  | Barcode symbology name |
+| **`value`** | <code>boolean</code> |                        |
+
+
+#### IsSystemCharZeroResponse
+
+| Prop        | Type                 |
+| ----------- | -------------------- |
+| **`value`** | <code>boolean</code> |
+
+
+#### IsSystemCharZeroOptions
+
+| Prop       | Type                | Description            |
+| ---------- | ------------------- | ---------------------- |
+| **`name`** | <code>string</code> | Barcode symbology name |
+
+
+#### SetSystemCharZeroOptions
+
+| Prop        | Type                 | Description            |
+| ----------- | -------------------- | ---------------------- |
+| **`name`**  | <code>string</code>  | Barcode symbology name |
+| **`value`** | <code>boolean</code> |                        |
+
+
+#### GetMaxLenResponse
+
+| Prop        | Type                |
+| ----------- | ------------------- |
+| **`value`** | <code>number</code> |
+
+
+#### GetMaxLenOptions
+
+| Prop       | Type                | Description            |
+| ---------- | ------------------- | ---------------------- |
+| **`name`** | <code>string</code> | Barcode symbology name |
+
+
+#### SetMaxLenOptions
+
+| Prop        | Type                | Description            |
+| ----------- | ------------------- | ---------------------- |
+| **`name`**  | <code>string</code> | Barcode symbology name |
+| **`value`** | <code>number</code> |                        |
+
+
+#### GetMinLenResponse
+
+| Prop        | Type                |
+| ----------- | ------------------- |
+| **`value`** | <code>number</code> |
+
+
+#### GetMinLenOptions
+
+| Prop       | Type                | Description            |
+| ---------- | ------------------- | ---------------------- |
+| **`name`** | <code>string</code> | Barcode symbology name |
+
+
+#### SetMinLenOptions
+
+| Prop        | Type                | Description            |
+| ----------- | ------------------- | ---------------------- |
+| **`name`**  | <code>string</code> | Barcode symbology name |
+| **`value`** | <code>number</code> |                        |
+
+
+#### GetStartEndFormatResponse
+
+| Prop        | Type                |
+| ----------- | ------------------- |
+| **`value`** | <code>number</code> |
+
+
+#### GetStartEndFormatOptions
+
+| Prop       | Type                | Description            |
+| ---------- | ------------------- | ---------------------- |
+| **`name`** | <code>string</code> | Barcode symbology name |
+
+
+#### SetStartEndFormatOptions
+
+| Prop        | Type                | Description            |
+| ----------- | ------------------- | ---------------------- |
+| **`name`**  | <code>string</code> | Barcode symbology name |
+| **`value`** | <code>number</code> |                        |
 
 
 #### PluginListenerHandle

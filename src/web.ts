@@ -1,6 +1,27 @@
 import { WebPlugin } from '@capacitor/core';
 
-import type {ClearConfigResponse, GetScannerModelResponse, SunmiScanHeadPlugin} from './definitions';
+import type {
+  ClearConfigResponse,
+  GetBarcodeConfigResponse,
+  GetBarcodeResponse,
+  GetBarcodesListResponse,
+  GetCheckCharModeResponse,
+  GetCheckCharTypeResponse,
+  GetDoubleCodeResponse,
+  GetFormatCodeResponse,
+  GetInverseCodeResponse,
+  GetMaxLenResponse,
+  GetMinLenResponse,
+  GetScannerModelResponse,
+  GetStartEndFormatResponse,
+  IsExtendCode1Response,
+  IsExtendCode2Response,
+  IsExtendToCodeResponse,
+  IsMicroCodeResponse,
+  IsStartEndTypeResponse,
+  IsSystemCharZeroResponse,
+  SunmiScanHeadPlugin
+} from './definitions';
 
 export class SunmiScanHeadWeb
   extends WebPlugin
@@ -123,6 +144,134 @@ export class SunmiScanHeadWeb
   }
 
   setSuffixCharactersRemoved(): Promise<void> {
+    throw this.unimplemented('Not implemented on web.');
+  }
+
+  getBarcode(): Promise<GetBarcodeResponse> {
+    throw this.unimplemented('Not implemented on web.');
+  }
+
+  getBarcodesList(): Promise<GetBarcodesListResponse> {
+    throw this.unimplemented('Not implemented on web.');
+  }
+
+  getCheckCharMode(): Promise<GetCheckCharModeResponse> {
+    throw this.unimplemented('Not implemented on web.');
+  }
+
+  getCheckCharType(): Promise<GetCheckCharTypeResponse> {
+    throw this.unimplemented('Not implemented on web.');
+  }
+
+  getDoubleCode(): Promise<GetDoubleCodeResponse> {
+    throw this.unimplemented('Not implemented on web.');
+  }
+
+  getFormatCode(): Promise<GetFormatCodeResponse> {
+    throw this.unimplemented('Not implemented on web.');
+  }
+
+  getInverseCode(): Promise<GetInverseCodeResponse> {
+    throw this.unimplemented('Not implemented on web.');
+  }
+
+  getMaxLen(): Promise<GetMaxLenResponse> {
+    throw this.unimplemented('Not implemented on web.');
+  }
+
+  getMinLen(): Promise<GetMinLenResponse> {
+    throw this.unimplemented('Not implemented on web.');
+  }
+
+  getStartEndFormat(): Promise<GetStartEndFormatResponse> {
+    throw this.unimplemented('Not implemented on web.');
+  }
+
+  isExtendCode1(): Promise<IsExtendCode1Response> {
+    throw this.unimplemented('Not implemented on web.');
+  }
+
+  isExtendCode2(): Promise<IsExtendCode2Response> {
+    throw this.unimplemented('Not implemented on web.');
+  }
+
+  isExtendToCode(): Promise<IsExtendToCodeResponse> {
+    throw this.unimplemented('Not implemented on web.');
+  }
+
+  isMicroCode(): Promise<IsMicroCodeResponse> {
+    throw this.unimplemented('Not implemented on web.');
+  }
+
+  isStartEndType(): Promise<IsStartEndTypeResponse> {
+    throw this.unimplemented('Not implemented on web.');
+  }
+
+  isSystemCharZero(): Promise<IsSystemCharZeroResponse> {
+    throw this.unimplemented('Not implemented on web.');
+  }
+
+  setBarcode(): Promise<void> {
+    throw this.unimplemented('Not implemented on web.');
+  }
+
+  setCheckCharMode(): Promise<void> {
+    throw this.unimplemented('Not implemented on web.');
+  }
+
+  setCheckCharType(): Promise<void> {
+    throw this.unimplemented('Not implemented on web.');
+  }
+
+  setDoubleCode(): Promise<void> {
+    throw this.unimplemented('Not implemented on web.');
+  }
+
+  setExtendCode1(): Promise<void> {
+    throw this.unimplemented('Not implemented on web.');
+  }
+
+  setExtendCode2(): Promise<void> {
+    throw this.unimplemented('Not implemented on web.');
+  }
+
+  setExtendToCode(): Promise<void> {
+    throw this.unimplemented('Not implemented on web.');
+  }
+
+  setFormatCode(): Promise<void> {
+    throw this.unimplemented('Not implemented on web.');
+  }
+
+  setInverseCode(): Promise<void> {
+    throw this.unimplemented('Not implemented on web.');
+  }
+
+  setMaxLen(): Promise<void> {
+    throw this.unimplemented('Not implemented on web.');
+  }
+
+  setMicroCode(): Promise<void> {
+    throw this.unimplemented('Not implemented on web.');
+  }
+
+  setMinLen(): Promise<void> {
+    throw this.unimplemented('Not implemented on web.');
+  }
+
+  setStartEndFormat(): Promise<void> {
+    throw this.unimplemented('Not implemented on web.');
+  }
+
+  setStartEndType(): Promise<void> {
+    throw this.unimplemented('Not implemented on web.');
+  }
+
+  setSystemCharZero(): Promise<void> {
+    throw this.unimplemented('Not implemented on web.');
+  }
+
+  getBarcodeConfig(): Promise<GetBarcodeConfigResponse> {
     throw this.unimplemented('Not implemented on web.');
   }
 }
