@@ -85,11 +85,11 @@ public class ConfigurationWriteContextHelper implements IConfigurationWriteConte
 
     @Override
     public boolean hasWriteContextOf(WriteContextTypeEnum type) {
-        if(types.contains(WriteContextTypeEnum.Service)) {
+        if(type == WriteContextTypeEnum.Service && types.contains(WriteContextTypeEnum.Service)) {
             return this.serviceWriteContext != null;
         }
 
-        if(types.contains(WriteContextTypeEnum.CodeFamilies)) {
+        if(type == WriteContextTypeEnum.CodeFamilies && types.contains(WriteContextTypeEnum.CodeFamilies)) {
             return this.codeFamiliesWriteContext != null;
         }
 

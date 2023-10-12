@@ -1,5 +1,6 @@
 package dev.duma.capacitor.sunmiscanhead;
 
+import com.getcapacitor.JSArray;
 import com.getcapacitor.JSObject;
 import com.getcapacitor.Plugin;
 import com.getcapacitor.PluginCall;
@@ -8,6 +9,7 @@ import com.getcapacitor.annotation.CapacitorPlugin;
 import com.sunmi.scanner.ScannerService;
 
 import java.util.EnumSet;
+import java.util.List;
 
 import dev.duma.android.sunmi.scanbroadcastreceiver.IScanHeadBroadcastReceiver.ScanCallback;
 import dev.duma.android.sunmi.scanconfigurationhelper.enums.WriteContextTypeEnum;
@@ -152,7 +154,26 @@ public class SunmiScanHeadPlugin extends Plugin {
     @PluginMethod
     public void createWriteContext(PluginCall call) {
         CallbackHelper.handle(call, (c) -> {
-            EnumSet<WriteContextTypeEnum> writeContextTypes = EnumSet.of(WriteContextTypeEnum.Service, WriteContextTypeEnum.CodeFamilies);
+            EnumSet<WriteContextTypeEnum> writeContextTypes = EnumSet.noneOf(WriteContextTypeEnum.class);
+
+            String singleTypeName = call.getString("type");
+            JSArray multipleTypeName = call.getArray("type");
+
+            if(singleTypeName == null && (multipleTypeName == null || multipleTypeName.length() == 0)) {
+                writeContextTypes = EnumSet.of(WriteContextTypeEnum.Service, WriteContextTypeEnum.CodeFamilies);
+            } else if(multipleTypeName != null && multipleTypeName.length() != 0) {
+                List<String> typeNames = multipleTypeName.toList();
+                for (String type : typeNames) {
+                    writeContextTypes.add(
+                            WriteContextTypeEnum.nameOf(type)
+                    );
+                }
+            } else if(singleTypeName != null) {
+                writeContextTypes.add(
+                        WriteContextTypeEnum.nameOf(singleTypeName)
+                );
+            }
+
             implementation.getWriteContextTool().createWriteContext((service, codeFamilies) -> {
                 c.resolve();
             }, writeContextTypes);

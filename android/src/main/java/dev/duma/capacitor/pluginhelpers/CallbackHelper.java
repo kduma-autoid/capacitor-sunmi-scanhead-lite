@@ -4,9 +4,11 @@ import android.os.RemoteException;
 
 import com.getcapacitor.PluginCall;
 
+import org.json.JSONException;
+
 public class CallbackHelper {
     public interface IAction {
-        void onExecute(PluginCall call) throws RemoteException, RuntimeException;
+        void onExecute(PluginCall call) throws RemoteException, RuntimeException, JSONException;
     }
     public interface IExceptionHandler {
         void onException(PluginCall call, Exception exception);
@@ -19,7 +21,8 @@ public class CallbackHelper {
     static public void handle(PluginCall call, IAction action, IExceptionHandler exceptionHandler) {
         try {
             action.onExecute(call);
-        } catch (RuntimeException | RemoteException e) {
+        } catch (RuntimeException | RemoteException | JSONException e) {
+            e.printStackTrace();
             exceptionHandler.onException(call, e);
         }
     }

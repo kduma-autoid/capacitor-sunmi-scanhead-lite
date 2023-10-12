@@ -1,9 +1,11 @@
 package dev.duma.android.sunmi.scanconfigurationhelper;
 
 import android.os.RemoteException;
+import android.util.ArrayMap;
 import android.util.Log;
 
 import com.sunmi.scanner.config.SunmiHelper;
+import com.sunmi.scanner.constants.CodeConstants;
 import com.sunmi.scanner.entity.CodeEnable;
 import com.sunmi.scanner.entity.CodeSetting;
 import com.sunmi.scanner.entity.Entity;
@@ -12,6 +14,7 @@ import com.sunmi.scanner.entity.Result;
 import com.sunmi.scanner.entity.ServiceSetting;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicReference;
 
 import dev.duma.android.sunmi.scanconfigurationhelper.config.CodeFamiliesConfigurationConverter;
@@ -94,19 +97,55 @@ public class ScanConfigurationHelper implements IScanConfigurationHelper {
         IQueryCallback<CodeEnable> codeEnabledCallback = (response, entity) -> {
             codeEnabled.set(response);
 
-            CodeFamiliesConfiguration configuration = CodeFamiliesConfigurationConverter.fromCodeEnable(
-                    codeEnabled.get()
-            );
+            AtomicReference<ArrayMap<String, CodeSetting>> settings = new AtomicReference<>(new ArrayMap<>(response.codes.length));
+            AtomicReference<ArrayList<String>> toGet = new AtomicReference<>(new ArrayList<>(Arrays.asList(response.codes)));
+            toGet.get().add(0, CodeConstants.C_1D_BARCODE);
 
-            for (String name: response.codes) {
-                scanInterfaceHelper.sendQuery(SunmiHelper.queryCodeSetting(name), (CodeSetting r, Entity<CodeSetting> e) -> {
-                    CodeFamiliesConfigurationConverter.setCodeSetting(configuration, name, r);
-                    Log.i(name, r.toString());
-                });
-            }
-            callback.onLoaded(
-                    configuration
-            );
+            AtomicReference<String> currentName = new AtomicReference<>("");
+            var ref = new Object() {
+                IQueryCallback<CodeSetting> codeSettingIQueryCallback = null;
+            };
+
+            Runnable runnable = () -> {
+                if (!toGet.get().isEmpty()) {
+                    currentName.set(toGet.get().remove(0));
+                    try {
+                        scanInterfaceHelper.sendQuery(SunmiHelper.queryCodeSetting(currentName.get()), ref.codeSettingIQueryCallback);
+                    } catch (RemoteException e) {
+                        throw new RuntimeException(e);
+                    }
+                } else {
+                    Log.e("CodeSetting", "Done="+ settings);
+                    try {
+                        callback.onLoaded(
+                                CodeFamiliesConfigurationConverter.fromCodeEnable(
+                                        codeEnabled.get(),
+                                        settings.get()
+                                )
+                        );
+                    } catch (RemoteException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+
+            };
+
+            ref.codeSettingIQueryCallback = new IQueryCallback<>() {
+                @Override
+                public void onSuccess(CodeSetting r, Entity<CodeSetting> e) throws RemoteException {
+                    settings.get().put(currentName.get(), r);
+                    Log.i(currentName.get(), r.toString());
+                    runnable.run();
+                }
+
+                @Override
+                public void onFailed(int i) {
+                    Log.e(currentName.get(), "Failed to get");
+                    runnable.run();
+                }
+            };
+
+            runnable.run();
         };
 
         scanInterfaceHelper.sendQuery(SunmiHelper.QUERY_ALL_ENABLE_CODE, codeEnabledCallback);

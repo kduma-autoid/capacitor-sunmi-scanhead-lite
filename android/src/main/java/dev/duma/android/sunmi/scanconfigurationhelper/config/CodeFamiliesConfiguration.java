@@ -1,40 +1,39 @@
 package dev.duma.android.sunmi.scanconfigurationhelper.config;
 
+import java.util.HashMap;
+import java.util.HashSet;
+
 public class CodeFamiliesConfiguration {
-//    protected final EnumSet<ConfigurationFieldEnum> updatedFields = EnumSet.noneOf(ConfigurationFieldEnum.class);
-//    protected final EnumSet<ConfigurationFieldEnum> unsupportedFields = EnumSet.noneOf(ConfigurationFieldEnum.class);
-//
-//    public boolean isUpdated(ConfigurationFieldEnum field) {
-//        return this.updatedFields.contains(field);
-//    }
-//
-//    public boolean isSupported(ConfigurationFieldEnum field) {
-//        return !this.unsupportedFields.contains(field);
-//    }
-//
-//    protected int suffixCharactersRemoved = 0;
-//
-//    public int getSuffixCharactersRemoved() {
-//        if(this.unsupportedFields.contains(ConfigurationFieldEnum.SuffixCharactersRemoved)) {
-//            throw new RuntimeException("Field "+ConfigurationFieldEnum.SuffixCharactersRemoved+" is not supported on this system!");
-//        }
-//
-//        return suffixCharactersRemoved;
-//    }
-//
-//    public void setSuffixCharactersRemoved(int suffixCharactersRemoved) {
-//        if(this.unsupportedFields.contains(ConfigurationFieldEnum.SuffixCharactersRemoved)) {
-//            throw new RuntimeException("Field "+ConfigurationFieldEnum.SuffixCharactersRemoved+" is not supported on this system!");
-//        }
-//
-//        if(suffixCharactersRemoved < 0 || suffixCharactersRemoved > 20) {
-//            throw new RuntimeException("SuffixCharactersRemoved is not in range of [0, 20]");
-//        }
-//
-//        if(! this.updatedFields.contains(ConfigurationFieldEnum.SuffixCharactersRemoved)) {
-//            this.updatedFields.add(ConfigurationFieldEnum.SuffixCharactersRemoved);
-//        }
-//
-//        this.suffixCharactersRemoved = suffixCharactersRemoved;
+    HashSet<String> updatedEnabledCodes = new HashSet<>();
+    HashMap<String, Boolean> enabledCodes = new HashMap<>();
+    HashMap<String, CodeFamilySettingsConfiguration> symbolConfig = new HashMap<>();
+
+    public void setCodeStatus(String code, boolean enabled) {
+        if(!enabledCodes.containsKey(code)) {
+            throw new RuntimeException("Code "+code+" was not found!");
+        }
+
+        enabledCodes.put(code, enabled);
+        updatedEnabledCodes.add(code);
+    }
+
+    public boolean getCodeStatus(String code) {
+        if(!enabledCodes.containsKey(code)) {
+            throw new RuntimeException("Code "+code+" was not found!");
+        }
+
+        return Boolean.TRUE.equals(enabledCodes.get(code));
+    }
+
+    public CodeFamilySettingsConfiguration getCodeConfiguration(String code) {
+        if(!symbolConfig.containsKey(code)) {
+            throw new RuntimeException("Code "+code+" was not found!");
+        }
+
+        return symbolConfig.get(code);
+    }
+
+//    public HashMap<String, Boolean> getEnabledCodes() {
+//        return (HashMap<String, Boolean>) enabledCodes.clone();
 //    }
 }

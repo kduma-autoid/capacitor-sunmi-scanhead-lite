@@ -41,7 +41,7 @@ export default config;
 * [`setTrigger(...)`](#settrigger)
 * [`beep()`](#beep)
 * [`vibrate()`](#vibrate)
-* [`createWriteContext()`](#createwritecontext)
+* [`createWriteContext(...)`](#createwritecontext)
 * [`commitWriteContext()`](#commitwritecontext)
 * [`discardWriteContext()`](#discardwritecontext)
 * [`setOutputType(...)`](#setoutputtype)
@@ -182,13 +182,17 @@ Vibrate
 --------------------
 
 
-### createWriteContext()
+### createWriteContext(...)
 
 ```typescript
-createWriteContext() => Promise<void>
+createWriteContext(options?: CreateWriteContextOptions | undefined) => Promise<void>
 ```
 
 Prepares transaction for writing settings to scanner
+
+| Param         | Type                                                                            |
+| ------------- | ------------------------------------------------------------------------------- |
+| **`options`** | <code><a href="#createwritecontextoptions">CreateWriteContextOptions</a></code> |
 
 --------------------
 
@@ -585,6 +589,13 @@ Removes all listeners
 | **`enabled`** | <code>boolean</code> | Enable or disable trigger button | <code>true</code> |
 
 
+#### CreateWriteContextOptions
+
+| Prop       | Type                                                                                | Description                                   | Default                                                            |
+| ---------- | ----------------------------------------------------------------------------------- | --------------------------------------------- | ------------------------------------------------------------------ |
+| **`type`** | <code><a href="#writecontexttype">WriteContextType</a> \| WriteContextType[]</code> | Selects write context type you want to create | <code>[WriteContextType.Service, WriteContextType.Decoders]</code> |
+
+
 #### SetOutputTypeDisabledOptions
 
 | Prop       | Type                                                       | Description      |
@@ -822,6 +833,14 @@ Callback to receive scan stop event broadcasted by the scanner
 | **`SM_SS_1101`**        | <code>"SM_SS_1101"</code>        |
 | **`HONEYWELL_5703`**    | <code>"HONEYWELL_5703"</code>    |
 | **`UNKNOWN`**           | <code>"UNKNOWN"</code>           |
+
+
+#### WriteContextType
+
+| Members        | Value                   | Description                                                                                                 |
+| -------------- | ----------------------- | ----------------------------------------------------------------------------------------------------------- |
+| **`Service`**  | <code>"service"</code>  | Service write context type, permits reading and writing of scanner related settings                         |
+| **`Decoders`** | <code>"decoders"</code> | Decoder write context type, permits enabling or disabling of barcode symbologies, and changing its settings |
 
 
 #### OutputMode

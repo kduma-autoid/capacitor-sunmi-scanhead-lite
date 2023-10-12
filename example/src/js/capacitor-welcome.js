@@ -5,7 +5,7 @@ import {
   OutputMode,
   ScanMode,
   ScanResultCodeIDEnum, SpecificSceneEnum,
-  SunmiScanHead
+  SunmiScanHead, WriteContextType
 } from "../../../src";
 import {WebViewWatchDog} from "@kduma-autoid/capacitor-webview-watchdog";
 
@@ -82,6 +82,8 @@ window.customElements.define(
           <button class="button" id="setTrigger0">setTrigger(false)</button>
           <hr>
           <button class="button" id="createWriteContext">createWriteContext()</button>
+          <button class="button" id="createWriteContextService">createWriteContext(Service)</button>
+          <button class="button" id="createWriteContextDecoders">createWriteContext(Decoders)</button>
           <button class="button" id="commitWriteContext">commitWriteContext()</button>
           <button class="button" id="discardWriteContext">discardWriteContext()</button>
           <hr>
@@ -223,9 +225,34 @@ window.customElements.define(
 
       self.shadowRoot.querySelector('#createWriteContext').addEventListener('click', async function (e) {
         try {
-          await SunmiScanHead.createWriteContext();
+          await SunmiScanHead.createWriteContext({
+            // type: [
+            //     WriteContextType.Decoders,
+            //     WriteContextType.Service
+            // ]
+          });
         } catch (e) {
           printToOutput("createWriteContext() - ERROR", { message: e.message, code: e.code });
+        }
+      });
+
+      self.shadowRoot.querySelector('#createWriteContextService').addEventListener('click', async function (e) {
+        try {
+          await SunmiScanHead.createWriteContext({
+            type: WriteContextType.Service
+          });
+        } catch (e) {
+          printToOutput("createWriteContext(Service) - ERROR", { message: e.message, code: e.code });
+        }
+      });
+
+      self.shadowRoot.querySelector('#createWriteContextDecoders').addEventListener('click', async function (e) {
+        try {
+          await SunmiScanHead.createWriteContext({
+            type: WriteContextType.Decoders
+          });
+        } catch (e) {
+          printToOutput("createWriteContext(Decoders) - ERROR", { message: e.message, code: e.code });
         }
       });
 
