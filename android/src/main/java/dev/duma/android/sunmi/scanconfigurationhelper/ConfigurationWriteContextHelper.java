@@ -2,51 +2,111 @@ package dev.duma.android.sunmi.scanconfigurationhelper;
 
 import android.os.RemoteException;
 
+import java.util.EnumSet;
+
+import dev.duma.android.sunmi.scanconfigurationhelper.config.CodeFamiliesConfiguration;
 import dev.duma.android.sunmi.scanconfigurationhelper.config.ServiceConfiguration;
+import dev.duma.android.sunmi.scanconfigurationhelper.enums.WriteContextTypeEnum;
 
 public class ConfigurationWriteContextHelper implements IConfigurationWriteContextHelper {
     private final IScanConfigurationHelper scanConfigurationHelper;
 
-    private ServiceConfiguration writeContext;
+    private ServiceConfiguration serviceWriteContext;
+    private CodeFamiliesConfiguration codeFamiliesWriteContext;
+    private EnumSet<WriteContextTypeEnum> types = EnumSet.noneOf(WriteContextTypeEnum.class);
 
     public ConfigurationWriteContextHelper(IScanConfigurationHelper scanConfigurationHelper) {
         this.scanConfigurationHelper = scanConfigurationHelper;
     }
 
     @Override
-    public void createWriteContext(IContextCreated callback) throws RemoteException {
-        if(hasWriteContext()) discardWriteContext();
+    public void createWriteContext(IContextCreated callback, WriteContextTypeEnum type) throws RemoteException {
+        createWriteContext(callback, EnumSet.of(type));
+    }
 
-        scanConfigurationHelper.loadServiceConfig(configuration -> {
-            this.writeContext = configuration;
+    @Override
+    public void createWriteContext(IContextCreated callback, EnumSet<WriteContextTypeEnum> types) throws RemoteException {
+        if(hasWriteContextOfAnyType()) discardWriteContext();
 
-            callback.onCreated(configuration);
-        });
+        this.types = types;
+
+        if(types.contains(WriteContextTypeEnum.Service) && types.contains(WriteContextTypeEnum.CodeFamilies)) {
+            scanConfigurationHelper.loadServiceConfig(serviceConfiguration -> {
+                this.serviceWriteContext = serviceConfiguration;
+                scanConfigurationHelper.loadCodeFamiliesConfig(codeFamiliesConfiguration -> {
+                    this.codeFamiliesWriteContext = codeFamiliesConfiguration;
+                    callback.onCreated(serviceWriteContext, codeFamiliesWriteContext);
+                });
+            });
+        } else if(types.contains(WriteContextTypeEnum.Service) && !types.contains(WriteContextTypeEnum.CodeFamilies)) {
+            scanConfigurationHelper.loadServiceConfig(serviceConfiguration -> {
+                this.serviceWriteContext = serviceConfiguration;
+                callback.onCreated(serviceWriteContext, null);
+            });
+        } else if(!types.contains(WriteContextTypeEnum.Service) && types.contains(WriteContextTypeEnum.CodeFamilies)) {
+            scanConfigurationHelper.loadCodeFamiliesConfig(codeFamiliesConfiguration -> {
+                this.codeFamiliesWriteContext = codeFamiliesConfiguration;
+                callback.onCreated(null, codeFamiliesWriteContext);
+            });
+        }
     }
 
     @Override
     public void commitWriteContext() throws RemoteException {
-        if(!hasWriteContext()) throw new RuntimeException("No opened write context has been found!");
+        if(!hasWriteContextOfAnyType())
+            throw new RuntimeException("No opened write context has been found!");
 
-        scanConfigurationHelper.persistServiceConfig(this.writeContext);
+        if(types.contains(WriteContextTypeEnum.Service)) {
+            scanConfigurationHelper.persistServiceConfig(this.serviceWriteContext);
+        }
+
+        if(types.contains(WriteContextTypeEnum.CodeFamilies)) {
+            scanConfigurationHelper.persistCodeFamiliesConfig(this.codeFamiliesWriteContext);
+        }
 
         discardWriteContext();
     }
 
     @Override
     public void discardWriteContext() {
-        this.writeContext = null;
+        if(types.contains(WriteContextTypeEnum.Service)) {
+            this.serviceWriteContext = null;
+        }
+
+        if(types.contains(WriteContextTypeEnum.CodeFamilies)) {
+            this.codeFamiliesWriteContext = null;
+        }
     }
 
     @Override
-    public boolean hasWriteContext() {
-        return this.writeContext != null;
+    public boolean hasWriteContextOfAnyType() {
+        return hasWriteContextOf(WriteContextTypeEnum.Service) || hasWriteContextOf(WriteContextTypeEnum.CodeFamilies);
     }
 
     @Override
-    public ServiceConfiguration getWriteContext() {
-        if(!hasWriteContext()) throw new RuntimeException("No opened write context has been found!");
+    public boolean hasWriteContextOf(WriteContextTypeEnum type) {
+        if(type == WriteContextTypeEnum.Service && types.contains(WriteContextTypeEnum.Service)) {
+            return this.serviceWriteContext != null;
+        }
 
-        return writeContext;
+        if(type == WriteContextTypeEnum.CodeFamilies && types.contains(WriteContextTypeEnum.CodeFamilies)) {
+            return this.codeFamiliesWriteContext != null;
+        }
+
+        return false;
+    }
+
+    @Override
+    public ServiceConfiguration getServiceWriteContext() {
+        if(!hasWriteContextOf(WriteContextTypeEnum.Service)) throw new RuntimeException("No opened Service write context has been found!");
+
+        return serviceWriteContext;
+    }
+
+    @Override
+    public CodeFamiliesConfiguration getCodeFamiliesWriteContext() {
+        if(!hasWriteContextOf(WriteContextTypeEnum.CodeFamilies)) throw new RuntimeException("No opened CodeFamilies write context has been found!");
+
+        return codeFamiliesWriteContext;
     }
 }

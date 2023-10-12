@@ -229,6 +229,27 @@ export interface SetTriggerOptions {
   enabled?: boolean;
 }
 
+export interface CreateWriteContextOptions {
+  /**
+   * Selects write context type you want to create
+   *
+   * @default [WriteContextType.Service, WriteContextType.Decoders]
+   */
+  type: WriteContextType|WriteContextType[],
+}
+
+export enum WriteContextType {
+  /**
+   * Service write context type, permits reading and writing of scanner related settings
+   */
+  Service = "service",
+
+  /**
+   * Decoder write context type, permits enabling or disabling of barcode symbologies, and changing its settings
+   */
+  Decoders = "decoders",
+}
+
 export interface setScanResultCodeIDOptions {
   /**
    * Selects variant of code type returned with scan result
@@ -536,7 +557,7 @@ export interface SunmiScanHeadPlugin {
   /**
    * Prepares transaction for writing settings to scanner
    */
-  createWriteContext(): Promise<void>;
+  createWriteContext(options?: CreateWriteContextOptions): Promise<void>;
 
   /**
    * Write settings to scanner
