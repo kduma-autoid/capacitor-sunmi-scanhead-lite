@@ -245,7 +245,7 @@ public class SunmiScanHeadPlugin extends Plugin {
                 }
             }
 
-            c.resolve();
+            c.resolve(response);
         });
     }
 
@@ -342,7 +342,7 @@ public class SunmiScanHeadPlugin extends Plugin {
                 response.put("sleep", configuration.getTriggerContinuousTime());
             }
 
-            c.resolve();
+            c.resolve(response);
         });
     }
 
