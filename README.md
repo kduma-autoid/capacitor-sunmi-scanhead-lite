@@ -44,23 +44,41 @@ export default config;
 * [`createWriteContext(...)`](#createwritecontext)
 * [`commitWriteContext()`](#commitwritecontext)
 * [`discardWriteContext()`](#discardwritecontext)
+* [`getOutputType()`](#getoutputtype)
 * [`setOutputType(...)`](#setoutputtype)
+* [`getTriggerMethod()`](#gettriggermethod)
 * [`setTriggerMethod(...)`](#settriggermethod)
+* [`getScanResultCodeID()`](#getscanresultcodeid)
 * [`setScanResultCodeID(...)`](#setscanresultcodeid)
+* [`isAdvancedFormatEnabled()`](#isadvancedformatenabled)
 * [`setAdvancedFormatEnabled(...)`](#setadvancedformatenabled)
+* [`isBeep()`](#isbeep)
 * [`setBeep(...)`](#setbeep)
+* [`isVibrate()`](#isvibrate)
 * [`setVibrate(...)`](#setvibrate)
+* [`isOutputBroadcastEnabled()`](#isoutputbroadcastenabled)
 * [`setOutputBroadcastEnabled(...)`](#setoutputbroadcastenabled)
+* [`getBroadcastConfiguration()`](#getbroadcastconfiguration)
 * [`setBroadcastConfiguration(...)`](#setbroadcastconfiguration)
+* [`getOutputEncodingCode()`](#getoutputencodingcode)
 * [`setOutputEncodingCode(...)`](#setoutputencodingcode)
+* [`isVirtualFloatingScanButton()`](#isvirtualfloatingscanbutton)
 * [`setVirtualFloatingScanButton(...)`](#setvirtualfloatingscanbutton)
+* [`getCenterFlagScan()`](#getcenterflagscan)
 * [`setCenterFlagScan(...)`](#setcenterflagscan)
+* [`isFlash()`](#isflash)
 * [`setFlash(...)`](#setflash)
+* [`getScene()`](#getscene)
 * [`setScene(...)`](#setscene)
+* [`isRemoveGroupSeparator()`](#isremovegroupseparator)
 * [`setRemoveGroupSeparator(...)`](#setremovegroupseparator)
+* [`getPrefix()`](#getprefix)
 * [`setPrefix(...)`](#setprefix)
+* [`getPrefixCharactersRemoved()`](#getprefixcharactersremoved)
 * [`setPrefixCharactersRemoved(...)`](#setprefixcharactersremoved)
+* [`getSuffix()`](#getsuffix)
 * [`setSuffix(...)`](#setsuffix)
+* [`getSuffixCharactersRemoved()`](#getsuffixcharactersremoved)
 * [`setSuffixCharactersRemoved(...)`](#setsuffixcharactersremoved)
 * [`getBarcodesList()`](#getbarcodeslist)
 * [`getBarcode(...)`](#getbarcode)
@@ -251,6 +269,17 @@ Discard transaction for writing settings to scanner
 --------------------
 
 
+### getOutputType()
+
+```typescript
+getOutputType() => Promise<GetOutputTypeResponse>
+```
+
+**Returns:** <code>Promise&lt;<a href="#getoutputtyperesponse">GetOutputTypeResponse</a>&gt;</code>
+
+--------------------
+
+
 ### setOutputType(...)
 
 ```typescript
@@ -262,6 +291,17 @@ Set output mode
 | Param         | Type                                                                  |
 | ------------- | --------------------------------------------------------------------- |
 | **`options`** | <code><a href="#setoutputtypeoptions">SetOutputTypeOptions</a></code> |
+
+--------------------
+
+
+### getTriggerMethod()
+
+```typescript
+getTriggerMethod() => Promise<GetTriggerMethodResponse>
+```
+
+**Returns:** <code>Promise&lt;<a href="#gettriggermethodresponse">GetTriggerMethodResponse</a>&gt;</code>
 
 --------------------
 
@@ -281,17 +321,39 @@ Set scan mode
 --------------------
 
 
+### getScanResultCodeID()
+
+```typescript
+getScanResultCodeID() => Promise<GetScanResultCodeIDResponse>
+```
+
+**Returns:** <code>Promise&lt;<a href="#getscanresultcodeidresponse">GetScanResultCodeIDResponse</a>&gt;</code>
+
+--------------------
+
+
 ### setScanResultCodeID(...)
 
 ```typescript
-setScanResultCodeID(options?: setScanResultCodeIDOptions | undefined) => Promise<void>
+setScanResultCodeID(options?: SetScanResultCodeIDOptions | undefined) => Promise<void>
 ```
 
 Selects variant of code type returned with scan result
 
 | Param         | Type                                                                              |
 | ------------- | --------------------------------------------------------------------------------- |
-| **`options`** | <code><a href="#setscanresultcodeidoptions">setScanResultCodeIDOptions</a></code> |
+| **`options`** | <code><a href="#setscanresultcodeidoptions">SetScanResultCodeIDOptions</a></code> |
+
+--------------------
+
+
+### isAdvancedFormatEnabled()
+
+```typescript
+isAdvancedFormatEnabled() => Promise<IsAdvancedFormatEnabledResponse>
+```
+
+**Returns:** <code>Promise&lt;<a href="#isadvancedformatenabledresponse">IsAdvancedFormatEnabledResponse</a>&gt;</code>
 
 --------------------
 
@@ -299,14 +361,25 @@ Selects variant of code type returned with scan result
 ### setAdvancedFormatEnabled(...)
 
 ```typescript
-setAdvancedFormatEnabled(options?: setAdvancedFormatEnabledOptions | undefined) => Promise<void>
+setAdvancedFormatEnabled(options?: SetAdvancedFormatEnabledOptions | undefined) => Promise<void>
 ```
 
 Enable or disable advanced formatting options provided in configuration
 
 | Param         | Type                                                                                        |
 | ------------- | ------------------------------------------------------------------------------------------- |
-| **`options`** | <code><a href="#setadvancedformatenabledoptions">setAdvancedFormatEnabledOptions</a></code> |
+| **`options`** | <code><a href="#setadvancedformatenabledoptions">SetAdvancedFormatEnabledOptions</a></code> |
+
+--------------------
+
+
+### isBeep()
+
+```typescript
+isBeep() => Promise<IsBeepResponse>
+```
+
+**Returns:** <code>Promise&lt;<a href="#isbeepresponse">IsBeepResponse</a>&gt;</code>
 
 --------------------
 
@@ -326,17 +399,39 @@ Enable or disable sound prompts on scan
 --------------------
 
 
+### isVibrate()
+
+```typescript
+isVibrate() => Promise<IsVibrateResponse>
+```
+
+**Returns:** <code>Promise&lt;<a href="#isvibrateresponse">IsVibrateResponse</a>&gt;</code>
+
+--------------------
+
+
 ### setVibrate(...)
 
 ```typescript
-setVibrate(options?: setVibrateOptions | undefined) => Promise<void>
+setVibrate(options?: SetVibrateOptions | undefined) => Promise<void>
 ```
 
 Enable or disable vibration prompts on scan
 
 | Param         | Type                                                            |
 | ------------- | --------------------------------------------------------------- |
-| **`options`** | <code><a href="#setvibrateoptions">setVibrateOptions</a></code> |
+| **`options`** | <code><a href="#setvibrateoptions">SetVibrateOptions</a></code> |
+
+--------------------
+
+
+### isOutputBroadcastEnabled()
+
+```typescript
+isOutputBroadcastEnabled() => Promise<IsOutputBroadcastEnableResponse>
+```
+
+**Returns:** <code>Promise&lt;<a href="#isoutputbroadcastenableresponse">IsOutputBroadcastEnableResponse</a>&gt;</code>
 
 --------------------
 
@@ -344,14 +439,25 @@ Enable or disable vibration prompts on scan
 ### setOutputBroadcastEnabled(...)
 
 ```typescript
-setOutputBroadcastEnabled(options?: setOutputBroadcastEnabledOutput | undefined) => Promise<void>
+setOutputBroadcastEnabled(options?: SetOutputBroadcastEnabledOutput | undefined) => Promise<void>
 ```
 
 Enable or disable scan result broadcast
 
 | Param         | Type                                                                                        |
 | ------------- | ------------------------------------------------------------------------------------------- |
-| **`options`** | <code><a href="#setoutputbroadcastenabledoutput">setOutputBroadcastEnabledOutput</a></code> |
+| **`options`** | <code><a href="#setoutputbroadcastenabledoutput">SetOutputBroadcastEnabledOutput</a></code> |
+
+--------------------
+
+
+### getBroadcastConfiguration()
+
+```typescript
+getBroadcastConfiguration() => Promise<GetBroadcastConfigurationResponse>
+```
+
+**Returns:** <code>Promise&lt;<a href="#getbroadcastconfigurationresponse">GetBroadcastConfigurationResponse</a>&gt;</code>
 
 --------------------
 
@@ -371,6 +477,17 @@ Set broadcast configuration
 --------------------
 
 
+### getOutputEncodingCode()
+
+```typescript
+getOutputEncodingCode() => Promise<GetOutputEncodingCodeResponse>
+```
+
+**Returns:** <code>Promise&lt;<a href="#getoutputencodingcoderesponse">GetOutputEncodingCodeResponse</a>&gt;</code>
+
+--------------------
+
+
 ### setOutputEncodingCode(...)
 
 ```typescript
@@ -382,6 +499,17 @@ Set output encoding/character set setting
 | Param         | Type                                                                                  |
 | ------------- | ------------------------------------------------------------------------------------- |
 | **`options`** | <code><a href="#setoutputencodingcodeoptions">SetOutputEncodingCodeOptions</a></code> |
+
+--------------------
+
+
+### isVirtualFloatingScanButton()
+
+```typescript
+isVirtualFloatingScanButton() => Promise<IsVirtualFloatingScanButtonResponse>
+```
+
+**Returns:** <code>Promise&lt;<a href="#isvirtualfloatingscanbuttonresponse">IsVirtualFloatingScanButtonResponse</a>&gt;</code>
 
 --------------------
 
@@ -401,6 +529,17 @@ Enable or disable the virtual floating scan button
 --------------------
 
 
+### getCenterFlagScan()
+
+```typescript
+getCenterFlagScan() => Promise<GetCenterFlagScanResponse>
+```
+
+**Returns:** <code>Promise&lt;<a href="#getcenterflagscanresponse">GetCenterFlagScanResponse</a>&gt;</code>
+
+--------------------
+
+
 ### setCenterFlagScan(...)
 
 ```typescript
@@ -412,6 +551,17 @@ Sets center point decoding mode
 | Param         | Type                                                                          |
 | ------------- | ----------------------------------------------------------------------------- |
 | **`options`** | <code><a href="#setcenterflagscanoptions">SetCenterFlagScanOptions</a></code> |
+
+--------------------
+
+
+### isFlash()
+
+```typescript
+isFlash() => Promise<IsFlashResponse>
+```
+
+**Returns:** <code>Promise&lt;<a href="#isflashresponse">IsFlashResponse</a>&gt;</code>
 
 --------------------
 
@@ -433,6 +583,17 @@ Hardware support limited
 --------------------
 
 
+### getScene()
+
+```typescript
+getScene() => Promise<GetSceneResponse>
+```
+
+**Returns:** <code>Promise&lt;<a href="#getsceneresponse">GetSceneResponse</a>&gt;</code>
+
+--------------------
+
+
 ### setScene(...)
 
 ```typescript
@@ -446,6 +607,17 @@ Hardware support limited
 | Param         | Type                                                        |
 | ------------- | ----------------------------------------------------------- |
 | **`options`** | <code><a href="#setsceneoptions">SetSceneOptions</a></code> |
+
+--------------------
+
+
+### isRemoveGroupSeparator()
+
+```typescript
+isRemoveGroupSeparator() => Promise<IsRemoveGroupSeparatorResponse>
+```
+
+**Returns:** <code>Promise&lt;<a href="#isremovegroupseparatorresponse">IsRemoveGroupSeparatorResponse</a>&gt;</code>
 
 --------------------
 
@@ -467,6 +639,17 @@ Hardware support limited
 --------------------
 
 
+### getPrefix()
+
+```typescript
+getPrefix() => Promise<GetPrefixResponse>
+```
+
+**Returns:** <code>Promise&lt;<a href="#getprefixresponse">GetPrefixResponse</a>&gt;</code>
+
+--------------------
+
+
 ### setPrefix(...)
 
 ```typescript
@@ -478,6 +661,17 @@ Sets the prefix to be prepended to the barcode data
 | Param         | Type                                                          |
 | ------------- | ------------------------------------------------------------- |
 | **`options`** | <code><a href="#setprefixoptions">SetPrefixOptions</a></code> |
+
+--------------------
+
+
+### getPrefixCharactersRemoved()
+
+```typescript
+getPrefixCharactersRemoved() => Promise<GetPrefixCharactersRemovedResponse>
+```
+
+**Returns:** <code>Promise&lt;<a href="#getprefixcharactersremovedresponse">GetPrefixCharactersRemovedResponse</a>&gt;</code>
 
 --------------------
 
@@ -499,6 +693,17 @@ Hardware support limited
 --------------------
 
 
+### getSuffix()
+
+```typescript
+getSuffix() => Promise<GetSuffixResponse>
+```
+
+**Returns:** <code>Promise&lt;<a href="#getsuffixresponse">GetSuffixResponse</a>&gt;</code>
+
+--------------------
+
+
 ### setSuffix(...)
 
 ```typescript
@@ -510,6 +715,17 @@ Sets the suffix to be appended to the barcode data
 | Param         | Type                                                          |
 | ------------- | ------------------------------------------------------------- |
 | **`options`** | <code><a href="#setsuffixoptions">SetSuffixOptions</a></code> |
+
+--------------------
+
+
+### getSuffixCharactersRemoved()
+
+```typescript
+getSuffixCharactersRemoved() => Promise<GetSuffixCharactersRemovedResponse>
+```
+
+**Returns:** <code>Promise&lt;<a href="#getsuffixcharactersremovedresponse">GetSuffixCharactersRemovedResponse</a>&gt;</code>
 
 --------------------
 
@@ -1074,6 +1290,35 @@ Removes all listeners
 | **`type`** | <code><a href="#writecontexttype">WriteContextType</a> \| WriteContextType[]</code> | Selects write context type you want to create | <code>[WriteContextType.Service, WriteContextType.Decoders]</code> |
 
 
+#### GetOutputTypeDisabledResponse
+
+| Prop       | Type                                                       | Description      |
+| ---------- | ---------------------------------------------------------- | ---------------- |
+| **`mode`** | <code><a href="#outputmode">OutputMode.Disabled</a></code> | No direct output |
+
+
+#### GetOutputTypeKeystrokeResponse
+
+| Prop           | Type                                                        | Description                                                       |
+| -------------- | ----------------------------------------------------------- | ----------------------------------------------------------------- |
+| **`mode`**     | <code><a href="#outputmode">OutputMode.Keystroke</a></code> | Virtual Keyboard output                                           |
+| **`interval`** | <code>number</code>                                         | Time to sleep between keystrokes                                  |
+| **`tab`**      | <code>boolean</code>                                        | Send a tab keystroke after the barcode                            |
+| **`enter`**    | <code>boolean</code>                                        | Send an enter keystroke after the barcode                         |
+| **`space`**    | <code>boolean</code>                                        | Send a space keystroke after the barcode Hardware support limited |
+
+
+#### GetOutputTypeDirectFillResponse
+
+| Prop          | Type                                                                                                                       | Description                                                       |
+| ------------- | -------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- |
+| **`mode`**    | <code><a href="#outputmode">OutputMode.DirectFill</a> \| <a href="#outputmode">OutputMode.DirectFillWithReplace</a></code> | Fill in EditText directly                                         |
+| **`tab`**     | <code>boolean</code>                                                                                                       | Send a tab keystroke after the barcode                            |
+| **`enter`**   | <code>boolean</code>                                                                                                       | Send an enter keystroke after the barcode                         |
+| **`space`**   | <code>boolean</code>                                                                                                       | Send a space keystroke after the barcode Hardware support limited |
+| **`asEvent`** | <code>boolean</code>                                                                                                       | Convert characters into keys                                      |
+
+
 #### SetOutputTypeDisabledOptions
 
 | Prop       | Type                                                       | Description      |
@@ -1103,6 +1348,23 @@ Removes all listeners
 | **`asEvent`** | <code>boolean</code>                                                                                                       | Convert characters into keys                                      | <code>false</code> |
 
 
+#### GetTriggerMethodTriggerPulseResponse
+
+| Prop          | Type                                                                                            | Description                                                                  |
+| ------------- | ----------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| **`mode`**    | <code><a href="#scanmode">ScanMode.Trigger</a> \| <a href="#scanmode">ScanMode.Pulse</a></code> |                                                                              |
+| **`timeout`** | <code>number</code>                                                                             | Timeout after which the scanner will stop scanning if no barcode is detected |
+
+
+#### GetTriggerMethodContinuousLongPressResponse
+
+| Prop          | Type                                                                                                   | Description                                                                  |
+| ------------- | ------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------- |
+| **`mode`**    | <code><a href="#scanmode">ScanMode.Continuous</a> \| <a href="#scanmode">ScanMode.LongPress</a></code> |                                                                              |
+| **`timeout`** | <code>number</code>                                                                                    | Timeout after which the scanner will stop scanning if no barcode is detected |
+| **`sleep`**   | <code>number</code>                                                                                    | Time to sleep between scans                                                  |
+
+
 #### SetTriggerMethodTriggerPulseOptions
 
 | Prop          | Type                                                                                            | Description                                                                  | Default           |
@@ -1120,18 +1382,39 @@ Removes all listeners
 | **`sleep`**   | <code>number</code>                                                                                    | Time to sleep between scans                                                  | <code>500</code>  |
 
 
-#### setScanResultCodeIDOptions
+#### GetScanResultCodeIDResponse
+
+| Prop       | Type                                                                  | Description                                            |
+| ---------- | --------------------------------------------------------------------- | ------------------------------------------------------ |
+| **`type`** | <code><a href="#scanresultcodeidenum">ScanResultCodeIDEnum</a></code> | Selects variant of code type returned with scan result |
+
+
+#### SetScanResultCodeIDOptions
 
 | Prop       | Type                                                                  | Description                                            | Default                                |
 | ---------- | --------------------------------------------------------------------- | ------------------------------------------------------ | -------------------------------------- |
 | **`type`** | <code><a href="#scanresultcodeidenum">ScanResultCodeIDEnum</a></code> | Selects variant of code type returned with scan result | <code>ScanResultCodeIDEnum.None</code> |
 
 
-#### setAdvancedFormatEnabledOptions
+#### IsAdvancedFormatEnabledResponse
+
+| Prop          | Type                 | Description                                                             |
+| ------------- | -------------------- | ----------------------------------------------------------------------- |
+| **`enabled`** | <code>boolean</code> | Enable or disable advanced formatting options provided in configuration |
+
+
+#### SetAdvancedFormatEnabledOptions
 
 | Prop          | Type                 | Description                                                             | Default           |
 | ------------- | -------------------- | ----------------------------------------------------------------------- | ----------------- |
 | **`enabled`** | <code>boolean</code> | Enable or disable advanced formatting options provided in configuration | <code>true</code> |
+
+
+#### IsBeepResponse
+
+| Prop          | Type                 | Description                             |
+| ------------- | -------------------- | --------------------------------------- |
+| **`enabled`** | <code>boolean</code> | Enable or disable sound prompts on scan |
 
 
 #### SetBeepOptions
@@ -1141,18 +1424,43 @@ Removes all listeners
 | **`enabled`** | <code>boolean</code> | Enable or disable sound prompts on scan | <code>true</code> |
 
 
-#### setVibrateOptions
+#### IsVibrateResponse
+
+| Prop          | Type                 | Description                                 |
+| ------------- | -------------------- | ------------------------------------------- |
+| **`enabled`** | <code>boolean</code> | Enable or disable vibration prompts on scan |
+
+
+#### SetVibrateOptions
 
 | Prop          | Type                 | Description                                 | Default           |
 | ------------- | -------------------- | ------------------------------------------- | ----------------- |
 | **`enabled`** | <code>boolean</code> | Enable or disable vibration prompts on scan | <code>true</code> |
 
 
-#### setOutputBroadcastEnabledOutput
+#### IsOutputBroadcastEnableResponse
+
+| Prop          | Type                 | Description                             |
+| ------------- | -------------------- | --------------------------------------- |
+| **`enabled`** | <code>boolean</code> | Enable or disable scan result broadcast |
+
+
+#### SetOutputBroadcastEnabledOutput
 
 | Prop          | Type                 | Description                             | Default           |
 | ------------- | -------------------- | --------------------------------------- | ----------------- |
 | **`enabled`** | <code>boolean</code> | Enable or disable scan result broadcast | <code>true</code> |
+
+
+#### GetBroadcastConfigurationResponse
+
+| Prop                  | Type                         | Description                                                                               |
+| --------------------- | ---------------------------- | ----------------------------------------------------------------------------------------- |
+| **`scanned_intent`**  | <code>string</code>          | Intent name broadcasted when a barcode is scanned                                         |
+| **`start_intent`**    | <code>string \| false</code> | Intent name broadcasted when scanner starts scanning Set to `false` to disable            |
+| **`end_intent`**      | <code>string \| false</code> | Intent name broadcasted when scanner stops scanning Set to `false` to disable             |
+| **`intent_data_key`** | <code>string</code>          | Intent extra key for barcode plain text data in scan result intent (`scanned_intent`)     |
+| **`intent_byte_key`** | <code>string</code>          | Intent extra key for barcode base64 encoded data in scan result intent (`scanned_intent`) |
 
 
 #### SetBroadcastConfigurationOptions
@@ -1166,11 +1474,25 @@ Removes all listeners
 | **`intent_byte_key`** | <code>string</code>          | Intent extra key for barcode base64 encoded data in scan result intent (`scanned_intent`) | <code>source_byte</code>                                 |
 
 
+#### GetOutputEncodingCodeResponse
+
+| Prop           | Type                                                                      | Description                               |
+| -------------- | ------------------------------------------------------------------------- | ----------------------------------------- |
+| **`encoding`** | <code><a href="#outputencodingcodeenum">OutputEncodingCodeEnum</a></code> | Set output encoding/character set setting |
+
+
 #### SetOutputEncodingCodeOptions
 
 | Prop           | Type                                                                      | Description                               | Default                                  |
 | -------------- | ------------------------------------------------------------------------- | ----------------------------------------- | ---------------------------------------- |
 | **`encoding`** | <code><a href="#outputencodingcodeenum">OutputEncodingCodeEnum</a></code> | Set output encoding/character set setting | <code>OutputEncodingCodeEnum.UTF8</code> |
+
+
+#### IsVirtualFloatingScanButtonResponse
+
+| Prop          | Type                 | Description                                    |
+| ------------- | -------------------- | ---------------------------------------------- |
+| **`enabled`** | <code>boolean</code> | Enable or disable virtual floating scan button |
 
 
 #### SetVirtualFloatingScanButtonOptions
@@ -1180,11 +1502,25 @@ Removes all listeners
 | **`enabled`** | <code>boolean</code> | Enable or disable virtual floating scan button | <code>true</code> |
 
 
+#### GetCenterFlagScanResponse
+
+| Prop       | Type                                                                            | Description                        |
+| ---------- | ------------------------------------------------------------------------------- | ---------------------------------- |
+| **`mode`** | <code><a href="#centerdecodingsettingenum">CenterDecodingSettingEnum</a></code> | Selects center point decoding mode |
+
+
 #### SetCenterFlagScanOptions
 
 | Prop       | Type                                                                            | Description                        | Default                                         |
 | ---------- | ------------------------------------------------------------------------------- | ---------------------------------- | ----------------------------------------------- |
 | **`mode`** | <code><a href="#centerdecodingsettingenum">CenterDecodingSettingEnum</a></code> | Selects center point decoding mode | <code>CenterDecodingSettingEnum.Disabled</code> |
+
+
+#### IsFlashResponse
+
+| Prop          | Type                 | Description                            |
+| ------------- | -------------------- | -------------------------------------- |
+| **`enabled`** | <code>boolean</code> | Enable or disable scanner illumination |
 
 
 #### SetFlashOptions
@@ -1194,11 +1530,25 @@ Removes all listeners
 | **`enabled`** | <code>boolean</code> | Enable or disable scanner illumination | <code>true</code> |
 
 
+#### GetSceneResponse
+
+| Prop        | Type                                                            | Description                   |
+| ----------- | --------------------------------------------------------------- | ----------------------------- |
+| **`scene`** | <code><a href="#specificsceneenum">SpecificSceneEnum</a></code> | Selects scanning scene preset |
+
+
 #### SetSceneOptions
 
 | Prop        | Type                                                            | Description                   | Default                                |
 | ----------- | --------------------------------------------------------------- | ----------------------------- | -------------------------------------- |
 | **`scene`** | <code><a href="#specificsceneenum">SpecificSceneEnum</a></code> | Selects scanning scene preset | <code>SpecificSceneEnum.Default</code> |
+
+
+#### IsRemoveGroupSeparatorResponse
+
+| Prop          | Type                 | Description                                                 |
+| ------------- | -------------------- | ----------------------------------------------------------- |
+| **`enabled`** | <code>boolean</code> | Enable or disable the removal of group separator characters |
 
 
 #### SetRemoveGroupSeparatorOptions
@@ -1208,11 +1558,25 @@ Removes all listeners
 | **`enabled`** | <code>boolean</code> | Enable or disable the removal of group separator characters | <code>true</code> |
 
 
+#### GetPrefixResponse
+
+| Prop          | Type                         | Description                                                                                         |
+| ------------- | ---------------------------- | --------------------------------------------------------------------------------------------------- |
+| **`content`** | <code>string \| false</code> | Prefix content to be prepended to the barcode data When set to `false`, the prefix will be disabled |
+
+
 #### SetPrefixOptions
 
 | Prop          | Type                         | Description                                                                                         | Default            |
 | ------------- | ---------------------------- | --------------------------------------------------------------------------------------------------- | ------------------ |
 | **`content`** | <code>string \| false</code> | Prefix content to be prepended to the barcode data When set to `false`, the prefix will be disabled | <code>false</code> |
+
+
+#### GetPrefixCharactersRemovedResponse
+
+| Prop         | Type                | Description                                                               |
+| ------------ | ------------------- | ------------------------------------------------------------------------- |
+| **`length`** | <code>number</code> | Number of characters to be removed from the beginning of the barcode data |
 
 
 #### SetPrefixCharactersRemovedOptions
@@ -1222,11 +1586,25 @@ Removes all listeners
 | **`length`** | <code>number</code> | Number of characters to be removed from the beginning of the barcode data | <code>0</code> |
 
 
+#### GetSuffixResponse
+
+| Prop          | Type                         | Description                                                                                        |
+| ------------- | ---------------------------- | -------------------------------------------------------------------------------------------------- |
+| **`content`** | <code>string \| false</code> | Suffix content to be appended to the barcode data When set to `false`, the suffix will be disabled |
+
+
 #### SetSuffixOptions
 
 | Prop          | Type                         | Description                                                                                        | Default            |
 | ------------- | ---------------------------- | -------------------------------------------------------------------------------------------------- | ------------------ |
 | **`content`** | <code>string \| false</code> | Suffix content to be appended to the barcode data When set to `false`, the suffix will be disabled | <code>false</code> |
+
+
+#### GetSuffixCharactersRemovedResponse
+
+| Prop         | Type                | Description                                                         |
+| ------------ | ------------------- | ------------------------------------------------------------------- |
+| **`length`** | <code>number</code> | Number of characters to be removed from the end of the barcode data |
 
 
 #### SetSuffixCharactersRemovedOptions
@@ -1630,9 +2008,19 @@ Removes all listeners
 <code><a href="#scannermodel">ScannerModel</a> | string</code>
 
 
+#### GetOutputTypeResponse
+
+<code><a href="#getoutputtypedisabledresponse">GetOutputTypeDisabledResponse</a> | <a href="#getoutputtypekeystrokeresponse">GetOutputTypeKeystrokeResponse</a> | <a href="#getoutputtypedirectfillresponse">GetOutputTypeDirectFillResponse</a></code>
+
+
 #### SetOutputTypeOptions
 
 <code><a href="#setoutputtypedisabledoptions">SetOutputTypeDisabledOptions</a> | <a href="#setoutputtypekeystrokeoptions">SetOutputTypeKeystrokeOptions</a> | <a href="#setoutputtypedirectfilloptions">SetOutputTypeDirectFillOptions</a></code>
+
+
+#### GetTriggerMethodResponse
+
+<code><a href="#gettriggermethodtriggerpulseresponse">GetTriggerMethodTriggerPulseResponse</a> | <a href="#gettriggermethodcontinuouslongpressresponse">GetTriggerMethodContinuousLongPressResponse</a></code>
 
 
 #### SetTriggerMethodOptions

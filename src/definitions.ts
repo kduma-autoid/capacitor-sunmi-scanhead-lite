@@ -60,6 +60,103 @@ export interface ClearConfigResponse {
   cleared: boolean;
 }
 
+export interface SetTriggerOptions {
+  /**
+   * Enable or disable trigger button
+   *
+   * @default true
+   */
+  enabled?: boolean;
+}
+
+export interface CreateWriteContextOptions {
+  /**
+   * Selects write context type you want to create
+   *
+   * @default [WriteContextType.Service, WriteContextType.Decoders]
+   */
+  type: WriteContextType|WriteContextType[],
+}
+
+export enum WriteContextType {
+  /**
+   * Service write context type, permits reading and writing of scanner related settings
+   */
+  Service = "service",
+
+  /**
+   * Decoder write context type, permits enabling or disabling of barcode symbologies, and changing its settings
+   */
+  Decoders = "decoders",
+}
+
+export type GetOutputTypeResponse = GetOutputTypeDisabledResponse | GetOutputTypeKeystrokeResponse | GetOutputTypeDirectFillResponse;
+
+export interface GetOutputTypeDisabledResponse {
+  /**
+   * No direct output
+   */
+  mode: OutputMode.Disabled;
+}
+
+export interface GetOutputTypeKeystrokeResponse {
+  /**
+   * Virtual Keyboard output
+   */
+  mode: OutputMode.Keystroke;
+
+  /**
+   * Time to sleep between keystrokes
+   */
+  interval: number;
+
+  /**
+   * Send a tab keystroke after the barcode
+   */
+  tab?: boolean;
+
+  /**
+   * Send an enter keystroke after the barcode
+   */
+  enter?: boolean;
+
+  /**
+   * Send a space keystroke after the barcode
+   *
+   * Hardware support limited
+   */
+  space?: boolean;
+}
+
+export interface GetOutputTypeDirectFillResponse {
+  /**
+   * Fill in EditText directly
+   */
+  mode: OutputMode.DirectFill | OutputMode.DirectFillWithReplace;
+
+  /**
+   * Send a tab keystroke after the barcode
+   */
+  tab?: boolean;
+
+  /**
+   * Send an enter keystroke after the barcode
+   */
+  enter?: boolean;
+
+  /**
+   * Send a space keystroke after the barcode
+   *
+   * Hardware support limited
+   */
+  space?: boolean;
+
+  /**
+   * Convert characters into keys
+   */
+  asEvent?: boolean;
+}
+
 export type SetOutputTypeOptions = SetOutputTypeDisabledOptions | SetOutputTypeKeystrokeOptions | SetOutputTypeDirectFillOptions;
 
 export interface SetOutputTypeDisabledOptions {
@@ -165,6 +262,31 @@ export enum OutputMode {
   Disabled = "disabled",
 }
 
+export type GetTriggerMethodResponse = GetTriggerMethodTriggerPulseResponse | GetTriggerMethodContinuousLongPressResponse;
+
+interface GetTriggerMethodTriggerPulseResponse {
+  mode: ScanMode.Trigger | ScanMode.Pulse;
+
+  /**
+   * Timeout after which the scanner will stop scanning if no barcode is detected
+   */
+  timeout: number;
+}
+
+interface GetTriggerMethodContinuousLongPressResponse {
+  mode: ScanMode.Continuous | ScanMode.LongPress;
+
+  /**
+   * Timeout after which the scanner will stop scanning if no barcode is detected
+   */
+  timeout: number;
+
+  /**
+   * Time to sleep between scans
+   */
+  sleep: number;
+}
+
 export type SetTriggerMethodOptions = SetTriggerMethodTriggerPulseOptions | SetTriggerMethodContinuousLongPressOptions;
 
 interface SetTriggerMethodTriggerPulseOptions {
@@ -220,37 +342,14 @@ export enum ScanMode {
   LongPress = "long-press",
 }
 
-export interface SetTriggerOptions {
+export interface GetScanResultCodeIDResponse {
   /**
-   * Enable or disable trigger button
-   *
-   * @default true
+   * Selects variant of code type returned with scan result
    */
-  enabled?: boolean;
+  type: ScanResultCodeIDEnum;
 }
 
-export interface CreateWriteContextOptions {
-  /**
-   * Selects write context type you want to create
-   *
-   * @default [WriteContextType.Service, WriteContextType.Decoders]
-   */
-  type: WriteContextType|WriteContextType[],
-}
-
-export enum WriteContextType {
-  /**
-   * Service write context type, permits reading and writing of scanner related settings
-   */
-  Service = "service",
-
-  /**
-   * Decoder write context type, permits enabling or disabling of barcode symbologies, and changing its settings
-   */
-  Decoders = "decoders",
-}
-
-export interface setScanResultCodeIDOptions {
+export interface SetScanResultCodeIDOptions {
   /**
    * Selects variant of code type returned with scan result
    *
@@ -274,13 +373,27 @@ export enum ScanResultCodeIDEnum {
   SymbolId = "symbol-id",
 }
 
-export interface setAdvancedFormatEnabledOptions {
+export interface IsAdvancedFormatEnabledResponse {
+  /**
+   * Enable or disable advanced formatting options provided in configuration
+   */
+  enabled: boolean;
+}
+
+export interface SetAdvancedFormatEnabledOptions {
   /**
    * Enable or disable advanced formatting options provided in configuration
    *
    * @default true
    */
   enabled?: boolean;
+}
+
+export interface IsBeepResponse {
+  /**
+   * Enable or disable sound prompts on scan
+   */
+  enabled: boolean;
 }
 
 export interface SetBeepOptions {
@@ -292,7 +405,14 @@ export interface SetBeepOptions {
   enabled?: boolean;
 }
 
-export interface setVibrateOptions {
+export interface IsVibrateResponse {
+  /**
+   * Enable or disable vibration prompts on scan
+   */
+  enabled: boolean;
+}
+
+export interface SetVibrateOptions {
   /**
    * Enable or disable vibration prompts on scan
    *
@@ -301,13 +421,51 @@ export interface setVibrateOptions {
   enabled?: boolean;
 }
 
-export interface setOutputBroadcastEnabledOutput {
+export interface IsOutputBroadcastEnableResponse {
+  /**
+   * Enable or disable scan result broadcast
+   */
+  enabled: boolean;
+}
+
+export interface SetOutputBroadcastEnabledOutput {
   /**
    * Enable or disable scan result broadcast
    *
    * @default true
    */
   enabled?: boolean;
+}
+
+export interface GetBroadcastConfigurationResponse {
+  /**
+   * Intent name broadcasted when a barcode is scanned
+   */
+  scanned_intent: string,
+
+  /**
+   * Intent name broadcasted when scanner starts scanning
+   *
+   * Set to `false` to disable
+   */
+  start_intent: string|false,
+
+  /**
+   * Intent name broadcasted when scanner stops scanning
+   *
+   * Set to `false` to disable
+   */
+  end_intent: string|false,
+
+  /**
+   * Intent extra key for barcode plain text data in scan result intent (`scanned_intent`)
+   */
+  intent_data_key: string,
+
+  /**
+   * Intent extra key for barcode base64 encoded data in scan result intent (`scanned_intent`)
+   */
+  intent_byte_key: string
 }
 
 export interface SetBroadcastConfigurationOptions {
@@ -349,6 +507,13 @@ export interface SetBroadcastConfigurationOptions {
    * @default source_byte
    */
   intent_byte_key?: string
+}
+
+export interface GetOutputEncodingCodeResponse {
+  /**
+   * Set output encoding/character set setting
+   */
+  encoding: OutputEncodingCodeEnum;
 }
 
 export interface SetOutputEncodingCodeOptions {
@@ -404,6 +569,13 @@ export enum OutputEncodingCodeEnum {
   GB18030 = "GB18030",
 }
 
+export interface IsVirtualFloatingScanButtonResponse {
+  /**
+   * Enable or disable virtual floating scan button
+   */
+  enabled: boolean;
+}
+
 export interface SetVirtualFloatingScanButtonOptions {
   /**
    * Enable or disable virtual floating scan button
@@ -411,6 +583,13 @@ export interface SetVirtualFloatingScanButtonOptions {
    * @default true
    */
   enabled?: boolean;
+}
+
+export interface GetCenterFlagScanResponse {
+  /**
+   * Selects center point decoding mode
+   */
+  mode: CenterDecodingSettingEnum;
 }
 
 export interface SetCenterFlagScanOptions {
@@ -432,6 +611,13 @@ export enum CenterDecodingSettingEnum {
   CenterFirst = "center-first",
 }
 
+export interface IsFlashResponse {
+  /**
+   * Enable or disable scanner illumination
+   */
+  enabled: boolean;
+}
+
 export interface SetFlashOptions {
   /**
    * Enable or disable scanner illumination
@@ -439,6 +625,13 @@ export interface SetFlashOptions {
    * @default true
    */
   enabled?: boolean;
+}
+
+export interface GetSceneResponse {
+  /**
+   * Selects scanning scene preset
+   */
+  scene: SpecificSceneEnum;
 }
 
 export interface SetSceneOptions {
@@ -459,6 +652,13 @@ export enum SpecificSceneEnum {
   MobileScreenScene = "mobile-screen-scene",
 }
 
+export interface IsRemoveGroupSeparatorResponse {
+  /**
+   * Enable or disable the removal of group separator characters
+   */
+  enabled: boolean;
+}
+
 export interface SetRemoveGroupSeparatorOptions {
   /**
    * Enable or disable the removal of group separator characters
@@ -466,6 +666,15 @@ export interface SetRemoveGroupSeparatorOptions {
    * @default true
    */
   enabled?: boolean;
+}
+
+export interface GetPrefixResponse {
+  /**
+   * Prefix content to be prepended to the barcode data
+   *
+   * When set to `false`, the prefix will be disabled
+   */
+  content: string|false;
 }
 
 export interface SetPrefixOptions {
@@ -479,6 +688,13 @@ export interface SetPrefixOptions {
   content?: string|false;
 }
 
+export interface GetPrefixCharactersRemovedResponse {
+  /**
+   * Number of characters to be removed from the beginning of the barcode data
+   */
+  length: number;
+}
+
 export interface SetPrefixCharactersRemovedOptions {
   /**
    * Number of characters to be removed from the beginning of the barcode data
@@ -486,6 +702,15 @@ export interface SetPrefixCharactersRemovedOptions {
    * @default 0
    */
   length?: number;
+}
+
+export interface GetSuffixResponse {
+  /**
+   * Suffix content to be appended to the barcode data
+   *
+   * When set to `false`, the suffix will be disabled
+   */
+  content: string|false;
 }
 
 export interface SetSuffixOptions {
@@ -497,6 +722,13 @@ export interface SetSuffixOptions {
    * @default false
    */
   content?: string|false;
+}
+
+export interface GetSuffixCharactersRemovedResponse {
+  /**
+   * Number of characters to be removed from the end of the barcode data
+   */
+  length: number;
 }
 
 export interface SetSuffixCharactersRemovedOptions {
@@ -1042,9 +1274,19 @@ export interface SunmiScanHeadPlugin {
   discardWriteContext(): Promise<void>;
 
   /**
+   *
+   */
+  getOutputType(): Promise<GetOutputTypeResponse>;
+
+  /**
    * Set output mode
    */
   setOutputType(options: SetOutputTypeOptions): Promise<void>;
+
+  /**
+   *
+   */
+  getTriggerMethod(): Promise<GetTriggerMethodResponse>;
 
   /**
    * Set scan mode
@@ -1052,14 +1294,29 @@ export interface SunmiScanHeadPlugin {
   setTriggerMethod(options: SetTriggerMethodOptions): Promise<void>;
 
   /**
+   *
+   */
+  getScanResultCodeID(): Promise<GetScanResultCodeIDResponse>;
+
+  /**
    * Selects variant of code type returned with scan result
    */
-  setScanResultCodeID(options?: setScanResultCodeIDOptions): Promise<void>;
+  setScanResultCodeID(options?: SetScanResultCodeIDOptions): Promise<void>;
+
+  /**
+   *
+   */
+  isAdvancedFormatEnabled(): Promise<IsAdvancedFormatEnabledResponse>;
 
   /**
    * Enable or disable advanced formatting options provided in configuration
    */
-  setAdvancedFormatEnabled(options?: setAdvancedFormatEnabledOptions): Promise<void>;
+  setAdvancedFormatEnabled(options?: SetAdvancedFormatEnabledOptions): Promise<void>;
+
+  /**
+   *
+   */
+  isBeep(): Promise<IsBeepResponse>;
 
   /**
    * Enable or disable sound prompts on scan
@@ -1067,14 +1324,29 @@ export interface SunmiScanHeadPlugin {
   setBeep(options?: SetBeepOptions): Promise<void>;
 
   /**
+   *
+   */
+  isVibrate(): Promise<IsVibrateResponse>;
+
+  /**
    * Enable or disable vibration prompts on scan
    */
-  setVibrate(options?: setVibrateOptions): Promise<void>;
+  setVibrate(options?: SetVibrateOptions): Promise<void>;
+
+  /**
+   *
+   */
+  isOutputBroadcastEnabled(): Promise<IsOutputBroadcastEnableResponse>;
 
   /**
    * Enable or disable scan result broadcast
    */
-  setOutputBroadcastEnabled(options?: setOutputBroadcastEnabledOutput): Promise<void>;
+  setOutputBroadcastEnabled(options?: SetOutputBroadcastEnabledOutput): Promise<void>;
+
+  /**
+   *
+   */
+  getBroadcastConfiguration(): Promise<GetBroadcastConfigurationResponse>;
 
   /**
    * Set broadcast configuration
@@ -1082,9 +1354,19 @@ export interface SunmiScanHeadPlugin {
   setBroadcastConfiguration(options?: SetBroadcastConfigurationOptions): Promise<void>;
 
   /**
+   *
+   */
+  getOutputEncodingCode(): Promise<GetOutputEncodingCodeResponse>;
+
+  /**
    * Set output encoding/character set setting
    */
   setOutputEncodingCode(options?: SetOutputEncodingCodeOptions): Promise<void>;
+
+  /**
+   *
+   */
+  isVirtualFloatingScanButton(): Promise<IsVirtualFloatingScanButtonResponse>;
 
   /**
    * Enable or disable the virtual floating scan button
@@ -1092,9 +1374,19 @@ export interface SunmiScanHeadPlugin {
   setVirtualFloatingScanButton(options?: SetVirtualFloatingScanButtonOptions): Promise<void>;
 
   /**
+   *
+   */
+  getCenterFlagScan(): Promise<GetCenterFlagScanResponse>;
+
+  /**
    * Sets center point decoding mode
    */
   setCenterFlagScan(options?: SetCenterFlagScanOptions): Promise<void>;
+
+  /**
+   *
+   */
+  isFlash(): Promise<IsFlashResponse>;
 
   /**
    * Controls scanner illumination
@@ -1104,11 +1396,21 @@ export interface SunmiScanHeadPlugin {
   setFlash(options?: SetFlashOptions): Promise<void>;
 
   /**
+   *
+   */
+  getScene(): Promise<GetSceneResponse>;
+
+  /**
    * Sets scanning scene preset
    *
    * Hardware support limited
    */
   setScene(options?: SetSceneOptions): Promise<void>;
+
+  /**
+   *
+   */
+  isRemoveGroupSeparator(): Promise<IsRemoveGroupSeparatorResponse>;
 
   /**
    * Enables or disables the removal of group separator characters
@@ -1118,9 +1420,19 @@ export interface SunmiScanHeadPlugin {
   setRemoveGroupSeparator(options?: SetRemoveGroupSeparatorOptions): Promise<void>;
 
   /**
+   *
+   */
+  getPrefix(): Promise<GetPrefixResponse>;
+
+  /**
    * Sets the prefix to be prepended to the barcode data
    */
   setPrefix(options?: SetPrefixOptions): Promise<void>;
+
+  /**
+   *
+   */
+  getPrefixCharactersRemoved(): Promise<GetPrefixCharactersRemovedResponse>;
 
   /**
    * Sets the prefix characters to be removed from the barcode data
@@ -1130,9 +1442,19 @@ export interface SunmiScanHeadPlugin {
   setPrefixCharactersRemoved(options?: SetPrefixCharactersRemovedOptions): Promise<void>;
 
   /**
+   *
+   */
+  getSuffix(): Promise<GetSuffixResponse>;
+
+  /**
    * Sets the suffix to be appended to the barcode data
    */
   setSuffix(options?: SetSuffixOptions): Promise<void>;
+
+  /**
+   *
+   */
+  getSuffixCharactersRemoved(): Promise<GetSuffixCharactersRemovedResponse>;
 
   /**
    * Sets the suffix characters to be removed from the barcode data
