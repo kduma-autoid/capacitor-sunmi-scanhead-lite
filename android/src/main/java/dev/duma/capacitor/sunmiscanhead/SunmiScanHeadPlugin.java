@@ -202,6 +202,53 @@ public class SunmiScanHeadPlugin extends Plugin {
         });
     }
 
+    @PluginMethod
+    public void getOutputType(PluginCall call) {
+        CallbackHelper.handle(call, (c) -> {
+            ServiceConfiguration configuration = implementation.getWriteContextTool().getServiceWriteContext();
+
+            var mode = configuration.getOutputType();
+
+            JSObject response = new JSObject();
+            response.put("mode", mode.getName());
+
+            if(mode != OutputTypeEnum.Disabled) {
+                if(mode == OutputTypeEnum.Keystroke) {
+                    try {
+                        response.put("interval", configuration.getOutputCharacterInterval());
+                    } catch (RuntimeException e) {
+                        e.printStackTrace();
+                    }
+                }
+                try {
+                    response.put("tab", configuration.isAddTab());
+                } catch (RuntimeException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    response.put("enter", configuration.isAddReturn());
+                } catch (RuntimeException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    response.put("space", configuration.isAddSpace());
+                } catch (RuntimeException e) {
+                    e.printStackTrace();
+                }
+
+                if(mode == OutputTypeEnum.DirectFill || mode == OutputTypeEnum.DirectFillWithReplace) {
+                    try {
+                        response.put("asEvent", configuration.isAsEvents());
+                    } catch (RuntimeException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            c.resolve();
+        });
+    }
+
     /** @noinspection DataFlowIssue*/
     @PluginMethod
     public void setOutputType(PluginCall call) {
@@ -280,6 +327,25 @@ public class SunmiScanHeadPlugin extends Plugin {
         });
     }
 
+    @PluginMethod
+    public void getTriggerMethod(PluginCall call) {
+        CallbackHelper.handle(call, (c) -> {
+            ServiceConfiguration configuration = implementation.getWriteContextTool().getServiceWriteContext();
+
+            TriggerMethodEnum mode = configuration.getTriggerMethod();
+
+            JSObject response = new JSObject();
+            response.put("mode", mode.getName());
+            response.put("timeout", configuration.getScanTriggerTimeOut()); // TODO: Check issue #14; configuration.getTriggerOverTime()
+
+            if (mode == TriggerMethodEnum.Continuous || mode == TriggerMethodEnum.LongPress) {
+                response.put("sleep", configuration.getTriggerContinuousTime());
+            }
+
+            c.resolve();
+        });
+    }
+
     /** @noinspection DataFlowIssue*/
     @PluginMethod
     public void setTriggerMethod(PluginCall call) {
@@ -291,7 +357,7 @@ public class SunmiScanHeadPlugin extends Plugin {
             final Integer timeout = c.getInt("timeout", 5000);
 
             configuration.setTriggerMethod(mode);
-            configuration.setTriggerOverTime(timeout);
+            configuration.setTriggerOverTime(timeout); // TODO: Check issue #14
             configuration.setScanTriggerTimeOut(timeout);
 
             if (mode == TriggerMethodEnum.Continuous || mode == TriggerMethodEnum.LongPress) {
@@ -300,6 +366,20 @@ public class SunmiScanHeadPlugin extends Plugin {
             }
 
             c.resolve();
+        });
+    }
+
+    @PluginMethod
+    public void getScanResultCodeID(PluginCall call) {
+        CallbackHelper.handle(call, (c) -> {
+            ServiceConfiguration configuration = implementation.getWriteContextTool().getServiceWriteContext();
+
+            ScanResultCodeIDEnum type = configuration.getScanResultCodeID();
+
+            JSObject response = new JSObject();
+            response.put("type", type.getName());
+
+            c.resolve(response);
         });
     }
 
@@ -315,6 +395,20 @@ public class SunmiScanHeadPlugin extends Plugin {
         });
     }
 
+    @PluginMethod
+    public void isAdvancedFormatEnabled(PluginCall call) {
+        CallbackHelper.handle(call, (c) -> {
+            ServiceConfiguration configuration = implementation.getWriteContextTool().getServiceWriteContext();
+
+            boolean enabled = configuration.isAdvancedFormatEnabled();
+
+            JSObject response = new JSObject();
+            response.put("enabled", enabled);
+
+            c.resolve(response);
+        });
+    }
+
     /** @noinspection DataFlowIssue*/
     @PluginMethod
     public void setAdvancedFormatEnabled(PluginCall call) {
@@ -324,6 +418,20 @@ public class SunmiScanHeadPlugin extends Plugin {
             configuration.setAdvancedFormatEnabled(c.getBoolean("enabled", true));
 
             c.resolve();
+        });
+    }
+
+    @PluginMethod
+    public void isBeep(PluginCall call) {
+        CallbackHelper.handle(call, (c) -> {
+            ServiceConfiguration configuration = implementation.getWriteContextTool().getServiceWriteContext();
+
+            boolean enabled = configuration.isBeep();
+
+            JSObject response = new JSObject();
+            response.put("enabled", enabled);
+
+            c.resolve(response);
         });
     }
 
@@ -339,6 +447,20 @@ public class SunmiScanHeadPlugin extends Plugin {
         });
     }
 
+    @PluginMethod
+    public void isVibrate(PluginCall call) {
+        CallbackHelper.handle(call, (c) -> {
+            ServiceConfiguration configuration = implementation.getWriteContextTool().getServiceWriteContext();
+
+            boolean enabled = configuration.isVibrate();
+
+            JSObject response = new JSObject();
+            response.put("enabled", enabled);
+
+            c.resolve(response);
+        });
+    }
+
     /** @noinspection DataFlowIssue*/
     @PluginMethod
     public void setVibrate(PluginCall call) {
@@ -351,6 +473,20 @@ public class SunmiScanHeadPlugin extends Plugin {
         });
     }
 
+    @PluginMethod
+    public void isOutputBroadcastEnabled(PluginCall call) {
+        CallbackHelper.handle(call, (c) -> {
+            ServiceConfiguration configuration = implementation.getWriteContextTool().getServiceWriteContext();
+
+            boolean enabled = configuration.isOutputBroadcastEnabled();
+
+            JSObject response = new JSObject();
+            response.put("enabled", enabled);
+
+            c.resolve(response);
+        });
+    }
+
     /** @noinspection DataFlowIssue*/
     @PluginMethod
     public void setOutputBroadcastEnabled(PluginCall call) {
@@ -360,6 +496,27 @@ public class SunmiScanHeadPlugin extends Plugin {
             configuration.setOutputBroadcastEnabled(c.getBoolean("enabled", true));
 
             c.resolve();
+        });
+    }
+
+    @PluginMethod
+    public void getBroadcastConfiguration(PluginCall call) {
+        CallbackHelper.handle(call, (c) -> {
+            ServiceConfiguration configuration = implementation.getWriteContextTool().getServiceWriteContext();
+
+            JSObject response = new JSObject();
+
+            response.put("scanned_intent", configuration.getOutputBroadcastAction());
+            response.put("intent_data_key", configuration.getOutputBroadcastDataKey());
+            response.put("intent_byte_key", configuration.getOutputBroadcastByteKey());
+
+            String startAction = configuration.getOutputBroadcastStartAction();
+            response.put("start_intent", startAction == null ? false : startAction);
+
+            String endAction = configuration.getOutputBroadcastEndAction();
+            response.put("end_intent", endAction == null ? false : endAction);
+
+            c.resolve(response);
         });
     }
 
@@ -383,6 +540,20 @@ public class SunmiScanHeadPlugin extends Plugin {
     }
 
     @PluginMethod
+    public void getOutputEncodingCode(PluginCall call) {
+        CallbackHelper.handle(call, (c) -> {
+            ServiceConfiguration configuration = implementation.getWriteContextTool().getServiceWriteContext();
+
+            OutputEncodingCodeEnum encoding = configuration.getOutputEncodingCode();
+
+            JSObject response = new JSObject();
+            response.put("encoding", encoding.getName());
+
+            c.resolve(response);
+        });
+    }
+
+    @PluginMethod
     public void setOutputEncodingCode(PluginCall call) {
         CallbackHelper.handle(call, (c) -> {
             ServiceConfiguration configuration = implementation.getWriteContextTool().getServiceWriteContext();
@@ -391,6 +562,20 @@ public class SunmiScanHeadPlugin extends Plugin {
             configuration.setOutputEncodingCode(encoding);
 
             c.resolve();
+        });
+    }
+
+    @PluginMethod
+    public void isVirtualFloatingScanButton(PluginCall call) {
+        CallbackHelper.handle(call, (c) -> {
+            ServiceConfiguration configuration = implementation.getWriteContextTool().getServiceWriteContext();
+
+            boolean enabled = configuration.isVirtualFloatingScanButton();
+
+            JSObject response = new JSObject();
+            response.put("enabled", enabled);
+
+            c.resolve(response);
         });
     }
 
@@ -407,6 +592,20 @@ public class SunmiScanHeadPlugin extends Plugin {
     }
 
     @PluginMethod
+    public void getCenterFlagScan(PluginCall call) {
+        CallbackHelper.handle(call, (c) -> {
+            ServiceConfiguration configuration = implementation.getWriteContextTool().getServiceWriteContext();
+
+            CenterDecodingSettingEnum mode = configuration.getCenterFlagScan();
+
+            JSObject response = new JSObject();
+            response.put("mode", mode.getName());
+
+            c.resolve(response);
+        });
+    }
+
+    @PluginMethod
     public void setCenterFlagScan(PluginCall call) {
         CallbackHelper.handle(call, (c) -> {
             ServiceConfiguration configuration = implementation.getWriteContextTool().getServiceWriteContext();
@@ -415,6 +614,20 @@ public class SunmiScanHeadPlugin extends Plugin {
             configuration.setCenterFlagScan(mode);
 
             c.resolve();
+        });
+    }
+
+    @PluginMethod
+    public void isFlash(PluginCall call) {
+        CallbackHelper.handle(call, (c) -> {
+            ServiceConfiguration configuration = implementation.getWriteContextTool().getServiceWriteContext();
+
+            boolean enabled = configuration.isFlash();
+
+            JSObject response = new JSObject();
+            response.put("enabled", enabled);
+
+            c.resolve(response);
         });
     }
 
@@ -431,6 +644,20 @@ public class SunmiScanHeadPlugin extends Plugin {
     }
 
     @PluginMethod
+    public void getScene(PluginCall call) {
+        CallbackHelper.handle(call, (c) -> {
+            ServiceConfiguration configuration = implementation.getWriteContextTool().getServiceWriteContext();
+
+            SpecificSceneEnum scene = configuration.getScene();
+
+            JSObject response = new JSObject();
+            response.put("scene", scene.getName());
+
+            c.resolve(response);
+        });
+    }
+
+    @PluginMethod
     public void setScene(PluginCall call) {
         CallbackHelper.handle(call, (c) -> {
             ServiceConfiguration configuration = implementation.getWriteContextTool().getServiceWriteContext();
@@ -439,6 +666,20 @@ public class SunmiScanHeadPlugin extends Plugin {
             configuration.setScene(scene);
 
             c.resolve();
+        });
+    }
+
+    @PluginMethod
+    public void isRemoveGroupSeparator(PluginCall call) {
+        CallbackHelper.handle(call, (c) -> {
+            ServiceConfiguration configuration = implementation.getWriteContextTool().getServiceWriteContext();
+
+            boolean enabled = configuration.isRemoveGroupSeparator();
+
+            JSObject response = new JSObject();
+            response.put("enabled", enabled);
+
+            c.resolve(response);
         });
     }
 
@@ -455,6 +696,20 @@ public class SunmiScanHeadPlugin extends Plugin {
     }
 
     @PluginMethod
+    public void getPrefix(PluginCall call) {
+        CallbackHelper.handle(call, (c) -> {
+            ServiceConfiguration configuration = implementation.getWriteContextTool().getServiceWriteContext();
+
+            String content = configuration.getPrefix();
+
+            JSObject response = new JSObject();
+            response.put("content", content == null ? false : content);
+
+            c.resolve(response);
+        });
+    }
+
+    @PluginMethod
     public void setPrefix(PluginCall call) {
         CallbackHelper.handle(call, (c) -> {
             ServiceConfiguration configuration = implementation.getWriteContextTool().getServiceWriteContext();
@@ -463,6 +718,20 @@ public class SunmiScanHeadPlugin extends Plugin {
             configuration.setPrefix(content);
 
             c.resolve();
+        });
+    }
+
+    @PluginMethod
+    public void getPrefixCharactersRemoved(PluginCall call) {
+        CallbackHelper.handle(call, (c) -> {
+            ServiceConfiguration configuration = implementation.getWriteContextTool().getServiceWriteContext();
+
+            int value = configuration.getPrefixCharactersRemoved();
+
+            JSObject response = new JSObject();
+            response.put("length", value);
+
+            c.resolve(response);
         });
     }
 
@@ -479,6 +748,20 @@ public class SunmiScanHeadPlugin extends Plugin {
     }
 
     @PluginMethod
+    public void getSuffix(PluginCall call) {
+        CallbackHelper.handle(call, (c) -> {
+            ServiceConfiguration configuration = implementation.getWriteContextTool().getServiceWriteContext();
+
+            String content = configuration.getSuffix();
+
+            JSObject response = new JSObject();
+            response.put("content", content == null ? false : content);
+
+            c.resolve(response);
+        });
+    }
+
+    @PluginMethod
     public void setSuffix(PluginCall call) {
         CallbackHelper.handle(call, (c) -> {
             ServiceConfiguration configuration = implementation.getWriteContextTool().getServiceWriteContext();
@@ -487,6 +770,20 @@ public class SunmiScanHeadPlugin extends Plugin {
             configuration.setSuffix(content);
 
             c.resolve();
+        });
+    }
+
+    @PluginMethod
+    public void getSuffixCharactersRemoved(PluginCall call) {
+        CallbackHelper.handle(call, (c) -> {
+            ServiceConfiguration configuration = implementation.getWriteContextTool().getServiceWriteContext();
+
+            int length = configuration.getSuffixCharactersRemoved();
+
+            JSObject response = new JSObject();
+            response.put("length", length);
+
+            c.resolve(response);
         });
     }
 
