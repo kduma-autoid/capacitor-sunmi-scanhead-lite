@@ -75,11 +75,11 @@ window.customElements.define(
           <button class="button" id="getScannerModel">getScannerModel()</button>
           <button class="button" id="clearConfig">clearConfig()</button>
           <hr>
-          <button class="button" id="beep">beep()</button>
-          <button class="button" id="vibrate">vibrate()</button>
-          <hr>
           <button class="button" id="setTrigger1">setTrigger(true)</button>
           <button class="button" id="setTrigger0">setTrigger(false)</button>
+          <hr>
+          <button class="button" id="beep">beep()</button>
+          <button class="button" id="vibrate">vibrate()</button>
           <hr>
           <button class="button" id="createWriteContext">createWriteContext()</button>
           <button class="button" id="createWriteContextService">createWriteContext(Service)</button>
@@ -87,69 +87,91 @@ window.customElements.define(
           <button class="button" id="commitWriteContext">commitWriteContext()</button>
           <button class="button" id="discardWriteContext">discardWriteContext()</button>
           <hr>
+          <button class="button" id="getOutputType">getOutputType()</button>
           <button class="button" id="setOutputTypeDisabled">setOutputType(Disabled)</button>
           <button class="button" id="setOutputTypeKeystroke">setOutputType(Keystroke)</button>
           <button class="button" id="setOutputTypeDirectFill">setOutputType(DirectFill)</button>
           <button class="button" id="setOutputTypeDirectFillWithReplace">setOutputType(DirectFillWithReplace)</button>
           <hr>
+          <button class="button" id="getTriggerMethod">getTriggerMethod()</button>
           <button class="button" id="setTriggerMethodTrigger">setTriggerMethod(Trigger)</button>
           <button class="button" id="setTriggerMethodPulse">setTriggerMethod(Pulse)</button>
           <button class="button" id="setTriggerMethodContinuous">setTriggerMethod(Continuous)</button>
           <button class="button" id="setTriggerMethodLongPress">setTriggerMethod(LongPress)</button>
           <hr>
+          <button class="button" id="getScanResultCodeID">getScanResultCodeID()</button>
           <button class="button" id="setScanResultCodeIDNone">setScanResultCodeID(None)</button>
           <button class="button" id="setScanResultCodeIDSunmiId">setScanResultCodeID(SunmiId)</button>
           <button class="button" id="setScanResultCodeIDAimId">setScanResultCodeID(AimId)</button>
           <button class="button" id="setScanResultCodeIDSymbolId">setScanResultCodeID(SymbolId)</button>
           <hr>
-          <button class="button" id="setBeep1">setBeep(true)</button>
-          <button class="button" id="setBeep0">setBeep(false)</button>
-          <button class="button" id="setVibrate1">setVibrate(true)</button>
-          <button class="button" id="setVibrate0">setVibrate(false)</button>
-          <hr>
+          <button class="button" id="isAdvancedFormatEnabled">isAdvancedFormatEnabled()</button>
           <button class="button" id="setAdvancedFormatEnabled1">setAdvancedFormatEnabled(true)</button>
           <button class="button" id="setAdvancedFormatEnabled0">setAdvancedFormatEnabled(false)</button>
           <hr>
+          <button class="button" id="isBeep">isBeep(true)</button>
+          <button class="button" id="setBeep1">setBeep(true)</button>
+          <button class="button" id="setBeep0">setBeep(false)</button>
+          <hr>
+          <button class="button" id="isVibrate">isVibrate(true)</button>
+          <button class="button" id="setVibrate1">setVibrate(true)</button>
+          <button class="button" id="setVibrate0">setVibrate(false)</button>
+          <hr>
+          <button class="button" id="isOutputBroadcastEnabled">isOutputBroadcastEnabled()</button>
           <button class="button" id="setOutputBroadcastEnabled1">setOutputBroadcastEnabled(true)</button>
           <button class="button" id="setOutputBroadcastEnabled0">setOutputBroadcastEnabled(false)</button>
+          <hr>
+          <button class="button" id="getBroadcastConfiguration">getBroadcastConfiguration()</button>
           <button class="button" id="setBroadcastConfiguration">setBroadcastConfiguration()</button>
           <button class="button" id="setBroadcastConfigurationNoStartEnd">setBroadcastConfiguration(start_intent: false, end_intent: false)</button>
           <hr>
+          <button class="button" id="getOutputEncodingCode">getOutputEncodingCode()</button>
           <button class="button" id="setOutputEncodingCodeUTF8">setOutputEncodingCode(UTF8)</button>
           <button class="button" id="setOutputEncodingCodeAuto">setOutputEncodingCode(Auto)</button>
           <hr>
+          <button class="button" id="isVirtualFloatingScanButton">isVirtualFloatingScanButton()</button>
           <button class="button" id="setVirtualFloatingScanButton1">setVirtualFloatingScanButton(true)</button>
           <button class="button" id="setVirtualFloatingScanButton0">setVirtualFloatingScanButton(false)</button>
           <hr>
+          <button class="button" id="getCenterFlagScan">getCenterFlagScan()</button>
           <button class="button" id="setCenterFlagScanDisabled">setCenterFlagScan(Disabled)</button>
           <button class="button" id="setCenterFlagScanCenterOnly">setCenterFlagScan(CenterOnly)</button>
           <button class="button" id="setCenterFlagScanCenterFirst">setCenterFlagScan(CenterFirst)</button>
           <hr>
+          <button class="button" id="isFlash">isFlash(true)</button>
           <button class="button" id="setFlash1">setFlash(true)</button>
           <button class="button" id="setFlash0">setFlash(false)</button>
           <hr>
+          <button class="button" id="getScene">getScene()</button>
           <button class="button" id="setSceneDefault">setScene(Default)</button>
           <button class="button" id="setSceneMobileScreenScene">setScene(MobileScreenScene)</button>
           <hr>
+          <button class="button" id="isRemoveGroupSeparator">isRemoveGroupSeparator()</button>
           <button class="button" id="setRemoveGroupSeparator1">setRemoveGroupSeparator(true)</button>
           <button class="button" id="setRemoveGroupSeparator0">setRemoveGroupSeparator(false)</button>
           <hr>
+          <button class="button" id="getPrefix">getPrefix()</button>
           <button class="button" id="setPrefix">setPrefix()</button>
           <button class="button" id="setPrefixPrefix">setPrefix(prefix-)</button>
           <hr>
+          <button class="button" id="getPrefixCharactersRemoved">getPrefixCharactersRemoved()</button>
           <button class="button" id="setPrefixCharactersRemoved">setPrefixCharactersRemoved()</button>
           <button class="button" id="setPrefixCharactersRemoved5">setPrefixCharactersRemoved(5)</button>
           <hr>
+          <button class="button" id="getSuffix">getSuffix()</button>
           <button class="button" id="setSuffix">setSuffix()</button>
           <button class="button" id="setSuffixSuffix">setSuffix(-suffix)</button>
           <hr>
+          <button class="button" id="getSuffixCharactersRemoved">getSuffixCharactersRemoved()</button>
           <button class="button" id="setSuffixCharactersRemoved">setSuffixCharactersRemoved()</button>
           <button class="button" id="setSuffixCharactersRemoved5">setSuffixCharactersRemoved(5)</button>
           <hr>
           <button class="button" id="getBarcodesList">getBarcodesList()</button>
+          <hr>
           <button class="button" id="getBarcode">getBarcode()</button>
           <button class="button" id="setBarcode1">setBarcode(EAN 13, true)</button>
           <button class="button" id="setBarcode0">setBarcode(EAN 13, false)</button>
+          <hr>
           <button class="button" id="getBarcodeConfig">getBarcodeConfig(EAN 13)</button>
           <hr>
           <button class="button" id="isExtendCode1">isExtendCode1(EAN 13)</button>
@@ -216,6 +238,150 @@ window.customElements.define(
           printToOutput("getScannerModel()", await SunmiScanHead.getScannerModel());
         } catch (e) {
           printToOutput("getScannerModel() - ERROR", { message: e.message, code: e.code });
+        }
+      });
+
+      self.shadowRoot.querySelector('#getOutputType').addEventListener('click', async function (e) {
+        try {
+          printToOutput("getOutputType()", await SunmiScanHead.getOutputType());
+        } catch (e) {
+          printToOutput("getOutputType() - ERROR", { message: e.message, code: e.code });
+        }
+      });
+
+      self.shadowRoot.querySelector('#getTriggerMethod').addEventListener('click', async function (e) {
+        try {
+          printToOutput("getTriggerMethod()", await SunmiScanHead.getTriggerMethod());
+        } catch (e) {
+          printToOutput("getTriggerMethod() - ERROR", { message: e.message, code: e.code });
+        }
+      });
+
+      self.shadowRoot.querySelector('#getScanResultCodeID').addEventListener('click', async function (e) {
+        try {
+          printToOutput("getScanResultCodeID()", await SunmiScanHead.getScanResultCodeID());
+        } catch (e) {
+          printToOutput("getScanResultCodeID() - ERROR", { message: e.message, code: e.code });
+        }
+      });
+
+      self.shadowRoot.querySelector('#isAdvancedFormatEnabled').addEventListener('click', async function (e) {
+        try {
+          printToOutput("isAdvancedFormatEnabled()", await SunmiScanHead.isAdvancedFormatEnabled());
+        } catch (e) {
+          printToOutput("isAdvancedFormatEnabled() - ERROR", { message: e.message, code: e.code });
+        }
+      });
+
+      self.shadowRoot.querySelector('#isBeep').addEventListener('click', async function (e) {
+        try {
+          printToOutput("isBeep()", await SunmiScanHead.isBeep());
+        } catch (e) {
+          printToOutput("isBeep() - ERROR", { message: e.message, code: e.code });
+        }
+      });
+
+      self.shadowRoot.querySelector('#isVibrate').addEventListener('click', async function (e) {
+        try {
+          printToOutput("isVibrate()", await SunmiScanHead.isVibrate());
+        } catch (e) {
+          printToOutput("isVibrate() - ERROR", { message: e.message, code: e.code });
+        }
+      });
+
+      self.shadowRoot.querySelector('#isOutputBroadcastEnabled').addEventListener('click', async function (e) {
+        try {
+          printToOutput("isOutputBroadcastEnabled()", await SunmiScanHead.isOutputBroadcastEnabled());
+        } catch (e) {
+          printToOutput("isOutputBroadcastEnabled() - ERROR", { message: e.message, code: e.code });
+        }
+      });
+
+      self.shadowRoot.querySelector('#getBroadcastConfiguration').addEventListener('click', async function (e) {
+        try {
+          printToOutput("getBroadcastConfiguration()", await SunmiScanHead.getBroadcastConfiguration());
+        } catch (e) {
+          printToOutput("getBroadcastConfiguration() - ERROR", { message: e.message, code: e.code });
+        }
+      });
+
+      self.shadowRoot.querySelector('#getOutputEncodingCode').addEventListener('click', async function (e) {
+        try {
+          printToOutput("getOutputEncodingCode()", await SunmiScanHead.getOutputEncodingCode());
+        } catch (e) {
+          printToOutput("getOutputEncodingCode() - ERROR", { message: e.message, code: e.code });
+        }
+      });
+
+      self.shadowRoot.querySelector('#isVirtualFloatingScanButton').addEventListener('click', async function (e) {
+        try {
+          printToOutput("isVirtualFloatingScanButton()", await SunmiScanHead.isVirtualFloatingScanButton());
+        } catch (e) {
+          printToOutput("isVirtualFloatingScanButton() - ERROR", { message: e.message, code: e.code });
+        }
+      });
+
+      self.shadowRoot.querySelector('#getCenterFlagScan').addEventListener('click', async function (e) {
+        try {
+          printToOutput("getCenterFlagScan()", await SunmiScanHead.getCenterFlagScan());
+        } catch (e) {
+          printToOutput("getCenterFlagScan() - ERROR", { message: e.message, code: e.code });
+        }
+      });
+
+      self.shadowRoot.querySelector('#isFlash').addEventListener('click', async function (e) {
+        try {
+          printToOutput("isFlash()", await SunmiScanHead.isFlash());
+        } catch (e) {
+          printToOutput("isFlash() - ERROR", { message: e.message, code: e.code });
+        }
+      });
+
+      self.shadowRoot.querySelector('#getScene').addEventListener('click', async function (e) {
+        try {
+          printToOutput("getScene()", await SunmiScanHead.getScene());
+        } catch (e) {
+          printToOutput("getScene() - ERROR", { message: e.message, code: e.code });
+        }
+      });
+
+      self.shadowRoot.querySelector('#isRemoveGroupSeparator').addEventListener('click', async function (e) {
+        try {
+          printToOutput("isRemoveGroupSeparator()", await SunmiScanHead.isRemoveGroupSeparator());
+        } catch (e) {
+          printToOutput("isRemoveGroupSeparator() - ERROR", { message: e.message, code: e.code });
+        }
+      });
+
+      self.shadowRoot.querySelector('#getPrefix').addEventListener('click', async function (e) {
+        try {
+          printToOutput("getPrefix()", await SunmiScanHead.getPrefix());
+        } catch (e) {
+          printToOutput("getPrefix() - ERROR", { message: e.message, code: e.code });
+        }
+      });
+
+      self.shadowRoot.querySelector('#getPrefixCharactersRemoved').addEventListener('click', async function (e) {
+        try {
+          printToOutput("getPrefixCharactersRemoved()", await SunmiScanHead.getPrefixCharactersRemoved());
+        } catch (e) {
+          printToOutput("getPrefixCharactersRemoved() - ERROR", { message: e.message, code: e.code });
+        }
+      });
+
+      self.shadowRoot.querySelector('#getSuffix').addEventListener('click', async function (e) {
+        try {
+          printToOutput("getSuffix()", await SunmiScanHead.getSuffix());
+        } catch (e) {
+          printToOutput("getSuffix() - ERROR", { message: e.message, code: e.code });
+        }
+      });
+
+      self.shadowRoot.querySelector('#getSuffixCharactersRemoved').addEventListener('click', async function (e) {
+        try {
+          printToOutput("getSuffixCharactersRemoved()", await SunmiScanHead.getSuffixCharactersRemoved());
+        } catch (e) {
+          printToOutput("getSuffixCharactersRemoved() - ERROR", { message: e.message, code: e.code });
         }
       });
 
