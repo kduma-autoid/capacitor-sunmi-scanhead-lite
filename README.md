@@ -52,6 +52,12 @@ export default config;
 * [`setScanResultCodeID(...)`](#setscanresultcodeid)
 * [`isAdvancedFormatEnabled()`](#isadvancedformatenabled)
 * [`setAdvancedFormatEnabled(...)`](#setadvancedformatenabled)
+* [`getAdvancedFormats()`](#getadvancedformats)
+* [`setAdvancedFormats(...)`](#setadvancedformats)
+* [`clearAdvancedFormats()`](#clearadvancedformats)
+* [`addAdvancedFormat(...)`](#addadvancedformat)
+* [`updateAdvancedFormat(...)`](#updateadvancedformat)
+* [`removeAdvancedFormat(...)`](#removeadvancedformat)
 * [`isBeep()`](#isbeep)
 * [`setBeep(...)`](#setbeep)
 * [`isVibrate()`](#isvibrate)
@@ -377,6 +383,90 @@ Enable or disable advanced formatting options provided in configuration
 | Param         | Type                                                                                        |
 | ------------- | ------------------------------------------------------------------------------------------- |
 | **`options`** | <code><a href="#setadvancedformatenabledoptions">SetAdvancedFormatEnabledOptions</a></code> |
+
+--------------------
+
+
+### getAdvancedFormats()
+
+```typescript
+getAdvancedFormats() => Promise<GetAdvancedFormatEnabledResponse>
+```
+
+Gets advanced formatting options (character replacement arrays) provided in configuration
+
+**Returns:** <code>Promise&lt;<a href="#getadvancedformatenabledresponse">GetAdvancedFormatEnabledResponse</a>&gt;</code>
+
+--------------------
+
+
+### setAdvancedFormats(...)
+
+```typescript
+setAdvancedFormats(options: SetAdvancedFormatOptions) => Promise<void>
+```
+
+Sets advanced formatting options (character replacement arrays) provided in configuration
+
+| Param         | Type                                                                          |
+| ------------- | ----------------------------------------------------------------------------- |
+| **`options`** | <code><a href="#setadvancedformatoptions">SetAdvancedFormatOptions</a></code> |
+
+--------------------
+
+
+### clearAdvancedFormats()
+
+```typescript
+clearAdvancedFormats() => Promise<void>
+```
+
+Clears all advanced formatting options
+
+--------------------
+
+
+### addAdvancedFormat(...)
+
+```typescript
+addAdvancedFormat(options: AddAdvancedFormatOptions) => Promise<void>
+```
+
+Adds new advanced formatting option
+
+| Param         | Type                                                                          |
+| ------------- | ----------------------------------------------------------------------------- |
+| **`options`** | <code><a href="#addadvancedformatoptions">AddAdvancedFormatOptions</a></code> |
+
+--------------------
+
+
+### updateAdvancedFormat(...)
+
+```typescript
+updateAdvancedFormat(options: UpdateAdvancedFormatOptions) => Promise<void>
+```
+
+Updates advanced formatting option
+
+| Param         | Type                                                                                |
+| ------------- | ----------------------------------------------------------------------------------- |
+| **`options`** | <code><a href="#updateadvancedformatoptions">UpdateAdvancedFormatOptions</a></code> |
+
+--------------------
+
+
+### removeAdvancedFormat(...)
+
+```typescript
+removeAdvancedFormat(options: RemoveAdvancedFormatOptions) => Promise<void>
+```
+
+Removes advanced formatting option
+
+| Param         | Type                                                                                |
+| ------------- | ----------------------------------------------------------------------------------- |
+| **`options`** | <code><a href="#removeadvancedformatoptions">RemoveAdvancedFormatOptions</a></code> |
 
 --------------------
 
@@ -1456,6 +1546,60 @@ Removes all listeners
 | **`enabled`** | <code>boolean</code> | Enable or disable advanced formatting options provided in configuration | <code>true</code> |
 
 
+#### GetAdvancedFormatEnabledResponse
+
+| Prop          | Type                                                      | Description                                                  |
+| ------------- | --------------------------------------------------------- | ------------------------------------------------------------ |
+| **`formats`** | <code><a href="#map">Map</a>&lt;string, string&gt;</code> | List of advanced formatting options - characters replacement |
+
+
+#### Map
+
+| Prop       | Type                |
+| ---------- | ------------------- |
+| **`size`** | <code>number</code> |
+
+| Method      | Signature                                                                                                      |
+| ----------- | -------------------------------------------------------------------------------------------------------------- |
+| **clear**   | () =&gt; void                                                                                                  |
+| **delete**  | (key: K) =&gt; boolean                                                                                         |
+| **forEach** | (callbackfn: (value: V, key: K, map: <a href="#map">Map</a>&lt;K, V&gt;) =&gt; void, thisArg?: any) =&gt; void |
+| **get**     | (key: K) =&gt; V \| undefined                                                                                  |
+| **has**     | (key: K) =&gt; boolean                                                                                         |
+| **set**     | (key: K, value: V) =&gt; this                                                                                  |
+
+
+#### SetAdvancedFormatOptions
+
+| Prop          | Type                                                      | Description                                                  | Default         |
+| ------------- | --------------------------------------------------------- | ------------------------------------------------------------ | --------------- |
+| **`formats`** | <code><a href="#map">Map</a>&lt;string, string&gt;</code> | List of advanced formatting options - characters replacement | <code>[]</code> |
+
+
+#### AddAdvancedFormatOptions
+
+| Prop              | Type                | Description           |
+| ----------------- | ------------------- | --------------------- |
+| **`search`**      | <code>string</code> | Value to search for   |
+| **`replacement`** | <code>string</code> | Value to replace with |
+
+
+#### UpdateAdvancedFormatOptions
+
+| Prop              | Type                | Description           |
+| ----------------- | ------------------- | --------------------- |
+| **`old_search`**  | <code>string</code> | Previous search value |
+| **`search`**      | <code>string</code> | New search value      |
+| **`replacement`** | <code>string</code> | Value to replace with |
+
+
+#### RemoveAdvancedFormatOptions
+
+| Prop         | Type                | Description         |
+| ------------ | ------------------- | ------------------- |
+| **`search`** | <code>string</code> | Value to search for |
+
+
 #### IsBeepResponse
 
 | Prop          | Type                 | Description                             |
@@ -1665,22 +1809,6 @@ Removes all listeners
 | Prop       | Type                                                       | Description                                                                                                                 |
 | ---------- | ---------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
 | **`list`** | <code><a href="#map">Map</a>&lt;string, boolean&gt;</code> | List of barcodes, and its statuses. Key is barcode symbology name, value is status: `true` if enabled, `false` if disabled. |
-
-
-#### Map
-
-| Prop       | Type                |
-| ---------- | ------------------- |
-| **`size`** | <code>number</code> |
-
-| Method      | Signature                                                                                                      |
-| ----------- | -------------------------------------------------------------------------------------------------------------- |
-| **clear**   | () =&gt; void                                                                                                  |
-| **delete**  | (key: K) =&gt; boolean                                                                                         |
-| **forEach** | (callbackfn: (value: V, key: K, map: <a href="#map">Map</a>&lt;K, V&gt;) =&gt; void, thisArg?: any) =&gt; void |
-| **get**     | (key: K) =&gt; V \| undefined                                                                                  |
-| **has**     | (key: K) =&gt; boolean                                                                                         |
-| **set**     | (key: K, value: V) =&gt; this                                                                                  |
 
 
 #### GetBarcodeResponse

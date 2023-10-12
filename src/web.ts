@@ -30,14 +30,16 @@ import type {
   GetSuffixCharactersRemovedResponse,
   GetSuffixResponse,
   GetTriggerMethodResponse,
-  IsVibrateResponse, IsVirtualFloatingScanButtonResponse,
+  IsVibrateResponse,
+  IsVirtualFloatingScanButtonResponse,
   IsExtendCode1Response,
   IsExtendCode2Response,
   IsExtendToCodeResponse,
   IsMicroCodeResponse,
   IsStartEndTypeResponse,
   IsSystemCharZeroResponse,
-  SunmiScanHeadPlugin
+  SunmiScanHeadPlugin,
+  GetAdvancedFormatEnabledResponse
 } from './definitions';
 
 export class SunmiScanHeadWeb
@@ -361,6 +363,30 @@ export class SunmiScanHeadWeb
   }
 
   isVirtualFloatingScanButton(): Promise<IsVirtualFloatingScanButtonResponse> {
+    throw this.unimplemented('Not implemented on web.');
+  }
+
+  addAdvancedFormat(): Promise<void> {
+    throw this.unimplemented('Not implemented on web.');
+  }
+
+  clearAdvancedFormats(): Promise<void> {
+    throw this.unimplemented('Not implemented on web.');
+  }
+
+  getAdvancedFormats(): Promise<GetAdvancedFormatEnabledResponse> {
+    throw this.unimplemented('Not implemented on web.');
+  }
+
+  removeAdvancedFormat(): Promise<void> {
+    throw this.unimplemented('Not implemented on web.');
+  }
+
+  setAdvancedFormats(): Promise<void> {
+    throw this.unimplemented('Not implemented on web.');
+  }
+
+  updateAdvancedFormat(): Promise<void> {
     throw this.unimplemented('Not implemented on web.');
   }
 }

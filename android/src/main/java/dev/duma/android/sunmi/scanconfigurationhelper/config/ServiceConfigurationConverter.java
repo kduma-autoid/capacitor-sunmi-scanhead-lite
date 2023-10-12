@@ -9,6 +9,8 @@ import com.sunmi.scanner.entity.Pair;
 import com.sunmi.scanner.entity.ServiceSetting;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 import dev.duma.android.sunmi.scanconfigurationhelper.config.enums.CenterDecodingSettingEnum;
@@ -152,14 +154,13 @@ public class ServiceConfigurationConverter {
             commands.add(SunmiHelper.setScanTrigger(new int[] { configuration.isVirtualFloatingScanButton() ? 1 : 0 }));
         }
 
-        // TODO: Add support for Advanced Formats configuration
-        // if(configuration.isSupported(ConfigurationFieldEnum.AdvancedFormat) && configuration.isUpdated(ConfigurationFieldEnum.AdvancedFormat)) {
-        //     ArrayList<Pair> advancedFormats = configuration.getAdvancedFormat();
-        //     commands.add(SunmiHelper.setAdvancedFormatClear(1));
-        //     for (Pair next : advancedFormats) {
-        //         commands.add(SunmiHelper.setAdvancedFormatAdd(new String[]{next.first, next.second}));
-        //     }
-        // }
+        if(configuration.isSupported(ConfigurationFieldEnum.AdvancedFormat) && configuration.isUpdated(ConfigurationFieldEnum.AdvancedFormat)) {
+            HashMap<String, String> advancedFormats = configuration.getAdvancedFormats();
+            commands.add(SunmiHelper.setAdvancedFormatClear(1));
+            for (Map.Entry<String, String> next : advancedFormats.entrySet()){
+                commands.add(SunmiHelper.setAdvancedFormatAdd(new String[]{next.getKey(), next.getValue()}));
+            }
+        }
 
         return commands;
     }
@@ -167,7 +168,10 @@ public class ServiceConfigurationConverter {
     public static ServiceConfiguration fromServiceSetting(ServiceSetting serviceSetting, ArrayList<Pair> advancedFormats) {
         ServiceConfiguration configuration = new ServiceConfiguration();
 
-        configuration.advancedFormat = advancedFormats;
+        configuration.advancedFormats = new HashMap<>();
+        for (Pair next : advancedFormats){
+            configuration.advancedFormats.put(next.first, next.second);
+        }
 
         if(serviceSetting.scanExpSwitch == -1) {
             configuration.unsupportedFields.add(ConfigurationFieldEnum.Flash);

@@ -109,6 +109,13 @@ window.customElements.define(
           <button class="button" id="setAdvancedFormatEnabled1">setAdvancedFormatEnabled(true)</button>
           <button class="button" id="setAdvancedFormatEnabled0">setAdvancedFormatEnabled(false)</button>
           <hr>
+          <button class="button" id="getAdvancedFormats">getAdvancedFormats()</button>
+          <button class="button" id="clearAdvancedFormats">clearAdvancedFormats()</button>
+          <button class="button" id="addAdvancedFormat">addAdvancedFormat(GS1, |)</button>
+          <button class="button" id="updateAdvancedFormat">updateAdvancedFormat(GS1, 123, [FNC])</button>
+          <button class="button" id="removeAdvancedFormat">removeAdvancedFormat(GS1)</button>
+          <button class="button" id="removeAdvancedFormat123">removeAdvancedFormat(123)</button>
+          <hr>
           <button class="button" id="isBeep">isBeep(true)</button>
           <button class="button" id="setBeep1">setBeep(true)</button>
           <button class="button" id="setBeep0">setBeep(false)</button>
@@ -513,6 +520,55 @@ window.customElements.define(
           await SunmiScanHead.setAdvancedFormatEnabled({enabled: false});
         } catch (e) {
           printToOutput("setAdvancedFormatEnabled(false) - ERROR", { message: e.message, code: e.code });
+        }
+      });
+
+      self.shadowRoot.querySelector('#getAdvancedFormats').addEventListener('click', async function (e) {
+        try {
+
+          printToOutput("getAdvancedFormats()", await SunmiScanHead.getAdvancedFormats());
+        } catch (e) {
+          printToOutput("getAdvancedFormats() - ERROR", { message: e.message, code: e.code });
+        }
+      });
+
+      self.shadowRoot.querySelector('#clearAdvancedFormats').addEventListener('click', async function (e) {
+        try {
+          await SunmiScanHead.clearAdvancedFormats();
+        } catch (e) {
+          printToOutput("clearAdvancedFormats() - ERROR", { message: e.message, code: e.code });
+        }
+      });
+
+      self.shadowRoot.querySelector('#addAdvancedFormat').addEventListener('click', async function (e) {
+        try {
+          await SunmiScanHead.addAdvancedFormat({search: "\\029", replacement: "|" });
+        } catch (e) {
+          printToOutput("addAdvancedFormat(GS1, |) - ERROR", { message: e.message, code: e.code });
+        }
+      });
+
+      self.shadowRoot.querySelector('#updateAdvancedFormat').addEventListener('click', async function (e) {
+        try {
+          await SunmiScanHead.updateAdvancedFormat({old_search: "\\029", search: "123", replacement: "[FNC]" });
+        } catch (e) {
+          printToOutput("updateAdvancedFormat(GS1, 123, [FNC]) - ERROR", { message: e.message, code: e.code });
+        }
+      });
+
+      self.shadowRoot.querySelector('#removeAdvancedFormat').addEventListener('click', async function (e) {
+        try {
+          await SunmiScanHead.removeAdvancedFormat({search: "\\029"});
+        } catch (e) {
+          printToOutput("removeAdvancedFormat(GS1) - ERROR", { message: e.message, code: e.code });
+        }
+      });
+
+      self.shadowRoot.querySelector('#removeAdvancedFormat123').addEventListener('click', async function (e) {
+        try {
+          await SunmiScanHead.removeAdvancedFormat({search: "123"});
+        } catch (e) {
+          printToOutput("removeAdvancedFormat(123) - ERROR", { message: e.message, code: e.code });
         }
       });
 
