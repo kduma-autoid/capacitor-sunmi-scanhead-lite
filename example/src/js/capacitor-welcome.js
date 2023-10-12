@@ -145,6 +145,20 @@ window.customElements.define(
           <hr>
           <button class="button" id="setSuffixCharactersRemoved">setSuffixCharactersRemoved()</button>
           <button class="button" id="setSuffixCharactersRemoved5">setSuffixCharactersRemoved(5)</button>
+          <hr>
+          <button class="button" id="getBarcodesList">getBarcodesList()</button>
+          <button class="button" id="getBarcode">getBarcode()</button>
+          <button class="button" id="setBarcode1">setBarcode(EAN 13, true)</button>
+          <button class="button" id="setBarcode0">setBarcode(EAN 13, false)</button>
+          <button class="button" id="getBarcodeConfig">getBarcodeConfig(EAN 13)</button>
+          <hr>
+          <button class="button" id="isExtendCode1">isExtendCode1(EAN 13)</button>
+          <button class="button" id="setExtendCode1true">setExtendCode1(EAN 13, true)</button>
+          <button class="button" id="setExtendCode1false">setExtendCode1(EAN 13, false)</button>
+          <hr>
+          <button class="button" id="isExtendCode2">isExtendCode2(EAN 13)</button>
+          <button class="button" id="setExtendCode2true">setExtendCode2(EAN 13, true)</button>
+          <button class="button" id="setExtendCode2false">setExtendCode2(EAN 13, false)</button>
         </p> 
         <hr>
         <h2>Complex Examples</h2>
@@ -637,6 +651,99 @@ window.customElements.define(
           await SunmiScanHead.setSuffixCharactersRemoved({length: 5});
         } catch (e) {
           printToOutput("setSuffixCharactersRemoved(5) - ERROR", { message: e.message, code: e.code });
+        }
+      });
+
+      self.shadowRoot.querySelector('#getBarcodesList').addEventListener('click', async function (e) {
+        try {
+          let list = await SunmiScanHead.getBarcodesList();
+          printToOutput("getBarcodesList()", list);
+        } catch (e) {
+          printToOutput("getBarcodesList() - ERROR", { message: e.message, code: e.code });
+        }
+      });
+
+      self.shadowRoot.querySelector('#getBarcode').addEventListener('click', async function (e) {
+        try {
+          let status = await SunmiScanHead.getBarcode({name: "EAN 13"});
+          printToOutput("getBarcode(EAN 13)", status);
+        } catch (e) {
+          printToOutput("getBarcode(EAN 13) - ERROR", { message: e.message, code: e.code });
+        }
+      });
+
+      self.shadowRoot.querySelector('#setBarcode1').addEventListener('click', async function (e) {
+        try {
+          await SunmiScanHead.setBarcode({name: "EAN 13", enabled: true});
+        } catch (e) {
+          printToOutput("setBarcode(EAN 13, true) - ERROR", { message: e.message, code: e.code });
+        }
+      });
+
+      self.shadowRoot.querySelector('#setBarcode0').addEventListener('click', async function (e) {
+        try {
+          await SunmiScanHead.setBarcode({name: "EAN 13", enabled: false});
+        } catch (e) {
+          printToOutput("setBarcode(EAN 13, false) - ERROR", { message: e.message, code: e.code });
+        }
+      });
+
+      self.shadowRoot.querySelector('#getBarcodeConfig').addEventListener('click', async function (e) {
+        try {
+          let config = await SunmiScanHead.getBarcodeConfig({name: "EAN 13"});
+          printToOutput("getBarcodeConfig(EAN 13)", config);
+        } catch (e) {
+          printToOutput("getBarcodeConfig(EAN 13) - ERROR", { message: e.message, code: e.code });
+        }
+      });
+
+      self.shadowRoot.querySelector('#isExtendCode1').addEventListener('click', async function (e) {
+        try {
+          let response = await SunmiScanHead.isExtendCode1({name: "EAN 13"});
+          printToOutput("isExtendCode1(EAN 13)", response);
+        } catch (e) {
+          printToOutput("isExtendCode1(EAN 13) - ERROR", { message: e.message, code: e.code });
+        }
+      });
+
+      self.shadowRoot.querySelector('#setExtendCode1true').addEventListener('click', async function (e) {
+        try {
+          await SunmiScanHead.setExtendCode1({name: "EAN 13", value: true});
+        } catch (e) {
+          printToOutput("setExtendCode1(EAN 13, true) - ERROR", { message: e.message, code: e.code });
+        }
+      });
+
+      self.shadowRoot.querySelector('#setExtendCode1false').addEventListener('click', async function (e) {
+        try {
+          await SunmiScanHead.setExtendCode1({name: "EAN 13", value: false});
+        } catch (e) {
+          printToOutput("setExtendCode1(EAN 13, false) - ERROR", { message: e.message, code: e.code });
+        }
+      });
+
+      self.shadowRoot.querySelector('#isExtendCode2').addEventListener('click', async function (e) {
+        try {
+          let response = await SunmiScanHead.isExtendCode2({name: "EAN 13"});
+          printToOutput("isExtendCode2(EAN 13)", response);
+        } catch (e) {
+          printToOutput("isExtendCode2(EAN 13) - ERROR", { message: e.message, code: e.code });
+        }
+      });
+
+      self.shadowRoot.querySelector('#setExtendCode2true').addEventListener('click', async function (e) {
+        try {
+          await SunmiScanHead.setExtendCode2({name: "EAN 13", value: true});
+        } catch (e) {
+          printToOutput("setExtendCode2(EAN 13, true) - ERROR", { message: e.message, code: e.code });
+        }
+      });
+
+      self.shadowRoot.querySelector('#setExtendCode2false').addEventListener('click', async function (e) {
+        try {
+          await SunmiScanHead.setExtendCode2({name: "EAN 13", value: false});
+        } catch (e) {
+          printToOutput("setExtendCode2(EAN 13, false) - ERROR", { message: e.message, code: e.code });
         }
       });
 

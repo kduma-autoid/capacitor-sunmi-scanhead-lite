@@ -508,6 +508,478 @@ export interface SetSuffixCharactersRemovedOptions {
   length?: number;
 }
 
+export interface GetBarcodesListResponse {
+  /**
+   * List of barcodes, and its statuses.
+   * Key is barcode symbology name, value is status: `true` if enabled, `false` if disabled.
+   */
+  list: Map<string, boolean>;
+}
+
+export interface GetBarcodeOptions {
+  /**
+   * Barcode symbology name
+   */
+  name: string;
+}
+
+export interface GetBarcodeResponse {
+  /**
+   * Barcode status
+   */
+  enabled: boolean;
+}
+
+export interface SetBarcodeOptions {
+  /**
+   * Barcode symbology name
+   */
+  name: string;
+
+  /**
+   * Barcode status
+   */
+  enabled: boolean;
+}
+
+export interface GetBarcodeConfigOptions {
+  /**
+   * Barcode symbology name
+   */
+  name: string;
+}
+
+export interface GetBarcodeConfigResponse {
+  /**
+   *
+   */
+  checkCharMode?: number;
+
+  /**
+   *
+   */
+  checkCharType?: number;
+
+  /**
+   *
+   */
+  doubleCode?: number;
+
+  /**
+   *
+   */
+  formatCode?: number;
+
+  /**
+   *
+   */
+  inverseCode?: number;
+
+  /**
+   *
+   */
+  isExtendCode1?: boolean;
+
+  /**
+   *
+   */
+  isExtendCode2?: boolean;
+
+  /**
+   *
+   */
+  isExtendToCode?: boolean;
+
+  /**
+   *
+   */
+  isMicroCode?: boolean;
+
+  /**
+   *
+   */
+  isStartEndType?: boolean;
+
+  /**
+   *
+   */
+  isSystemCharZero?: boolean;
+
+  /**
+   *
+   */
+  maxLen?: number;
+
+  /**
+   *
+   */
+  minLen?: number;
+}
+
+export interface GetCheckCharModeOptions {
+  /**
+   * Barcode symbology name
+   */
+  name: string;
+}
+
+export interface GetCheckCharModeResponse {
+  /**
+   *
+   */
+  value: number;
+}
+
+export interface SetCheckCharModeOptions {
+  /**
+   * Barcode symbology name
+   */
+  name: string;
+
+  /**
+   *
+   */
+  value: number;
+}
+
+export interface GetCheckCharTypeOptions {
+  /**
+   * Barcode symbology name
+   */
+  name: string;
+}
+
+export interface GetCheckCharTypeResponse {
+  /**
+   *
+   */
+  value: number;
+}
+
+export interface SetCheckCharTypeOptions {
+  /**
+   * Barcode symbology name
+   */
+  name: string;
+
+  /**
+   *
+   */
+  value: number;
+}
+
+export interface GetDoubleCodeOptions {
+  /**
+   * Barcode symbology name
+   */
+  name: string;
+}
+
+export interface GetDoubleCodeResponse {
+  /**
+   *
+   */
+  value: number;
+}
+
+export interface SetDoubleCodeOptions {
+  /**
+   * Barcode symbology name
+   */
+  name: string;
+
+  /**
+   *
+   */
+  value: number;
+}
+
+export interface GetFormatCodeOptions {
+  /**
+   * Barcode symbology name
+   */
+  name: string;
+}
+
+export interface GetFormatCodeResponse {
+  /**
+   *
+   */
+  value: number;
+}
+
+export interface SetFormatCodeOptions {
+  /**
+   * Barcode symbology name
+   */
+  name: string;
+
+  /**
+   *
+   */
+  value: number;
+}
+
+export interface GetInverseCodeOptions {
+  /**
+   * Barcode symbology name
+   */
+  name: string;
+}
+
+export interface GetInverseCodeResponse {
+  /**
+   *
+   */
+  value: number;
+}
+
+export interface SetInverseCodeOptions {
+  /**
+   * Barcode symbology name
+   */
+  name: string;
+
+  /**
+   *
+   */
+  value: number;
+}
+
+export interface IsExtendCode1Options {
+  /**
+   * Barcode symbology name
+   */
+  name: string;
+}
+
+export interface IsExtendCode1Response {
+  /**
+   *
+   */
+  value: boolean;
+}
+
+export interface SetExtendCode1Options {
+  /**
+   * Barcode symbology name
+   */
+  name: string;
+
+  /**
+   *
+   */
+  value: boolean;
+}
+
+export interface IsExtendCode2Options {
+  /**
+   * Barcode symbology name
+   */
+  name: string;
+}
+
+export interface IsExtendCode2Response {
+  /**
+   *
+   */
+  value: boolean;
+}
+
+export interface SetExtendCode2Options {
+  /**
+   * Barcode symbology name
+   */
+  name: string;
+
+  /**
+   *
+   */
+  value: boolean;
+}
+
+export interface IsExtendToCodeOptions {
+  /**
+   * Barcode symbology name
+   */
+  name: string;
+}
+
+export interface IsExtendToCodeResponse {
+  /**
+   *
+   */
+  value: boolean;
+}
+
+export interface SetExtendToCodeOptions {
+  /**
+   * Barcode symbology name
+   */
+  name: string;
+
+  /**
+   *
+   */
+  value: boolean;
+}
+
+export interface IsMicroCodeOptions {
+  /**
+   * Barcode symbology name
+   */
+  name: string;
+}
+
+export interface IsMicroCodeResponse {
+  /**
+   *
+   */
+  value: boolean;
+}
+
+export interface SetMicroCodeOptions {
+  /**
+   * Barcode symbology name
+   */
+  name: string;
+
+  /**
+   *
+   */
+  value: boolean;
+}
+
+export interface IsStartEndTypeOptions {
+  /**
+   * Barcode symbology name
+   */
+  name: string;
+}
+
+export interface IsStartEndTypeResponse {
+  /**
+   *
+   */
+  value: boolean;
+}
+
+export interface SetStartEndTypeOptions {
+  /**
+   * Barcode symbology name
+   */
+  name: string;
+
+  /**
+   *
+   */
+  value: boolean;
+}
+
+export interface IsSystemCharZeroOptions {
+  /**
+   * Barcode symbology name
+   */
+  name: string;
+}
+
+export interface IsSystemCharZeroResponse {
+  /**
+   *
+   */
+  value: boolean;
+}
+
+export interface SetSystemCharZeroOptions {
+  /**
+   * Barcode symbology name
+   */
+  name: string;
+
+  /**
+   *
+   */
+  value: boolean;
+}
+
+export interface GetMaxLenOptions {
+  /**
+   * Barcode symbology name
+   */
+  name: string;
+}
+
+export interface GetMaxLenResponse {
+  /**
+   *
+   */
+  value: number;
+}
+
+export interface SetMaxLenOptions {
+  /**
+   * Barcode symbology name
+   */
+  name: string;
+
+  /**
+   *
+   */
+  value: number;
+}
+
+export interface GetMinLenOptions {
+  /**
+   * Barcode symbology name
+   */
+  name: string;
+}
+
+export interface GetMinLenResponse {
+  /**
+   *
+   */
+  value: number;
+}
+
+export interface SetMinLenOptions {
+  /**
+   * Barcode symbology name
+   */
+  name: string;
+
+  /**
+   *
+   */
+  value: number;
+}
+
+export interface GetStartEndFormatOptions {
+  /**
+   * Barcode symbology name
+   */
+  name: string;
+}
+
+export interface GetStartEndFormatResponse {
+  /**
+   *
+   */
+  value: number;
+}
+
+export interface SetStartEndFormatOptions {
+  /**
+   * Barcode symbology name
+   */
+  name: string;
+
+  /**
+   *
+   */
+  value: number;
+}
+
 export interface SunmiScanHeadPlugin {
   /**
    * bind scan service
@@ -668,6 +1140,166 @@ export interface SunmiScanHeadPlugin {
    * Hardware support limited
    */
   setSuffixCharactersRemoved(options?: SetSuffixCharactersRemovedOptions): Promise<void>;
+
+  /**
+   *
+   */
+  getBarcodesList(): Promise<GetBarcodesListResponse>;
+
+  /**
+   *
+   */
+  getBarcode(options: GetBarcodeOptions): Promise<GetBarcodeResponse>;
+
+  /**
+   *
+   */
+  setBarcode(options: SetBarcodeOptions): Promise<void>;
+
+  /**
+   *
+   */
+  getBarcodeConfig(options: GetBarcodeConfigOptions): Promise<GetBarcodeConfigResponse>;
+
+  /**
+   *
+   */
+  getCheckCharMode(options: GetCheckCharModeOptions): Promise<GetCheckCharModeResponse>;
+
+  /**
+   *
+   */
+  setCheckCharMode(options: SetCheckCharModeOptions): Promise<void>;
+
+  /**
+   *
+   */
+  getCheckCharType(options: GetCheckCharTypeOptions): Promise<GetCheckCharTypeResponse>;
+
+  /**
+   *
+   */
+  setCheckCharType(options: SetCheckCharTypeOptions): Promise<void>;
+
+  /**
+   *
+   */
+  getDoubleCode(options: GetDoubleCodeOptions): Promise<GetDoubleCodeResponse>;
+
+  /**
+   *
+   */
+  setDoubleCode(options: SetDoubleCodeOptions): Promise<void>;
+
+  /**
+   *
+   */
+  getFormatCode(options: GetFormatCodeOptions): Promise<GetFormatCodeResponse>;
+
+  /**
+   *
+   */
+  setFormatCode(options: SetFormatCodeOptions): Promise<void>;
+
+  /**
+   *
+   */
+  getInverseCode(options: GetInverseCodeOptions): Promise<GetInverseCodeResponse>;
+
+  /**
+   *
+   */
+  setInverseCode(options: SetInverseCodeOptions): Promise<void>;
+
+  /**
+   *
+   */
+  isExtendCode1(options: IsExtendCode1Options): Promise<IsExtendCode1Response>;
+
+  /**
+   *
+   */
+  setExtendCode1(options: SetExtendCode1Options): Promise<void>;
+
+  /**
+   *
+   */
+  isExtendCode2(options: IsExtendCode2Options): Promise<IsExtendCode2Response>;
+
+  /**
+   *
+   */
+  setExtendCode2(options: SetExtendCode2Options): Promise<void>;
+
+  /**
+   *
+   */
+  isExtendToCode(options: IsExtendToCodeOptions): Promise<IsExtendToCodeResponse>;
+
+  /**
+   *
+   */
+  setExtendToCode(options: SetExtendToCodeOptions): Promise<void>;
+
+  /**
+   *
+   */
+  isMicroCode(options: IsMicroCodeOptions): Promise<IsMicroCodeResponse>;
+
+  /**
+   *
+   */
+  setMicroCode(options: SetMicroCodeOptions): Promise<void>;
+
+  /**
+   *
+   */
+  isStartEndType(options: IsStartEndTypeOptions): Promise<IsStartEndTypeResponse>;
+
+  /**
+   *
+   */
+  setStartEndType(options: SetStartEndTypeOptions): Promise<void>;
+
+  /**
+   *
+   */
+  isSystemCharZero(options: IsSystemCharZeroOptions): Promise<IsSystemCharZeroResponse>;
+
+  /**
+   *
+   */
+  setSystemCharZero(options: SetSystemCharZeroOptions): Promise<void>;
+
+  /**
+   *
+   */
+  getMaxLen(options: GetMaxLenOptions): Promise<GetMaxLenResponse>;
+
+  /**
+   *
+   */
+  setMaxLen(options: SetMaxLenOptions): Promise<void>;
+
+  /**
+   *
+   */
+  getMinLen(options: GetMinLenOptions): Promise<GetMinLenResponse>;
+
+  /**
+   *
+   */
+  setMinLen(options: SetMinLenOptions): Promise<void>;
+
+  /**
+   *
+   */
+  getStartEndFormat(options: GetStartEndFormatOptions): Promise<GetStartEndFormatResponse>;
+
+  /**
+   *
+   */
+  setStartEndFormat(options: SetStartEndFormatOptions): Promise<void>;
 
   /**
    * Listens for barcode scanner result events.

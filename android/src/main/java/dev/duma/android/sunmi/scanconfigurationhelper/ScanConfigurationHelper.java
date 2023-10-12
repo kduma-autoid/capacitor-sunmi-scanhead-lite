@@ -153,6 +153,10 @@ public class ScanConfigurationHelper implements IScanConfigurationHelper {
 
     @Override
     public void persistCodeFamiliesConfig(CodeFamiliesConfiguration configuration) throws RemoteException {
-
+        ArrayList<String> configurationCommands = CodeFamiliesConfigurationConverter.toConfigurationCommands(configuration);
+        Log.i("CMD", configurationCommands.toString());
+        for (String command: configurationCommands) {
+            scanInterfaceHelper.sendCommand(command);
+        }
     }
 }
