@@ -275,6 +275,8 @@ Discard transaction for writing settings to scanner
 getOutputType() => Promise<GetOutputTypeResponse>
 ```
 
+Gets current output mode
+
 **Returns:** <code>Promise&lt;<a href="#getoutputtyperesponse">GetOutputTypeResponse</a>&gt;</code>
 
 --------------------
@@ -300,6 +302,8 @@ Set output mode
 ```typescript
 getTriggerMethod() => Promise<GetTriggerMethodResponse>
 ```
+
+Gets current scan mode
 
 **Returns:** <code>Promise&lt;<a href="#gettriggermethodresponse">GetTriggerMethodResponse</a>&gt;</code>
 
@@ -327,6 +331,8 @@ Set scan mode
 getScanResultCodeID() => Promise<GetScanResultCodeIDResponse>
 ```
 
+Gets current variant of code type returned with scan result
+
 **Returns:** <code>Promise&lt;<a href="#getscanresultcodeidresponse">GetScanResultCodeIDResponse</a>&gt;</code>
 
 --------------------
@@ -352,6 +358,8 @@ Selects variant of code type returned with scan result
 ```typescript
 isAdvancedFormatEnabled() => Promise<IsAdvancedFormatEnabledResponse>
 ```
+
+Checks if advanced formatting options provided in configuration are enabled
 
 **Returns:** <code>Promise&lt;<a href="#isadvancedformatenabledresponse">IsAdvancedFormatEnabledResponse</a>&gt;</code>
 
@@ -379,6 +387,8 @@ Enable or disable advanced formatting options provided in configuration
 isBeep() => Promise<IsBeepResponse>
 ```
 
+Checks if sound prompts on scan are enabled
+
 **Returns:** <code>Promise&lt;<a href="#isbeepresponse">IsBeepResponse</a>&gt;</code>
 
 --------------------
@@ -404,6 +414,8 @@ Enable or disable sound prompts on scan
 ```typescript
 isVibrate() => Promise<IsVibrateResponse>
 ```
+
+Checks if vibration prompts on scan are enabled
 
 **Returns:** <code>Promise&lt;<a href="#isvibrateresponse">IsVibrateResponse</a>&gt;</code>
 
@@ -431,6 +443,8 @@ Enable or disable vibration prompts on scan
 isOutputBroadcastEnabled() => Promise<IsOutputBroadcastEnableResponse>
 ```
 
+Checks if scan result broadcast is enabled
+
 **Returns:** <code>Promise&lt;<a href="#isoutputbroadcastenableresponse">IsOutputBroadcastEnableResponse</a>&gt;</code>
 
 --------------------
@@ -456,6 +470,10 @@ Enable or disable scan result broadcast
 ```typescript
 getBroadcastConfiguration() => Promise<GetBroadcastConfigurationResponse>
 ```
+
+Get broadcast configuration
+
+**Warning: This method only reads what you have wrote to write context, as there is no way to read those settings from system at this moment** (If you know how, please make a PR)
 
 **Returns:** <code>Promise&lt;<a href="#getbroadcastconfigurationresponse">GetBroadcastConfigurationResponse</a>&gt;</code>
 
@@ -483,6 +501,8 @@ Set broadcast configuration
 getOutputEncodingCode() => Promise<GetOutputEncodingCodeResponse>
 ```
 
+Get current output encoding/character set setting
+
 **Returns:** <code>Promise&lt;<a href="#getoutputencodingcoderesponse">GetOutputEncodingCodeResponse</a>&gt;</code>
 
 --------------------
@@ -508,6 +528,8 @@ Set output encoding/character set setting
 ```typescript
 isVirtualFloatingScanButton() => Promise<IsVirtualFloatingScanButtonResponse>
 ```
+
+Checks if virtual floating scan button is enabled
 
 **Returns:** <code>Promise&lt;<a href="#isvirtualfloatingscanbuttonresponse">IsVirtualFloatingScanButtonResponse</a>&gt;</code>
 
@@ -535,6 +557,8 @@ Enable or disable the virtual floating scan button
 getCenterFlagScan() => Promise<GetCenterFlagScanResponse>
 ```
 
+Gets current center point decoding mode
+
 **Returns:** <code>Promise&lt;<a href="#getcenterflagscanresponse">GetCenterFlagScanResponse</a>&gt;</code>
 
 --------------------
@@ -560,6 +584,8 @@ Sets center point decoding mode
 ```typescript
 isFlash() => Promise<IsFlashResponse>
 ```
+
+Checks if scanner illumination is enabled
 
 **Returns:** <code>Promise&lt;<a href="#isflashresponse">IsFlashResponse</a>&gt;</code>
 
@@ -589,6 +615,8 @@ Hardware support limited
 getScene() => Promise<GetSceneResponse>
 ```
 
+Gets current scanning scene preset
+
 **Returns:** <code>Promise&lt;<a href="#getsceneresponse">GetSceneResponse</a>&gt;</code>
 
 --------------------
@@ -616,6 +644,8 @@ Hardware support limited
 ```typescript
 isRemoveGroupSeparator() => Promise<IsRemoveGroupSeparatorResponse>
 ```
+
+Checks if the removal of group separator characters is enabled
 
 **Returns:** <code>Promise&lt;<a href="#isremovegroupseparatorresponse">IsRemoveGroupSeparatorResponse</a>&gt;</code>
 
@@ -645,6 +675,8 @@ Hardware support limited
 getPrefix() => Promise<GetPrefixResponse>
 ```
 
+Gets the prefix which is prepended to the barcode data
+
 **Returns:** <code>Promise&lt;<a href="#getprefixresponse">GetPrefixResponse</a>&gt;</code>
 
 --------------------
@@ -670,6 +702,8 @@ Sets the prefix to be prepended to the barcode data
 ```typescript
 getPrefixCharactersRemoved() => Promise<GetPrefixCharactersRemovedResponse>
 ```
+
+Gets the number of characters which are removed from the beginning of the barcode data
 
 **Returns:** <code>Promise&lt;<a href="#getprefixcharactersremovedresponse">GetPrefixCharactersRemovedResponse</a>&gt;</code>
 
@@ -699,6 +733,8 @@ Hardware support limited
 getSuffix() => Promise<GetSuffixResponse>
 ```
 
+Gets the suffix which is appended to the barcode data
+
 **Returns:** <code>Promise&lt;<a href="#getsuffixresponse">GetSuffixResponse</a>&gt;</code>
 
 --------------------
@@ -724,6 +760,8 @@ Sets the suffix to be appended to the barcode data
 ```typescript
 getSuffixCharactersRemoved() => Promise<GetSuffixCharactersRemovedResponse>
 ```
+
+Gets the number of characters which are removed from the end of the barcode data
 
 **Returns:** <code>Promise&lt;<a href="#getsuffixcharactersremovedresponse">GetSuffixCharactersRemovedResponse</a>&gt;</code>
 
@@ -753,6 +791,8 @@ Hardware support limited
 getBarcodesList() => Promise<GetBarcodesListResponse>
 ```
 
+Gets the list of barcodes, and its statuses.
+
 **Returns:** <code>Promise&lt;<a href="#getbarcodeslistresponse">GetBarcodesListResponse</a>&gt;</code>
 
 --------------------
@@ -763,6 +803,8 @@ getBarcodesList() => Promise<GetBarcodesListResponse>
 ```typescript
 getBarcode(options: GetBarcodeOptions) => Promise<GetBarcodeResponse>
 ```
+
+Gets the status of a barcode
 
 | Param         | Type                                                            |
 | ------------- | --------------------------------------------------------------- |
@@ -779,6 +821,8 @@ getBarcode(options: GetBarcodeOptions) => Promise<GetBarcodeResponse>
 setBarcode(options: SetBarcodeOptions) => Promise<void>
 ```
 
+Sets the status of a barcode
+
 | Param         | Type                                                            |
 | ------------- | --------------------------------------------------------------- |
 | **`options`** | <code><a href="#setbarcodeoptions">SetBarcodeOptions</a></code> |
@@ -791,6 +835,8 @@ setBarcode(options: SetBarcodeOptions) => Promise<void>
 ```typescript
 getBarcodeConfig(options: GetBarcodeConfigOptions) => Promise<GetBarcodeConfigResponse>
 ```
+
+Gets the configuration of a barcode symbology
 
 | Param         | Type                                                                        |
 | ------------- | --------------------------------------------------------------------------- |

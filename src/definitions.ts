@@ -1274,7 +1274,7 @@ export interface SunmiScanHeadPlugin {
   discardWriteContext(): Promise<void>;
 
   /**
-   *
+   * Gets current output mode
    */
   getOutputType(): Promise<GetOutputTypeResponse>;
 
@@ -1284,7 +1284,7 @@ export interface SunmiScanHeadPlugin {
   setOutputType(options: SetOutputTypeOptions): Promise<void>;
 
   /**
-   *
+   * Gets current scan mode
    */
   getTriggerMethod(): Promise<GetTriggerMethodResponse>;
 
@@ -1294,7 +1294,7 @@ export interface SunmiScanHeadPlugin {
   setTriggerMethod(options: SetTriggerMethodOptions): Promise<void>;
 
   /**
-   *
+   * Gets current variant of code type returned with scan result
    */
   getScanResultCodeID(): Promise<GetScanResultCodeIDResponse>;
 
@@ -1304,7 +1304,7 @@ export interface SunmiScanHeadPlugin {
   setScanResultCodeID(options?: SetScanResultCodeIDOptions): Promise<void>;
 
   /**
-   *
+   * Checks if advanced formatting options provided in configuration are enabled
    */
   isAdvancedFormatEnabled(): Promise<IsAdvancedFormatEnabledResponse>;
 
@@ -1314,7 +1314,7 @@ export interface SunmiScanHeadPlugin {
   setAdvancedFormatEnabled(options?: SetAdvancedFormatEnabledOptions): Promise<void>;
 
   /**
-   *
+   * Checks if sound prompts on scan are enabled
    */
   isBeep(): Promise<IsBeepResponse>;
 
@@ -1324,7 +1324,7 @@ export interface SunmiScanHeadPlugin {
   setBeep(options?: SetBeepOptions): Promise<void>;
 
   /**
-   *
+   * Checks if vibration prompts on scan are enabled
    */
   isVibrate(): Promise<IsVibrateResponse>;
 
@@ -1334,7 +1334,7 @@ export interface SunmiScanHeadPlugin {
   setVibrate(options?: SetVibrateOptions): Promise<void>;
 
   /**
-   *
+   * Checks if scan result broadcast is enabled
    */
   isOutputBroadcastEnabled(): Promise<IsOutputBroadcastEnableResponse>;
 
@@ -1344,7 +1344,9 @@ export interface SunmiScanHeadPlugin {
   setOutputBroadcastEnabled(options?: SetOutputBroadcastEnabledOutput): Promise<void>;
 
   /**
+   * Get broadcast configuration
    *
+   * **Warning: This method only reads what you have wrote to write context, as there is no way to read those settings from system at this moment** (If you know how, please make a PR)
    */
   getBroadcastConfiguration(): Promise<GetBroadcastConfigurationResponse>;
 
@@ -1354,7 +1356,7 @@ export interface SunmiScanHeadPlugin {
   setBroadcastConfiguration(options?: SetBroadcastConfigurationOptions): Promise<void>;
 
   /**
-   *
+   * Get current output encoding/character set setting
    */
   getOutputEncodingCode(): Promise<GetOutputEncodingCodeResponse>;
 
@@ -1364,7 +1366,7 @@ export interface SunmiScanHeadPlugin {
   setOutputEncodingCode(options?: SetOutputEncodingCodeOptions): Promise<void>;
 
   /**
-   *
+   * Checks if virtual floating scan button is enabled
    */
   isVirtualFloatingScanButton(): Promise<IsVirtualFloatingScanButtonResponse>;
 
@@ -1374,7 +1376,7 @@ export interface SunmiScanHeadPlugin {
   setVirtualFloatingScanButton(options?: SetVirtualFloatingScanButtonOptions): Promise<void>;
 
   /**
-   *
+   * Gets current center point decoding mode
    */
   getCenterFlagScan(): Promise<GetCenterFlagScanResponse>;
 
@@ -1384,7 +1386,7 @@ export interface SunmiScanHeadPlugin {
   setCenterFlagScan(options?: SetCenterFlagScanOptions): Promise<void>;
 
   /**
-   *
+   * Checks if scanner illumination is enabled
    */
   isFlash(): Promise<IsFlashResponse>;
 
@@ -1396,7 +1398,7 @@ export interface SunmiScanHeadPlugin {
   setFlash(options?: SetFlashOptions): Promise<void>;
 
   /**
-   *
+   * Gets current scanning scene preset
    */
   getScene(): Promise<GetSceneResponse>;
 
@@ -1408,7 +1410,7 @@ export interface SunmiScanHeadPlugin {
   setScene(options?: SetSceneOptions): Promise<void>;
 
   /**
-   *
+   * Checks if the removal of group separator characters is enabled
    */
   isRemoveGroupSeparator(): Promise<IsRemoveGroupSeparatorResponse>;
 
@@ -1420,7 +1422,7 @@ export interface SunmiScanHeadPlugin {
   setRemoveGroupSeparator(options?: SetRemoveGroupSeparatorOptions): Promise<void>;
 
   /**
-   *
+   * Gets the prefix which is prepended to the barcode data
    */
   getPrefix(): Promise<GetPrefixResponse>;
 
@@ -1430,7 +1432,7 @@ export interface SunmiScanHeadPlugin {
   setPrefix(options?: SetPrefixOptions): Promise<void>;
 
   /**
-   *
+   * Gets the number of characters which are removed from the beginning of the barcode data
    */
   getPrefixCharactersRemoved(): Promise<GetPrefixCharactersRemovedResponse>;
 
@@ -1442,7 +1444,7 @@ export interface SunmiScanHeadPlugin {
   setPrefixCharactersRemoved(options?: SetPrefixCharactersRemovedOptions): Promise<void>;
 
   /**
-   *
+   * Gets the suffix which is appended to the barcode data
    */
   getSuffix(): Promise<GetSuffixResponse>;
 
@@ -1452,7 +1454,7 @@ export interface SunmiScanHeadPlugin {
   setSuffix(options?: SetSuffixOptions): Promise<void>;
 
   /**
-   *
+   * Gets the number of characters which are removed from the end of the barcode data
    */
   getSuffixCharactersRemoved(): Promise<GetSuffixCharactersRemovedResponse>;
 
@@ -1464,22 +1466,22 @@ export interface SunmiScanHeadPlugin {
   setSuffixCharactersRemoved(options?: SetSuffixCharactersRemovedOptions): Promise<void>;
 
   /**
-   *
+   * Gets the list of barcodes, and its statuses.
    */
   getBarcodesList(): Promise<GetBarcodesListResponse>;
 
   /**
-   *
+   * Gets the status of a barcode
    */
   getBarcode(options: GetBarcodeOptions): Promise<GetBarcodeResponse>;
 
   /**
-   *
+   * Sets the status of a barcode
    */
   setBarcode(options: SetBarcodeOptions): Promise<void>;
 
   /**
-   *
+   * Gets the configuration of a barcode symbology
    */
   getBarcodeConfig(options: GetBarcodeConfigOptions): Promise<GetBarcodeConfigResponse>;
 
