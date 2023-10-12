@@ -53,24 +53,50 @@ public class ScanConfigurationHelper implements IScanConfigurationHelper {
             );
         };
 
-        IQueryCallback<Result> specificSceneCallback = (response, entity) -> {
-            try {
-                String value = response.result.substring(response.result.lastIndexOf("=") + 1);
-                specificScene.set(Integer.valueOf(value));
-            } catch (NumberFormatException e) {
-                specificScene.set(-1);
+        IQueryCallback<Result> specificSceneCallback = new IQueryCallback<Result>() {
+            @Override
+            public void onSuccess(Result response, Entity<Result> entity) throws RemoteException {
+                try {
+                    String value = response.result.substring(response.result.lastIndexOf("=") + 1);
+                    specificScene.set(Integer.valueOf(value));
+                } catch (NumberFormatException e) {
+                    specificScene.set(-1);
+                }
+                scanInterfaceHelper.sendQuery(SunmiHelper.QUERY_ADVANCED_FORMAT, advancedFormatCallback);
             }
-            scanInterfaceHelper.sendQuery(SunmiHelper.QUERY_ADVANCED_FORMAT, advancedFormatCallback);
+
+            @Override
+            public void onFailed(int i) {
+                specificScene.set(-1);
+                try {
+                    scanInterfaceHelper.sendQuery(SunmiHelper.QUERY_ADVANCED_FORMAT, advancedFormatCallback);
+                } catch (RemoteException e) {
+                    throw new RuntimeException(e);
+                }
+            }
         };
 
-        IQueryCallback<Result> scanExpSwitchCallback = (response, entity) -> {
-            try {
-                String value = response.result.substring(response.result.lastIndexOf("=") + 1);
-                scanExpSwitch.set(Integer.valueOf(value));
-            } catch (NumberFormatException e) {
-                scanExpSwitch.set(-1);
+        IQueryCallback<Result> scanExpSwitchCallback = new IQueryCallback<Result>() {
+            @Override
+            public void onSuccess(Result response, Entity<Result> entity) throws RemoteException {
+                try {
+                    String value = response.result.substring(response.result.lastIndexOf("=") + 1);
+                    scanExpSwitch.set(Integer.valueOf(value));
+                } catch (NumberFormatException e) {
+                    scanExpSwitch.set(-1);
+                }
+                scanInterfaceHelper.sendQuery(SunmiHelper.SET_SCAN_SPECIFIC_SCENE, specificSceneCallback);
             }
-            scanInterfaceHelper.sendQuery(SunmiHelper.SET_SCAN_SPECIFIC_SCENE, specificSceneCallback);
+
+            @Override
+            public void onFailed(int i) {
+                scanExpSwitch.set(-1);
+                try {
+                    scanInterfaceHelper.sendQuery(SunmiHelper.SET_SCAN_SPECIFIC_SCENE, specificSceneCallback);
+                } catch (RemoteException e) {
+                    throw new RuntimeException(e);
+                }
+            }
         };
 
         IQueryCallback<ServiceSetting> serviceSettingsCallback = (response, entity) -> {
