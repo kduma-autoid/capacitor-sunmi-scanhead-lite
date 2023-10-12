@@ -33,7 +33,7 @@ public class CodeFamiliesConfiguration {
         return symbolConfig.get(code);
     }
 
-//    public HashMap<String, Boolean> getEnabledCodes() {
-//        return (HashMap<String, Boolean>) enabledCodes.clone();
-//    }
+    public HashMap<String, Boolean> getEnabledCodes() {
+        return new HashMap<>(enabledCodes);
+    }
 }
