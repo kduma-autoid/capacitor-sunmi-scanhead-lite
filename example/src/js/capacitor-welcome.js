@@ -175,7 +175,7 @@ window.customElements.define(
           <hr>
           <button class="button" id="getBarcodesList">getBarcodesList()</button>
           <hr>
-          <button class="button" id="getBarcode">getBarcode()</button>
+          <button class="button" id="getBarcode">getBarcode(EAN 13)</button>
           <button class="button" id="setBarcode1">setBarcode(EAN 13, true)</button>
           <button class="button" id="setBarcode0">setBarcode(EAN 13, false)</button>
           <hr>

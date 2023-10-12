@@ -133,27 +133,32 @@ public class ScanConfigurationHelper implements IScanConfigurationHelper {
             };
 
             Runnable runnable = () -> {
-                if (!toGet.get().isEmpty()) {
+                while (!toGet.get().isEmpty()) {
                     currentName.set(toGet.get().remove(0));
-                    try {
-                        scanInterfaceHelper.sendQuery(SunmiHelper.queryCodeSetting(currentName.get()), ref.codeSettingIQueryCallback);
-                    } catch (RemoteException e) {
-                        throw new RuntimeException(e);
-                    }
-                } else {
-                    Log.e("CodeSetting", "Done="+ settings);
-                    try {
-                        callback.onLoaded(
-                                CodeFamiliesConfigurationConverter.fromCodeEnable(
-                                        codeEnabled.get(),
-                                        settings.get()
-                                )
-                        );
-                    } catch (RemoteException e) {
-                        throw new RuntimeException(e);
+                    String command = SunmiHelper.queryCodeSetting(currentName.get());
+                    if (command != null && !command.equals("")) {
+                        try {
+                            scanInterfaceHelper.sendQuery(command, ref.codeSettingIQueryCallback);
+                            return;
+                        } catch (RemoteException e) {
+                            throw new RuntimeException(e);
+                        }
+                    } else {
+                        Log.e("CodeSetting", "Command not found for="+ currentName.get());
                     }
                 }
 
+                Log.e("CodeSetting", "Done="+ settings);
+                try {
+                    callback.onLoaded(
+                            CodeFamiliesConfigurationConverter.fromCodeEnable(
+                                    codeEnabled.get(),
+                                    settings.get()
+                            )
+                    );
+                } catch (RemoteException e) {
+                    throw new RuntimeException(e);
+                }
             };
 
             ref.codeSettingIQueryCallback = new IQueryCallback<>() {

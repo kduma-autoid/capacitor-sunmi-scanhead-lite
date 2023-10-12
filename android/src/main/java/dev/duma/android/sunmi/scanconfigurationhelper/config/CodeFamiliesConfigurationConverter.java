@@ -1,6 +1,7 @@
 package dev.duma.android.sunmi.scanconfigurationhelper.config;
 
 import android.util.ArrayMap;
+import android.util.Log;
 
 import com.sunmi.scanner.config.SunmiHelper;
 import com.sunmi.scanner.entity.CodeEnable;
@@ -131,7 +132,12 @@ public class CodeFamiliesConfigurationConverter {
         ArrayList<String> commands = new ArrayList<>();
 
         for (String code : configuration.updatedEnabledCodes) {
-            commands.add(SunmiHelper.setCodeEnable(code, Boolean.TRUE.equals(configuration.enabledCodes.get(code))));
+            String cmd = SunmiHelper.setCodeEnable(code, Boolean.TRUE.equals(configuration.enabledCodes.get(code)));
+            if(cmd != null && !cmd.equals("")) {
+                commands.add(cmd);
+            } else {
+                Log.e("CodeFamilies", "Command not found for code="+ code);
+            }
         }
 
         for (String code : configuration.symbolConfig.keySet()) {
