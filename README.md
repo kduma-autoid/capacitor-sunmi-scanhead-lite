@@ -1332,7 +1332,7 @@ setStartEndFormat(options: SetStartEndFormatOptions) => Promise<void>
 ### addListener('onScanResult', ...)
 
 ```typescript
-addListener(eventName: 'onScanResult', listenerFunc: OnScanResultListener) => Promise<PluginListenerHandle> & PluginListenerHandle
+addListener(eventName: 'onScanResult', listenerFunc: OnScanResultListener) => Promise<PluginListenerHandle>
 ```
 
 Listens for barcode scanner result events.
@@ -1342,7 +1342,7 @@ Listens for barcode scanner result events.
 | **`eventName`**    | <code>'onScanResult'</code>                                           |
 | **`listenerFunc`** | <code><a href="#onscanresultlistener">OnScanResultListener</a></code> |
 
-**Returns:** <code>Promise&lt;<a href="#pluginlistenerhandle">PluginListenerHandle</a>&gt; & <a href="#pluginlistenerhandle">PluginListenerHandle</a></code>
+**Returns:** <code>Promise&lt;<a href="#pluginlistenerhandle">PluginListenerHandle</a>&gt;</code>
 
 --------------------
 
@@ -1350,7 +1350,7 @@ Listens for barcode scanner result events.
 ### addListener('onScanStart', ...)
 
 ```typescript
-addListener(eventName: 'onScanStart', listenerFunc: OnScanStartListener) => Promise<PluginListenerHandle> & PluginListenerHandle
+addListener(eventName: 'onScanStart', listenerFunc: OnScanStartListener) => Promise<PluginListenerHandle>
 ```
 
 Listens for barcode scanner start events.
@@ -1360,7 +1360,7 @@ Listens for barcode scanner start events.
 | **`eventName`**    | <code>'onScanStart'</code>                                          |
 | **`listenerFunc`** | <code><a href="#onscanstartlistener">OnScanStartListener</a></code> |
 
-**Returns:** <code>Promise&lt;<a href="#pluginlistenerhandle">PluginListenerHandle</a>&gt; & <a href="#pluginlistenerhandle">PluginListenerHandle</a></code>
+**Returns:** <code>Promise&lt;<a href="#pluginlistenerhandle">PluginListenerHandle</a>&gt;</code>
 
 --------------------
 
@@ -1368,7 +1368,7 @@ Listens for barcode scanner start events.
 ### addListener('onScanStop', ...)
 
 ```typescript
-addListener(eventName: 'onScanStop', listenerFunc: OnScanStopListener) => Promise<PluginListenerHandle> & PluginListenerHandle
+addListener(eventName: 'onScanStop', listenerFunc: OnScanStopListener) => Promise<PluginListenerHandle>
 ```
 
 Listens for barcode scanner stop events.
@@ -1378,7 +1378,7 @@ Listens for barcode scanner stop events.
 | **`eventName`**    | <code>'onScanStop'</code>                                         |
 | **`listenerFunc`** | <code><a href="#onscanstoplistener">OnScanStopListener</a></code> |
 
-**Returns:** <code>Promise&lt;<a href="#pluginlistenerhandle">PluginListenerHandle</a>&gt; & <a href="#pluginlistenerhandle">PluginListenerHandle</a></code>
+**Returns:** <code>Promise&lt;<a href="#pluginlistenerhandle">PluginListenerHandle</a>&gt;</code>
 
 --------------------
 
