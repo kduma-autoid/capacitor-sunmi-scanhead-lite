@@ -1713,7 +1713,7 @@ export interface SunmiScanHeadPlugin {
   addListener(
       eventName: 'onScanResult',
       listenerFunc: OnScanResultListener,
-  ): Promise<PluginListenerHandle> & PluginListenerHandle;
+  ): Promise<PluginListenerHandle>;
 
   /**
    * Listens for barcode scanner start events.
@@ -1721,7 +1721,7 @@ export interface SunmiScanHeadPlugin {
   addListener(
       eventName: 'onScanStart',
       listenerFunc: OnScanStartListener,
-  ): Promise<PluginListenerHandle> & PluginListenerHandle;
+  ): Promise<PluginListenerHandle>;
 
   /**
    * Listens for barcode scanner stop events.
@@ -1729,7 +1729,7 @@ export interface SunmiScanHeadPlugin {
   addListener(
       eventName: 'onScanStop',
       listenerFunc: OnScanStopListener,
-  ): Promise<PluginListenerHandle> & PluginListenerHandle;
+  ): Promise<PluginListenerHandle>;
 
   /**
    * Removes all listeners
