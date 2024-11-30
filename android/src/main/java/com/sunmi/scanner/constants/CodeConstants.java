@@ -1,4 +1,4 @@
-package com.sunmi.scanner_head.constants;
+package com.sunmi.scanner.constants;
 
 public final class CodeConstants {
     public static final String AIM_128 = "Aim 128";

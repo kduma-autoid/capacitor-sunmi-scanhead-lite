@@ -1,10 +1,10 @@
-package com.sunmi.scanner_head.entity;
+package com.sunmi.scanner.entity;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
 //import com.sunmi.apps.util.data.ImageUtils;
-import com.sunmi.scanner_head.ScannerService;
+import com.sunmi.scanner.ScannerService;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -124,7 +124,7 @@ public class ServiceSetting implements Parcelable {
         this.mRemoveGroupChar = parcel.readInt();
 
         this.advancedConfig = new LinkedHashMap<>();
-        this.mBroadcastAction = "com.sunmi.scanner_head.ACTION_DATA_CODE_RECEIVED";
+        this.mBroadcastAction = "com.sunmi.scanner.ACTION_DATA_CODE_RECEIVED";
         this.mDataKey = "data";
         this.mByteKey = "source_byte";
         this.mStartDecodeAction = "";

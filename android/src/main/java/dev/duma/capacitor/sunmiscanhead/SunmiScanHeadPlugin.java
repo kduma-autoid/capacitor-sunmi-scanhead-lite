@@ -6,8 +6,8 @@ import com.getcapacitor.Plugin;
 import com.getcapacitor.PluginCall;
 import com.getcapacitor.PluginMethod;
 import com.getcapacitor.annotation.CapacitorPlugin;
-import com.sunmi.scanner_head.ScannerService;
-import com.sunmi.scanner_head.constants.CodeConstants;
+import com.sunmi.scanner.ScannerService;
+import com.sunmi.scanner.constants.CodeConstants;
 
 import java.util.EnumSet;
 import java.util.HashMap;
@@ -630,14 +630,14 @@ public class SunmiScanHeadPlugin extends Plugin {
         CallbackHelper.handle(call, (c) -> {
             ServiceConfiguration configuration = implementation.getWriteContextTool().getServiceWriteContext();
 
-            configuration.setOutputBroadcastAction(c.getString("scanned_intent", "com.sunmi.scanner_head.ACTION_DATA_CODE_RECEIVED"));
+            configuration.setOutputBroadcastAction(c.getString("scanned_intent", "com.sunmi.scanner.ACTION_DATA_CODE_RECEIVED"));
             configuration.setOutputBroadcastDataKey(c.getString("intent_data_key", "data"));
             configuration.setOutputBroadcastByteKey(c.getString("intent_byte_key", "source_byte"));
 
-            String startIntent = c.getBoolean("start_intent") == null ? c.getString("start_intent", "com.sunmi.scanner_head.ACTION_SCAN_START") : "";
+            String startIntent = c.getBoolean("start_intent") == null ? c.getString("start_intent", "com.sunmi.scanner.ACTION_SCAN_START") : "";
             configuration.setOutputBroadcastStartAction(startIntent);
 
-            String endIntent = c.getBoolean("end_intent") == null ? c.getString("end_intent", "com.sunmi.scanner_head.ACTION_SCAN_END") : "";
+            String endIntent = c.getBoolean("end_intent") == null ? c.getString("end_intent", "com.sunmi.scanner.ACTION_SCAN_END") : "";
             configuration.setOutputBroadcastEndAction(endIntent);
 
             c.resolve();

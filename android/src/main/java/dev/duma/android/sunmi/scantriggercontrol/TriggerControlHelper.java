@@ -13,7 +13,7 @@ public class TriggerControlHelper implements ITriggerControlHelper {
     @Override
     public void set(boolean enabled) {
         Intent intent = new Intent();
-        intent.setAction("com.sunmi.scanner_head.ACTION_TRIGGER_CONTROL");
+        intent.setAction("com.sunmi.scanner.ACTION_TRIGGER_CONTROL");
         intent.putExtra("enable", enabled);
         context.sendBroadcast(intent);
     }

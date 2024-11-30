@@ -1,4 +1,4 @@
-package com.sunmi.scanner_head.entity;
+package com.sunmi.scanner.entity;
 
 import java.util.Objects;
 

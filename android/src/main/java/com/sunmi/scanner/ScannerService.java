@@ -1,7 +1,7 @@
-package com.sunmi.scanner_head;
+package com.sunmi.scanner;
 
 public class ScannerService {
-    public static final String ACTION_DATA_CODE_RECEIVED = "com.sunmi.scanner_head.ACTION_DATA_CODE_RECEIVED";
+    public static final String ACTION_DATA_CODE_RECEIVED = "com.sunmi.scanner.ACTION_DATA_CODE_RECEIVED";
     public static final String DATA = "data";
     public static final String SOURCE = "source_byte";
 

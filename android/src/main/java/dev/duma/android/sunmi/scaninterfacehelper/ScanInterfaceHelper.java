@@ -11,9 +11,9 @@ import android.view.KeyEvent;
 
 import androidx.annotation.Nullable;
 
-import com.sunmi.scanner_head.ICallBack;
-import com.sunmi.scanner_head.IScanInterface;
-import com.sunmi.scanner_head.entity.Entity;
+import com.sunmi.scanner.ICallBack;
+import com.sunmi.scanner.IScanInterface;
+import com.sunmi.scanner.entity.Entity;
 
 import dev.duma.android.sunmi.scaninterfacehelper.exceptions.ScanInterfaceNotBoundException;
 
@@ -54,8 +54,8 @@ public class ScanInterfaceHelper implements IScanInterfaceHelper {
     @Override
     public void bindService() {
         Intent intent = new Intent();
-        intent.setPackage("com.sunmi.scanner_head");
-        intent.setAction("com.sunmi.scanner_head.IScanInterface");
+        intent.setPackage("com.sunmi.scanner");
+        intent.setAction("com.sunmi.scanner.IScanInterface");
         context.getApplicationContext().bindService(intent, connection, Service.BIND_AUTO_CREATE);
     }
 
