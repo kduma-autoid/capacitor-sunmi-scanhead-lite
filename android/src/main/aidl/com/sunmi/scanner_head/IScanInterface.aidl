@@ -1,7 +1,7 @@
 // IScanInterface.aidl
-package com.sunmi.scanner;
+package com.sunmi.scanner_head;
 
-import com.sunmi.scanner.ICallBack;
+import com.sunmi.scanner_head.ICallBack;
 
 interface IScanInterface {
      /**

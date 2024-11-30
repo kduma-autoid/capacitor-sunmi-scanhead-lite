@@ -1,15 +1,15 @@
-package com.sunmi.scanner.config;
+package com.sunmi.scanner_head.config;
 
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.sunmi.scanner.ScannerService;
-import com.sunmi.scanner.constants.CodeConstants;
-import com.sunmi.scanner.entity.CodeSets;
-import com.sunmi.scanner.entity.CodeSetting;
-import com.sunmi.scanner.entity.CodesRules;
-import com.sunmi.scanner.entity.Pair;
-import com.sunmi.scanner.entity.ServiceSetting;
+import com.sunmi.scanner_head.ScannerService;
+import com.sunmi.scanner_head.constants.CodeConstants;
+import com.sunmi.scanner_head.entity.CodeSets;
+import com.sunmi.scanner_head.entity.CodeSetting;
+import com.sunmi.scanner_head.entity.CodesRules;
+import com.sunmi.scanner_head.entity.Pair;
+import com.sunmi.scanner_head.entity.ServiceSetting;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
@@ -18,9 +18,9 @@ import java.util.regex.Pattern;
 import kotlin.text.Typography;
 
 public class SunmiHelper {
-    public static final String QUERY_HW_SN = "scan0001001"; //? com.sunmi.scanner.entity.Result
-    public static final String SCAN00000109 = "scan00000109"; //? com.sunmi.scanner.entity.Result <scan00000109=-1> ScanImageFile
-    public static final String SCAN00000105 = "scan00000105"; //? com.sunmi.scanner.entity.Result <scan00000105=-1> ocrPic
+    public static final String QUERY_HW_SN = "scan0001001"; //? com.sunmi.scanner_head.entity.Result
+    public static final String SCAN00000109 = "scan00000109"; //? com.sunmi.scanner_head.entity.Result <scan00000109=-1> ScanImageFile
+    public static final String SCAN00000105 = "scan00000105"; //? com.sunmi.scanner_head.entity.Result <scan00000105=-1> ocrPic
     public static final String QUERY_EXPOSURE = "scan00000106"; // getExpAuto
     public static final String AIM_128 = "scan0035";
     public static final String AUSTRALIN_POSTAL = "scan2001";
@@ -1106,7 +1106,7 @@ public class SunmiHelper {
                 Log.i(SunmiHelper.class.getSimpleName(), "unchanged mBroadcastAction=" + serviceSetting.mBroadcastAction);
             } else {
                 // TODO: set also if changed
-                if (!"com.sunmi.scanner.ACTION_DATA_CODE_RECEIVED".equals(serviceSetting.mBroadcastAction)) {
+                if (!"com.sunmi.scanner_head.ACTION_DATA_CODE_RECEIVED".equals(serviceSetting.mBroadcastAction)) {
                     sb.append(setOutBroadcastAction(serviceSetting.mBroadcastAction));
                 } else {
                     Log.e(SunmiHelper.class.getSimpleName(), "set set.mBroadcastAction value is default");

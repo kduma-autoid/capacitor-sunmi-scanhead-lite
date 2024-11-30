@@ -17,7 +17,7 @@ public class ScanHeadBroadcastReceiver implements IScanHeadBroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
             switch (Objects.requireNonNull(intent.getAction())) {
-                case "com.sunmi.scanner.ACTION_DATA_CODE_RECEIVED" -> {
+                case "com.sunmi.scanner_head.ACTION_DATA_CODE_RECEIVED" -> {
                     String code = null;
                     try {
                         code = intent.getStringExtra("data");
@@ -39,9 +39,9 @@ public class ScanHeadBroadcastReceiver implements IScanHeadBroadcastReceiver {
                     }
                 }
 
-                case "com.sunmi.scanner.ACTION_SCAN_START" -> callback.onStart();
+                case "com.sunmi.scanner_head.ACTION_SCAN_START" -> callback.onStart();
 
-                case "com.sunmi.scanner.ACTION_SCAN_END" -> callback.onStop();
+                case "com.sunmi.scanner_head.ACTION_SCAN_END" -> callback.onStop();
             }
         }
     };
@@ -55,9 +55,9 @@ public class ScanHeadBroadcastReceiver implements IScanHeadBroadcastReceiver {
     @SuppressLint("UnspecifiedRegisterReceiverFlag")
     public void register() {
         IntentFilter filter = new IntentFilter();
-        filter.addAction("com.sunmi.scanner.ACTION_DATA_CODE_RECEIVED");
-        filter.addAction("com.sunmi.scanner.ACTION_SCAN_END");
-        filter.addAction("com.sunmi.scanner.ACTION_SCAN_START");
+        filter.addAction("com.sunmi.scanner_head.ACTION_DATA_CODE_RECEIVED");
+        filter.addAction("com.sunmi.scanner_head.ACTION_SCAN_END");
+        filter.addAction("com.sunmi.scanner_head.ACTION_SCAN_START");
 
         context.registerReceiver(receiver, filter);
     }

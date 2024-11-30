@@ -7,8 +7,8 @@ import android.view.KeyEvent;
 
 import androidx.annotation.Nullable;
 
-import com.sunmi.scanner.IScanInterface;
-import com.sunmi.scanner.entity.Entity;
+import com.sunmi.scanner_head.IScanInterface;
+import com.sunmi.scanner_head.entity.Entity;
 
 import dev.duma.android.sunmi.scaninterfacehelper.exceptions.ScanInterfaceNotBoundException;
 

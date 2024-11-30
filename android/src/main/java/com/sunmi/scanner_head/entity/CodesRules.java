@@ -1,4 +1,4 @@
-package com.sunmi.scanner.entity;
+package com.sunmi.scanner_head.entity;
 
 import android.os.Parcel;
 import android.os.Parcelable;

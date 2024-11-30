@@ -3,9 +3,9 @@ package dev.duma.android.sunmi.scanconfigurationhelper.config;
 import android.util.ArrayMap;
 import android.util.Log;
 
-import com.sunmi.scanner.config.SunmiHelper;
-import com.sunmi.scanner.entity.CodeEnable;
-import com.sunmi.scanner.entity.CodeSetting;
+import com.sunmi.scanner_head.config.SunmiHelper;
+import com.sunmi.scanner_head.entity.CodeEnable;
+import com.sunmi.scanner_head.entity.CodeSetting;
 
 import java.util.ArrayList;
 import java.util.Objects;

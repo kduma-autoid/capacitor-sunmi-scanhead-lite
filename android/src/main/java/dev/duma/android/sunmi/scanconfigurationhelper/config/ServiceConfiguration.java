@@ -1,6 +1,6 @@
 package dev.duma.android.sunmi.scanconfigurationhelper.config;
 
-import com.sunmi.scanner.ScannerService;
+import com.sunmi.scanner_head.ScannerService;
 
 import java.util.EnumSet;
 import java.util.HashMap;

@@ -4,14 +4,14 @@ import android.os.RemoteException;
 import android.util.ArrayMap;
 import android.util.Log;
 
-import com.sunmi.scanner.config.SunmiHelper;
-import com.sunmi.scanner.constants.CodeConstants;
-import com.sunmi.scanner.entity.CodeEnable;
-import com.sunmi.scanner.entity.CodeSetting;
-import com.sunmi.scanner.entity.Entity;
-import com.sunmi.scanner.entity.Pair;
-import com.sunmi.scanner.entity.Result;
-import com.sunmi.scanner.entity.ServiceSetting;
+import com.sunmi.scanner_head.config.SunmiHelper;
+import com.sunmi.scanner_head.constants.CodeConstants;
+import com.sunmi.scanner_head.entity.CodeEnable;
+import com.sunmi.scanner_head.entity.CodeSetting;
+import com.sunmi.scanner_head.entity.Entity;
+import com.sunmi.scanner_head.entity.Pair;
+import com.sunmi.scanner_head.entity.Result;
+import com.sunmi.scanner_head.entity.ServiceSetting;
 
 import java.util.ArrayList;
 import java.util.Arrays;

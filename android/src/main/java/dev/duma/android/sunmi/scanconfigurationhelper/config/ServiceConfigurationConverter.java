@@ -1,12 +1,12 @@
 package dev.duma.android.sunmi.scanconfigurationhelper.config;
 
-import com.sunmi.scanner.config.SunmiHelper;
+import com.sunmi.scanner_head.config.SunmiHelper;
 
 import android.text.TextUtils;
 
-import com.sunmi.scanner.ScannerService;
-import com.sunmi.scanner.entity.Pair;
-import com.sunmi.scanner.entity.ServiceSetting;
+import com.sunmi.scanner_head.ScannerService;
+import com.sunmi.scanner_head.entity.Pair;
+import com.sunmi.scanner_head.entity.ServiceSetting;
 
 import java.util.ArrayList;
 import java.util.HashMap;
