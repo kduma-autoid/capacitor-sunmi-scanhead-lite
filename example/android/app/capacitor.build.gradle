@@ -10,7 +10,9 @@ android {
 apply from: "../capacitor-cordova-android-plugins/cordova.variables.gradle"
 dependencies {
     implementation project(':capacitor-splash-screen')
+    implementation project(':kduma-autoid-capacitor-sunmi-keyboard-handler')
     implementation project(':kduma-autoid-capacitor-sunmi-scanhead')
+    implementation project(':kduma-autoid-capacitor-sunmi-uhf')
     implementation project(':kduma-autoid-capacitor-webview-watchdog')
 
 }

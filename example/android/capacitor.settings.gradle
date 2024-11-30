@@ -5,8 +5,14 @@ project(':capacitor-android').projectDir = new File('../node_modules/@capacitor/
 include ':capacitor-splash-screen'
 project(':capacitor-splash-screen').projectDir = new File('../node_modules/@capacitor/splash-screen/android')
 
+include ':kduma-autoid-capacitor-sunmi-keyboard-handler'
+project(':kduma-autoid-capacitor-sunmi-keyboard-handler').projectDir = new File('../node_modules/@kduma-autoid/capacitor-sunmi-keyboard-handler/android')
+
 include ':kduma-autoid-capacitor-sunmi-scanhead'
 project(':kduma-autoid-capacitor-sunmi-scanhead').projectDir = new File('../../android')
+
+include ':kduma-autoid-capacitor-sunmi-uhf'
+project(':kduma-autoid-capacitor-sunmi-uhf').projectDir = new File('../node_modules/@kduma-autoid/capacitor-sunmi-uhf/android')
 
 include ':kduma-autoid-capacitor-webview-watchdog'
 project(':kduma-autoid-capacitor-webview-watchdog').projectDir = new File('../node_modules/@kduma-autoid/capacitor-webview-watchdog/android')

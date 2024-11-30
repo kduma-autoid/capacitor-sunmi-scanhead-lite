@@ -8,6 +8,8 @@ import {
   SunmiScanHead, WriteContextType
 } from "../../../src";
 import {WebViewWatchDog} from "@kduma-autoid/capacitor-webview-watchdog";
+import { HandleableKey, KeyEvent, SunmiKeyboardHandler } from '@kduma-autoid/capacitor-sunmi-keyboard-handler';
+import { SunmiUHF } from '@kduma-autoid/capacitor-sunmi-uhf';
 
 window.customElements.define(
   'capacitor-welcome',
@@ -70,6 +72,19 @@ window.customElements.define(
       </capacitor-welcome-titlebar>
       <main>
         <p>
+          <div>
+            Read Rate: <span id='rate'>0</span> tag(s)/second
+          </div>
+          <div>
+            Tag Count: <span id='total'>0</span> tag(s)
+          </div>
+          <div>
+            Cumulative Read Count: <span id='cumulative'>0</span> tag(s)
+          </div>
+          <div>
+            <span id='first_epc'>first</span>
+          </div>
+          <hr>
           <button class="button" id="scan">scan()</button>
           <button class="button" id="stop">stop()</button>
           <button class="button" id="getScannerModel">getScannerModel()</button>
@@ -197,6 +212,9 @@ window.customElements.define(
           <button class="button" id="example_fastbatch_alt">Fast batch scan (ALT)</button>
         </p>        
         
+        <h2>List</h2>
+        <ol id='list'></ol>
+        
         <h2>Events</h2>
         <p id="output"></p>
       </main>
@@ -206,6 +224,11 @@ window.customElements.define(
 
     connectedCallback() {
       const self = this;
+
+      function printToOutput(key, content) {
+        const output = self.shadowRoot.querySelector('#output');
+        output.innerHTML = "<b>" + key + ":</b><br><pre><code>" + JSON.stringify(content, null, 3) + "</code></pre><hr>" + output.innerHTML;
+      }
 
       function printToOutput(key, content) {
         const output = self.shadowRoot.querySelector('#output');
@@ -1127,6 +1150,91 @@ window.customElements.define(
           printToOutput("commitWriteContext() - ERROR", { message: e.message, code: e.code });
         }
       });
+
+
+
+
+      window.addEventListener('sunmi_uhf_debug', (e) => {
+        printToOutput('sunmi_uhf_debug', e);
+      }, false);
+
+      window.addEventListener('sunmi_uhf_read_completed', (e) => {
+        printToOutput('sunmi_uhf_read_completed', e);
+
+        const rate = self.shadowRoot.querySelector('#rate');
+        rate.innerHTML = e.rate;
+
+        console.log(e);
+      }, false);
+
+
+
+      window.addEventListener('sunmi_uhf_tag_read', (e) => {
+        printToOutput('sunmi_uhf_tag_read', e);
+
+        const first_epc = self.shadowRoot.querySelector('#first_epc');
+        if(first_epc.innerHTML == "first"){
+          first_epc.innerHTML = e.epc;
+        }
+
+        let epc = e.epc;
+        if (self.tags.indexOf(epc) === -1) {
+          self.tags.push(epc);
+          const list = self.shadowRoot.querySelector('#list');
+          list.innerHTML += "<li>" + epc + "</li>";
+
+          let total = self.shadowRoot.querySelector('#total');
+          total.innerHTML = self.tags.length.toString();
+        }
+
+        let cumulative = self.shadowRoot.querySelector('#cumulative');
+        cumulative.innerHTML = (++self.reads).toString();
+
+        console.log(e);
+      }, false);
+
+      let handler = async (e) => {
+        if (e.type === KeyEvent.KeyDown) {
+          const first_epc = self.shadowRoot.querySelector('#first_epc');
+          first_epc.innerHTML = "first";
+          const output = self.shadowRoot.querySelector('#output');
+          output.innerHTML = "";
+          const list = self.shadowRoot.querySelector('#list');
+          list.innerHTML = "";
+          this.tags = [];
+          this.reads = 0;
+
+          await SunmiUHF.startScanning();
+        } else {
+          await SunmiUHF.stopScanning();
+        }
+      };
+
+      SunmiKeyboardHandler.enableHandler({key: HandleableKey.RFID});
+      SunmiKeyboardHandler.addListener('onKeyPressed', handler);
+
+      SunmiUHF.addListener("onReaderDisconnected", () => printToOutput('onReaderDisconnected', {}));
+      SunmiUHF.addListener("onReaderLostConnection", () => printToOutput('onReaderLostConnection', {}));
+      SunmiUHF.addListener("onReaderDisconnectedOrLostConnection", () => printToOutput('onReaderDisconnectedOrLostConnection', {}));
+
+      SunmiUHF.addListener("onReaderConnected", () => printToOutput('onReaderConnected', {}));
+      SunmiUHF.addListener("onReaderBoot", () => printToOutput('onReaderBoot', {}));
+      SunmiUHF.addListener("onReaderBootOrConnected", () => printToOutput('onReaderBootOrConnected', {}));
+
+      SunmiUHF.addListener("onBatteryRemainingPercent", (e) => printToOutput('onBatteryRemainingPercent', e));
+      SunmiUHF.addListener("onBatteryLowElectricity", (e) => printToOutput('onBatteryLowElectricity', e));
+      SunmiUHF.addListener("onBatteryRemainingPercentOrLowElectricity", (e) => printToOutput('onBatteryRemainingPercentOrLowElectricity', e));
+
+      SunmiUHF.addListener("onBatteryChargeState", (e) => printToOutput('onBatteryChargeState', e));
+
+      SunmiUHF.addListener("onBatteryChargeNumTimes", (e) => printToOutput('onBatteryChargeNumTimes', e));
+
+      SunmiUHF.addListener("onBatteryVoltage", (e) => printToOutput('onBatteryVoltage', e));
+
+      SunmiUHF.addListener("onFirmwareVersion", (e) => printToOutput('onFirmwareVersion', e));
+
+      SunmiUHF.addListener("onReaderSN", (e) => printToOutput('onReaderSN', e));
+
     }
   }
 );
