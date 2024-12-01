@@ -57,7 +57,7 @@ public class ScanConfigurationHelper implements IScanConfigurationHelper {
             @Override
             public void onSuccess(Result response, Entity<Result> entity) throws RemoteException {
                 try {
-                    String value = response.result.substring(response.result.lastIndexOf("=") + 1);
+                    String value = response.getResult().substring(response.getResult().lastIndexOf("=") + 1);
                     specificScene.set(Integer.valueOf(value));
                 } catch (NumberFormatException e) {
                     specificScene.set(-1);
@@ -80,7 +80,7 @@ public class ScanConfigurationHelper implements IScanConfigurationHelper {
             @Override
             public void onSuccess(Result response, Entity<Result> entity) throws RemoteException {
                 try {
-                    String value = response.result.substring(response.result.lastIndexOf("=") + 1);
+                    String value = response.getResult().substring(response.getResult().lastIndexOf("=") + 1);
                     scanExpSwitch.set(Integer.valueOf(value));
                 } catch (NumberFormatException e) {
                     scanExpSwitch.set(-1);
@@ -123,8 +123,8 @@ public class ScanConfigurationHelper implements IScanConfigurationHelper {
         IQueryCallback<CodeEnable> codeEnabledCallback = (response, entity) -> {
             codeEnabled.set(response);
 
-            AtomicReference<ArrayMap<String, CodeSetting>> settings = new AtomicReference<>(new ArrayMap<>(response.codes.length));
-            AtomicReference<ArrayList<String>> toGet = new AtomicReference<>(new ArrayList<>(Arrays.asList(response.codes)));
+            AtomicReference<ArrayMap<String, CodeSetting>> settings = new AtomicReference<>(new ArrayMap<>(response.getCodes().length));
+            AtomicReference<ArrayList<String>> toGet = new AtomicReference<>(new ArrayList<>(Arrays.asList(response.getCodes())));
             toGet.get().add(0, CodeConstants.C_1D_BARCODE);
 
             AtomicReference<String> currentName = new AtomicReference<>("");

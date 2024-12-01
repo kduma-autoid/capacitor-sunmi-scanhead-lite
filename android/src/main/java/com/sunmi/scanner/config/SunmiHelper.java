@@ -10,8 +10,11 @@ import com.sunmi.scanner.entity.CodeSetting;
 import com.sunmi.scanner.entity.CodesRules;
 import com.sunmi.scanner.entity.Pair;
 import com.sunmi.scanner.entity.ServiceSetting;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Objects;
 import java.util.regex.Pattern;
@@ -1026,44 +1029,44 @@ public class SunmiHelper {
 
     public static String convertCmd(String str, CodesRules codesRules, CodeSetting codeSetting) {
         StringBuilder sb = new StringBuilder();
-        if (codeSetting.minLen >= codesRules.minLen && codeSetting.minLen <= codesRules.maxLen && codeSetting.maxLen >= codesRules.minLen && codeSetting.maxLen <= codesRules.maxLen && codeSetting.minLen != -1 && codeSetting.maxLen != -1) {
-            sb.append(setCodeReadRange(str, new int[]{codeSetting.minLen, codeSetting.maxLen}));
+        if (codeSetting.getMinLen() >= codesRules.minLen && codeSetting.getMinLen() <= codesRules.maxLen && codeSetting.getMaxLen() >= codesRules.minLen && codeSetting.getMaxLen() <= codesRules.maxLen && codeSetting.getMinLen() != -1 && codeSetting.getMaxLen() != -1) {
+            sb.append(setCodeReadRange(str, new int[]{codeSetting.getMinLen(), codeSetting.getMaxLen()}));
         }
-        if (codesRules.checkCharType.length > 0 && codeSetting.checkCharType != -1) {
-            sb.append(setCodeCheckCharType(str, codeSetting.checkCharType));
+        if (codesRules.checkCharType.length > 0 && codeSetting.getCheckCharType() != -1) {
+            sb.append(setCodeCheckCharType(str, codeSetting.getCheckCharType()));
         }
         if (codesRules.startEndType != -1) {
-            sb.append(setCodeStartEndType(str, codeSetting.isStartEndType));
+            sb.append(setCodeStartEndType(str, codeSetting.isStartEndType()));
         }
-        if (codesRules.startEndType == 1 && codeSetting.startEndFormat != -1) {
-            sb.append(setCodeStartEndFormat(str, codeSetting.startEndFormat));
+        if (codesRules.startEndType == 1 && codeSetting.getStartEndFormat() != -1) {
+            sb.append(setCodeStartEndFormat(str, codeSetting.getStartEndFormat()));
         }
         if (codesRules.extendCode1Type != -1) {
-            sb.append(setCodeExtendRead1(str, codeSetting.isExtendCode1));
+            sb.append(setCodeExtendRead1(str, codeSetting.isExtendCode1()));
         }
         if (codesRules.extendCode2Type != -1) {
-            sb.append(setCodeExtendRead2(str, codeSetting.isExtendCode2));
+            sb.append(setCodeExtendRead2(str, codeSetting.isExtendCode2()));
         }
         if (codesRules.systemCharZero != -1) {
-            sb.append(setCodeSystemCharZero(str, codeSetting.isSystemCharZero));
+            sb.append(setCodeSystemCharZero(str, codeSetting.isSystemCharZero()));
         }
         if (codesRules.extendToCode != -1) {
-            sb.append(setCodeExtendToCode(str, codeSetting.isExtendToCode));
+            sb.append(setCodeExtendToCode(str, codeSetting.isExtendToCode()));
         }
-        if (codesRules.checkCharMode.length > 0 && codeSetting.checkCharMode != -1) {
-            sb.append(setCodeCheckMode(str, codeSetting.checkCharMode));
+        if (codesRules.checkCharMode.length > 0 && codeSetting.getCheckCharMode() != -1) {
+            sb.append(setCodeCheckMode(str, codeSetting.getCheckCharMode()));
         }
-        if (!(codesRules.doubleCode == -1 || codeSetting.doubleCode == -1)) {
-            sb.append(setCodeReadDouble(str, codeSetting.doubleCode));
+        if (!(codesRules.doubleCode == -1 || codeSetting.getDoubleCode() == -1)) {
+            sb.append(setCodeReadDouble(str, codeSetting.getDoubleCode()));
         }
         if (codesRules.microCode != -1) {
-            sb.append(setCodeReadMicro(str, codeSetting.isMicroCode));
+            sb.append(setCodeReadMicro(str, codeSetting.isMicroCode()));
         }
-        if (!(codesRules.inverseCode == -1 || codeSetting.inverseCode == -1)) {
-            sb.append(setCodeReadInverse(str, codeSetting.inverseCode));
+        if (!(codesRules.inverseCode == -1 || codeSetting.getInverseCode() == -1)) {
+            sb.append(setCodeReadInverse(str, codeSetting.getInverseCode()));
         }
-        if (!(codesRules.formatMode == -1 || codeSetting.formatCode == -1)) {
-            sb.append(setCodeFormatMode(str, codeSetting.formatCode));
+        if (!(codesRules.formatMode == -1 || codeSetting.getFormatCode() == -1)) {
+            sb.append(setCodeFormatMode(str, codeSetting.getFormatCode()));
         }
         return sb.toString();
     }
@@ -1072,78 +1075,78 @@ public class SunmiHelper {
         String str;
         StringBuilder sb = new StringBuilder();
         if (serviceSetting != null) {
-            if(old.mOutCodeCharSet == serviceSetting.mOutCodeCharSet) {
-                Log.i(SunmiHelper.class.getSimpleName(), "unchanged mOutCodeCharSet=" + serviceSetting.mOutCodeCharSet);
+            if(old.getMOutCodeCharSet() == serviceSetting.getMOutCodeCharSet()) {
+                Log.i(SunmiHelper.class.getSimpleName(), "unchanged mOutCodeCharSet=" + serviceSetting.getMOutCodeCharSet());
             } else {
-                if (serviceSetting.mOutCodeCharSet < 0 || serviceSetting.mOutCodeCharSet > 11) {
-                    Log.e(SunmiHelper.class.getSimpleName(), "set remote.mOutCodeCharSet isn't [0,11],now set.mOutCodeCharSet=" + serviceSetting.mOutCodeCharSet);
+                if (serviceSetting.getMOutCodeCharSet() < 0 || serviceSetting.getMOutCodeCharSet() > 11) {
+                    Log.e(SunmiHelper.class.getSimpleName(), "set remote.mOutCodeCharSet isn't [0,11],now set.mOutCodeCharSet=" + serviceSetting.getMOutCodeCharSet());
                 } else {
-                    sb.append(setOutCode(serviceSetting.mOutCodeCharSet));
+                    sb.append(setOutCode(serviceSetting.getMOutCodeCharSet()));
                 }
             }
 // TODO
-//            if(old.mOutCodeCharSet == serviceSetting.mOutCodeCharSet) {
-//                Log.i(SunmiHelper.class.getSimpleName(), "unchanged mOutCodeCharSet=" + serviceSetting.mOutCodeCharSet);
+//            if(old.getMOutCodeCharSet() == serviceSetting.getMOutCodeCharSet()) {
+//                Log.i(SunmiHelper.class.getSimpleName(), "unchanged mOutCodeCharSet=" + serviceSetting.getMOutCodeCharSet());
 //            } else {
-                if (serviceSetting.mTips != null && serviceSetting.mTips.length == 2 && ((serviceSetting.mTips[0] == 0 || serviceSetting.mTips[0] == 1) && (serviceSetting.mTips[1] == 0 || serviceSetting.mTips[1] == 1 || serviceSetting.mTips[1] == -1))) {
-                    sb.append(setTips(serviceSetting.mTips));
+                if (serviceSetting.getMTips() != null && serviceSetting.getMTips().length == 2 && ((serviceSetting.getMTips()[0] == 0 || serviceSetting.getMTips()[0] == 1) && (serviceSetting.getMTips()[1] == 0 || serviceSetting.getMTips()[1] == 1 || serviceSetting.getMTips()[1] == -1))) {
+                    sb.append(setTips(serviceSetting.getMTips()));
                 } else {
-                    Log.e(SunmiHelper.class.getSimpleName(), "set set.mTips value isn't [0,1],now set.mTips=" + Arrays.toString(serviceSetting.mTips));
+                    Log.e(SunmiHelper.class.getSimpleName(), "set set.mTips value isn't [0,1],now set.mTips=" + Arrays.toString(serviceSetting.getMTips()));
                 }
 //            }
 
-            if(old.mOutBroadcast == serviceSetting.mOutBroadcast) {
-                Log.i(SunmiHelper.class.getSimpleName(), "unchanged mOutBroadcast=" + serviceSetting.mOutBroadcast);
+            if(old.getMOutBroadcast() == serviceSetting.getMOutBroadcast()) {
+                Log.i(SunmiHelper.class.getSimpleName(), "unchanged mOutBroadcast=" + serviceSetting.getMOutBroadcast());
             } else {
-                if (serviceSetting.mOutBroadcast == 0 || serviceSetting.mOutBroadcast == 1) {
-                    sb.append(setOutBroadcast(serviceSetting.mOutBroadcast));
+                if (serviceSetting.getMOutBroadcast() == 0 || serviceSetting.getMOutBroadcast() == 1) {
+                    sb.append(setOutBroadcast(serviceSetting.getMOutBroadcast()));
                 } else {
-                    Log.e(SunmiHelper.class.getSimpleName(), "set set.mOutBroadcast value isn't [0,1],now set.mOutBroadcast=" + serviceSetting.mOutBroadcast);
+                    Log.e(SunmiHelper.class.getSimpleName(), "set set.mOutBroadcast value isn't [0,1],now set.mOutBroadcast=" + serviceSetting.getMOutBroadcast());
                 }
             }
 
-            if(Objects.equals(old.mBroadcastAction, serviceSetting.mBroadcastAction)) {
-                Log.i(SunmiHelper.class.getSimpleName(), "unchanged mBroadcastAction=" + serviceSetting.mBroadcastAction);
+            if(Objects.equals(old.getMBroadcastAction(), serviceSetting.getMBroadcastAction())) {
+                Log.i(SunmiHelper.class.getSimpleName(), "unchanged mBroadcastAction=" + serviceSetting.getMBroadcastAction());
             } else {
                 // TODO: set also if changed
-                if (!"com.sunmi.scanner.ACTION_DATA_CODE_RECEIVED".equals(serviceSetting.mBroadcastAction)) {
-                    sb.append(setOutBroadcastAction(serviceSetting.mBroadcastAction));
+                if (!"com.sunmi.scanner.ACTION_DATA_CODE_RECEIVED".equals(serviceSetting.getMBroadcastAction())) {
+                    sb.append(setOutBroadcastAction(serviceSetting.getMBroadcastAction()));
                 } else {
                     Log.e(SunmiHelper.class.getSimpleName(), "set set.mBroadcastAction value is default");
                 }
             }
 
-            if(Objects.equals(old.mDataKey, serviceSetting.mDataKey)) {
-                Log.i(SunmiHelper.class.getSimpleName(), "unchanged mDataKey=" + serviceSetting.mDataKey);
+            if(Objects.equals(old.getMDataKey(), serviceSetting.getMDataKey())) {
+                Log.i(SunmiHelper.class.getSimpleName(), "unchanged mDataKey=" + serviceSetting.getMDataKey());
             } else {
                 // TODO: set also if changed
-                if (!"data".equals(serviceSetting.mDataKey)) {
-                    sb.append(setOutBroadcastDataKey(serviceSetting.mDataKey));
+                if (!"data".equals(serviceSetting.getMDataKey())) {
+                    sb.append(setOutBroadcastDataKey(serviceSetting.getMDataKey()));
                 } else {
                     Log.e(SunmiHelper.class.getSimpleName(), "set set.mDataKey value is default");
                 }
             }
 
-            if(old.mByteKey == serviceSetting.mByteKey) {
-                Log.i(SunmiHelper.class.getSimpleName(), "unchanged mByteKey=" + serviceSetting.mByteKey);
+            if(old.getMByteKey() == serviceSetting.getMByteKey()) {
+                Log.i(SunmiHelper.class.getSimpleName(), "unchanged mByteKey=" + serviceSetting.getMByteKey());
             } else {
                 // TODO: set also if changed
-                if (ScannerService.SOURCE.equals(serviceSetting.mByteKey)) {
+                if (ScannerService.SOURCE.equals(serviceSetting.getMByteKey())) {
                     Log.e(SunmiHelper.class.getSimpleName(), "set set.mByteKey value is default");
-                } else if (!TextUtils.equals(serviceSetting.mByteKey, serviceSetting.mDataKey)) {
-                    sb.append(setOutBroadcastByteKey(serviceSetting.mByteKey));
+                } else if (!TextUtils.equals(serviceSetting.getMByteKey(), serviceSetting.getMDataKey())) {
+                    sb.append(setOutBroadcastByteKey(serviceSetting.getMByteKey()));
                 } else {
                     Log.e(SunmiHelper.class.getSimpleName(), "set set.mByteKey equals set.mDataKey");
                 }
             }
 
 
-            if(old.mStartDecodeAction == serviceSetting.mStartDecodeAction) {
-                Log.i(SunmiHelper.class.getSimpleName(), "unchanged mStartDecodeAction=" + serviceSetting.mStartDecodeAction);
+            if(old.getMStartDecodeAction() == serviceSetting.getMStartDecodeAction()) {
+                Log.i(SunmiHelper.class.getSimpleName(), "unchanged mStartDecodeAction=" + serviceSetting.getMStartDecodeAction());
             } else {
                 // TODO: set also if changed
-                String str2 = TextUtils.isEmpty(serviceSetting.mStartDecodeAction) ? " " : serviceSetting.mStartDecodeAction;
-                if (" ".equals(str2) || !TextUtils.equals(str2, serviceSetting.mBroadcastAction)) {
+                String str2 = TextUtils.isEmpty(serviceSetting.getMStartDecodeAction()) ? " " : serviceSetting.getMStartDecodeAction();
+                if (" ".equals(str2) || !TextUtils.equals(str2, serviceSetting.getMBroadcastAction())) {
                     sb.append(setStartDecodeBroadcastAction(str2));
                 } else {
                     Log.e(SunmiHelper.class.getSimpleName(), "set set.mStartDecodeAction equals set.mBroadcastAction");
@@ -1151,16 +1154,16 @@ public class SunmiHelper {
             }
 
 
-            if(Objects.equals(old.mEndDecodeAction, serviceSetting.mEndDecodeAction)) {
-                Log.i(SunmiHelper.class.getSimpleName(), "unchanged mEndDecodeAction=" + serviceSetting.mEndDecodeAction);
+            if(Objects.equals(old.getMEndDecodeAction(), serviceSetting.getMEndDecodeAction())) {
+                Log.i(SunmiHelper.class.getSimpleName(), "unchanged mEndDecodeAction=" + serviceSetting.getMEndDecodeAction());
             } else {
-                String str22 = TextUtils.isEmpty(serviceSetting.mStartDecodeAction) ? " " : serviceSetting.mStartDecodeAction;
-                if (TextUtils.isEmpty(serviceSetting.mEndDecodeAction)) {
+                String str22 = TextUtils.isEmpty(serviceSetting.getMStartDecodeAction()) ? " " : serviceSetting.getMStartDecodeAction();
+                if (TextUtils.isEmpty(serviceSetting.getMEndDecodeAction())) {
                     str = " ";
                 } else {
-                    str = serviceSetting.mEndDecodeAction;
+                    str = serviceSetting.getMEndDecodeAction();
                 }
-                if (" ".equals(str) || (!TextUtils.equals(str, serviceSetting.mBroadcastAction) && (" ".equals(str22) || !TextUtils.equals(str, str22)))) {
+                if (" ".equals(str) || (!TextUtils.equals(str, serviceSetting.getMBroadcastAction()) && (" ".equals(str22) || !TextUtils.equals(str, str22)))) {
                     sb.append(setEndDecodeBroadcastAction(str));
                 } else {
                     Log.e(SunmiHelper.class.getSimpleName(), "set set.mEndDecodeAction equals set.mBroadcastAction");
@@ -1168,13 +1171,13 @@ public class SunmiHelper {
             }
 
 
-            if(old.mOutCodeID == serviceSetting.mOutCodeID) {
-                Log.i(SunmiHelper.class.getSimpleName(), "unchanged mOutCodeID=" + serviceSetting.mOutCodeID);
+            if(old.getMOutCodeID() == serviceSetting.getMOutCodeID()) {
+                Log.i(SunmiHelper.class.getSimpleName(), "unchanged mOutCodeID=" + serviceSetting.getMOutCodeID());
             } else {
-                if (serviceSetting.mOutCodeID < 0 || serviceSetting.mOutCodeID > 3) {
-                    Log.e(SunmiHelper.class.getSimpleName(), "set set.mOutCodeID value isn't [0,3],now set.mOutCodeID=" + serviceSetting.mOutCodeID);
+                if (serviceSetting.getMOutCodeID() < 0 || serviceSetting.getMOutCodeID() > 3) {
+                    Log.e(SunmiHelper.class.getSimpleName(), "set set.mOutCodeID value isn't [0,3],now set.mOutCodeID=" + serviceSetting.getMOutCodeID());
                 } else {
-                    sb.append(setSetOutCodeID(serviceSetting.mOutCodeID));
+                    sb.append(setSetOutCodeID(serviceSetting.getMOutCodeID()));
                 }
             }
 
@@ -1190,183 +1193,183 @@ public class SunmiHelper {
             }
 
 
-            if(old.mOutType == serviceSetting.mOutType) {
-                Log.i(SunmiHelper.class.getSimpleName(), "unchanged mOutType=" + serviceSetting.mOutType);
+            if(old.getMOutType() == serviceSetting.getMOutType()) {
+                Log.i(SunmiHelper.class.getSimpleName(), "unchanged mOutType=" + serviceSetting.getMOutType());
             } else {
-                if (serviceSetting.mOutType < 0 || serviceSetting.mOutType > 3) {
-                    Log.e(SunmiHelper.class.getSimpleName(), "set set.mOutType value isn't [0,3],now set.mOutType=" + serviceSetting.mOutType);
+                if (serviceSetting.getMOutType() < 0 || serviceSetting.getMOutType() > 3) {
+                    Log.e(SunmiHelper.class.getSimpleName(), "set set.mOutType value isn't [0,3],now set.mOutType=" + serviceSetting.getMOutType());
                 } else {
-                    sb.append(setOutType(serviceSetting.mOutType));
+                    sb.append(setOutType(serviceSetting.getMOutType()));
                 }
             }
 
 
-            if(old.mOutAutoAdd == serviceSetting.mOutAutoAdd) {
-                Log.i(SunmiHelper.class.getSimpleName(), "unchanged mOutAutoAdd=" + serviceSetting.mOutAutoAdd);
+            if(old.getMOutAutoAdd() == serviceSetting.getMOutAutoAdd()) {
+                Log.i(SunmiHelper.class.getSimpleName(), "unchanged mOutAutoAdd=" + serviceSetting.getMOutAutoAdd());
             } else {
-                if (serviceSetting.mOutAutoAdd != null && (serviceSetting.mOutAutoAdd.length == 3 || serviceSetting.mOutAutoAdd.length == 4) && ((serviceSetting.mOutAutoAdd[0] == 0 || serviceSetting.mOutAutoAdd[0] == 1) && (serviceSetting.mOutAutoAdd[1] == 0 || serviceSetting.mOutAutoAdd[1] == 1))) {
-                    sb.append(setOutAutoAdd(serviceSetting.mOutAutoAdd));
+                if (serviceSetting.getMOutAutoAdd() != null && (serviceSetting.getMOutAutoAdd().length == 3 || serviceSetting.getMOutAutoAdd().length == 4) && ((serviceSetting.getMOutAutoAdd()[0] == 0 || serviceSetting.getMOutAutoAdd()[0] == 1) && (serviceSetting.getMOutAutoAdd()[1] == 0 || serviceSetting.getMOutAutoAdd()[1] == 1))) {
+                    sb.append(setOutAutoAdd(serviceSetting.getMOutAutoAdd()));
                 } else {
-                    Log.e(SunmiHelper.class.getSimpleName(), "set set.mOutAutoAdd value isn't [0,1],now set.mOutAutoAdd=" + Arrays.toString(serviceSetting.mOutAutoAdd));
+                    Log.e(SunmiHelper.class.getSimpleName(), "set set.mOutAutoAdd value isn't [0,1],now set.mOutAutoAdd=" + Arrays.toString(serviceSetting.getMOutAutoAdd()));
                 }
             }
 
 
-            if(old.mOutCharInterval == serviceSetting.mOutCharInterval) {
-                Log.i(SunmiHelper.class.getSimpleName(), "unchanged mOutCharInterval=" + serviceSetting.mOutCharInterval);
+            if(old.getMOutCharInterval() == serviceSetting.getMOutCharInterval()) {
+                Log.i(SunmiHelper.class.getSimpleName(), "unchanged mOutCharInterval=" + serviceSetting.getMOutCharInterval());
             } else {
-                if (serviceSetting.mOutCharInterval < 0 || serviceSetting.mOutCharInterval > 100) {
-                    Log.e(SunmiHelper.class.getSimpleName(), "set set.mOutCharInterval value isn't [0,100],now set.mOutCharInterval=" + serviceSetting.mOutCharInterval);
+                if (serviceSetting.getMOutCharInterval() < 0 || serviceSetting.getMOutCharInterval() > 100) {
+                    Log.e(SunmiHelper.class.getSimpleName(), "set set.mOutCharInterval value isn't [0,100],now set.mOutCharInterval=" + serviceSetting.getMOutCharInterval());
                 } else {
-                    sb.append(setOutCharInterval(serviceSetting.mOutCharInterval));
+                    sb.append(setOutCharInterval(serviceSetting.getMOutCharInterval()));
                 }
             }
 
 
-            if(old.mPrefix == serviceSetting.mPrefix) {
-                Log.i(SunmiHelper.class.getSimpleName(), "unchanged mPrefix=" + serviceSetting.mPrefix);
+            if(old.getMPrefix() == serviceSetting.getMPrefix()) {
+                Log.i(SunmiHelper.class.getSimpleName(), "unchanged mPrefix=" + serviceSetting.getMPrefix());
             } else {
-                if (serviceSetting.mPrefix == 1 || serviceSetting.mPrefix == 0) {
-                    sb.append(setPrefix(serviceSetting.mPrefix));
+                if (serviceSetting.getMPrefix() == 1 || serviceSetting.getMPrefix() == 0) {
+                    sb.append(setPrefix(serviceSetting.getMPrefix()));
                 } else {
-                    Log.e(SunmiHelper.class.getSimpleName(), "set set.mPrefix value isn't [0,1],now set.mPrefix=" + serviceSetting.mPrefix);
+                    Log.e(SunmiHelper.class.getSimpleName(), "set set.mPrefix value isn't [0,1],now set.mPrefix=" + serviceSetting.getMPrefix());
                 }
             }
 
 
-            if(old.mSuffix == serviceSetting.mSuffix) {
-                Log.i(SunmiHelper.class.getSimpleName(), "unchanged mSuffix=" + serviceSetting.mSuffix);
+            if(old.getMSuffix() == serviceSetting.getMSuffix()) {
+                Log.i(SunmiHelper.class.getSimpleName(), "unchanged mSuffix=" + serviceSetting.getMSuffix());
             } else {
-                if (serviceSetting.mSuffix == 1 || serviceSetting.mSuffix == 0) {
-                    sb.append(setSuffix(serviceSetting.mSuffix));
+                if (serviceSetting.getMSuffix() == 1 || serviceSetting.getMSuffix() == 0) {
+                    sb.append(setSuffix(serviceSetting.getMSuffix()));
                 } else {
-                    Log.e(SunmiHelper.class.getSimpleName(), "set set.mSuffix value isn't [0,1],now set.mSuffix=" + serviceSetting.mSuffix);
+                    Log.e(SunmiHelper.class.getSimpleName(), "set set.mSuffix value isn't [0,1],now set.mSuffix=" + serviceSetting.getMSuffix());
                 }
             }
 
 
-            if(old.mRemoveGroupChar == serviceSetting.mRemoveGroupChar) {
-                Log.i(SunmiHelper.class.getSimpleName(), "unchanged mRemoveGroupChar=" + serviceSetting.mRemoveGroupChar);
+            if(old.getMRemoveGroupChar() == serviceSetting.getMRemoveGroupChar()) {
+                Log.i(SunmiHelper.class.getSimpleName(), "unchanged mRemoveGroupChar=" + serviceSetting.getMRemoveGroupChar());
             } else {
-                if (serviceSetting.mRemoveGroupChar == 1 || serviceSetting.mRemoveGroupChar == 0) {
-                    sb.append(setRemoveGroupChar(serviceSetting.mRemoveGroupChar));
+                if (serviceSetting.getMRemoveGroupChar() == 1 || serviceSetting.getMRemoveGroupChar() == 0) {
+                    sb.append(setRemoveGroupChar(serviceSetting.getMRemoveGroupChar()));
                 } else {
-                    Log.e(SunmiHelper.class.getSimpleName(), "set set.mRemoveGroupChar value isn't [0,1],now set.mRemoveGroupChar=" + serviceSetting.mRemoveGroupChar);
+                    Log.e(SunmiHelper.class.getSimpleName(), "set set.mRemoveGroupChar value isn't [0,1],now set.mRemoveGroupChar=" + serviceSetting.getMRemoveGroupChar());
                 }
             }
 
 
-            if(Objects.equals(old.mPrefixContext, serviceSetting.mPrefixContext)) {
-                Log.i(SunmiHelper.class.getSimpleName(), "unchanged mPrefixContext=" + serviceSetting.mPrefixContext);
+            if(Objects.equals(old.getMPrefixContext(), serviceSetting.getMPrefixContext())) {
+                Log.i(SunmiHelper.class.getSimpleName(), "unchanged mPrefixContext=" + serviceSetting.getMPrefixContext());
             } else {
-                if (serviceSetting.mPrefixContext == null || serviceSetting.mPrefixContext.isEmpty() || !Pattern.compile("^[\\x00-\\xFF]+$").matcher(serviceSetting.mPrefixContext).matches()) {
+                if (serviceSetting.getMPrefixContext() == null || serviceSetting.getMPrefixContext().isEmpty() || !Pattern.compile("^[\\x00-\\xFF]+$").matcher(serviceSetting.getMPrefixContext()).matches()) {
                     sb.append(setPrefixContext(ScannerService.FIX_NULL));
-                    Log.e(SunmiHelper.class.getSimpleName(), "set set.mPrefixContext value isn't ASCII,now set.mPrefixContext=" + serviceSetting.mPrefixContext);
+                    Log.e(SunmiHelper.class.getSimpleName(), "set set.mPrefixContext value isn't ASCII,now set.mPrefixContext=" + serviceSetting.getMPrefixContext());
                 } else {
-                    sb.append(setPrefixContext(serviceSetting.mPrefixContext));
+                    sb.append(setPrefixContext(serviceSetting.getMPrefixContext()));
                 }
             }
 
 
-            if(Objects.equals(old.mSuffixContext, serviceSetting.mSuffixContext)) {
-                Log.i(SunmiHelper.class.getSimpleName(), "unchanged mSuffixContext=" + serviceSetting.mSuffixContext);
+            if(Objects.equals(old.getMSuffixContext(), serviceSetting.getMSuffixContext())) {
+                Log.i(SunmiHelper.class.getSimpleName(), "unchanged mSuffixContext=" + serviceSetting.getMSuffixContext());
             } else {
-                if (serviceSetting.mSuffixContext == null || serviceSetting.mSuffixContext.isEmpty() || !Pattern.compile("^[\\x00-\\xFF]+$").matcher(serviceSetting.mSuffixContext).matches()) {
+                if (serviceSetting.getMSuffixContext() == null || serviceSetting.getMSuffixContext().isEmpty() || !Pattern.compile("^[\\x00-\\xFF]+$").matcher(serviceSetting.getMSuffixContext()).matches()) {
                     sb.append(setSuffixContext(ScannerService.FIX_NULL));
-                    Log.e(SunmiHelper.class.getSimpleName(), "set set.mSuffixContext value isn't ASCII,now set.mSuffixContext=" + serviceSetting.mSuffixContext);
+                    Log.e(SunmiHelper.class.getSimpleName(), "set set.mSuffixContext value isn't ASCII,now set.mSuffixContext=" + serviceSetting.getMSuffixContext());
                 } else {
-                    sb.append(setSuffixContext(serviceSetting.mSuffixContext));
+                    sb.append(setSuffixContext(serviceSetting.getMSuffixContext()));
                 }
             }
 
 
-            if(old.mTriggerMethod == serviceSetting.mTriggerMethod) {
-                Log.i(SunmiHelper.class.getSimpleName(), "unchanged mTriggerMethod=" + serviceSetting.mTriggerMethod);
+            if(old.getMTriggerMethod() == serviceSetting.getMTriggerMethod()) {
+                Log.i(SunmiHelper.class.getSimpleName(), "unchanged mTriggerMethod=" + serviceSetting.getMTriggerMethod());
             } else {
-                if (serviceSetting.mTriggerMethod < 0 || serviceSetting.mTriggerMethod > 3) {
-                    Log.e(SunmiHelper.class.getSimpleName(), "set set.mTriggerMethod value isn't [0,3],now set.mTriggerMethod=" + serviceSetting.mTriggerMethod);
+                if (serviceSetting.getMTriggerMethod() < 0 || serviceSetting.getMTriggerMethod() > 3) {
+                    Log.e(SunmiHelper.class.getSimpleName(), "set set.mTriggerMethod value isn't [0,3],now set.mTriggerMethod=" + serviceSetting.getMTriggerMethod());
                 } else {
-                    sb.append(setTriggerMethod(serviceSetting.mTriggerMethod));
-                    sb.append(setScanTriggerModel(serviceSetting.mTriggerMethod));
+                    sb.append(setTriggerMethod(serviceSetting.getMTriggerMethod()));
+                    sb.append(setScanTriggerModel(serviceSetting.getMTriggerMethod()));
                 }
             }
 
 
-            if(old.mPrefixCount == serviceSetting.mPrefixCount) {
-                Log.i(SunmiHelper.class.getSimpleName(), "unchanged mPrefixCount=" + serviceSetting.mPrefixCount);
+            if(old.getMPrefixCount() == serviceSetting.getMPrefixCount()) {
+                Log.i(SunmiHelper.class.getSimpleName(), "unchanged mPrefixCount=" + serviceSetting.getMPrefixCount());
             } else {
-                if (serviceSetting.mPrefixCount < 0 || serviceSetting.mPrefixCount > 20) {
-                    Log.e(SunmiHelper.class.getSimpleName(), "set set.mPrefixCount value isn't [0,20],now set.mPrefixCount=" + serviceSetting.mPrefixCount);
+                if (serviceSetting.getMPrefixCount() < 0 || serviceSetting.getMPrefixCount() > 20) {
+                    Log.e(SunmiHelper.class.getSimpleName(), "set set.mPrefixCount value isn't [0,20],now set.mPrefixCount=" + serviceSetting.getMPrefixCount());
                 } else {
-                    sb.append(setPrefixCount(serviceSetting.mPrefixCount));
+                    sb.append(setPrefixCount(serviceSetting.getMPrefixCount()));
                 }
             }
 
 
-            if(old.mSuffixCount == serviceSetting.mSuffixCount) {
-                Log.i(SunmiHelper.class.getSimpleName(), "unchanged mSuffixCount=" + serviceSetting.mSuffixCount);
+            if(old.getMSuffixCount() == serviceSetting.getMSuffixCount()) {
+                Log.i(SunmiHelper.class.getSimpleName(), "unchanged mSuffixCount=" + serviceSetting.getMSuffixCount());
             } else {
-                if (serviceSetting.mSuffixCount < 0 || serviceSetting.mSuffixCount > 20) {
-                    Log.e(SunmiHelper.class.getSimpleName(), "set set.mSuffixCount value isn't [0,20],now set.mSuffixCount=" + serviceSetting.mSuffixCount);
+                if (serviceSetting.getMSuffixCount() < 0 || serviceSetting.getMSuffixCount() > 20) {
+                    Log.e(SunmiHelper.class.getSimpleName(), "set set.mSuffixCount value isn't [0,20],now set.mSuffixCount=" + serviceSetting.getMSuffixCount());
                 } else {
-                    sb.append(setSuffixCount(serviceSetting.mSuffixCount));
+                    sb.append(setSuffixCount(serviceSetting.getMSuffixCount()));
                 }
             }
 
 
-            if(old.mTriggerTimeOut == serviceSetting.mTriggerTimeOut) {
-                Log.i(SunmiHelper.class.getSimpleName(), "unchanged mTriggerTimeOut=" + serviceSetting.mTriggerTimeOut);
+            if(old.getMTriggerTimeOut() == serviceSetting.getMTriggerTimeOut()) {
+                Log.i(SunmiHelper.class.getSimpleName(), "unchanged mTriggerTimeOut=" + serviceSetting.getMTriggerTimeOut());
             } else {
-                if (serviceSetting.mTriggerTimeOut < 1000) {
-                    serviceSetting.mTriggerTimeOut = 1000;
+                if (serviceSetting.getMTriggerTimeOut() < 1000) {
+                    serviceSetting.setMTriggerTimeOut(1000);
                 }
-                if (serviceSetting.mTriggerTimeOut > 9000) {
-                    Log.e(SunmiHelper.class.getSimpleName(), "set set.mTriggerTimeOut value isn't [1000,9000],now set.mTriggerTimeOut=" + serviceSetting.mTriggerTimeOut);
+                if (serviceSetting.getMTriggerTimeOut() > 9000) {
+                    Log.e(SunmiHelper.class.getSimpleName(), "set set.mTriggerTimeOut value isn't [1000,9000],now set.mTriggerTimeOut=" + serviceSetting.getMTriggerTimeOut());
                 } else {
                     int i = 5000;
-                    sb.append(setTriggerOverTime(serviceSetting.mTriggerMethod == 2 ? serviceSetting.mTriggerTimeOut : 5000));
-                    if (serviceSetting.mTriggerMethod == 2) {
-                        i = serviceSetting.mTriggerTimeOut;
+                    sb.append(setTriggerOverTime(serviceSetting.getMTriggerMethod() == 2 ? serviceSetting.getMTriggerTimeOut() : 5000));
+                    if (serviceSetting.getMTriggerMethod() == 2) {
+                        i = serviceSetting.getMTriggerTimeOut();
                     }
                     sb.append(setScanTriggerTimeOut(i));
                 }
             }
 
 
-            if(old.mDecodeMode == serviceSetting.mDecodeMode) {
-                Log.i(SunmiHelper.class.getSimpleName(), "unchanged mDecodeMode=" + serviceSetting.mDecodeMode);
+            if(old.getMDecodeMode() == serviceSetting.getMDecodeMode()) {
+                Log.i(SunmiHelper.class.getSimpleName(), "unchanged mDecodeMode=" + serviceSetting.getMDecodeMode());
             } else {
-                if (serviceSetting.mDecodeMode == 0 || serviceSetting.mDecodeMode == 1) {
-                    sb.append(setDecodeAreaMode(serviceSetting.mDecodeMode));
-                    if (serviceSetting.mDecodeWindowPercent < 0 || serviceSetting.mDecodeWindowPercent > 100) {
-                        Log.e(SunmiHelper.class.getSimpleName(), "set set.mDecodeWindowPercent value isn't [0,100],now set.mDecodeWindowPercent=" + serviceSetting.mDecodeWindowPercent);
+                if (serviceSetting.getMDecodeMode() == 0 || serviceSetting.getMDecodeMode() == 1) {
+                    sb.append(setDecodeAreaMode(serviceSetting.getMDecodeMode()));
+                    if (serviceSetting.getMDecodeWindowPercent() < 0 || serviceSetting.getMDecodeWindowPercent() > 100) {
+                        Log.e(SunmiHelper.class.getSimpleName(), "set set.mDecodeWindowPercent value isn't [0,100],now set.mDecodeWindowPercent=" + serviceSetting.getMDecodeWindowPercent());
                     } else {
-                        sb.append(setDecodeAreaPercent(serviceSetting.mDecodeWindowPercent));
+                        sb.append(setDecodeAreaPercent(serviceSetting.getMDecodeWindowPercent()));
                     }
                 } else {
-                    Log.e(SunmiHelper.class.getSimpleName(), "set set.mDecodeMode value isn't [0,1],now set.mDecodeMode=" + serviceSetting.mDecodeMode);
+                    Log.e(SunmiHelper.class.getSimpleName(), "set set.mDecodeMode value isn't [0,1],now set.mDecodeMode=" + serviceSetting.getMDecodeMode());
                 }
             }
 
 
-            if(old.mCenterFlagScan == serviceSetting.mCenterFlagScan) {
-                Log.i(SunmiHelper.class.getSimpleName(), "unchanged mCenterFlagScan=" + serviceSetting.mCenterFlagScan);
+            if(old.getMCenterFlagScan() == serviceSetting.getMCenterFlagScan()) {
+                Log.i(SunmiHelper.class.getSimpleName(), "unchanged mCenterFlagScan=" + serviceSetting.getMCenterFlagScan());
             } else {
-                if (serviceSetting.mCenterFlagScan < 0 || serviceSetting.mCenterFlagScan > 2) {
-                    Log.e(SunmiHelper.class.getSimpleName(), "set set.mCenterFlagScan value isn't [0,2],now set.mCenterFlagScan=" + serviceSetting.mCenterFlagScan);
+                if (serviceSetting.getMCenterFlagScan() < 0 || serviceSetting.getMCenterFlagScan() > 2) {
+                    Log.e(SunmiHelper.class.getSimpleName(), "set set.mCenterFlagScan value isn't [0,2],now set.mCenterFlagScan=" + serviceSetting.getMCenterFlagScan());
                 } else {
-                    sb.append(setCenterFlagScan(serviceSetting.mCenterFlagScan));
+                    sb.append(setCenterFlagScan(serviceSetting.getMCenterFlagScan()));
                 }
             }
 
 
-            if(old.mAdvancedFormat == serviceSetting.mAdvancedFormat) {
-                Log.i(SunmiHelper.class.getSimpleName(), "unchanged mAdvancedFormat=" + serviceSetting.mAdvancedFormat);
+            if(old.getMAdvancedFormat() == serviceSetting.getMAdvancedFormat()) {
+                Log.i(SunmiHelper.class.getSimpleName(), "unchanged mAdvancedFormat=" + serviceSetting.getMAdvancedFormat());
             } else {
-                if (serviceSetting.mAdvancedFormat == 1 || serviceSetting.mAdvancedFormat == 0) {
-                    sb.append(setAdvancedFormat(serviceSetting.mAdvancedFormat));
+                if (serviceSetting.getMAdvancedFormat() == 1 || serviceSetting.getMAdvancedFormat() == 0) {
+                    sb.append(setAdvancedFormat(serviceSetting.getMAdvancedFormat()));
                 } else {
-                    Log.e(SunmiHelper.class.getSimpleName(), "set set.mAdvancedFormat value is not [0,1],now set.mAdvancedFormat=" + serviceSetting.mAdvancedFormat);
+                    Log.e(SunmiHelper.class.getSimpleName(), "set set.mAdvancedFormat value is not [0,1],now set.mAdvancedFormat=" + serviceSetting.getMAdvancedFormat());
                 }
             }
 
@@ -1382,10 +1385,11 @@ public class SunmiHelper {
             }
 
 //          TODO
-//            if(old.mOutCodeCharSet == serviceSetting.mOutCodeCharSet) {
-//                Log.i(SunmiHelper.class.getSimpleName(), "unchanged mOutCodeCharSet=" + serviceSetting.mOutCodeCharSet);
+//            if(old.getMOutCodeCharSet() == serviceSetting.getMOutCodeCharSet()) {
+//                Log.i(SunmiHelper.class.getSimpleName(), "unchanged mOutCodeCharSet=" + serviceSetting.getMOutCodeCharSet());
 //            } else {
-                if (serviceSetting.advancedConfig == null || serviceSetting.advancedConfig.size() <= 0) {
+                LinkedHashMap<String, String> config = (LinkedHashMap<String, String>) serviceSetting.getAdvancedConfig();
+                if (serviceSetting.getAdvancedConfig() == null || serviceSetting.getAdvancedConfig().size() <= 0) {
                     sb.append(setAdvancedFormatClear(1));
                     Log.e(SunmiHelper.class.getSimpleName(), "set set.mAdvancedFormat.size() is zero,set.getAdvancedConfig()=" + serviceSetting.getAdvancedConfig());
                 } else {
@@ -1393,7 +1397,7 @@ public class SunmiHelper {
                     Iterator<Pair> it = serviceSetting.getAdvancedConfig().iterator();
                     while (it.hasNext()) {
                         Pair next = it.next();
-                        sb.append(setAdvancedFormatAdd(new String[]{next.first, next.second}));
+                        sb.append(setAdvancedFormatAdd(new String[]{next.getFirst(), next.getSecond()}));
                     }
                 }
 //            }

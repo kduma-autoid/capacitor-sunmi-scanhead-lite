@@ -114,7 +114,7 @@ public class ScanInterfaceHelper implements IScanInterfaceHelper {
                 try {
                     callback.onSuccess((T) bean, entity);
                 } catch (ClassCastException e) {
-                    callback.onFailed(entity.getClazz(), entity, e.getMessage());
+                    callback.onFailed(entity.getClass().getName(), entity, e.getMessage());
                 }
             }
 

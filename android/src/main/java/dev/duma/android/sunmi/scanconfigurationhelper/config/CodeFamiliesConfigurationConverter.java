@@ -16,10 +16,10 @@ public class CodeFamiliesConfigurationConverter {
     public static CodeFamiliesConfiguration fromCodeEnable(CodeEnable codeEnable, ArrayMap<String, CodeSetting> settings) {
         CodeFamiliesConfiguration configuration = new CodeFamiliesConfiguration();
 
-        for (int i = 0; i < codeEnable.codes.length; i++) {
+        for (int i = 0; i < codeEnable.getCodes().length; i++) {
             configuration.enabledCodes.put(
-                    codeEnable.codes[i],
-                    codeEnable.enable[i]
+                    codeEnable.getCodes()[i],
+                    codeEnable.getEnable()[i]
             );
         }
 
@@ -40,86 +40,86 @@ public class CodeFamiliesConfigurationConverter {
     protected static CodeFamilySettingsConfiguration fromCodeSetting(CodeSetting setting) {
         CodeFamilySettingsConfiguration configuration = new CodeFamilySettingsConfiguration();
 
-        if(setting.checkCharMode != -1) {
-            configuration.checkCharMode = setting.checkCharMode;
+        if(setting.getCheckCharMode() != -1) {
+            configuration.checkCharMode = setting.getCheckCharMode();
         } else {
             configuration.unsupportedFields.add(CodeFamilyConfigurationFieldEnum.CheckCharMode);
         }
 
-        if(setting.checkCharType != -1) {
-            configuration.checkCharType = setting.checkCharType;
+        if(setting.getCheckCharType() != -1) {
+            configuration.checkCharType = setting.getCheckCharType();
         } else {
             configuration.unsupportedFields.add(CodeFamilyConfigurationFieldEnum.CheckCharType);
         }
 
-        if(setting.doubleCode != -1) {
-            configuration.doubleCode = setting.doubleCode;
+        if(setting.getDoubleCode() != -1) {
+            configuration.doubleCode = setting.getDoubleCode();
         } else {
             configuration.unsupportedFields.add(CodeFamilyConfigurationFieldEnum.DoubleCode);
         }
 
-        if(setting.formatCode != -1) {
-            configuration.formatCode = setting.formatCode;
+        if(setting.getFormatCode() != -1) {
+            configuration.formatCode = setting.getFormatCode();
         } else {
             configuration.unsupportedFields.add(CodeFamilyConfigurationFieldEnum.FormatCode);
         }
 
-        if(setting.inverseCode != -1) {
-            configuration.inverseCode = setting.inverseCode;
+        if(setting.getInverseCode() != -1) {
+            configuration.inverseCode = setting.getInverseCode();
         } else {
             configuration.unsupportedFields.add(CodeFamilyConfigurationFieldEnum.InverseCode);
         }
 
-//        if(setting.isExtendCode1 != -1) {
-            configuration.isExtendCode1 = setting.isExtendCode1;
+//        if(setting.isExtendCode1() != -1) {
+            configuration.isExtendCode1 = setting.isExtendCode1();
 //        } else {
 //            configuration.unsupportedFields.add(CodeFamilyConfigurationFieldEnum.IsExtendCode1);
 //        }
 
-//        if(setting.isExtendCode2 != -1) {
-            configuration.isExtendCode2 = setting.isExtendCode2;
+//        if(setting.isExtendCode2() != -1) {
+            configuration.isExtendCode2 = setting.isExtendCode2();
 //        } else {
 //            configuration.unsupportedFields.add(CodeFamilyConfigurationFieldEnum.IsExtendCode2);
 //        }
 
-//        if(setting.isExtendToCode != -1) {
-            configuration.isExtendToCode = setting.isExtendToCode;
+//        if(setting.isExtendToCode() != -1) {
+            configuration.isExtendToCode = setting.isExtendToCode();
 //        } else {
 //            configuration.unsupportedFields.add(CodeFamilyConfigurationFieldEnum.IsExtendToCode);
 //        }
 
-//        if(setting.isMicroCode != -1) {
-            configuration.isMicroCode = setting.isMicroCode;
+//        if(setting.isMicroCode() != -1) {
+            configuration.isMicroCode = setting.isMicroCode();
 //        } else {
 //            configuration.unsupportedFields.add(CodeFamilyConfigurationFieldEnum.IsMicroCode);
 //        }
 
-//        if(setting.isStartEndType != -1) {
-            configuration.isStartEndType = setting.isStartEndType;
+//        if(setting.isStartEndType() != -1) {
+            configuration.isStartEndType = setting.isStartEndType();
 //        } else {
 //            configuration.unsupportedFields.add(CodeFamilyConfigurationFieldEnum.IsStartEndType);
 //        }
 
-//        if(setting.isSystemCharZero != -1) {
-            configuration.isSystemCharZero = setting.isSystemCharZero;
+//        if(setting.isSystemCharZero() != -1) {
+            configuration.isSystemCharZero = setting.isSystemCharZero();
 //        } else {
 //            configuration.unsupportedFields.add(CodeFamilyConfigurationFieldEnum.IsSystemCharZero);
 //        }
 
-        if(setting.maxLen != -1) {
-            configuration.maxLen = setting.maxLen;
+        if(setting.getMaxLen() != -1) {
+            configuration.maxLen = setting.getMaxLen();
         } else {
             configuration.unsupportedFields.add(CodeFamilyConfigurationFieldEnum.MaxLen);
         }
 
-        if(setting.minLen != -1) {
-            configuration.minLen = setting.minLen;
+        if(setting.getMinLen() != -1) {
+            configuration.minLen = setting.getMinLen();
         } else {
             configuration.unsupportedFields.add(CodeFamilyConfigurationFieldEnum.MinLen);
         }
 
-        if(setting.startEndFormat != -1) {
-            configuration.startEndFormat = setting.startEndFormat;
+        if(setting.getStartEndFormat() != -1) {
+            configuration.startEndFormat = setting.getStartEndFormat();
         } else {
             configuration.unsupportedFields.add(CodeFamilyConfigurationFieldEnum.StartEndFormat);
         }

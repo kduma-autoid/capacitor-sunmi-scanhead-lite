@@ -170,7 +170,7 @@ public class ServiceConfigurationConverter {
 
         configuration.advancedFormats = new HashMap<>();
         for (Pair next : advancedFormats){
-            configuration.advancedFormats.put(next.first, next.second);
+            configuration.advancedFormats.put(next.getFirst(), next.getSecond());
         }
 
         if(serviceSetting.scanExpSwitch == -1) {
@@ -192,68 +192,68 @@ public class ServiceConfigurationConverter {
             };
         }
 
-        if(serviceSetting.mRemoveGroupChar == -1) {
+        if(serviceSetting.getMRemoveGroupChar() == -1) {
             configuration.unsupportedFields.add(ConfigurationFieldEnum.RemoveGroupSeparator);
         } else {
-            configuration.removeGroupSeparator = serviceSetting.mRemoveGroupChar == 1;
+            configuration.removeGroupSeparator = serviceSetting.getMRemoveGroupChar() == 1;
         }
 
-        if(serviceSetting.mPrefixCount == -1) {
+        if(serviceSetting.getMPrefixCount() == -1) {
             configuration.unsupportedFields.add(ConfigurationFieldEnum.PrefixCharactersRemoved);
         } else {
-            configuration.prefixCharactersRemoved = serviceSetting.mPrefixCount;
+            configuration.prefixCharactersRemoved = serviceSetting.getMPrefixCount();
         }
 
-        if(serviceSetting.mSuffixCount == -1) {
+        if(serviceSetting.getMSuffixCount() == -1) {
             configuration.unsupportedFields.add(ConfigurationFieldEnum.SuffixCharactersRemoved);
         } else {
-            configuration.suffixCharactersRemoved = serviceSetting.mSuffixCount;
+            configuration.suffixCharactersRemoved = serviceSetting.getMSuffixCount();
         }
 
-        if(serviceSetting.mCenterFlagScan == -1) {
+        if(serviceSetting.getMCenterFlagScan() == -1) {
             configuration.unsupportedFields.add(ConfigurationFieldEnum.CenterFlagScan);
         } else {
-            configuration.centerFlagScan = switch (serviceSetting.mCenterFlagScan) {
+            configuration.centerFlagScan = switch (serviceSetting.getMCenterFlagScan()) {
                 default -> CenterDecodingSettingEnum.Disabled;
                 case 1 -> CenterDecodingSettingEnum.CenterOnly;
                 case 2 -> CenterDecodingSettingEnum.CenterFirst;
             };
         }
 
-        if(serviceSetting.mTrigger.length == 0 || serviceSetting.mTrigger[0] == -1) {
+        if(serviceSetting.getMTrigger().length == 0 || serviceSetting.getMTrigger()[0] == -1) {
             configuration.unsupportedFields.add(ConfigurationFieldEnum.VirtualFloatingScanButton);
         } else {
-            configuration.virtualFloatingScanButton = serviceSetting.mTrigger[0] == 1;
+            configuration.virtualFloatingScanButton = serviceSetting.getMTrigger()[0] == 1;
         }
 
-        if(serviceSetting.mAdvancedFormat == -1) {
+        if(serviceSetting.getMAdvancedFormat() == -1) {
             configuration.unsupportedFields.add(ConfigurationFieldEnum.AdvancedFormatEnabled);
         } else {
-            configuration.advancedFormatEnabled = serviceSetting.mAdvancedFormat == 1;
+            configuration.advancedFormatEnabled = serviceSetting.getMAdvancedFormat() == 1;
         }
 
-        if(serviceSetting.mOutBroadcast == -1) {
+        if(serviceSetting.getMOutBroadcast() == -1) {
             configuration.unsupportedFields.add(ConfigurationFieldEnum.OutputBroadcastEnabled);
         } else {
-            configuration.outputBroadcastEnabled = serviceSetting.mOutBroadcast == 1;
+            configuration.outputBroadcastEnabled = serviceSetting.getMOutBroadcast() == 1;
         }
 
-        if(serviceSetting.mTips.length <= 1 || serviceSetting.mTips[1] == -1) {
+        if(serviceSetting.getMTips().length <= 1 || serviceSetting.getMTips()[1] == -1) {
             configuration.unsupportedFields.add(ConfigurationFieldEnum.Vibrate);
         } else {
-            configuration.vibrate = serviceSetting.mTips[1] == 1;
+            configuration.vibrate = serviceSetting.getMTips()[1] == 1;
         }
 
-        if(serviceSetting.mTips.length == 0 || serviceSetting.mTips[0] == -1) {
+        if(serviceSetting.getMTips().length == 0 || serviceSetting.getMTips()[0] == -1) {
             configuration.unsupportedFields.add(ConfigurationFieldEnum.Beep);
         } else {
-            configuration.beep = serviceSetting.mTips[0] == 1;
+            configuration.beep = serviceSetting.getMTips()[0] == 1;
         }
 
-        if(serviceSetting.mTriggerMethod == -1) {
+        if(serviceSetting.getMTriggerMethod() == -1) {
             configuration.unsupportedFields.add(ConfigurationFieldEnum.TriggerMethod);
         } else {
-            configuration.triggerMethod = switch (serviceSetting.mTriggerMethod) {
+            configuration.triggerMethod = switch (serviceSetting.getMTriggerMethod()) {
                 default -> TriggerMethodEnum.Trigger;
                 case 1 -> TriggerMethodEnum.Continuous;
                 case 2 -> TriggerMethodEnum.Pulse;
@@ -261,10 +261,10 @@ public class ServiceConfigurationConverter {
             };
         }
 
-        if(serviceSetting.mOutCodeID == -1) {
+        if(serviceSetting.getMOutCodeID() == -1) {
             configuration.unsupportedFields.add(ConfigurationFieldEnum.ScanResultCodeID);
         } else {
-            configuration.scanResultCodeID = switch (serviceSetting.mOutCodeID) {
+            configuration.scanResultCodeID = switch (serviceSetting.getMOutCodeID()) {
                 default -> ScanResultCodeIDEnum.None;
                 case 1 -> ScanResultCodeIDEnum.SunmiId;
                 case 2 -> ScanResultCodeIDEnum.AimId;
@@ -272,10 +272,10 @@ public class ServiceConfigurationConverter {
             };
         }
 
-        if(serviceSetting.mOutType == -1) {
+        if(serviceSetting.getMOutType() == -1) {
             configuration.unsupportedFields.add(ConfigurationFieldEnum.OutputType);
         } else {
-            configuration.outputType = switch (serviceSetting.mOutType) {
+            configuration.outputType = switch (serviceSetting.getMOutType()) {
                 case 0 -> OutputTypeEnum.DirectFill;
                 case 1 -> OutputTypeEnum.DirectFillWithReplace;
                 default -> OutputTypeEnum.Keystroke;
@@ -283,10 +283,10 @@ public class ServiceConfigurationConverter {
             };
         }
 
-        if(serviceSetting.mOutCodeCharSet == -1) {
+        if(serviceSetting.getMOutCodeCharSet() == -1) {
             configuration.unsupportedFields.add(ConfigurationFieldEnum.OutputEncodingCode);
         } else {
-            configuration.outputEncodingCode = switch (serviceSetting.mOutCodeCharSet) {
+            configuration.outputEncodingCode = switch (serviceSetting.getMOutCodeCharSet()) {
                 default -> OutputEncodingCodeEnum.UTF8;
                 case 1 -> OutputEncodingCodeEnum.GBK;
                 case 2 -> OutputEncodingCodeEnum.ISO88591;
@@ -302,92 +302,92 @@ public class ServiceConfigurationConverter {
             };
         }
 
-        if(serviceSetting.mTriggerTimeOut == -1) {
+        if(serviceSetting.getMTriggerTimeOut() == -1) {
             configuration.unsupportedFields.add(ConfigurationFieldEnum.ScanTriggerTimeOut);
         } else {
-            configuration.scanTriggerTimeOut = serviceSetting.mTriggerTimeOut;
+            configuration.scanTriggerTimeOut = serviceSetting.getMTriggerTimeOut();
         }
 
-        if(serviceSetting.mContinuousTime == -1) {
+        if(serviceSetting.getMContinuousTime() == -1) {
             configuration.unsupportedFields.add(ConfigurationFieldEnum.TriggerContinuousTime);
         } else {
-            configuration.triggerContinuousTime = serviceSetting.mContinuousTime;
+            configuration.triggerContinuousTime = serviceSetting.getMContinuousTime();
         }
 
-        if(serviceSetting.mOutCharInterval == -1) {
+        if(serviceSetting.getMOutCharInterval() == -1) {
             configuration.unsupportedFields.add(ConfigurationFieldEnum.OutputCharacterInterval);
         } else {
-            configuration.outputCharacterInterval = serviceSetting.mOutCharInterval;
+            configuration.outputCharacterInterval = serviceSetting.getMOutCharInterval();
         }
 
-        if(serviceSetting.mPrefix == -1) {
+        if(serviceSetting.getMPrefix() == -1) {
             configuration.unsupportedFields.add(ConfigurationFieldEnum.Prefix);
-        } else if(serviceSetting.mPrefix == 1) {
-            configuration.prefix = serviceSetting.mPrefixContext;
+        } else if(serviceSetting.getMPrefix() == 1) {
+            configuration.prefix = serviceSetting.getMPrefixContext();
         } else {
             configuration.prefix = null;
         }
 
-        if(serviceSetting.mSuffix == -1) {
+        if(serviceSetting.getMSuffix() == -1) {
             configuration.unsupportedFields.add(ConfigurationFieldEnum.Suffix);
-        } else if(serviceSetting.mSuffix == 1) {
-            configuration.suffix = serviceSetting.mSuffixContext;
+        } else if(serviceSetting.getMSuffix() == 1) {
+            configuration.suffix = serviceSetting.getMSuffixContext();
         } else {
             configuration.suffix = null;
         }
 
-        if(serviceSetting.mOutAutoAdd.length <= 3 || serviceSetting.mOutAutoAdd[3] == -1) {
+        if(serviceSetting.getMOutAutoAdd().length <= 3 || serviceSetting.getMOutAutoAdd()[3] == -1) {
             configuration.unsupportedFields.add(ConfigurationFieldEnum.AddSpace);
         } else {
-            configuration.addSpace = serviceSetting.mOutAutoAdd[3] == 1;
+            configuration.addSpace = serviceSetting.getMOutAutoAdd()[3] == 1;
         }
 
-        if(serviceSetting.mOutAutoAdd.length <= 2 || serviceSetting.mOutAutoAdd[2] == -1) {
+        if(serviceSetting.getMOutAutoAdd().length <= 2 || serviceSetting.getMOutAutoAdd()[2] == -1) {
             configuration.unsupportedFields.add(ConfigurationFieldEnum.AsEvents);
         } else {
-            configuration.asEvents = serviceSetting.mOutAutoAdd[2] == 1;
+            configuration.asEvents = serviceSetting.getMOutAutoAdd()[2] == 1;
         }
 
-        if(serviceSetting.mOutAutoAdd.length <= 1 || serviceSetting.mOutAutoAdd[1] == -1) {
+        if(serviceSetting.getMOutAutoAdd().length <= 1 || serviceSetting.getMOutAutoAdd()[1] == -1) {
             configuration.unsupportedFields.add(ConfigurationFieldEnum.AddReturn);
         } else {
-            configuration.addReturn = serviceSetting.mOutAutoAdd[1] == 1;
+            configuration.addReturn = serviceSetting.getMOutAutoAdd()[1] == 1;
         }
 
-        if(serviceSetting.mOutAutoAdd.length == 0 || serviceSetting.mOutAutoAdd[0] == -1) {
+        if(serviceSetting.getMOutAutoAdd().length == 0 || serviceSetting.getMOutAutoAdd()[0] == -1) {
             configuration.unsupportedFields.add(ConfigurationFieldEnum.AddTab);
         } else {
-            configuration.addTab = serviceSetting.mOutAutoAdd[0] == 1;
+            configuration.addTab = serviceSetting.getMOutAutoAdd()[0] == 1;
         }
 
-        if(Objects.equals(serviceSetting.mBroadcastAction, "-1")) {
+        if(Objects.equals(serviceSetting.getMBroadcastAction(), "-1")) {
             configuration.unsupportedFields.add(ConfigurationFieldEnum.OutputBroadcastAction);
         } else {
-            configuration.outputBroadcastAction = serviceSetting.mBroadcastAction;
+            configuration.outputBroadcastAction = serviceSetting.getMBroadcastAction();
         }
 
-        if(Objects.equals(serviceSetting.mDataKey, "-1")) {
+        if(Objects.equals(serviceSetting.getMDataKey(), "-1")) {
             configuration.unsupportedFields.add(ConfigurationFieldEnum.OutputBroadcastDataKey);
         } else {
-            configuration.outputBroadcastDataKey = serviceSetting.mDataKey;
+            configuration.outputBroadcastDataKey = serviceSetting.getMDataKey();
         }
 
-        if(Objects.equals(serviceSetting.mByteKey, "-1")) {
+        if(Objects.equals(serviceSetting.getMByteKey(), "-1")) {
             configuration.unsupportedFields.add(ConfigurationFieldEnum.OutputBroadcastByteKey);
         } else {
-            configuration.outputBroadcastByteKey = serviceSetting.mByteKey;
+            configuration.outputBroadcastByteKey = serviceSetting.getMByteKey();
         }
 
-        if(Objects.equals(serviceSetting.mStartDecodeAction, "-1")) {
+        if(Objects.equals(serviceSetting.getMStartDecodeAction(), "-1")) {
             configuration.unsupportedFields.add(ConfigurationFieldEnum.OutputBroadcastStartAction);
         } else {
-            configuration.outputBroadcastStartAction = serviceSetting.mStartDecodeAction.equals("") ? null : serviceSetting.mStartDecodeAction;
+            configuration.outputBroadcastStartAction = serviceSetting.getMStartDecodeAction().equals("") ? null : serviceSetting.getMStartDecodeAction();
         }
 
-        if(Objects.equals(serviceSetting.mEndDecodeAction, "-1")) {
+        if(Objects.equals(serviceSetting.getMEndDecodeAction(), "-1")) {
             configuration.unsupportedFields.add(ConfigurationFieldEnum.OutputBroadcastEndAction);
         } else {
-            configuration.outputBroadcastEndAction = serviceSetting.mEndDecodeAction.equals("") ? null : serviceSetting.mEndDecodeAction;
+            configuration.outputBroadcastEndAction = serviceSetting.getMEndDecodeAction().equals("") ? null : serviceSetting.getMEndDecodeAction();
         }
 
         // configuration.triggerOverTime = null;
