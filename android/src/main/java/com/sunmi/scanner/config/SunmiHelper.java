@@ -1182,15 +1182,15 @@ public class SunmiHelper {
             }
 
 
-            if(old.specificScene == serviceSetting.specificScene) {
-                Log.i(SunmiHelper.class.getSimpleName(), "unchanged specificScene=" + serviceSetting.specificScene);
-            } else {
-                if (serviceSetting.specificScene < 0 || serviceSetting.specificScene > 5) {
-                    Log.e(SunmiHelper.class.getSimpleName(), "set set.specificScene value isn't [0,5],now set.specificScene=" + serviceSetting.specificScene);
-                } else {
-                    sb.append(setSetScanSpecificScene(serviceSetting.specificScene));
-                }
-            }
+//            if(old.specificScene == serviceSetting.specificScene) {
+//                Log.i(SunmiHelper.class.getSimpleName(), "unchanged specificScene=" + serviceSetting.specificScene);
+//            } else {
+//                if (serviceSetting.specificScene < 0 || serviceSetting.specificScene > 5) {
+//                    Log.e(SunmiHelper.class.getSimpleName(), "set set.specificScene value isn't [0,5],now set.specificScene=" + serviceSetting.specificScene);
+//                } else {
+//                    sb.append(setSetScanSpecificScene(serviceSetting.specificScene));
+//                }
+//            }
 
 
             if(old.getMOutType() == serviceSetting.getMOutType()) {
@@ -1374,32 +1374,32 @@ public class SunmiHelper {
             }
 
 
-            if(old.scanExpSwitch == serviceSetting.scanExpSwitch) {
-                Log.i(SunmiHelper.class.getSimpleName(), "unchanged scanExpSwitch=" + serviceSetting.scanExpSwitch);
-            } else {
-                if (serviceSetting.scanExpSwitch == 1 || serviceSetting.scanExpSwitch == 0) {
-                    sb.append(setFlashControl(serviceSetting.scanExpSwitch));
-                } else {
-                    Log.e(SunmiHelper.class.getSimpleName(), "set set.scanExpSwitch value is not [0,1],now set.scanExpSwitch=" + serviceSetting.scanExpSwitch);
-                }
-            }
+//            if(old.scanExpSwitch == serviceSetting.scanExpSwitch) {
+//                Log.i(SunmiHelper.class.getSimpleName(), "unchanged scanExpSwitch=" + serviceSetting.scanExpSwitch);
+//            } else {
+//                if (serviceSetting.scanExpSwitch == 1 || serviceSetting.scanExpSwitch == 0) {
+//                    sb.append(setFlashControl(serviceSetting.scanExpSwitch));
+//                } else {
+//                    Log.e(SunmiHelper.class.getSimpleName(), "set set.scanExpSwitch value is not [0,1],now set.scanExpSwitch=" + serviceSetting.scanExpSwitch);
+//                }
+//            }
 
 //          TODO
 //            if(old.getMOutCodeCharSet() == serviceSetting.getMOutCodeCharSet()) {
 //                Log.i(SunmiHelper.class.getSimpleName(), "unchanged mOutCodeCharSet=" + serviceSetting.getMOutCodeCharSet());
 //            } else {
-                LinkedHashMap<String, String> config = (LinkedHashMap<String, String>) serviceSetting.getAdvancedConfig();
-                if (serviceSetting.getAdvancedConfig() == null || serviceSetting.getAdvancedConfig().size() <= 0) {
-                    sb.append(setAdvancedFormatClear(1));
-                    Log.e(SunmiHelper.class.getSimpleName(), "set set.mAdvancedFormat.size() is zero,set.getAdvancedConfig()=" + serviceSetting.getAdvancedConfig());
-                } else {
-                    sb.append(setAdvancedFormatClear(1));
-                    Iterator<Pair> it = serviceSetting.getAdvancedConfig().iterator();
-                    while (it.hasNext()) {
-                        Pair next = it.next();
-                        sb.append(setAdvancedFormatAdd(new String[]{next.getFirst(), next.getSecond()}));
-                    }
-                }
+        //        LinkedHashMap<String, String> config = (LinkedHashMap<String, String>) serviceSetting.getAdvancedConfig();
+        //        if (serviceSetting.getAdvancedConfig() == null || serviceSetting.getAdvancedConfig().size() <= 0) {
+        //            sb.append(setAdvancedFormatClear(1));
+        //            Log.e(SunmiHelper.class.getSimpleName(), "set set.mAdvancedFormat.size() is zero,set.getAdvancedConfig()=" + serviceSetting.getAdvancedConfig());
+        //        } else {
+        //            sb.append(setAdvancedFormatClear(1));
+        //            Iterator<Pair> it = serviceSetting.getAdvancedConfig().iterator();
+        //            while (it.hasNext()) {
+        //                Pair next = it.next();
+        //                sb.append(setAdvancedFormatAdd(new String[]{next.getFirst(), next.getSecond()}));
+        //            }
+        //        }
 //            }
         } else {
             Log.e(SunmiHelper.class.getSimpleName(), "set config is null!");

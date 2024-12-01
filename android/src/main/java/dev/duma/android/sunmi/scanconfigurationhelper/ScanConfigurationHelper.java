@@ -43,8 +43,8 @@ public class ScanConfigurationHelper implements IScanConfigurationHelper {
             advancedFormat.set(response);
 
             ServiceSetting setting = serviceSetting.get();
-            setting.scanExpSwitch = scanExpSwitch.get();
-            setting.specificScene = specificScene.get();
+//            setting.scanExpSwitch = scanExpSwitch.get();
+//            setting.specificScene = specificScene.get();
             callback.onLoaded(
                     ServiceConfigurationConverter.fromServiceSetting(
                             setting,

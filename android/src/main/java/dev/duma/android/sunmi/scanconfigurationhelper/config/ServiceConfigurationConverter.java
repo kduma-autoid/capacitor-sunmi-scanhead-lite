@@ -173,24 +173,24 @@ public class ServiceConfigurationConverter {
             configuration.advancedFormats.put(next.getFirst(), next.getSecond());
         }
 
-        if(serviceSetting.scanExpSwitch == -1) {
+//        if(serviceSetting.scanExpSwitch == -1) {
             configuration.unsupportedFields.add(ConfigurationFieldEnum.Flash);
-        } else {
-            configuration.flash = serviceSetting.scanExpSwitch == 1;
-        }
+//        } else {
+//            configuration.flash = serviceSetting.scanExpSwitch == 1;
+//        }
 
-        if(serviceSetting.specificScene == -1) {
+//        if(serviceSetting.specificScene == -1) {
             configuration.unsupportedFields.add(ConfigurationFieldEnum.Scene);
-        } else {
-            configuration.scene = switch(serviceSetting.specificScene) {
-                default -> SpecificSceneEnum.Default;
-                case 1 -> SpecificSceneEnum.ReflectiveDMBarcode;
-                case 2 -> SpecificSceneEnum.ReflectiveQRDMBarcode;
-                case 3 -> SpecificSceneEnum.SpecialColourBarcode;
-                case 4 -> SpecificSceneEnum.DpmBarcode;
-                case 5 -> SpecificSceneEnum.MobileScreenScene;
-            };
-        }
+//        } else {
+//            configuration.scene = switch(serviceSetting.specificScene) {
+//                default -> SpecificSceneEnum.Default;
+//                case 1 -> SpecificSceneEnum.ReflectiveDMBarcode;
+//                case 2 -> SpecificSceneEnum.ReflectiveQRDMBarcode;
+//                case 3 -> SpecificSceneEnum.SpecialColourBarcode;
+//                case 4 -> SpecificSceneEnum.DpmBarcode;
+//                case 5 -> SpecificSceneEnum.MobileScreenScene;
+//            };
+//        }
 
         if(serviceSetting.getMRemoveGroupChar() == -1) {
             configuration.unsupportedFields.add(ConfigurationFieldEnum.RemoveGroupSeparator);
