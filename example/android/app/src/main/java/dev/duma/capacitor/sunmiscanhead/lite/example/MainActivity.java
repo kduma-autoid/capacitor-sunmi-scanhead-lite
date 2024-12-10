@@ -1,4 +1,4 @@
-package dev.duma.capacitor.sunmiscanhead.example;
+package dev.duma.capacitor.sunmiscanhead.lite.example;
 
 import android.view.KeyEvent;
 

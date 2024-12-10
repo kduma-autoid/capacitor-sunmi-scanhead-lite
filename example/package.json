@@ -1,7 +1,7 @@
 {
   "name": "capacitor-app",
   "version": "4.0.0",
-  "description": "Sunmi Scan Head plugin for Capacitor.js",
+  "description": "Sunmi Scan Head (lite) plugin for Capacitor.js",
   "main": "index.js",
   "keywords": [
     "capacitor",

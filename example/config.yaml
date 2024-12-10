@@ -4,13 +4,13 @@ vars:
   VERSION_NAME:
     default: 4.0.0
   APP_NAME:
-    default: Sunmi Scan Head plugin for Capacitor.js
+    default: Sunmi Scan Head (lite) plugin for Capacitor.js
   SHORT_APP_NAME:
-    default: Scan Head Plugin
+    default: Scan Head Plugin (lite)
   PACKAGE_NAME:
-    default: dev.duma.capacitor.sunmiscanhead
+    default: dev.duma.capacitor.sunmiscanhead.lite
   EXAMPLE_PACKAGE_NAME:
-    default: dev.duma.capacitor.sunmiscanhead.example
+    default: dev.duma.capacitor.sunmiscanhead.lite.example
 
 
 platforms:

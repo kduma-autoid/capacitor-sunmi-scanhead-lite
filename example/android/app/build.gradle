@@ -1,10 +1,10 @@
 apply plugin: 'com.android.application'
 
 android {
-    namespace "dev.duma.capacitor.sunmiscanhead.example"
+    namespace "dev.duma.capacitor.sunmiscanhead.lite.example"
     compileSdk rootProject.ext.compileSdkVersion
     defaultConfig {
-        applicationId "dev.duma.capacitor.sunmiscanhead.example"
+        applicationId "dev.duma.capacitor.sunmiscanhead.lite.example"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 20

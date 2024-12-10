@@ -1,11 +1,14 @@
-# @kduma-autoid/capacitor-sunmi-scanhead
+# @kduma-autoid/capacitor-sunmi-scanhead-lite
 
-Sunmi Scan Head bindings for Capacitor
+Sunmi Scan Head (lite) bindings for Capacitor.
+
+This lite version is created for compatibility with [Sunmi UHF RFID plugin (@kduma-autoid/capacitor-sunmi-uhf)](https://github.com/kduma-autoid/capacitor-sunmi-uhf), which uses the same service name.
+It differs from the original version in that it uses packaged library (`SunmiScannerSdk-release-v1.1.8.aar`) instead of decompiled code, and due to that it lacks few features - like reading advancedFormats.  
 
 ## Install
 
 ```bash
-npm install @kduma-autoid/capacitor-sunmi-scanhead
+npm install @kduma-autoid/capacitor-sunmi-scanhead-lite
 npx cap sync
 ```
 ## Configuration
@@ -13,7 +16,7 @@ npx cap sync
 You can disable auto binding of the service by setting `bindOnLoad` to `false` in the plugin configuration in `capacitor.config.ts`.
 
 ```typescript
-/// <reference types="@kduma-autoid/capacitor-sunmi-scanhead" />
+/// <reference types="@kduma-autoid/capacitor-sunmi-scanhead-lite" />
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {

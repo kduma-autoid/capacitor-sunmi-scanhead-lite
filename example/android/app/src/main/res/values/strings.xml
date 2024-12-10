@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8' ?>
 <resources>
-    <string name="app_name">Sunmi Scan Head plugin for Capacitor.js</string>
-    <string name="title_activity_main">Scan Head Plugin</string>
-    <string name="package_name">dev.duma.capacitor.sunmiscanhead.example</string>
-    <string name="custom_url_scheme">dev.duma.capacitor.sunmiscanhead.example</string>
+    <string name="app_name">Sunmi Scan Head (lite) plugin for Capacitor.js</string>
+    <string name="title_activity_main">Scan Head Plugin (lite)</string>
+    <string name="package_name">dev.duma.capacitor.sunmiscanhead.lite.example</string>
+    <string name="custom_url_scheme">dev.duma.capacitor.sunmiscanhead.lite.example</string>
 </resources>
