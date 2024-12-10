@@ -34,42 +34,38 @@ public class ScanConfigurationHelper implements IScanConfigurationHelper {
     @Override
     public void loadServiceConfig(IServiceConfigLoadedCallback<ServiceConfiguration> callback) throws RemoteException {
         AtomicReference<ServiceSetting> serviceSetting = new AtomicReference<>();
-        AtomicReference<ArrayList<Pair>> advancedFormat = new AtomicReference<>();
 
         AtomicReference<Integer> scanExpSwitch = new AtomicReference<>();
-        AtomicReference<Integer> specificScene = new AtomicReference<>();
 
-        IQueryCallback<ArrayList<Pair>> advancedFormatCallback = (response, entity) -> {
-            advancedFormat.set(response);
-
-            ServiceSetting setting = serviceSetting.get();
-//            setting.scanExpSwitch = scanExpSwitch.get();
-//            setting.specificScene = specificScene.get();
-            callback.onLoaded(
-                    ServiceConfigurationConverter.fromServiceSetting(
-                            setting,
-                            advancedFormat.get()
-                    )
-            );
-        };
-
-        IQueryCallback<Result> specificSceneCallback = new IQueryCallback<Result>() {
+        IQueryCallback<Result> specificSceneCallback = new IQueryCallback<>() {
             @Override
             public void onSuccess(Result response, Entity<Result> entity) throws RemoteException {
+                int specificScene = -1;
                 try {
                     String value = response.getResult().substring(response.getResult().lastIndexOf("=") + 1);
-                    specificScene.set(Integer.valueOf(value));
-                } catch (NumberFormatException e) {
-                    specificScene.set(-1);
+                    specificScene = Integer.parseInt(value);
+                } catch (NumberFormatException ignored) {
                 }
-                scanInterfaceHelper.sendQuery(SunmiHelper.QUERY_ADVANCED_FORMAT, advancedFormatCallback);
+
+                callback.onLoaded(
+                        ServiceConfigurationConverter.fromServiceSetting(
+                                serviceSetting.get(),
+                                scanExpSwitch.get(),
+                                specificScene
+                        )
+                );
             }
 
             @Override
             public void onFailed(int i) {
-                specificScene.set(-1);
                 try {
-                    scanInterfaceHelper.sendQuery(SunmiHelper.QUERY_ADVANCED_FORMAT, advancedFormatCallback);
+                    callback.onLoaded(
+                            ServiceConfigurationConverter.fromServiceSetting(
+                                    serviceSetting.get(),
+                                    scanExpSwitch.get(),
+                                    -1
+                            )
+                    );
                 } catch (RemoteException e) {
                     throw new RuntimeException(e);
                 }

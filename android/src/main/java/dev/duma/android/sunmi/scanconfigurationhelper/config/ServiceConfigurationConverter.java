@@ -165,32 +165,32 @@ public class ServiceConfigurationConverter {
         return commands;
     }
 
-    public static ServiceConfiguration fromServiceSetting(ServiceSetting serviceSetting, ArrayList<Pair> advancedFormats) {
+    public static ServiceConfiguration fromServiceSetting(ServiceSetting serviceSetting, Integer scanExpSwitch, Integer specificScene) {
         ServiceConfiguration configuration = new ServiceConfiguration();
 
         configuration.advancedFormats = new HashMap<>();
-        for (Pair next : advancedFormats){
-            configuration.advancedFormats.put(next.getFirst(), next.getSecond());
+//        for (Pair next : advancedFormats){
+//            configuration.advancedFormats.put(next.getFirst(), next.getSecond());
+//        }
+
+        if(scanExpSwitch == -1) {
+            configuration.unsupportedFields.add(ConfigurationFieldEnum.Flash);
+        } else {
+            configuration.flash = scanExpSwitch == 1;
         }
 
-//        if(serviceSetting.scanExpSwitch == -1) {
-            configuration.unsupportedFields.add(ConfigurationFieldEnum.Flash);
-//        } else {
-//            configuration.flash = serviceSetting.scanExpSwitch == 1;
-//        }
-
-//        if(serviceSetting.specificScene == -1) {
+        if(specificScene == -1) {
             configuration.unsupportedFields.add(ConfigurationFieldEnum.Scene);
-//        } else {
-//            configuration.scene = switch(serviceSetting.specificScene) {
-//                default -> SpecificSceneEnum.Default;
-//                case 1 -> SpecificSceneEnum.ReflectiveDMBarcode;
-//                case 2 -> SpecificSceneEnum.ReflectiveQRDMBarcode;
-//                case 3 -> SpecificSceneEnum.SpecialColourBarcode;
-//                case 4 -> SpecificSceneEnum.DpmBarcode;
-//                case 5 -> SpecificSceneEnum.MobileScreenScene;
-//            };
-//        }
+        } else {
+            configuration.scene = switch(specificScene) {
+                case 1 -> SpecificSceneEnum.ReflectiveDMBarcode;
+                case 2 -> SpecificSceneEnum.ReflectiveQRDMBarcode;
+                case 3 -> SpecificSceneEnum.SpecialColourBarcode;
+                case 4 -> SpecificSceneEnum.DpmBarcode;
+                case 5 -> SpecificSceneEnum.MobileScreenScene;
+                default -> SpecificSceneEnum.Default;
+            };
+        }
 
         if(serviceSetting.getMRemoveGroupChar() == -1) {
             configuration.unsupportedFields.add(ConfigurationFieldEnum.RemoveGroupSeparator);
@@ -214,9 +214,9 @@ public class ServiceConfigurationConverter {
             configuration.unsupportedFields.add(ConfigurationFieldEnum.CenterFlagScan);
         } else {
             configuration.centerFlagScan = switch (serviceSetting.getMCenterFlagScan()) {
-                default -> CenterDecodingSettingEnum.Disabled;
                 case 1 -> CenterDecodingSettingEnum.CenterOnly;
                 case 2 -> CenterDecodingSettingEnum.CenterFirst;
+                default -> CenterDecodingSettingEnum.Disabled;
             };
         }
 
@@ -254,10 +254,10 @@ public class ServiceConfigurationConverter {
             configuration.unsupportedFields.add(ConfigurationFieldEnum.TriggerMethod);
         } else {
             configuration.triggerMethod = switch (serviceSetting.getMTriggerMethod()) {
-                default -> TriggerMethodEnum.Trigger;
                 case 1 -> TriggerMethodEnum.Continuous;
                 case 2 -> TriggerMethodEnum.Pulse;
                 case 3 -> TriggerMethodEnum.LongPress;
+                default -> TriggerMethodEnum.Trigger;
             };
         }
 
@@ -265,10 +265,10 @@ public class ServiceConfigurationConverter {
             configuration.unsupportedFields.add(ConfigurationFieldEnum.ScanResultCodeID);
         } else {
             configuration.scanResultCodeID = switch (serviceSetting.getMOutCodeID()) {
-                default -> ScanResultCodeIDEnum.None;
                 case 1 -> ScanResultCodeIDEnum.SunmiId;
                 case 2 -> ScanResultCodeIDEnum.AimId;
                 case 3 -> ScanResultCodeIDEnum.SymbolId;
+                default -> ScanResultCodeIDEnum.None;
             };
         }
 
@@ -278,8 +278,8 @@ public class ServiceConfigurationConverter {
             configuration.outputType = switch (serviceSetting.getMOutType()) {
                 case 0 -> OutputTypeEnum.DirectFill;
                 case 1 -> OutputTypeEnum.DirectFillWithReplace;
-                default -> OutputTypeEnum.Keystroke;
                 case 3 -> OutputTypeEnum.Disabled;
+                default -> OutputTypeEnum.Keystroke;
             };
         }
 
@@ -287,7 +287,6 @@ public class ServiceConfigurationConverter {
             configuration.unsupportedFields.add(ConfigurationFieldEnum.OutputEncodingCode);
         } else {
             configuration.outputEncodingCode = switch (serviceSetting.getMOutCodeCharSet()) {
-                default -> OutputEncodingCodeEnum.UTF8;
                 case 1 -> OutputEncodingCodeEnum.GBK;
                 case 2 -> OutputEncodingCodeEnum.ISO88591;
                 case 3 -> OutputEncodingCodeEnum.SHIFTJIS;
@@ -299,6 +298,7 @@ public class ServiceConfigurationConverter {
                 case 9 -> OutputEncodingCodeEnum.ASCII;
                 case 10 -> OutputEncodingCodeEnum.GB2312;
                 case 11 -> OutputEncodingCodeEnum.GB18030;
+                default -> OutputEncodingCodeEnum.UTF8;
             };
         }
 
