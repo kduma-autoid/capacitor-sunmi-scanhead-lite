@@ -2,8 +2,10 @@
 
 Sunmi Scan Head (lite) bindings for Capacitor.
 
-This lite version is created for compatibility with [Sunmi UHF RFID plugin (@kduma-autoid/capacitor-sunmi-uhf)](https://github.com/kduma-autoid/capacitor-sunmi-uhf), which uses the same service name.
+This lite version is created for compatibility with [Sunmi UHF RFID plugin (@kduma-autoid/capacitor-sunmi-uhf)](https://opensource.duma.sh/libraries/capacitor/sunmi-uhf), which uses the same service name.
 It differs from the original version in that it uses packaged library (`SunmiScannerSdk-release-v1.1.8.aar`) instead of decompiled code, and due to that it lacks few features - like reading advancedFormats.  
+
+Check full documentation here: [opensource.duma.sh/libraries/capacitor/sunmi-scanhead-lite](https://opensource.duma.sh/libraries/capacitor/sunmi-scanhead-lite)
 
 ## Install
 
